@@ -1,0 +1,21 @@
+cine_4k_A006_1280x720_b0.5 NEG 82.091 (worst 82.091) PSNR 30.40/38.59/42.94 (last frame) | per-frame NEG 68.58 82.09
+cine_4k_A006_1280x720_b1.0 NEG 100.000 (worst 100.000) PSNR 34.65/41.44/44.11 (last frame) | per-frame NEG 87.47 100.00
+cine_4k_A006_1280x720_b1.5 NEG 100.000 (worst 100.000) PSNR 38.14/42.91/45.15 (last frame) | per-frame NEG 92.05 100.00
+cine_4k_A006_1280x720_b2.0 NEG 100.000 (worst 100.000) PSNR 40.98/44.31/46.11 (last frame) | per-frame NEG 93.94 100.00
+cine_4k_A006_1280x720_b2.5 NEG 100.000 (worst 100.000) PSNR 42.82/46.00/47.41 (last frame) | per-frame NEG 95.13 100.00
+cine_4k_A006_1280x720_b3.0 NEG 100.000 (worst 100.000) PSNR 45.08/47.13/48.24 (last frame) | per-frame NEG 95.62 100.00
+cine_4k_A006_1280x720_b4.0 NEG 100.000 (worst 100.000) PSNR 48.19/49.14/49.89 (last frame) | per-frame NEG 96.26 100.00
+cine_A005C021_1280x720_b0.5 NEG 87.167 (worst 87.167) PSNR 38.25/44.92/46.60 (last frame) | per-frame NEG 79.02 87.17
+cine_A005C021_1280x720_b1.0 NEG 94.054 (worst 94.054) PSNR 43.03/46.60/48.25 (last frame) | per-frame NEG 90.04 94.05
+cine_A005C021_1280x720_b1.5 NEG 95.773 (worst 95.773) PSNR 45.64/48.23/49.74 (last frame) | per-frame NEG 92.80 95.77
+cine_A005C021_1280x720_b2.0 NEG 96.763 (worst 96.763) PSNR 47.58/49.38/50.85 (last frame) | per-frame NEG 94.36 96.76
+cine_A005C021_1280x720_b2.5 NEG 97.195 (worst 97.195) PSNR 49.68/50.97/51.84 (last frame) | per-frame NEG 95.02 97.19
+cine_A005C021_1280x720_b3.0 NEG 97.365 (worst 97.365) PSNR 50.50/51.27/52.18 (last frame) | per-frame NEG 95.49 97.36
+cine_A005C021_1280x720_b4.0 NEG 97.826 (worst 97.826) PSNR 52.85/53.17/53.77 (last frame) | per-frame NEG 95.99 97.83
+gfx444_F003C012_1280x720_b0.5 NEG 91.095 (worst 89.315) PSNR 43.57/48.43/48.36 (last frame) | per-frame NEG 81.62 89.31 91.09
+gfx444_F003C012_1280x720_b1.0 NEG 96.787 (worst 96.210) PSNR 47.92/52.15/52.50 (last frame) | per-frame NEG 92.16 96.21 96.79
+gfx444_F003C012_1280x720_b1.5 NEG 98.365 (worst 97.840) PSNR 50.06/53.95/54.45 (last frame) | per-frame NEG 94.22 97.84 98.37
+gfx444_F003C012_1280x720_b2.0 NEG 99.360 (worst 99.018) PSNR 52.59/55.04/55.49 (last frame) | per-frame NEG 95.09 99.02 99.36
+gfx444_F003C012_1280x720_b2.5 NEG 99.776 (worst 99.346) PSNR 53.74/56.15/56.77 (last frame) | per-frame NEG 95.73 99.35 99.78
+gfx444_F003C012_1280x720_b3.0 NEG 99.990 (worst 99.592) PSNR 55.65/57.10/57.52 (last frame) | per-frame NEG 95.95 99.59 99.99
+gfx444_F003C012_1280x720_b4.0 NEG 100.000 (worst 100.000) PSNR 58.39/58.60/59.17 (last frame) | per-frame NEG 96.38 100.00 100.00

@@ -25,6 +25,7 @@ KEEP = 'keep' in TOK   # keep the last-write step on source-still blocks
 RS_ = 0.5 if 'rs' in TOK else 0.0   # rounding slack added to the hysteresis threshold (codes)
 CU = any(t.startswith('cu') for t in TOK); CUO = float([t[2:] for t in TOK if t.startswith('cu')][0] or 1) if CU else 1.0  # octaves finer needed   # one catch-up per still episode (SA20P): still, not caught, step >= 1 octave finer than the last write
 CAUGHT = [None]
+CI = float([t[2:] for t in TOK if t.startswith('ci')][0]) if any(t.startswith('ci') for t in TOK) else None  # inter chroma multiplier
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -99,7 +100,7 @@ def upd(st, y, ref, Q, stl=None, cu=None):   # encoder state per block: step and
         wr = pad.reshape(NBY, 16, NBX, bw).any(axis=(1, 3))
         if stl is not None and KEEP: wr &= ~stl
         if cu is not None: wr |= cu   # the catch-up rewrites the whole block at the current step
-        st[k][0][wr] = Q * (cm if k else 1); st[k][1][wr] = FI
+        st[k][0][wr] = Q * ((cm if CI is None else CI) if k else 1); st[k][1][wr] = FI
     return st
 def expand(b, shp, bw):   # per-block map (16 rows x bw cols) -> per-sample map
     return np.repeat(np.repeat(b, 16, 0), bw, 1)[:shp[0], :shp[1]]
@@ -124,10 +125,11 @@ def code_frame(x, ref, Q, st=None, xprev=None):
                 cm_ = cu_mask(st, Q, stl_)
                 if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)
             HT = (KQ, expand(st[pl][1], p.shape, bw), NF_ if (SG and xprev is not None) else RS_)
-        y = po(p, Q * (cm if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC)[1]
+        y = po(p, Q * ((cm if (mode == 'intra' or CI is None) else CI) if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC)[1]
         out.append(y); sy.append(((min(pl, 1), mode), SY, AC))
     return sy, out
-tpath = os.path.join(OUT, 'tables_%s.pkl' % ARM)
+if os.environ.get('LOO') == '1': TRAIN = [c for c in TRAIN if c[0] != TEST]   # leave-one-out when fitting on a training clip
+tpath = os.path.join(OUT, 'tables_%s%s.pkl' % (ARM, '_loo_' + TEST if os.environ.get('LOO') == '1' else ''))
 if os.path.exists(tpath): TABS = pickle.load(open(tpath, 'rb'))
 elif S16:   # pooled over every other quarter-octave step of the owner range, sequences coded with the arm's state
     TABS = {}
