@@ -729,3 +729,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
      legality-caused away effect in aggregate. The per-sample form stands (single samples can still land farther
      than the rail-free clip, G67; on average they land closer). The higher error near rails vs elsewhere is equal
      in both decodes = content, not legality.
+- G73 intra @1.0/1.5, NEG vs today:
+  range-clamped interpolation (rho .42): F003 -1.08/-0.45 (worse than rho .42 alone, -0.70/-0.25); A006 -0.22/-0.26;
+    C021 +2.17/+1.41; B001 +0.38/+0.21 -> fails its pre-registered pass (F003) -> KILLED.
+  kept rounding 0.5 + leaf rho 0.42, cm1 (BEST so far): A006 +0.41/+0.05, C021 +2.17/+1.39, F003 -0.28/-0.09;
+    chroma still behind on A006 (Cb/Cr -0.88/-1.88 @1.0) and F003 (-0.66/-0.17). cm0.85: chroma nearer, NEG lower.
