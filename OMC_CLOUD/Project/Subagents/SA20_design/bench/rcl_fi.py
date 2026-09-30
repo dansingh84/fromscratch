@@ -62,7 +62,7 @@ for e in range(-6, 26):
             for pl, SY in SYS: tally(SY, pl, tab)
     SYS = []; outs = code_frame(x, Q, SYS)
     bpp = sum(cost(SY, pl, tab) for pl, SY in SYS) / (W * H)
-    if not 0.4 < bpp < 4.6: continue
+    if not 0.5 <= bpp < 4.6: continue
     fn = os.path.join(OUT, '%s_%s_%.3f.yuv' % (TEST, ARM, Q))
     with open(fn, 'wb') as fo:
         for p in outs: p.astype('<u2').tofile(fo)

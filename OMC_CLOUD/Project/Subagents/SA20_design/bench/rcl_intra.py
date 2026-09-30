@@ -66,7 +66,7 @@ for arm, Qs in (('W53', [2 ** (e / 4) for e in range(0, 30)]), ('PO', [2 ** (e /
         for pl, p in enumerate(x):
             SY = []; y = code(arm, p, Q, SY); bits += cost(SY, min(pl, 1), tab); outs.append(y)
         bpp = bits / (W * H)
-        if not 0.4 < bpp < 4.6: continue
+        if not 0.5 <= bpp < 4.6: continue
         fn = os.path.join(OUT, '%s_%s_%.3f.yuv' % (TEST, arm, Q))
         with open(fn, 'wb') as fo:
             for p in outs: p.astype('<u2').tofile(fo)

@@ -58,3 +58,5 @@ Watchdog: 5 session crons (efcae82a, 4105dbfc, 4112b1a7, 1fd074af, 4f045645) = o
 
 ## 2e. Rate points (owner, binding): 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0 bpp. 0.25 is not used (0.25/0.3 figures are
 extra information only and carry no weight in a verdict). All screens and today's baseline report these points.
+Rule (owner, repeated): no test point below 0.5 bpp is generated or reported; 0.25/0.3 figures earlier in this file
+are superseded and carry no weight. Real-code runs keep only points with 0.5 <= bpp < 4.6.
