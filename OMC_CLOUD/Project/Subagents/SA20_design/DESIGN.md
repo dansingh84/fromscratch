@@ -1072,3 +1072,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   (4) the other three goals unchanged (exact >= 10 generations, a rate change costs once and never drifts; no
       seams/smudges/streaks/grids; efficiency >= today incl. the worst frame; latency within JPEG XS).
   Consequence: averaging (shared coarse values, one role for every sample, no grid) is admissible again.
+- H22 First measurement under H21 (from the pack record, SA19 bench d15_awaysize.py, averaging pyramid +
+  leaf-interval legality vs the same coded leaves + a plain clip, @0.5/1.0, per plane):
+  | clip   | moved away (share of samples) | worst move beyond a plain clip | share of the plane's squared error |
+  | cut24  | 12.8-15.4 %                   | 136-409 codes                  | up to 51 %                         |
+  | ext10  | 5.9-11.3 %                    | 422-703 codes                  | up to 14 %                         |
+  | dng720 | 0.0014 %                      | 38 codes                       | 0.009 %                            |
+  | gfx    | 0.0087 %                      | 35 codes                       | 0.08 %                             |
+  Hard rail edges (the titles / graphics case) move by hundreds of codes: visible, so the pack's averaging engine
+  fails the H21 bar. Round 3 must redesign averaging at the rail root; every design states its worst move on a hard
+  white-on-black edge at 0.5 bpp. My round-3 idea (to be vetted): joint pair quantisation inside the legal box
+  (coarse index chosen jointly with the detail; coarse lattice containing both rails), so the source pair stays
+  representable.
