@@ -38,7 +38,9 @@ def alpha_map(ck, yk, shp, BS):
             a[2*i:2*i+2*BS, 2*j:2*j+2*BS] = al
     return a
 
-def po(x, Q, f, T, SY, Yd=None, BS=16):
+def po(x, Q, f, T, SY, Yd=None, BS=16, P=None):
+    if P is None: P = np.zeros_like(x)
+    x = x - P   # residual domain; every clip is done in the PIXEL domain: clip(P + v) - P
     grids = []; s = x.shape
     for _ in range(2): grids.append(('2d', s)); s = ((s[0] + 1) // 2, (s[1] + 1) // 2)
     for _ in range(3): grids.append(('h', s)); s = (s[0], (s[1] + 1) // 2)
@@ -54,15 +56,15 @@ def po(x, Q, f, T, SY, Yd=None, BS=16):
         bl = blur(x, min(l, 4)); s_l = Q * f ** l
         return bl if T == np.inf else np.where(np.abs(x - bl) <= T * s_l, bl, x)
     tg = {l: target(l) for l in range(L + 1)}
-    r, c = strides(L); xk = tg[L][::r, ::c]; sc = Q * f ** L; bits = 0.0
+    r, c = strides(L); xk = tg[L][::r, ::c]; Pk = P[::r, ::c]; sc = Q * f ** L; bits = 0.0
     y = np.zeros_like(xk); qa = np.zeros_like(xk)
     for j in range(xk.shape[1]):
         pr = y[:, j - 1] if j else np.full(xk.shape[0], 512)
-        q = dz(xk[:, j] - pr, sc); qa[:, j] = q; y[:, j] = np.clip(pr + np.round(q * sc).astype(np.int64), LO, HI)
+        q = dz(xk[:, j] - pr, sc); qa[:, j] = q; y[:, j] = np.clip(Pk[:, j] + pr + np.round(q * sc).astype(np.int64), LO, HI) - Pk[:, j]
     SY.append((('c', L), qa)); cur = y
     for lvl in range(L - 1, -1, -1):
         kind, shp = grids[lvl]; s_l = Q * f ** lvl; r, c = strides(lvl)
-        xg = tg[lvl][::r, ::c][:shp[0], :shp[1]]; full = np.zeros(shp, np.int64)
+        xg = tg[lvl][::r, ::c][:shp[0], :shp[1]]; full = np.zeros(shp, np.int64); Pg = P[::r, ::c][:shp[0], :shp[1]]
         if Yd is not None:
             yg = Yd[::r, ::c][:shp[0], :shp[1]]
             AL = alpha_map(cur, yg[0::2, 0::2] if kind == '2d' else yg[:, 0::2], shp, BS)
@@ -73,15 +75,15 @@ def po(x, Q, f, T, SY, Yd=None, BS=16):
         if kind == 'h':
             full[:, 0::2] = cur; pr = pred_axis(cur, shp[1] // 2, 1)
             if Yd is not None: pr = pr + lt((slice(None), slice(1, None, 2)), pred_axis(yg[:, 0::2], shp[1] // 2, 1))
-            q = dz(xg[:, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); full[:, 1::2] = np.clip(pr + np.round(q * s_l).astype(np.int64), LO, HI)
+            q = dz(xg[:, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); full[:, 1::2] = np.clip(Pg[:, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[:, 1::2]
         else:
             full[0::2, 0::2] = cur
             pr = pred_axis(cur, shp[1] // 2, 1); pr = pr + lt((slice(0, None, 2), slice(1, None, 2)), pred_axis(yg[0::2, 0::2], shp[1] // 2, 1)); q = dz(xg[0::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q))
-            full[0::2, 1::2] = np.clip(pr + np.round(q * s_l).astype(np.int64), LO, HI)
+            full[0::2, 1::2] = np.clip(Pg[0::2, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[0::2, 1::2]
             pr = pred_axis(cur, shp[0] // 2, 0); pr = pr + lt((slice(1, None, 2), slice(0, None, 2)), pred_axis(yg[0::2, 0::2], shp[0] // 2, 0)); q = dz(xg[1::2, 0::2] - pr, s_l); SY.append(((kind, lvl), q))
-            full[1::2, 0::2] = np.clip(pr + np.round(q * s_l).astype(np.int64), LO, HI)
+            full[1::2, 0::2] = np.clip(Pg[1::2, 0::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[1::2, 0::2]
             pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); pr = pr + lt((slice(1, None, 2), slice(1, None, 2)), pred_axis(yg[1::2, 0::2], shp[1] // 2, 1)); q = dz(xg[1::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q))
-            full[1::2, 1::2] = np.clip(pr + np.round(q * s_l).astype(np.int64), LO, HI)
+            full[1::2, 1::2] = np.clip(Pg[1::2, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[1::2, 1::2]
         cur = full
-    return bits, cur
+    return bits, cur + P
 

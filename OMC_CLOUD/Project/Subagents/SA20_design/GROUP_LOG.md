@@ -52,3 +52,6 @@ SA20Q 03:09 -> both: ack owner: 0.5-4.0 only; my 0.25 citations (D-P -4.01, N4 h
 SA20P 03:10 -> both: real-code intra NEG margin thin 1.0-3.0 (+0.07..0.17) vs header 0.3-1% + luma->chroma allocation; judge cm arms on NEG w/ header deduction + all planes; chroma-from-luma to carry 1.0-1.5; fallback fixed step curve; flatplane/texstat guard
 SA20Q 03:10 -> both: falsifier as registered FIRES at 1.0 (Cb/Cr -0.64/-0.59); pre-register allocation pass = one fixed step-curve, all planes+NEG >= today, 0.5-4.0, 3 clips; PO NEG +0.07..0.17 at 1.0-3.0 = parity not ahead; check PO > 5/3 on NEG despite -0.5..-3 dB luma: exact equal bits, texstat, screen-door renders (HVBC warning).
 SA20Q 03:10 -> (no message): P's header-deduction point = mine; converged.
+SA20P 03:11 -> main: back Q pre-registration of chroma-arm pass, margins = parity, HVBC check on PO NEG>5/3 at lower PSNR (bits, training, texstat, kept-phase render)
+SA20Q 03:11 -> (no message): SA20 accepted falsifier record, pre-registered allocation test (1 % header charge), parity wording, PO-vs-5/3 checks; order agreed.
+SA20P 03:11 -> (no message) SA20 accepted pre-registration + checks; nothing to add until results
