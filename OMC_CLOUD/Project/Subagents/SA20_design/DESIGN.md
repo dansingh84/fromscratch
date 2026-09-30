@@ -804,3 +804,30 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - noisy pan: ants 15.1 % vs source 13.4 %; clean 0.25 px pan: ants 6.8 % vs 2.9 %.
   Principle added (_qn<c>): no frame step below c x the source noise (median luma sigma-hat): quantising finer than
   the grain only re-codes grain. Queued at k = 3 with c = 2, 3 (queues/q_qn.sh).
+- G76 noise-floor sweep complete + noise-tied step floor (queues/q_gn.sh, q_qn.sh; 10 frames, 0.5 / 2.0 bpp).
+  Luma boil / ants over all transitions (source in brackets):
+  | arm            | nfrozen2 @0.5 | nfrozen2 @2.0 | nfrozen3 @0.5 | nfrozen3 @2.0 |
+  | gn1.5          | 1.08 / 3.74 % | 1.53 / 3.93 % | 1.63 / 6.87 % | 2.25 / 9.00 % |
+  | gn2            | 1.10 / 3.15 % |       -       | 1.79 / 7.63 % |       -       |
+  | gn2.5          | 0.59 / 2.39 % | 0.79 / 2.52 % | 0.95 / 4.52 % | 1.26 / 5.72 % |
+  | gn3            | 0.54 / 1.70 % | 0.49 / 1.51 % | 0.61 / 2.92 % | 0.72 / 3.36 % |
+  | gn3 qn3        | 0.44 / 1.68 % | 0.43 / 1.27 % | 0.60 / 2.83 % | 0.63 / 2.82 % |
+  | source         | 2.26 / 2.22 % |               | 3.38 / 12.6 % |               |
+  - k < 3 puts ants above the source on sigma 2 -> k = 3 is the only passing noise floor.
+  - Step floor qn3 @2.0: the frame step stops at 3 sigma-hat (6.73 on sigma 2, 9.51 on sigma 3) and the per-transition
+    ants flatten: sigma 2 0.23 -> 0.63 % reached at t5 then flat (0.63/0.64/0.63); sigma 3 0.60 -> 1.64 %, last four
+    1.43/1.55/1.63/1.64. qn2 floor is below where the step reaches in 10 frames -> equals no floor (still creeps).
+  - Step floor @0.5: the step starts at 32 and refines 1 quarter-octave per frame; it reaches the floor only at
+    t8-t9, so ants still trend (0.05 -> 1.51 % on sigma 2). The trend fails the pre-registered +-10 % bound.
+    Open question measured next (queues/q_clean.sh, tools/diag_clean.py): is the late refinement real picture detail
+    (PSNR against the CLEAN picture rises) or grain re-coded (it falls)?
+  - frozen10: unchanged, one catch-up then 0 changes at both rates (qn2/qn3).
+  - Pans: the floor is inactive (identical to gn3). Against the no-hold control (cm1_zb2_chp_s16) last-frame NEG:
+    pan0.25 @0.5 93.63 vs 93.40 (+0.23), @2.0 95.87 vs 96.10 (-0.23, FAILS the 0.1 bound); gn2.5 @2.0 96.13 (passes).
+    Root cause: sigma-hat comes from the frame DIFFERENCE, and on a pan the difference is motion, so the noise floor
+    gates real detail at k = 3. Second defect at 0.5: the step saw-tooths (11.31 -> 19.03 -> 13.45 -> 16.00) where the
+    control holds 19.03: the slew refines one notch per frame until a frame no longer fits, then jumps coarse = a
+    quality pulse. Two fixes added:
+    _sn  sigma-hat from the current source's spatial Laplacian (Immerkaer; 20th percentile per luma band so edges
+         and texture are excluded), independent of motion (tools/diag_sigma.py compares both estimators);
+    _rm<m> a finer step is taken only if it fits m x budget (coarsening and holding use the full budget).

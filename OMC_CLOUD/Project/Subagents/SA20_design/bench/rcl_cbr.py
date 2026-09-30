@@ -70,6 +70,8 @@ EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byt
 XLC = [None]
 GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
 QN = float([t[2:] for t in TOK if t.startswith('qn')][0]) if any(t.startswith('qn') for t in TOK) else 0.0   # frame-step floor c x median luma sigma-hat (no quantising below the noise)
+SN = 'sn' in TOK   # sigma-hat from the current source's spatial Laplacian (Immerkaer), per luma band, not the frame difference
+RM = float([t[2:] for t in TOK if t.startswith('rm')][0]) if any(t.startswith('rm') for t in TOK) else 1.0   # refine only if the finer step fits RM x budget
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -122,7 +124,17 @@ def noise_gate(x, xprev, k=0):
     nb = np.maximum(n[lb], 0.5)          # mean |d| of pure noise = sigma sqrt2 sqrt(2/pi) ~ 1.13 sigma
     still = (mad <= 1.5 * nb) & (np.abs(md) <= (5 if G2 else 3) * nb / np.sqrt(16 * bw))
     SIG[0] = nb / 1.13                   # per-block sigma estimate (of the plane asked for)
+    if SN: SIG[0] = spatial_sigma(x[k], lb, bw)   # motion-independent: a pan's frame difference is not noise
     return still
+def spatial_sigma(p, lb, bw):   # Immerkaer: sigma = sqrt(pi/2)/6 mean|L*p|, L = [1,-2,1] x [1,-2,1]; low percentile per luma band excludes edges/texture
+    NBY, NBX = lb.shape; hh, ww = NBY * 16, NBX * bw; h_, w_ = p.shape
+    q = np.pad(p.astype(float), 1, mode='edge')
+    L = (q[:-2, :-2] - 2 * q[:-2, 1:-1] + q[:-2, 2:] - 2 * (q[1:-1, :-2] - 2 * q[1:-1, 1:-1] + q[1:-1, 2:]) + q[2:, :-2] - 2 * q[2:, 1:-1] + q[2:, 2:])
+    d = np.zeros((hh, ww)); d[:h_, :w_] = np.abs(L); m = d.reshape(NBY, 16, NBX, bw).mean(axis=(1, 3)) * np.sqrt(np.pi / 2) / 6
+    n = np.zeros(8)
+    for b in range(8):
+        v = m[lb == b]; n[b] = np.percentile(v, 20) if v.size >= 8 else np.percentile(m, 20)
+    return np.maximum(n[lb], 0.5 / 1.13)
 def bmad(a, b):
     NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.zeros((NBY * 16, NBX * 16)); d[:H, :W] = np.abs(a - b)
     return d.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3))
@@ -296,7 +308,8 @@ for R in RATES:
             mid = (lo + hi) // 2; Q = GRID[mid]
             sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None)
             b = fcost(sy, Q) + (10 * NBLK if t else 0)
-            if b <= budget: best = (Q, b, y, sy); hi = mid - 1
+            ok = b <= budget and (RM >= 1.0 or QPREV[0] is None or Q >= QPREV[0] or b <= RM * budget)   # rate margin on refinement: no sawtooth
+            if ok: best = (Q, b, y, sy); hi = mid - 1
             else: lo = mid + 1
         if RG and best is not None and t and st is not None and not (RAMP and t <= RAMP):
             stl0 = still_blocks(x, X[t - 1]); CAUGHT[0] = np.zeros(stl0.shape, bool) if CAUGHT[0] is None else CAUGHT[0]
@@ -391,4 +404,4 @@ for R in RATES:
     print('   churn still Y/Cb/Cr per transition ' + ' '.join(ch) + ' | Y PSNR per frame ' + '/'.join('%.2f' % psnr(rec[t][0], X[t][0]) for t in range(NF)), flush=True)
     print('   bits/level (bpp, level 5 = kept DPCM) ' + ' ; '.join(
         'f%d ' % t + ' '.join('%d:%.3f' % (l, v / (W * H)) for l, v in sorted(d.items(), reverse=True)) for t, d in enumerate(spl)), flush=True)
-    os.unlink(fn)
+    if not os.environ.get("KEEPYUV"): os.unlink(fn)
