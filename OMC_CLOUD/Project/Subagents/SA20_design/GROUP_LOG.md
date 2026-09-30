@@ -185,3 +185,4 @@ SA20P 12:56 -> Q: concede D2 (inward rounding = support-wide away vs unconstrain
 SA20P 12:56 -> (no message) Q conceded round-2 points; converged: one family (fixed aperiodic-role private pyramid), R4 chroma/F003 gap, R2 question to owner
 SA20Q 12:56 -> both: concede P's round-2 vet: efficiency premise overstated (PO chroma -0.1..-3.9, F003 -0.70/-0.25), TAR dead on exactness (parity not in picture, S5.235 class), JRP cell-pitch line -> test vs unconstrained BNP; RAC second.
 SA20Q 12:56 -> (no message): P conceded D2 (step-5 kill); converged: R2 question to owner now, parallel BNP-vs-JRP intra with cell-pitch spectral test.
+SA20P 13:04 -> both: ROUND 3: A RFP (SA15-geometry pair pyramid, value-domain inter, #9, rail-truncation context bit, row-continuous leaky-bucket step field, hash hold, 26 lines; first fail R4 texture 1.0-2.0); B LRL (SA14 leaf-reading 5/3 continuous; partner never moves; needs IDQ -0.6 dB rails, 5/3 row class); no third
