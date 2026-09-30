@@ -5,7 +5,7 @@
 # lane decision; one Q per frame, no per-slice plan yet). Vector bits 10 per 16x16 block on inter frames.
 # Reports per owner rate R: per-frame bpp and Q, per-frame NEG, frame-2 NEG and PSNR Y/Cb/Cr; compare with today's
 # frame 2 (out/today_eval.txt) which ran at exactly R per frame.
-import sys, os, json, pickle, subprocess, numpy as np
+import sys, os, re, json, pickle, subprocess, numpy as np
 sys.path.insert(0, os.path.dirname(__file__))
 from d1_screen import read
 from n4_core import po
@@ -23,7 +23,7 @@ NF = int(os.environ.get('NF', '3'))
 HY = float([t[2:] for t in TOK if t.startswith('hy')][0]) if any(t.startswith('hy') for t in TOK) else 0  # hysteresis kappa
 KEEP = 'keep' in TOK   # keep the last-write step on source-still blocks
 RS_ = 0.5 if 'rs' in TOK else 0.0   # rounding slack added to the hysteresis threshold (codes)
-CU = any(t.startswith('cu') for t in TOK); CUO = float([t[2:] for t in TOK if t.startswith('cu')][0] or 1) if CU else 1.0  # octaves finer needed   # one catch-up per still episode (SA20P): still, not caught, step >= 1 octave finer than the last write
+CU = any(re.fullmatch(r'cu[0-9.]*', t) for t in TOK); CUO = float([t[2:] for t in TOK if re.fullmatch(r'cu[0-9.]*', t)][0] or 1) if CU else 1.0  # octaves finer needed   # one catch-up per still episode (SA20P): still, not caught, step >= 1 octave finer than the last write
 CAUGHT = [None]
 CI = float([t[2:] for t in TOK if t.startswith('ci')][0]) if any(t.startswith('ci') for t in TOK) else None  # inter chroma multiplier
 CHP = 'chp' in TOK   # 4:2:2 chroma MC: odd luma dx -> average of the two chroma neighbours (no rounding)
@@ -35,6 +35,9 @@ CUAFTER = 'cua' in TOK   # catch-up decided AFTER the frame step (P's (c)): fire
 CUOFF = [False]; T_ = [0]
 RG = 'rg' in TOK   # (a)+(b): moving step Q_m + one catch-up step Q_c for the still, not-caught blocks (whole set, once)
 CUB = [None]; QMB = [None]
+DR = 'dr' in TOK   # drift release: still only while MAD(x - own recon) <= E_last + 1.5 noise (error-triggered, S5.390)
+REFH = [None]; ELAST = [None]; NBH = [None]
+MF = 'mf' in TOK   # region plan: moving step never finer than the still region's step (padding left for the catch-up)
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -88,8 +91,16 @@ def noise_gate(x, xprev, k=0):
     still = (mad <= 1.5 * nb) & (np.abs(md) <= 3 * nb / np.sqrt(16 * bw))
     SIG[0] = nb / 1.13                   # per-block sigma estimate (of the plane asked for)
     return still
+def bmad(a, b):
+    NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.zeros((NBY * 16, NBX * 16)); d[:H, :W] = np.abs(a - b)
+    return d.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3))
 def still_blocks(x, xprev, k=0):   # encoder-only: block still = >= 95 % of its luma samples within 2 codes of the previous source
-    if NG: return noise_gate(x, xprev, k)
+    if NG:
+        st_ = noise_gate(x, xprev, k)
+        if DR and k == 0 and REFH[0] is not None and ELAST[0] is not None:
+            st_ = st_ & (bmad(x[0], REFH[0][0]) <= ELAST[0] + 1.5 * SIG[0] * 1.13)
+            noise_gate(x, xprev, k)   # keep SIG for this plane
+        return st_
     NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.abs(x[0] - xprev[0]) <= 2
     pad = np.ones((NBY * 16, NBX * 16), bool); pad[:H, :W] = d
     return pad.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) >= 0.95
@@ -190,13 +201,17 @@ def neg3(src, dec):
 def psnr(a, b): return 10 * np.log10(1023.0 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
 src = A + TEST + '_1280x720_422_10.yuv'; X = [read(src, W, H, f) for f in range(NF)]
 for R in RATES:
-    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []
+    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; ELAST[0] = None
     NBY, NBX = (H + 15) // 16, (W + 15) // 16
     for t, x in enumerate(X):
-        T_[0] = t; CUOFF[0] = CUAFTER
+        T_[0] = t; CUOFF[0] = CUAFTER; REFH[0] = ref
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
         CUB[0] = None; QMB[0] = None; rginfo = None
         lo, hi = 0, len(GRID) - 1; best = None
+        if RG and MF and t and st is not None and not (RAMP and t <= RAMP):
+            REFH[0] = ref; stl_m = still_blocks(x, X[t - 1])
+            if stl_m.any():
+                qfloor = np.median(st[0][0][stl_m]); lo = min(i for i, g in enumerate(GRID) if g >= qfloor * 0.999)
         while lo <= hi:
             mid = (lo + hi) // 2; Q = GRID[mid]
             sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None)
@@ -223,6 +238,11 @@ for R in RATES:
         if RG: cu = CUB[0] if (CUB[0] is not None) else (np.zeros(stl.shape, bool) if stl is not None else None)
         else: cu = None if CUOFF[0] or (RAMP and t <= RAMP) else cu_mask(st, Q, stl)
         st = upd(st, y, ref, Q, stl, cu)
+        if DR:   # error at last write, per block (luma): set where the block was written (changed) or at intra
+            e_now = bmad(x[0], y[0])
+            if ELAST[0] is None or t == 0: ELAST[0] = e_now
+            else:
+                wr = bmad(y[0], ref[0]) > 0; ELAST[0] = np.where(wr, e_now, ELAST[0])
         if RG and rginfo is not None:
             for k in range(3): st[k][0][cu] = rginfo[0] * ((cm if CI is None else CI) if k else 1)
         if RG: cuinfo.append('%s' % ('-' if rginfo is None else '%d@%.1f' % (rginfo[1], rginfo[0])))

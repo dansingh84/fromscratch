@@ -487,3 +487,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - C021: Cb/Cr @0.5 -0.84/-1.33.
   -> Form (i) intra with S16 + rho 0.42 is NOT yet >= today on every cell. Luma PSNR leads by 1-4.7 dB everywhere, so
      bits are spent on luma that chroma and NEG need. Next lever: the single chroma-step function (nested) at rho 0.42.
+- G50 region plan (A = _rg) first results:
+  - noisy frozen sigma 2: 5-9 % changes per frame, no catch-up ever. The greedy moving step (Q 0.25-0.71) spends the
+    whole budget coding the ~2 % of blocks the gate mislabels as moving, nearly losslessly.
+  - noisy slow pan (0.5 px/f, sigma 2): 57 % of blocks labelled still; Y 45.98 -> 43.61 over frames = hold drift (smear).
+    The source-difference gate cannot see low-contrast slow motion inside noise (SA20Q's warning).
+  - gfx @1/2: 37-44 % of samples change per transition.
+  - C arm crashed: token parser bug ('cua' read as 'cu' + 'a'); fixed.
+  Fixes (_mf, _dr):
+  - moving step never finer than the still region's median step, leaving padding for the catch-up;
+  - DRIFT RELEASE: a block stays still only while MAD(x_t - own recon) <= its error at last write + 1.5 noise
+    (error-triggered, S5.390); slow motion accumulates error and releases the hold.
+  Re-run A2/C2 on the same clips (rg2_*).
