@@ -250,3 +250,9 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   (c) report how often (b) fires per owner rate, including cut frames: often means the reserve is too small, never
       means it is too big.
   The estimate distribution also runs on gfx and a rail clip.
+- G23 (SA20Q) the source-activity estimate is signed and content-dependent: final coarse samples are smoother, so
+  their activity class is lower. Bound by construction: a final coarse value lies within half a coarse step of the
+  source, so the class moves by about one at most. Cost each symbol at its MAX code length over classes c-1..c+1:
+  an upper bound, 0 overs, and the price is padding. Pre-registered: 0 overs on every slice (cut frame 0, gfx,
+  cut24/ext10, 0.5-4.0), padding <= 1-2 % of bits; else a different bound. Combined with SA20P's single re-choice
+  as the backstop. rcl_s16 EST=1 reports est / emitted / upper bound per step on the 3 test clips.

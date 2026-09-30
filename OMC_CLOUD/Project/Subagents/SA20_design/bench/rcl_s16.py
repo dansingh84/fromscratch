@@ -42,6 +42,17 @@ def cost(S, tab):
                 x = q[k == kk]; h = tab.get(kk, np.zeros(129)) + 1; p = h / h.sum()
                 b += -np.log2(p[np.clip(x, -64, 64) + 64]).sum() + (12 + 2 * np.log2(np.abs(x[np.abs(x) > 63]))).sum()
     return b
+def cost_ub(S, tab, r=1):   # upper bound: each symbol at its max code length over classes c-r..c+r
+    b = 0.0; L = {}
+    for kk in range(K):
+        h = tab.get(kk, np.zeros(129)) + 1; L[kk] = -np.log2(h / h.sum())
+    LM = np.array([L[k] for k in range(K)])
+    for SY, AC in S:
+        for (key, q), a in zip(SY, AC):
+            k = cls(q, a); qi = np.clip(q.astype(np.int64), -64, 64) + 64
+            m = np.max([LM[np.clip(k + d, 0, K - 1), qi] for d in range(-r, r + 1)], axis=0)
+            b += m.sum() + (12 + 2 * np.log2(np.abs(q[np.abs(q) > 63]))).sum()
+    return b
 def neg1(src, dec):
     cmd = ['ffmpeg', '-v', 'error', '-f', 'rawvideo', '-pix_fmt', 'yuv422p10le', '-s', '%dx%d' % (W, H), '-i', dec,
            '-f', 'rawvideo', '-pix_fmt', 'yuv422p10le', '-s', '%dx%d' % (W, H), '-i', src, '-frames:v', '1',
@@ -69,7 +80,9 @@ for e in range(-2, 25):
     Q = 2 ** (e / 4); S, ys = syms(x, Q); bpp = cost(S, tab) / (W * H)
     if EST:
         SA = src_act(x, Q); Se = [(SY, sa) for (SY, _), sa in zip(S, SA)]
-        est = cost(Se, tab) / (W * H); print('   est %.4f emitted %.4f (emitted - est %+.2f %%)' % (est, bpp, 100 * (bpp / est - 1)), flush=True)
+        est = cost(Se, tab) / (W * H); ub = cost_ub(Se, tab) / (W * H)
+        print('   est %.4f emitted %.4f (emitted - est %+.2f %%) | upper bound +-1 class %.4f (padding %.2f %%, over %s)' % (
+            est, bpp, 100 * (bpp / est - 1), ub, 100 * (ub / bpp - 1), 'YES' if bpp > ub else 'no'), flush=True)
     if not 0.4 <= bpp < 4.6: continue
     esc = sum(int((np.abs(q) > 63).sum()) for SY, _ in S for _, q in SY); n = sum(q.size for SY, _ in S for _, q in SY)
     fn = os.path.join(OUT, '%s_%s_%.3f.yuv' % (TEST, ARM, Q))
