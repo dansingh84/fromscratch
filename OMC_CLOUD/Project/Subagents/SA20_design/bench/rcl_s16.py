@@ -27,7 +27,7 @@ def cls(q, a): return np.minimum((np.log2(1 + mag(q, a)) * K / 7).astype(int), K
 def syms(planes, Q):
     out = []; ys = []
     for pl, p in enumerate(planes):
-        SY = []; AC = []; y = po(p, Q * (CM if pl else 1), 0.7, 0, SY, ACT=AC)[1]; out.append((SY, AC)); ys.append(y)
+        SY = []; AC = []; y = po(p, Q * (CM if pl else 1), float(os.environ.get('F', '0.7')), 0, SY, ACT=AC)[1]; out.append((SY, AC)); ys.append(y)
     return out, ys
 def acc(S, tab):
     for SY, AC in S:

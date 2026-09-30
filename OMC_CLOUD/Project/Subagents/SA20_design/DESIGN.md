@@ -398,3 +398,26 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   signature of detail loss (VMAF-NEG rewards kept texture; PSNR rewards smoothing). Suspect: the dead zone (rho 0.35)
   zeroes small leaves, and interpolation fills smooth. Screen: rho 0.35 / 0.42 / 0.5 on A006 (RHO env).
   No chroma curve is fitted until this is understood (every cm < 1 lowers NEG).
+- G41 PRE-REGISTERED intra verdict (SA20Q):
+  - all 6 clips, tables disjoint (leave-one-out for the training clips, all-3-trained for the test clips);
+  - every clip x rate 0.5-4.0, no averaging;
+  - PASS: NEG >= today - 0.05 AND PSNR Y/Cb/Cr >= today - 0.1 dB, after the 1 % header charge;
+  - any cell below FAILS and is reported.
+  Intra is a diagnostic; the binding verdict is the worst steady-state CBR frame (f2+) on the same 6 x 7 grid, same
+  rule. Levers are fitted on the 3 training clips and verified ONCE on the test clips.
+  Detail-loss confirmation:
+  - per-band error energy ours/today (D3 method);
+  - texstat/flatplane per plane at 1.0/2.0.
+  Candidate levers (fitted on training clips): rho; a finer level-1 step relative to coarse (tilt to fine levels);
+  a smaller dead zone on level 1 only.
+- G42 per-band error energy, ours/today (bench/diag_bands.py; bands fine -> coarse: 1-2, 2-4, 4-8, 8-16, 16-32 px,
+  DC>32):
+  A006 @1.0 Y 0.54 0.62 0.93 1.39 1.64 1.71, Cb 1.04..2.72, Cr 1.08..3.30; A006 @2.0 Y 0.55 0.71 0.90 1.03 0.89 0.39;
+  gfx F003 @1.0 Y 0.60 0.69 0.78 1.37 1.16 0.40; C021 @1.0 Y 0.38 0.36 0.42 0.64 0.89 0.79 (C021 is ahead on NEG).
+  -> NOT detail loss: we have LESS fine-band error than today and MORE 8-32 px (mid/coarse) error, chroma worst.
+  A tilt toward fine levels would be the wrong direction. Lever to screen: a steeper intra ladder (f 0.6 / 0.5 =
+  finer coarse steps), fitted with nested leave-one-out (SA20P: lever constants fitted per test cell on the other clips
+  only). Record from SA20P (do NOT repeat): SA15 offset 1/3 erased grain, SA14 narrower dead zones cost bits, SA13 dz
+  0.75 -0.64, SA16 PSNR-optimal ladder zeroed level 1 (-4.8); grain fill and synthesized texture banned; per-cell
+  tuned dead zones banned.
+  Intra verdict rule (G41) agreed by both thinkers, plus nested leave-one-out for levers.
