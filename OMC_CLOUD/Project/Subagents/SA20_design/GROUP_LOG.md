@@ -47,3 +47,4 @@ SA20Q 03:04 -> both: first real-code point (PO intra cine 0.5: NEG +0.8, Y +1.5,
 SA20P 03:04 -> both: real-code PO intra ahead NEG/luma, behind chroma: fixed chroma step offset sweep first (luma surplus funds chroma, all planes>=today), then chroma-from-luma; subtract header/reserve bits; phase/cast/render/oob/g2; frame 2 decides (Q converged independently)
 SA20Q 03:04 -> both: agree P (1)-(4); chroma offset = intended rebalance (all planes >= today); condition: one normative constant must pass every cell and rate, else a fixed continuous curve of the step, never content-keyed.
 SA20P 03:04 -> (no message) accept Q condition: chroma offset one normative constant over all cells/rates, else fixed curve of step, never content-keyed
+SA20P 03:09 -> main: owner rule ack: all 0.25 figures withdrawn from my arguments; conclusions unchanged on 0.5-4.0

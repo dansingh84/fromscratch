@@ -77,3 +77,6 @@ cine_A005C031_DPIf0.5_11.31 bpp f0/f1/f2 0.656/1.289/1.303 mean 1.083 | f2 PSNR 
 cine_A005C031_DPIf0.5_16.00 bpp f0/f1/f2 0.463/0.921/0.891 mean 0.758 | f2 PSNR 49.89/54.44/52.73 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/cine_A005C031_DPIf0.5_16.00.yuv
 cine_A005C031_DPIf0.5_22.63 bpp f0/f1/f2 0.329/0.704/0.663 mean 0.565 | f2 PSNR 48.04/53.38/51.69 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/cine_A005C031_DPIf0.5_22.63.yuv
 cine_A005C031_DPIf0.5_32.00 bpp f0/f1/f2 0.228/0.514/0.469 mean 0.404 | f2 PSNR 46.33/52.55/50.91 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/cine_A005C031_DPIf0.5_32.00.yuv
+cine_A005C031_DPIf0.5_45.25 bpp f0/f1/f2 0.159/0.382/0.339 mean 0.293 | f2 PSNR 44.64/51.53/49.98 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/cine_A005C031_DPIf0.5_45.25.yuv
+cine_A005C031_DPIf0.7_0.25 bpp f0/f1/f2 6.900/7.001/6.990 mean 6.964 | f2 PSNR 150.20/150.20/150.20 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/cine_A005C031_DPIf0.7_0.25.yuv
+cine_A005C031_DPIf0.7_0.35 bpp f0/f1/f2 6.900/7.001/6.990 mean 6.964 | f2 PSNR 150.20/150.20/150.20 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/cine_A005C031_DPIf0.7_0.35.yuv
