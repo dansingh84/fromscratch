@@ -205,3 +205,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - vectors for the product must come from decoded data (gen-2 reproducibility); the bench still searches the source;
   - 10-frame clips: cine_frozen10 (0 changes per plane from frame 2) and Lanczos pans 0.25/0.5/1 px/frame
     (moving-region error must not grow with frame index; control = cm1_zb2 without hysteresis). Queue q_cbr3.
+- G18 STEP-INVARIANT TABLES (rcl_sc.py, intra f0, cm1, test clips held out). Context = 16 classes of log2(1 + m),
+  m = causal neighbour |q| (left + up + half diagonals) + step-normalised activity. ONE set of 16 tables for every
+  step, level and plane (S16). Versus the per-step 1-bit-context sets (24 x 27 tables, the optimistic figure used before):
+  cine -10..-16 %, gfx -13..-22 %, prores -11..-18 % bits over the owner-rate range (Q ~3.4..32); +6 % only at
+  Q 0.7 (~8 bpp, outside the range). S16p/S16pk/S12pk (32/64/48 tables) within +-0.6 % of S16 -> the plane/level
+  split buys nothing. PASSES SA20Q's pre-registered table rule (<= 60 tables, within +1 % of per-step sets).
+  Intra vs today with S16 bits (out/rcl_s16/intra_vs_today.txt), NEG; Y/Cb/Cr:
+  cine   0.5 +2.05 (+2.45/-0.15/-0.33) 1.0 +0.60 (+3.18/0.00/0.00) 1.5 +0.35 2.0 +0.30 2.5 +0.24 3.0 +0.17 (all planes +)
+  gfx    0.5 +1.85 (+3.62/+0.73/+0.42) 1.0 +0.41 1.5 +0.19 2.0 +0.10 2.5 +0.06 3.0 +0.03 (all planes + everywhere)
+  prores 0.5 +1.97 (+2.56/-0.24/-0.36) 1.0 +0.82 (Cr -0.03) 1.5 +0.42 2.0 +0.31 2.5 +0.27 3.0 +0.20 4.0 +0.16
+  -> remaining misses: chroma at 0.5 on cine/prores and prores Cr at 1.0; NEG margin there is +0.6..+2.0.
+     S16 with cm 0.85 / 0.7 queued to fit the one fixed chroma curve.

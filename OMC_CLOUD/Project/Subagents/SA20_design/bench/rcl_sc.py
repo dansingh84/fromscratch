@@ -17,7 +17,7 @@ from n4_core import po
 W, H = 1280, 720
 A = '/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/'
 TRAIN = [('cine_4k_A006', 2), ('cine_A005C021', 2), ('gfx444_F003C012', 3)]
-TEST = sys.argv[1]; ES = list(range(-2, 25))
+TEST = sys.argv[1]; CM = float(sys.argv[2]) if len(sys.argv) > 2 else 1.0; ES = list(range(-2, 25))
 def nzc(q):
     nz = q != 0; c = np.zeros_like(nz); c[:, 1:] |= nz[:, :-1]; c[1:, :] |= nz[:-1, :]; return c.astype(int)
 def mag(q, a):
@@ -26,13 +26,14 @@ def mag(q, a):
     return m + a[:q.shape[0], :q.shape[1]]
 def cls(q, a, K): return np.minimum((np.log2(1 + mag(q, a)) * K / 7).astype(int), K - 1)
 VAR = {'S16': (16, 0, 0), 'S16p': (16, 1, 0), 'S16pk': (16, 1, 1), 'S12pk': (12, 1, 1)}
+if os.environ.get('ONLY'): VAR = {k: VAR[k] for k in os.environ['ONLY'].split(',')}
 def keys(pl, key, q, a, v):
     K, P_, Kp = VAR[v]; c = cls(q, a, K)
     return c + K * ((pl if P_ else 0) * 2 + ((key[0] == 'c') if Kp else 0))
 def syms(planes, Q):
     out = []
     for pl, p in enumerate(planes):
-        SY = []; AC = []; po(p, Q, 0.7, 0, SY, ACT=AC); out.append((min(pl, 1), SY, AC))
+        SY = []; AC = []; po(p, Q * (CM if pl else 1), 0.7, 0, SY, ACT=AC); out.append((min(pl, 1), SY, AC))
     return out
 def acc(S, v, tab):
     for pl, SY, AC in S:
@@ -60,4 +61,5 @@ for e in ES:
 print('tables: ' + ' '.join('%s=%d' % (v, len(POOL[v])) for v in VAR) + ' | base per-Q = %d x %d steps' % (len(PQ[ES[0]]), len(ES)), flush=True)
 for e in ES:
     Q = 2 ** (e / 4); S = syms(X, Q)
-    print('%s Q=%.3f base-perQ %.4f | ' % (TEST, Q, cost(S, 'base', PQ[e]) / (W * H)) + ' '.join('%s %.4f' % (v, cost(S, v, POOL[v]) / (W * H)) for v in VAR), flush=True)
+    esc = sum(int((np.abs(q) > 63).sum()) for _, SY, _ in S for _, q in SY); nsym = sum(q.size for _, SY, _ in S for _, q in SY)
+    print('%s Q=%.3f base-perQ %.4f | ' % (TEST, Q, cost(S, 'base', PQ[e]) / (W * H)) + ' '.join('%s %.4f' % (v, cost(S, v, POOL[v]) / (W * H)) for v in VAR) + ' | escapes %.4f %%' % (100 * esc / nsym), flush=True)
