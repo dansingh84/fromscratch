@@ -102,3 +102,12 @@ owner's smudgegroups/artifactmap per plane + renders; watch for the near-rail le
 From the record (DESIGN G35/G39 superseded): per-region parameters must be continuous fields both ends derive (owner:
 "zero visible steps"), so block-keyed region steps (_rg per-region step, _rr) are dropped; a visible fallback plan
 is a disqualifying artifact (S5.344), so dense rail content stays an open problem, stated as such.
+
+## 5. OWNER RULINGS 2026-09-30 (rules)
+- Lines, grids and seams are disqualifying in absolute terms; today's codec is no baseline for them.
+- No patches: when an idea or feature fails, redesign from scratch further upstream.
+- Latency: no noticeable increase over JPEG XS (~32 lines excl. conversion, < 1 ms incl.).
+- Rate hops: a change of rate may cost once; after that the chain must not drift (fixed point, no accumulating loss).
+- Never-away: "Go with what the engineer would accept": legal output, no bit or quality cost from legality, no
+  visible effect of any legality move on the hardest cases (renders), worst-case move size reported (DESIGN H21).
+- Sub-agents generate their own ideas, vet mine and each other's.

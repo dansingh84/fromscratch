@@ -25,8 +25,10 @@ Current state (2026-09-30, §H): the pyramid engine below FAILS the owner's arti
   coding with any design tried so far. Pyramid fails no-pattern, T1 fails efficiency, T2 fails exactness.
 - G-b (same per-sample process in every frame, inter predicted from the motion-compensated reference only):
   KILLED (H14): frame 2 is below today on every cell (-4.9..-6.2 NEG at 0.5, -0.4..-1.4 at 1.0, -0.3..-0.5 at 2.0).
-- Status (H15): every route measured fails at least one of exactness, never-away, no pattern, efficiency. The
-  conflict goes to the owner with the numbers, together with the question of how "away" is judged (R2).
+- Status (H15): every route fails one requirement under the strict never-away reading.
+- OWNER RULING (H21): never-away is judged the way a production engineer would: legal output, no bit or quality
+  cost from legality, and no visible effect of any pixel legality moves (worst cases rendered). Averaging engines
+  are admissible again; the next design round starts from that.
 - Still/grain rule (G60-G77): built on block state; must be rebuilt per sample under §H before it counts.
 - Legality record that carries over: per-sample never-away form, 0 out-of-range, rail behaviour (G67, G72).
 - Not yet run for T2: inter (motion without any partition), CBR, 10-generation chains, the full H0 gate, renders.
@@ -1059,3 +1061,14 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   blue noise / JRP jittered cells, which keep a line at the cell pitch). Open: it inherits the pyramid's intra gap
   (chroma -0.1..-3.9 dB, F003 -0.70 NEG @1.0) and turns the role difference into a static aperiodic modulation
   rather than removing it (veil risk).
+- H21 OWNER RULING (2026-09-30), never-away: "Go with what the engineer would accept." Legality is judged overall
+  and by eye, not per pixel against a plain clip:
+  (1) output always inside the legal range;
+  (2) legality costs no bits and no quality overall (NEG, PSNR Y/Cb/Cr vs a decode that ignores the rails, on
+      rail-heavy content), within measurement noise;
+  (3) no pixel moved by legality may be visible: no fringe, halo, cast, crushed shadow or clipped highlight on the
+      hardest cases (white-on-black titles, graphics edges, hard-clipped highlights, near-black gradients), per plane,
+      judged on brightened renders, with the worst-case move size reported;
+  (4) the other three goals unchanged (exact >= 10 generations, a rate change costs once and never drifts; no
+      seams/smudges/streaks/grids; efficiency >= today incl. the worst frame; latency within JPEG XS).
+  Consequence: averaging (shared coarse values, one role for every sample, no grid) is admissible again.
