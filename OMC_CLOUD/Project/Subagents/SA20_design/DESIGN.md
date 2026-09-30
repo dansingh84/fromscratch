@@ -167,3 +167,16 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   26.5 Mbit, was ruled not implementable). All our real-code figures used one table set per quarter-octave step
   (baseline 24 tables x 36 steps). Screen bench/rcl_tab.py measures the cost of pooling tables over step buckets
   (per-Q, octave, 2, 4 octaves, all) for the base and activity models. Every real-code result is optimistic until then.
+- G13 TABLE POOLING (rcl_tab.py, cine, intra f0, bpp per scheme; per-Q = optimistic reference):
+  base (24 tables/bucket): Q9.5 per-Q 1.476 | octave buckets 1.556 | 2-octave 1.694 | 2 buckets 1.962 | one set 1.630;
+                           Q16 0.916 | 0.931 | 0.890 | 0.873 | 1.116 ; Q32 0.458 | 0.466 | 0.510 | 0.482 | 0.702.
+  ctx (112 tables/bucket, already > 60): Q9.5 1.334 | 1.377 | 1.453 | 1.565 | 1.377 ; Q16 0.813 | ... | 0.872.
+  -> Under today's cap (60 tables) the base model fits only 2 buckets: +10..+33 % bits at mid steps (bucket-edge
+     steps worst). EVERY real-code figure (G1-G11) is optimistic by up to that amount; the parity claims vs today
+     stand only if a model inside 60 tables recovers the per-Q cost. Next: step-INVARIANT model (rcl_sc.py):
+     context = class of an estimated local |q| scale (causal neighbour |q| + step-normalised activity), one table
+     family for every step / level (16-64 tables).
+- G14 zero-churn rule (agreed SA20P/SA20Q): encoder-only hysteresis dead zone; a leaf is nonzero only if
+  |e| > kappa x the step its BLOCK was last written at (state: exponent + mode per block, ~0.1-0.16 bit/sample;
+  the per-sample state is SA15's rejected class). Bar: 0 changes on frozen input from frame 2 (one catch-up);
+  0 on real still regions beyond the halo; level map at block pitch + rowphase/colphase per plane.
