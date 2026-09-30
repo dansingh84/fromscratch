@@ -1,5 +1,6 @@
 import numpy as np
-def motion(src, ref, B=16, R=8):
+def motion(src, ref, B=16, R=8, Z=0.0):
+    # Z > 0: encoder prefers the zero vector unless the best one beats it by more than Z codes per sample (mean |d|)
     Hh, Ww = src.shape; V = np.zeros((Hh // B + 1, Ww // B + 1, 2), int); P = np.zeros_like(ref)
     pad = np.pad(ref, R, mode='edge')
     for by in range(0, Hh, B):
@@ -17,6 +18,9 @@ def motion(src, ref, B=16, R=8):
                     c = pad[by + R + dy:by + R + dy + blk.shape[0], bx + R + dx:bx + R + dx + blk.shape[1]]
                     sad = np.abs(blk - c).sum()
                     if sad < best[0]: best = (sad, dy, dx)
+            if Z > 0:
+                s0 = np.abs(blk - pad[by + R:by + R + blk.shape[0], bx + R:bx + R + blk.shape[1]]).sum()
+                if s0 <= best[0] + Z * blk.size: best = (s0, 0, 0)
             V[by // B, bx // B] = best[1:]
     return V
 def apply(ref, V, B, sx):

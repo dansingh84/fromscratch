@@ -83,3 +83,4 @@ SA20P 03:30 -> both: Q(B) per-sample Delta_last = SA15 rejected step memory (DDR
 SA20Q 03:30 -> both: concede P: per-block state (~0.16 bit/sample) not per-sample (SA15 8K reject); per-sample decision with block threshold (check level map at block pitch); churn bar = 0 on frozen from f2, 0 beyond moving halo on real still (not <= today); lane replication in table budget.
 SA20P 03:30 -> (no message) converged with Q: per-block state, per-sample leaf decision, churn bar 0, block-pitch level map/rowphase check, pooled tables w/ lane replication
 SA20 03:31 -> both: pooling: base in 60 tables = +10..33 % bits at mid steps; all G figures optimistic; testing step-invariant scale-class model (rcl_sc) ; implementing hysteresis rule (G14)
+SA20 03:34 -> both: churn roots: DPCM-start bug in inter (fixed), motion search picks nonzero vectors on frozen input (zero bias Z=2), hysteresis then gives 0.12 % change on frozen; CBR re-queued

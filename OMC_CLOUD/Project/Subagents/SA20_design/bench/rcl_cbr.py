@@ -17,6 +17,7 @@ TRAIN = [('cine_4k_A006', 2), ('cine_A005C021', 2), ('gfx444_F003C012', 3)]
 RATES = [float(r) for r in os.environ.get('RATES', '0.5,1.0,1.5,2.0,2.5,3.0,4.0').split(',')]
 TEST, ARM = sys.argv[1], sys.argv[2]
 TOK = ARM.split('_'); cm = float(TOK[0][2:]); CL = 'cl' in TOK
+ZB = float([t[2:] for t in TOK if t.startswith('zb')][0]) if any(t.startswith('zb') for t in TOK) else 0.0  # zero-vector bias
 HY = float([t[2:] for t in TOK if t.startswith('hy')][0]) if any(t.startswith('hy') for t in TOK) else 0  # hysteresis kappa
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -43,7 +44,7 @@ def code_frame(x, ref, Q, st=None):
     """x = source planes, ref = previous reconstruction (None = intra). returns [(key0, SY)], recon"""
     if ref is None: Ps = [np.zeros_like(p) for p in x]; mode = 'intra'
     else:
-        V = motion(x[0], ref[0]); Ps = [apply(ref[0], V, 16, 1), apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]; mode = 'inter'
+        V = motion(x[0], ref[0], Z=ZB); Ps = [apply(ref[0], V, 16, 1), apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]; mode = 'inter'
     out = []; sy = []
     for pl, (p, P) in enumerate(zip(x, Ps)):
         SY = []; Yd = None

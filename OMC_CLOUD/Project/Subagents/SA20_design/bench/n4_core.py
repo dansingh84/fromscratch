@@ -85,7 +85,7 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None,
     r, c = strides(L); xk = tg[L][::r, ::c]; Pk = P[::r, ::c]; sc = Q * f ** L; bits = 0.0
     y = np.zeros_like(xk); qa = np.zeros_like(xk); thk = thg(L, r, c, xk.shape)
     for j in range(xk.shape[1]):
-        pr = y[:, j - 1] if j else np.full(xk.shape[0], 512)
+        pr = y[:, j - 1] if j else (np.full(xk.shape[0], 512) if not P.any() else np.zeros(xk.shape[0], np.int64))  # inter: residual DPCM starts at 0 (= copy of P)
         q = dz(xk[:, j] - pr, sc)
         if HT is not None: q = np.where(np.abs(xk[:, j] - pr) < thk[:, j], 0, q)
         qa[:, j] = q; y[:, j] = np.clip(Pk[:, j] + pr + np.round(q * sc).astype(np.int64), LO, HI) - Pk[:, j]

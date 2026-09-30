@@ -180,3 +180,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   |e| > kappa x the step its BLOCK was last written at (state: exponent + mode per block, ~0.1-0.16 bit/sample;
   the per-sample state is SA15's rejected class). Bar: 0 changes on frozen input from frame 2 (one catch-up);
   0 on real still regions beyond the halo; level map at block pitch + rowphase/colphase per plane.
+- G15 CHURN ROOT CAUSES (found with the frozen clip = cine frame 0 x 3):
+  (a) BUG: the kept DPCM grid started every row at 512 also in inter frames (residual domain needs 0 = copy of P);
+      the whole kept grid was re-coded each inter frame and the DPCM chain carried it across. Fixed in n4_core.po.
+      All earlier inter/CBR figures (G3 proxy DP, G11) carry this bug; logs moved to out/rcl_cbr/buggy_dpcm/.
+  (b) The encoder motion search (source vs own reconstruction) picked nonzero vectors on 1950 of 3726 blocks of a
+      FROZEN clip. Encoder fix: zero-vector bias (keep v = 0 unless the best beats it by > Z codes/sample; Z = 2).
+  (c) Hysteresis dead zone (G14) on top: single-frame frozen test at Q 32 -> 26.9: changed samples 66.4 % (a+b fixed,
+      no hysteresis) -> 0.12 % (kappa 0.75). CBR arms cm1_zb2_hy0.75 and control cm1_zb2 queued on frozen, cine, gfx, prores.
