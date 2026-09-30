@@ -256,3 +256,4 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   an upper bound, 0 overs, and the price is padding. Pre-registered: 0 overs on every slice (cut frame 0, gfx,
   cut24/ext10, 0.5-4.0), padding <= 1-2 % of bits; else a different bound. Combined with SA20P's single re-choice
   as the backstop. rcl_s16 EST=1 reports est / emitted / upper bound per step on the 3 test clips.
+  G23 addendum (SA20P): +-1-class costing bounds the context error but not closed-loop symbol drift, so it is not a full bound. 0 overs by construction = +-1-class lane costing PLUS the single predetermined re-choice (coarsest plan proven to fit). Report re-choice firing rate (<= a few %) and padding (<= 1-2 %).
