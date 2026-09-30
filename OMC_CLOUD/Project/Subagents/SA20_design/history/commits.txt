@@ -1,0 +1,108 @@
+a1da07b 02:26 Unpack OMC cloud packet (text/code only) and start SA20 group sandbox
+4e9dc07 02:27 RESUME: owner note on 3-frame clips (relative comparisons only)
+6a2fe60 02:40 SA20: D1 and D-P proxy screens (both killed), today's baseline at 0.3 bpp
+23c8282 02:40 SA20: group log and diagnostic screen logs
+9bd6b06 02:41 RESUME: owner from-scratch directive, E1/E2 status
+688e2db 02:43 SA20: DPI diagnostic, from-scratch framing (DESIGN §E3, §F)
+6daa22d 02:47 SA20: L3 and N4 screens, measurement definition (DESIGN §F1-F3)
+ed50349 03:01 SA20: N1 screen (killed), benchmark and watchdog notes
+10c9123 03:02 RESUME: owner rate points 0.5-4.0 bpp
+c341e28 03:02 SA20: running-job logs
+366f1fb 03:05 SA20: real-code-length intra bench (rcl_intra, rcl_fi), chroma-from-luma core, rate sweep to 4 bpp
+65fd884 03:09 SA20: no test points below 0.5 bpp
+f9a62db 03:09 SA20: logs
+2321df6 03:10 SA20: real-code intra vs today (DESIGN §G1)
+d85dfae 03:10 SA20: logs
+70640fc 03:17 SA20: intra vs today on 3 clips, 3-frame sweep to 4 bpp, 3-frame real-code bench (rcl_seq), MC prediction in the private pyramid
+39cc686 03:22 SA20: chroma allocation verdict (fails at 1.0-1.5), CBR bench churn + level split
+6962890 03:22 SA20: decoder-side activity contexts screen (rcl_ctx)
+206ceb3 03:23 SA20: context-lever pass rule, luma-guided chroma interpolation queued
+e1ea4e3 03:24 SA20: record SA20Q flags (trial-coding CBR, slice reset) and falsifier
+a1d9e1c 03:25 SA20: luma-guided chroma interpolation (LG) arm and plan rule
+fda58e8 03:26 SA20: conditional-mean reconstruction measured and killed
+11ad4d2 03:26 SA20: context lever interim result on cine
+1b8efd5 03:29 SA20: CBR churn failure (intra ladder), table-count flag and pooling screen
+0cbcec9 03:29 SA20: running logs (CBR, ctx, LG, table screen)
+bd48c5e 03:29 SA20: running logs
+36deb4a 03:29 SA20: keep live job logs out of git (finished results go to DESIGN/finals)
+26b6abf 03:31 SA20: table pooling result (budget flag), step-invariant model screen, churn rule
+40779d6 03:32 SA20: encoder hysteresis dead zone (per-block state) in po + CBR bench, frozen-input test
+4621ce7 03:34 SA20: fix inter DPCM start, zero-vector bias, frozen churn 66% -> 0.12%
+d06d84f 03:35 SA20: record gen-2 vector risk and catch-up rule
+9fe58d3 03:36 SA20: source-gated hysteresis, N-frame CBR bench, frozen10 and pan tests queued
+b36c038 03:39 SA20: step-invariant 16-table entropy model beats per-step sets; intra ahead of today on NEG
+fdcf048 03:40 SA20: S16 constraint record, indices-only variant queued
+4a9629e 03:41 SA20: leave-one-out S16 fit on training clips, S16 pre-verdict checklist
+142c275 03:42 SA20: S16 tables (32: 16 classes x intra/inter) in the CBR bench, trained on the arm's exact state sequence
+1454604 03:45 SA20: indices-only context loses the low-rate gain; source-activity estimate test
+b56afdf 03:45 SA20: record CBR-by-construction rule for S16 activity term
+8eac7d9 03:46 SA20: upper-bound (+-1 class) costing for exact CBR by construction
+2dd72de 03:46 SA20: CBR construction addendum
+7c453a8 03:46 SA20: re-choice pre-registration
+883f8f7 03:46 SA20: converged re-choice rule
+98daa00 03:46 SA20: latency condition on re-choice
+74b1078 03:48 SA20: still rule fixes (keep last-write step on still blocks, rounding slack)
+f14859d 03:48 SA20: ignore live s16 logs
+7f8d426 03:48 SA20: untrack live job output dirs (results summarised in DESIGN.md)
+b51e5e6 03:49 SA20: once-per-episode catch-up in the CBR bench
+77e474b 03:49 SA20: frozen hold ~0 with fixed still rule
+42fa980 03:53 SA20: catch-up threshold parameter; hold passes at all tested rates
+2e3ea39 03:55 SA20: named residual (edge vectors), zero vector on still blocks, noise-aware gate, budget-sized catch-up, noisy clips
+ff6426a 04:00 SA20: frozen catch-up passes; additive noise floor fix
+a02e832 04:01 SA20: row-above-only context fails; distance-2 left context queued
+736f812 04:01 SA20: source-activity estimate within 1 %; +-1-class bound rejected (pads 12-126 %)
+8d2ee54 04:02 SA20: 3-frame S16 CBR vs today per frame: NEG parity-to-ahead, inter chroma short
+bf0acbc 04:02 SA20: inter chroma multiplier, leave-one-out CBR fit on training clips, today per-frame on training clips
+403e672 04:03 SA20: gfx inter discriminator
+1113dfb 04:04 SA20: 4:2:2 chroma half-sample MC arm; worst-case proof open item
+3faf99d 04:04 SA20: per-plane still gate, chroma ablation queued, owner-call flag on CBR proof
+eda40ba 04:05 SA20: gfx discriminator: static content, no build-up under old gate
+7227fc7 04:07 SA20: noise floor multiplier, coarse-grid exceedance mechanism
+35547ca 04:12 SA20: gfx plan problem: single frame step couples catch-up and moving step
+85ac1ec 04:15 SA20: region-step plan (a)+(b), block-level still gate, ramp rule, per-sample step map, inter kept-grid zero prediction
+9241fba 04:37 SA20: training-clip fit shows NEG deficits on fine texture/gfx despite PSNR lead; dead-zone screen
+dbb522f 04:37 SA20: in-sample table bound option
+16e931c 04:38 SA20: band analysis: excess mid/coarse error, not detail loss; ladder sweep
+311bf47 04:39 SA20: VMAF feature breakdown confirms mid/coarse-scale deficit
+3e050e1 04:41 SA20: smudge failure on A006, per-level kept rounding, intra arm evaluation harness
+3056207 04:51 SA20: dead zone recovers A006 NEG; tables not the cause; nested rho arms queued
+77a7237 04:52 SA20: dead-zone record and watch-outs
+f173b72 04:52 SA20: rho 0.42 removes A006 smudge groups; VIF mid scales at parity
+814606a 04:53 SA20: texstat: rho 0.42 keeps source texture energy, no amplification
+4bab40e 04:53 SA20: ignore live eval outputs
+1e785f6 04:54 SA20: nested rho fit and intra cell verdict (fails remain: gfx mid-rate NEG, textured chroma)
+bc8f1e1 04:55 SA20: region plan results; drift release gate and moving-step floor; parser fix
+b2215e8 04:56 SA20: conditions on moving-step floor and drift release
+f0fba4c 04:57 SA20: accumulated-since-last-write still test with M=3 hysteresis; change histogram
+05e97b0 04:57 SA20: per-block still state memory form
+99d855e 04:57 SA20: queue scripts
+569a25b 05:07 SA20: plan comparison with drift release: both fail churn; gate mislabels are the root
+f59095a 05:18 SA20: accumulated still test results: frozen passes, noise and pans fail; today on synthetic clips
+e30f1f3 05:18 SA20: higher-confidence still gate with release hysteresis and catch-up step floor
+b38ded9 05:25 SA20: g2 gate passes noisy frozen; pans and gfx fail; motion-aware hold + floor release queued
+c978d94 05:25 SA20: queue script, ignore live today eval
+b5c9eee 05:26 SA20: pan bound and shift-test conditions
+4fa0112 05:26 SA20: no-hold control on pans
+a9cf319 05:32 SA20: status snapshot for the owner; motion-aware hold results
+0b29c20 05:33 SA20: per-connected-region catch-ups
+897a846 05:34 SA20: windowed re-hold with reconstruction-side release; per-region catch-up arm
+4e6ed60 05:36 SA20: per-region catch-up on gfx; hold costs NEG on grainy still content
+5e68869 05:37 SA20: grain-follow arm, boil/ants vs source
+02e0d5f 05:37 SA20: today's boil/ants vs source
+2acf829 05:40 SA20: grain-follow arm matches today on gfx f2, below-source boil
+463ce36 05:40 SA20: per-transition ants; grain-follow with free ramp
+59efec9 05:42 SA20: windowed hold fails the no-hold control on noisy pans
+ee2e3a3 07:40 SA20: grain-follow oscillates on noisy frozen; slew-limited arm queued
+c0d3168 07:42 SA20: asymmetric slew limit; pulse pass criteria
+f08290f 07:42 SA20: split still rule (exact-equality hold + grain-follow), queued
+75bf9c5 09:15 SA20: owner working guidance on never-away (not a rule); region steps dropped per the record
+5a3fc46 09:19 SA20: rail clips: legal, smudge groups no worse than today; corrected never-away claim
+9a52c8f 09:43 SA20: split-rule results recorded
+93ef1f6 09:44 SA20: watchdog; intra lever scores (ladder killed, kept rounding best on F003)
+6ff8fa7 09:44 SA20: queue kept-rounding + rho 0.42 + cm combination
+46f18cc 09:45 SA20: range-clamped interpolation arm
+4a8e601 09:45 SA20: noise-floor sweep, rail rerun spec, downstream-of-clip measurement registered
+cdf836d 09:46 SA20: downstream-of-clip error lower than rail-free everywhere
+72d4326 10:56 SA20: range clamp killed; kept rounding + rho .42 best intra so far
+3769721 11:03 SA20: DESIGN.md made self-contained (summary, glossary, no references outside the pack)
+5adcadb 11:04 SA20: grain-follow noise-floor sweep

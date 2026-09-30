@@ -2,7 +2,7 @@
 
 This document is self-contained. It refers only to the project pack (PROJECT_CONSTRAINTS.md, the ledger
 LEDGER_SANDBOX_v2.md with its S5.xxx sections, HANDOFF_2026-09-28.md, earlier designers' SAxx records) and to the
-owner's footage. "The bench" means SA20's own measurement scripts (Python; not part of the pack). Sections §0-§G below
+owner's footage. "The bench" means SA20's own measurement scripts, shipped with this document together with REPRODUCE.md (bench/, tools/, queues/, history/). Sections §0-§G below
 are the running log in the order work happened; this front section is the current summary.
 
 ## Summary (kept current)
