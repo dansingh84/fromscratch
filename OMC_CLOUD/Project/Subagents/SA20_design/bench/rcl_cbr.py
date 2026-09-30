@@ -17,6 +17,7 @@ TRAIN = [('cine_4k_A006', 2), ('cine_A005C021', 2), ('gfx444_F003C012', 3)]
 RATES = [float(r) for r in os.environ.get('RATES', '0.5,1.0,1.5,2.0,2.5,3.0,4.0').split(',')]
 TEST, ARM = sys.argv[1], sys.argv[2]
 TOK = ARM.split('_'); cm = float(TOK[0][2:]); CL = 'cl' in TOK
+HY = float([t[2:] for t in TOK if t.startswith('hy')][0]) if any(t.startswith('hy') for t in TOK) else 0  # hysteresis kappa
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
 GRID = [2 ** (e / 4) for e in range(-8, 28)]
@@ -36,7 +37,9 @@ def cost(SY, key0, tab):
             v = q[c == cc]; h = tab.get(key0 + key + (cc,), np.zeros(129)) + 1; p = h / h.sum()
             bits += -np.log2(p[np.clip(v, -64, 64) + 64]).sum(); esc = np.abs(v) > 63; bits += (12 + 2 * np.log2(np.abs(v[esc]))).sum()
     return bits
-def code_frame(x, ref, Q):
+def expand(b, shp, bw):   # per-block map (16 rows x bw cols) -> per-sample map
+    return np.repeat(np.repeat(b, 16, 0), bw, 1)[:shp[0], :shp[1]]
+def code_frame(x, ref, Q, st=None):
     """x = source planes, ref = previous reconstruction (None = intra). returns [(key0, SY)], recon"""
     if ref is None: Ps = [np.zeros_like(p) for p in x]; mode = 'intra'
     else:
@@ -46,7 +49,10 @@ def code_frame(x, ref, Q):
         SY = []; Yd = None
         if pl and CL:
             Yf = out[0]; Yd = ((Yf[:, 0::2] + Yf[:, 1::2] + 1) >> 1) - ((Ps[0][:, 0::2] + Ps[0][:, 1::2] + 1) >> 1)
-        y = po(p, Q * (cm if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P)[1]
+        HT = None
+        if HY and st is not None and mode == 'inter':
+            bw = 16 if pl == 0 else 8; HT = (HY * expand(st[pl][0], p.shape, bw), expand(st[pl][1], p.shape, bw))
+        y = po(p, Q * (cm if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT)[1]
         out.append(y); sy.append(((min(pl, 1), mode), SY))
     return sy, out
 tpath = os.path.join(OUT, 'tables_%s.pkl' % ARM)
@@ -78,18 +84,28 @@ def neg3(src, dec):
 def psnr(a, b): return 10 * np.log10(1023.0 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
 src = A + TEST + '_1280x720_422_10.yuv'; X = [read(src, W, H, f) for f in range(3)]
 for R in RATES:
-    budget = R * W * H; ref = None; rec = []; info = []; spl = []
+    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None
+    NBY, NBX = (H + 15) // 16, (W + 15) // 16
     for t, x in enumerate(X):
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
         lo, hi = 0, len(GRID) - 1; best = None
         while lo <= hi:
             mid = (lo + hi) // 2; Q = GRID[mid]
-            sy, y = code_frame(x, ref, Q)
+            sy, y = code_frame(x, ref, Q, st)
             b = sum(cost(SY, key0, TABS[Q]) for key0, SY in sy) + (10 * NBLK if t else 0)
             if b <= budget: best = (Q, b, y, sy); hi = mid - 1
             else: lo = mid + 1
-        if best is None: Q = GRID[-1]; sy, y = code_frame(x, ref, Q); best = (Q, sum(cost(SY, k, TABS[Q]) for k, SY in sy), y, sy)
-        Q, b, y, sy = best; ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
+        if best is None: Q = GRID[-1]; sy, y = code_frame(x, ref, Q, st); best = (Q, sum(cost(SY, k, TABS[Q]) for k, SY in sy), y, sy)
+        Q, b, y, sy = best
+        # encoder state per block: step and ladder of the last write (block changed = written)
+        if st is None: st = [(np.full((NBY, NBX), Q * (cm if k else 1)), np.full((NBY, NBX), 0.7)) for k in range(3)]
+        else:
+            for k in range(3):
+                bw = 16 if k == 0 else 8; ch = (y[k] != ref[k]); hh, ww = NBY * 16, NBX * bw
+                pad = np.zeros((hh, ww), bool); pad[:ch.shape[0], :ch.shape[1]] = ch
+                wr = pad.reshape(NBY, 16, NBX, bw).any(axis=(1, 3))
+                st[k][0][wr] = Q * (cm if k else 1); st[k][1][wr] = FI
+        ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
     fn = os.path.join(OUT, '%s_%s_%.1f.yuv' % (TEST, ARM, R))
     with open(fn, 'wb') as fo:
         for fr in rec:

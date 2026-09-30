@@ -26,3 +26,5 @@ prores_sample cm1 Q=19.027 bpp 0.7310 NEG 93.087 PSNR 48.69/53.02/51.67 oob 0
 prores_sample cm1_ctx Q=19.027 bpp 0.6394 NEG 93.087 PSNR 48.69/53.02/51.67 oob 0
 prores_sample cm1 Q=22.627 bpp 0.6130 NEG 92.299 PSNR 47.75/52.42/51.16 oob 0
 prores_sample cm1_ctx Q=22.627 bpp 0.5324 NEG 92.299 PSNR 47.75/52.42/51.16 oob 0
+prores_sample cm1 Q=26.909 bpp 0.5091 NEG 91.219 PSNR 46.79/51.80/50.56 oob 0
+prores_sample cm1_ctx Q=26.909 bpp 0.4391 NEG 91.219 PSNR 46.79/51.80/50.56 oob 0
