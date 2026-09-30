@@ -90,3 +90,30 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   +2.66/+0.46/+1.15. N4 T1 (earlier run): ~88.7 NEG @0.5 (worse than PO) -> dropped.
   Integer 5/3 averaging reference (LL DPCM, rho 0.35): @0.5 +1.14, +2.52/+0.68/+0.48; @1.0..4.0 NEG -0.42..-0.57.
   -> Form-(i) intra >= today on NEG at every measured owner rate on cine; the failing item is chroma at 0.5-1.5.
+- G2 all three clips, PO intra (real code lengths) minus today's frame 0, NEG then PSNR Y/Cb/Cr (out/rcl2/intra_vs_today.txt):
+  cine: 0.5 +0.90 (+1.55/-0.81/-0.95), 1.0 +0.07 (+2.11/-0.64/-0.59), 1.5 +0.17 (+2.70/-0.26/-0.25),
+        2.0 +0.13 (+2.47/-0.09/+0.13), 2.5 +0.11 (+2.63/+0.01/+0.62), 3.0 +0.08 (+2.66/+0.46/+1.15).
+  gfx:  0.5 +1.12 (+2.60/+0.23/-0.07), 1.0 +0.15 (+0.88/+0.01/-0.48), 1.5 +0.04 (+0.32/+0.33/-0.38),
+        2.0 +0.02 (+0.40/+0.72/-0.01), 2.5 -0.01 (-0.14/+1.09/+0.25), 3.0 0.00 (-0.21/+1.52/+0.76), 4.0 0.00 (-0.29/+2.16/+1.67).
+  prores: 0.5 +0.85 (+1.57/-0.88/-0.98), 1.0 +0.18 (+2.22/-0.67/-0.77), 1.5 +0.18 (+2.73/-0.40/-0.34),
+        2.0 +0.16 (+2.60/-0.20/+0.08), 2.5 +0.14 (+2.72/-0.10/+0.61), 3.0 +0.11 (+2.75/+0.39/+1.03), 4.0 +0.13 (+2.18/+1.23/+2.18).
+  -> NEG parity or better at every owner rate on all 3 clips (gfx 2.5-4.0 exactly at parity); failing items:
+     chroma on cine/prores 0.5-2.0, gfx Cr 1.0-1.5, gfx luma 2.5-4.0 (-0.14..-0.29 dB).
+- G3 3-frame PROXY sweep (entropy), frame 2, DP = form (i) end to end, vs today's frame 2 (real):
+  cine DP 94.18/96.22/97.10/97.39/97.69/97.84/98.01 vs today 94.20/96.11/97.05/97.41/97.64/97.72/97.92 at 0.5..4.0;
+  PSNR @0.5 47.17/52.17/50.49 vs 46.38/53.29/51.86. (proxy vs real: indicative only; real-code 3-frame run queued.)
+- G4 chroma allocation arms (pre-registered pass: ONE fixed chroma-step curve of the step, same for all clips, all planes
+  AND NEG >= today after a 1 % header deduction, every rate 0.5-4.0, 3 clips). out/rcl_fi/intra_vs_today.txt.
+  cm = chroma step multiplier; _cl = chroma-from-final-luma (alpha per 16x16 block, eighths).
+  At 1.0 bpp (ours - today, NEG; Cb/Cr): cine cm1 +0.07; -0.64/-0.59 | cm0.7 -0.21; +0.33/+0.36
+                                         gfx  cm1 +0.15; +0.01/-0.48 | cm0.7 -0.14; +0.73/+0.07
+                                         prores cm1 +0.18; -0.67/-0.77 | cm0.7 -0.13; +0.27/+0.16
+  Interpolated to the cm where the worse chroma plane reaches today: NEG -0.12 cine, -0.10 gfx, -0.08 prores, before
+  the header charge. 1.5 bpp behaves the same way (cine cm0.7 -0.09 NEG, cm1 Cb -0.26). 0.5 passes with cm0.7
+  (cine +0.35, Cr +0.04); 2.0-4.0 pass or are within reach of a curve rising above 1 (gfx 4.0 chroma +2.2/+1.7
+  funds luma -0.29).
+  -> VERDICT: allocation alone FAILS the pre-registered rule at 1.0-1.5 on all 3 clips. The intra coder sits on a
+     luma/chroma frontier ~0.1 NEG below today's point there; it needs ~3-5 % more coding efficiency, which no
+     allocation curve supplies. Chroma-from-luma (_cl): +/-0.02 NEG, +/-0.1 dB chroma = no effect -> KILLED.
+  Next intra lever: entropy-model context from decoded data only (1-bit neighbour context -> neighbour bit x
+  prediction-support activity normalised by the level step, activity read from this frame's final coarser samples).

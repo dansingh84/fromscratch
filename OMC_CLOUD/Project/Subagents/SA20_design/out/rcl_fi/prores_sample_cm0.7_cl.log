@@ -1,0 +1,13 @@
+prores_sample cm0.7_cl Q=3.364 bpp 4.1247 NEG 96.159 PSNR 59.61/63.59/63.41 oob 0
+prores_sample cm0.7_cl Q=4.000 bpp 3.9207 NEG 96.083 PSNR 59.30/62.74/62.46 oob 0
+prores_sample cm0.7_cl Q=4.757 bpp 2.9906 NEG 95.883 PSNR 57.10/60.45/59.74 oob 0
+prores_sample cm0.7_cl Q=5.657 bpp 2.8813 NEG 95.790 PSNR 56.61/60.12/59.47 oob 0
+prores_sample cm0.7_cl Q=6.727 bpp 2.1837 NEG 95.543 PSNR 54.94/58.34/57.28 oob 0
+prores_sample cm0.7_cl Q=8.000 bpp 2.0034 NEG 95.276 PSNR 53.86/58.04/56.93 oob 0
+prores_sample cm0.7_cl Q=9.514 bpp 1.5905 NEG 95.055 PSNR 52.75/56.88/55.55 oob 0
+prores_sample cm0.7_cl Q=11.314 bpp 1.3733 NEG 94.747 PSNR 51.74/56.28/54.82 oob 0
+prores_sample cm0.7_cl Q=13.454 bpp 1.1592 NEG 94.239 PSNR 50.79/55.59/54.01 oob 0
+prores_sample cm0.7_cl Q=16.000 bpp 0.9524 NEG 93.652 PSNR 49.69/54.92/53.39 oob 0
+prores_sample cm0.7_cl Q=19.027 bpp 0.8097 NEG 93.087 PSNR 48.69/54.30/52.73 oob 0
+prores_sample cm0.7_cl Q=22.627 bpp 0.6739 NEG 92.299 PSNR 47.75/53.68/52.21 oob 0
+prores_sample cm0.7_cl Q=26.909 bpp 0.5600 NEG 91.219 PSNR 46.79/53.11/51.65 oob 0
