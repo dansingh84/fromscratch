@@ -119,3 +119,11 @@ d983951 12:16 SA20: visual check outputs (G78, first clip)
 72b96d0 12:21 SA20: section H upstream redesign - absolute bar, grid and seam causes traced to the static lattice and the block partition
 e8da954 12:25 SA20: T1 scan screen killed on efficiency (phase-flat, directional); structural result H5; T2 candidate H6
 d79a787 12:26 SA20: pending outputs (visual check runs, T1 tables)
+456c03a 12:28 SA20: summary rewritten for section H, REPRODUCE map for G76-G81, bundle includes t1 sources
+e031384 12:30 SA20: H7 T2/T3 withdrawn (DOL family, gen-2 exactness), H8 requirement conflict
+71ddd68 12:30 SA20: pending run outputs
+c74fa0f 12:31 SA20: G78 visual check outputs, all six clips (pyramid engine, superseded by section H)
+ec28a25 12:32 SA20: H9 ladder allocation vs per-phase error spread
+60afeb9 12:35 SA20: H10 escape audit, G-b test script
+c875dca 12:36 SA20: ignore T1 build and table caches; pending files
+7b479f9 12:39 SA20: G-b diagnostics (motion field vs block MC, inter leaf statistics)

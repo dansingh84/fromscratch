@@ -67,7 +67,8 @@ The exact command lines of every batch are in queues/q_*.sh (one script per batc
 | G78, G78a | queues/q_vis.sh, tools/visual_check.py, tools/diag_phase.py (env F, RHO, RHOK) |
 | H1 | `F=0.7 RHO=0.42 RHOK=0.5 python3 tools/diag_phase.py cine_A005C031 16 1.0` (and F=1.0, RHO 0.5 / 0.25) |
 | H4 (T1) | `cd t1; gcc -O2 -shared -fPIC -o t1core.so t1core.c -lm; CM=1.4 RHO=0.2 RATES=0.5,1.0 python3 t1_intra.py` (CM 0.5-1.4, RHO 0.2-0.42) |
-| H6, G81 (T2) | `cd t1; D=4 KA=0.5 ALPHA=0.5 RHO=0.42 python3 t2_intra.py`; screen queues/q_t2.sh |
+| H10, H11 (G-b) | `cd t1; ALPHA=0 CLIPS=cine_A005C031,gfx444_B001C001,prores_sample RATES=0.5,1.0,2.0 python3 t1_seq.py` (ALPHA=1 for the dropped variant); `python3 diag_pred.py CLIP`; `ALPHA=1 python3 diag_inter.py cine_A005C031 17.45` |
+| H6, G81 (T2, withdrawn H7) | `cd t1; D=4 KA=0.5 ALPHA=0.5 RHO=0.42 python3 t2_intra.py`; screen queues/q_t2.sh |
 
 ## 6. Code state per entry
 The bench changed during the session (bugs found and fixed are recorded in DESIGN.md, e.g. G15, G37, G53). Each

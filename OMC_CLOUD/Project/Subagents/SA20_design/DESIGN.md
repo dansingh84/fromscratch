@@ -19,10 +19,14 @@ Current state (2026-09-30, §H): the pyramid engine below FAILS the owner's arti
   representation, so no setting or smoothing fixes them.
 - T1 (single-level causal scan, same process at every sample): grid-free by construction, killed on efficiency
   (-1.8..-3.1 NEG vs the pyramid at 0.5 bpp; H4).
-- T2 (current candidate, H6): an auxiliary coarse signal (not output samples) coded first; every output sample
-  written once as clip(U + alpha x MED(detail) + leaf) with U the upsampled auxiliary, the same process at every
-  position. Never-away per sample holds as before. First cell (cine_A005C031 intra): NEG 89.76 / 93.88 at 0.5 / 1.0
-  (today 89.82 / 93.88, pyramid 91.54 / 94.28), phase statistics 1.01-1.03. Parameter screen G81 running.
+- T2 (auxiliary coarse signal, H6): withdrawn (H7). It is the DOL family, killed on generation-2 exactness because
+  the auxiliary cannot be re-derived from the picture.
+- Requirement conflict (H8, audited H10): exactness, never-away, no pattern and efficiency cannot all hold for intra
+  coding with any design tried so far. Pyramid fails no-pattern, T1 fails efficiency, T2 fails exactness.
+- Live route G-b (H10, H11): the same per-sample process in every frame. Intra = T1 (only in the ramp frames and
+  heals); inter = motion-compensated reference P from a per-sample motion field (no block edges) plus a per-sample
+  leaf, final = clip(P + leaf). Pre-registered: frame 2 after a cut vs today on all clips, a heal test, H0 on
+  inter frames. Running.
 - Still/grain rule (G60-G77): built on block state; must be rebuilt per sample under §H before it counts.
 - Legality record that carries over: per-sample never-away form, 0 out-of-range, rail behaviour (G67, G72).
 - Not yet run for T2: inter (motion without any partition), CBR, 10-generation chains, the full H0 gate, renders.
@@ -960,3 +964,12 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   cut vs today on all clips at 0.5-4.0 (kill: more than 0.5 NEG below the pyramid; pass: >= today), a heal test
   (slice lost at N, healed at N + RT + 1: local NEG / PSNR vs today + render), H0 on inter frames.
   Script: t1/t1_seq.py (env ALPHA 1 = MED on the residual, 0 = P only; RHO; CM).
+- H11 G-b first cell and the inter predictor (t1/t1_seq.py, t1/diag_pred.py, t1/diag_inter.py; cine_A005C031):
+  - motion model: per-sample bilinear field predicts as well as 16x16 block MC (mean |x1 - P| from the source
+    frame 0: 3.49 vs 3.52; zero motion 8.14). B001 1.51/1.51, prores 3.49/3.46.
+  - alpha = 1 (MED on neighbours' residuals): frame 2 @1.0 NEG 92.57 vs today 96.11 (-3.53), Y PSNR 41.97 vs 49.34.
+    Cause: each coded correction is carried into the next samples' predictions along the scan, so the final error
+    exceeds the prediction's own (luma 6.12 vs 3.49; chroma 4.97 vs 1.05 at step 17.45) and 14 % of luma leaves
+    fire. That is the streak mechanism itself; spatial prediction in inter frames is dropped.
+  - alpha = 0 (prediction = P only, no spatial chain, no scan direction): luma 1.0 % nonzero leaves, 0.069 bits per
+    sample at step 17.45. Full run on the 3 test clips at 0.5/1.0/2.0 in progress.
