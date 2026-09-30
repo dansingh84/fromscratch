@@ -1,0 +1,3 @@
+prores_sample cm0.85_lg1 Q=3.364 bpp 4.0186 NEG 96.159 PSNR 59.61/62.82/62.49 oob 0
+prores_sample cm0.85_lg1 Q=4.000 bpp 3.4095 NEG 96.083 PSNR 59.30/60.57/59.74 oob 0
+prores_sample cm0.85_lg1 Q=4.757 bpp 2.9563 NEG 95.883 PSNR 57.10/60.23/59.50 oob 0
