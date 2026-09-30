@@ -453,3 +453,18 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
       noisy-frozen churn must stay 0);
   (ii) rho 0.42 must REMOVE A006's smudge groups (checked in ieval_rho);
   (iii) a static-control arm against the bits-only trap.
+- G47 A006 @1.0 with rho 0.42 (intra_eval at the nearest logged step, 1.07 bpp; not rate-matched):
+  - smudge groups ours Y0/Cb0/Cr0 (was Y1/Cb1/Cr2), today 0/0/0 -> the goal-1 failure is removed on this cell;
+  - VIF s1..s3 -0.002/-0.004/-0.001 (was -0.021/-0.015/-0.008); ADM s2/s3 +0.002/+0.001;
+  - band ratio Y 0.51 0.53 0.75 1.11 1.12 1.13 (coarse was 1.39..1.71); Cb coarse 1.22..1.79, Cr 1.47..2.58;
+  - PSNR Y +2.55, Cb -0.38, Cr -1.29.
+  The rate-matched NEG (interpolated, G45) is +0.11. Chroma coarse error remains the open item -> fold into the single
+  chroma-step function (nested).
+  SA20Q: rho is a legitimate encoder constant: exactness is free (the canonical reading does not use rho; rho < 0.5
+  is idempotent, 0.5 needs a tie rule); the CBR estimate must use the same rho; tables per rho arm (the bench already
+  retrains: RHO also applies in training). Remaining checks per arm:
+  - the 2x2 (base vs S16 contexts x rho 0.35/0.42);
+  - Q and bits per level;
+  - texstat vs SOURCE (grain amplification);
+  - inter still churn;
+  - a static control.
