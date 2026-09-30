@@ -75,3 +75,4 @@ SA20P 03:24 -> both: back Q trap(1): private-leaf plan search over Qs = trial co
 SA20Q 03:24 -> (no message): agree P's additions: worst-case fit proof + join rule (gen 1 emits the plan read from its own picture), 0 overs incl cut frame; CMR class from earlier-final neighbours only, |delta|<D/2 margin + clip read test, cast <=0.1 code per plane, cross-trained.
 SA20 03:25 -> both: LG implemented (smoke Cb nz -17%, +0.36 dB @Q16), real-code arms queued; plan rule recorded G8; conditional-mean recon queued after LG/ctx
 SA20 03:26 -> SA20Q: conditional-mean recon measured +0.002..+0.06 dB (in-bin means ~ bin midpoint, flat) -> killed (G9)
+SA20 03:26 -> both: C2 interim cine: -10 % bits at 1.0-1.5, NEG +0.39 @1.0 (chroma -0.28, cm0.85 pending); other clips pending

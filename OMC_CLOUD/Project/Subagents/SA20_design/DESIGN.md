@@ -151,3 +151,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Q8 53.662 -> 53.723 (+0.06), Q16 49.410 -> 49.412, Q32 45.449 -> 45.463. Per-|q| only: +0.004 / -0.05 dB.
   In-bin means sit at +0.0..+0.16 step, near the dead-zone bin midpoint (+0.15) in every class: the in-bin
   distribution is nearly flat, so no class split carries a usable offset. -> KILLED (< 0.1 dB at every step).
+- G10 context lever C2 (rcl_ctx.py, activity x neighbour context, static tables from the held-out training clips),
+  cine cm1, interim: bit saving 7-13 % across Q (9.7-10.6 % at 1.0-1.5 bpp). Versus today, NEG then Y/Cb/Cr:
+  @0.5 +1.91 (+2.27/-0.25/-0.42), @1.0 +0.39 (+2.79/-0.28/-0.27), @1.5 +0.28 (+3.29/+0.15/+0.21), @2.0 +0.24,
+  @2.5 +0.21, @3.0 +0.14, @4.0 +0.08 (all planes >= today from 1.5 up). Pending: gfx, prores, cm0.85 (chroma at 0.5-1.0),
+  packet-edge clamping, table Mbit, 2->1 cross-training.
