@@ -1,0 +1,22 @@
+  frame 0 bpp 0.550
+  frame 1 bpp 0.451
+  frame 2 bpp 0.488
+  frame 3 bpp 0.448
+  frame 4 bpp 0.396
+  frame 5 bpp 0.404
+  frame 6 bpp 0.419
+  frame 7 bpp 0.429
+  frame 8 bpp 0.432
+  frame 9 bpp 0.443
+  frame 10 bpp 0.483
+  frame 11 bpp 0.396
+  frame 12 bpp 0.439
+  frame 13 bpp 0.452
+  frame 14 bpp 0.469
+  frame 15 bpp 0.497
+  frame 16 bpp 0.466
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA12_design/notes/seq.py", line 212, in <module>
+    ps = [[10 * math.log10(1023 ** 2 / float(((R[i] - F[i]) ** 2).mean())) for i in range(3)] for R, F in zip(recs, frames)]
+                           ~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ZeroDivisionError: division by zero

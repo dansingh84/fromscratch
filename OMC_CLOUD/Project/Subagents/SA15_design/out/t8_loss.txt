@@ -1,0 +1,11 @@
+loss t=0 decoder!=encoder samples Y/Cb/Cr=[0, 0, 0] damaged Y rows=None psnr dec=34.49 enc=34.49
+loss t=1 decoder!=encoder samples Y/Cb/Cr=[0, 0, 0] damaged Y rows=None psnr dec=36.55 enc=36.55
+loss t=2 decoder!=encoder samples Y/Cb/Cr=[0, 0, 0] damaged Y rows=None psnr dec=37.27 enc=37.27
+loss t=3 decoder!=encoder samples Y/Cb/Cr=[0, 0, 0] damaged Y rows=None psnr dec=37.50 enc=37.50
+loss t=4 decoder!=encoder samples Y/Cb/Cr=[23914, 12054, 11456] damaged Y rows=(np.int64(314), np.int64(341)) psnr dec=37.54 enc=37.73
+loss t=5 decoder!=encoder samples Y/Cb/Cr=[27843, 14691, 14523] damaged Y rows=(np.int64(298), np.int64(357)) psnr dec=38.01 enc=38.18
+  refresh frame bits / normal = 1.136
+loss t=6 decoder!=encoder samples Y/Cb/Cr=[1455, 1132, 757] damaged Y rows=(np.int64(287), np.int64(309)) psnr dec=38.41 enc=38.41
+loss t=7 decoder!=encoder samples Y/Cb/Cr=[1878, 2755, 1057] damaged Y rows=(np.int64(270), np.int64(313)) psnr dec=38.66 enc=38.66
+loss t=8 decoder!=encoder samples Y/Cb/Cr=[2435, 3693, 1316] damaged Y rows=(np.int64(270), np.int64(321)) psnr dec=38.67 enc=38.67
+rc=0

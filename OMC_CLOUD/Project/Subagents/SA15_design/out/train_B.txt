@@ -1,0 +1,7 @@
+trained cityalley_1920x1080_422_10.yuv
+trained bosphorus_1920x1080_422_10.yuv
+trained readysetgo_1920x1080_422_10.yuv
+trained trafficlightsL_1920x1080_422_10.yuv
+trained winterdriveL_1920x1080_422_10.yuv
+keys 20 symbols 124416000
+rc=0

@@ -1,0 +1,57 @@
+SA11 TEMPORAL STABILITY -- PART B: THE CLEAN TEST.  2026-09-27.  Numbers only.
+Binary: rtree4 omc_enc/omc_dec (codec.c 3f5b6b60a18831d46c33f7236a19e641, omc_enc ed9694f4...); off-path 6/6 IDENTICAL
+after the build (SA11_plan/ident3); the only addition is a print-only per-slice stat (OMC_U_SLSTAT: payload bits used,
+budget, slice type, plan held, inter-band count, estimated bits by band group from the step-2 cost tables).
+Settings = shipped defaults: OMC_R1 unset, --gamut-strict not given (library default ON), fill off, refresh R=8,
+plan hysteresis 3, calm on, 8 frames, 4:2:2 10-bit.  Inputs: frame 0 of each master repeated 8x byte-exact
+(dng_1280x720, cf_gfx_448x256, long/spotrobotL_1920x1080; built with head -c / cat, no crop; deleted after).
+Driver notes/tb.sh, analysis notes/tb_an.py; full per-frame tables tb/<cell>.txt.
+"changed" = decoded sample differs from the previous decoded frame by >= 1 code; amplitude bins 1 | 2-3 | >=4.
+"refresh rows" = rows of slices coded intra on that frame (the rolling refresh), "inter rows" = the rest.
+
+1. STILL INPUT (source change = 0 everywhere).  Luma, frame pair 6->7 (last); all pairs in tb/*.txt
+ cell         changed Y        [1 | 2-3 | >=4]              Cb       Cr      refresh rows / inter rows changed (Y)
+ gfx @0.5     75,553 (65.9 %)  [19,608|25,860|30,085] max 192  58.2 %   60.3 %   11,276/14,336 (78.7 %) | 64,277/100,352 (64.1 %)
+ gfx @1.0     84,272 (73.5 %)  [25,015|31,189|28,068] max 128  69.8 %   70.7 %   13,126/14,336 (91.6 %) | 71,146/100,352 (70.9 %)
+ dng720 @0.5  662,242 (71.9 %) [183,336|242,098|236,808] max 222  68.9 %  67.1 %  98,348/112,640 (87.3 %) | 563,894/808,960 (69.7 %)
+ dng720 @1.0  701,665 (76.1 %) [260,297|271,786|169,582] max 97   74.7 %  72.9 %  101,688/112,640 (90.3 %) | 599,977/808,960 (74.2 %)
+ spot @0.5    1,597,055 (77.0 %) [675,057|622,092|299,906] max 363 72.5 % 71.2 % 210,753/245,760 (85.8 %) | 1,386,302/1,827,840 (75.8 %)
+ spot @1.0    1,244,461 (60.0 %) [744,692|357,936|141,833] max 334 53.6 % 51.4 % 204,440/245,760 (83.2 %) | 1,040,021/1,827,840 (56.9 %)
+ Frame pair 0->1 (first), Y changed: gfx 85.3 / 90.5 %, dng720 85.3 / 89.7 %, spot 81.4 / 81.7 % (@0.5 / @1.0).
+ CONVERGENCE: NOT converged on 6/6 cells (every frame pair through 6->7 changes 51-77 % of samples on every plane).
+ Quality vs source (Y dB, f0 -> f3 -> f7): gfx@0.5 26.46 -> 30.56 -> 31.48; gfx@1.0 31.82 -> 36.43 -> 37.38;
+   dng720@0.5 31.43 -> 36.12 -> 36.00; dng720@1.0 36.01 -> 40.07 -> 39.76; spot@0.5 37.98 -> 42.26 -> 42.69
+   (f6 39.84); spot@1.0 42.84 -> 46.26 -> 45.90 (f5 42.68).  I.e. the picture improves over frames 1-3 (inter
+   refinement), then plateaus/oscillates while ~60-77 % of samples keep changing.
+
+2. BITS ON THE STILL INPUT (payload bits used / slice budget; the remainder is CBR padding)
+ cell        f0 (all intra)   f1                f3                f7: refresh slices used/budget | inter slices used/budget | held/inter slices
+ gfx @0.5    44,902           40,461            23,742            9,419/9,679 (4 sl)   | 8,740/41,532 (28 sl)     | 26/28
+ gfx @1.0    102,219          95,245            49,089            20,063/20,862 (4)    | 19,214/93,835 (28)       | 25/28
+ dng720 @0.5 425,867          401,796           239,188           86,433/88,193 (11)   | 96,778/388,691 (79)      | 68/79
+ dng720 @1.0 886,534          866,815           390,644           174,982/180,445 (11) | 142,693/807,662 (79)     | 73/79
+ spot @0.5   1,010,046        898,075           596,435           186,560/192,244 (8)  | 331,932/893,690 (60)     | 47/60
+ spot @1.0   2,062,175        1,914,349         1,016,047         371,612/387,401 (8)  | 476,766/1,810,119 (60)   | 50/60
+ At f7 on a still input the inter slices (plans held on 58-92 %) still spend 8.7k-477k bits per frame, i.e. 19-37 %
+ of their budget, and refresh slices (12-13 % of slices) spend 45-56 % of the frame's used bits.  Estimated split
+ of the f7 inter spend by band group (LL / bands 1-3 / 4-6 / 7-9): gfx@0.5 2,450/2,647/1,248/2,502;
+ dng720@0.5 20,927/36,040/24,733/30,428; spot@1.0 17,542/186,801/150,921/166,014 (all groups, not only level 1).
+ Inter-coded bands (sum over slices, f7): gfx@0.5 645, dng720@0.5 2,124, spot@1.0 1,741 of 30 per slice.
+
+3. REAL 8-FRAME dng720 @0.5, SOURCE-STATIC SAMPLES ONLY, by Chebyshev distance to the nearest changing source sample
+ Source-static samples per pair: Y 32,208-37,447 of 921,600 (3.5-4.1 %), Cb ~11.3k, Cr ~16.5k.
+ EVERY source-static sample lies within 8 samples of a changing source sample: bins 9-32 and >32 are EMPTY
+ (0 samples) on all 7 pairs and all planes -- the static samples are isolated points inside a changing (noisy)
+ field, so this clip cannot separate spill-over from instability.
+ Totals over 7 pairs (<= 8 bin): Y 222,515/243,073 changed (91.5 %; >= 4 codes 59.2 %), Cb 74,301/80,093
+ (92.8 %; 61.0 %), Cr 102,337/115,029 (89.0 %; 50.5 %)  -- reproduces W6.
+ Bits: f2-f7 total used 424,636-425,531 of ~462k budget; inter slices 341,522-348,424 per frame, 0 plans held.
+
+4. READING (numbers only)
+ - On a truly still picture the decode does NOT settle: 51-77 % of samples change every frame at frame 7 on all
+   three contents and both rates; 11-40 % of those changes are >= 4 codes (luma); refresh rows 79-92 %, inter rows
+   57-76 %.  So the W6 figure is not (only) spill-over: the still-input test shows the same order of churn.
+ - The inter rows' churn with held plans matches LEDGER_v5_3_5 B2.1/B2.5 ("~15 % churn floor that never
+   converges" was measured as > 6-code tail; here counted at >= 1 code) and the refresh rows match the period-8 pulse.
+ - Bitrate: the still input's inter slices re-send 19-37 % of their budget every frame although the source is
+   unchanged; the remaining 63-81 % of the inter budget becomes padding.

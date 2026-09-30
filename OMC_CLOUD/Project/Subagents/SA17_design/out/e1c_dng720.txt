@@ -1,0 +1,23 @@
+dng720 53     D0= 24 bpp=3.101 PSNR 43.31/43.00/43.11  rowspread4 1.7/3.3/4.7
+dng720 53     D0= 36 bpp=2.054 PSNR 40.87/39.87/40.23  rowspread4 2.9/8.2/10.8
+dng720 53     D0= 54 bpp=1.272 PSNR 38.95/37.50/38.34  rowspread4 2.3/15.4/14.6
+dng720 53     D0= 80 bpp=0.822 PSNR 37.08/36.24/37.36  rowspread4 2.0/14.4/8.0
+dng720 53     D0=120 bpp=0.548 PSNR 34.94/35.56/36.60  rowspread4 2.3/7.1/3.1
+dng720 26     D0= 24 bpp=3.126 PSNR 43.27/42.96/43.07  rowspread4 0.3/0.3/0.4
+dng720 26     D0= 36 bpp=2.085 PSNR 40.87/39.86/40.24  rowspread4 0.3/0.3/0.7
+dng720 26     D0= 54 bpp=1.295 PSNR 38.94/37.54/38.38  rowspread4 0.3/0.5/1.7
+dng720 26     D0= 80 bpp=0.846 PSNR 37.08/36.29/37.39  rowspread4 0.5/2.4/3.8
+dng720 26     D0=120 bpp=0.571 PSNR 34.92/35.60/36.67  rowspread4 0.5/7.5/6.2
+dng720 53:97m2 D0= 24 bpp=3.124 PSNR 43.27/42.95/43.07  rowspread4 0.8/1.4/2.6
+dng720 53:97m2 D0= 36 bpp=2.091 PSNR 40.86/39.87/40.23  rowspread4 3.1/7.7/10.4
+dng720 53:97m2 D0= 54 bpp=1.318 PSNR 38.97/37.52/38.34  rowspread4 2.3/14.3/14.4
+dng720 53:97m2 D0= 80 bpp=0.842 PSNR 37.08/36.23/37.35  rowspread4 2.0/15.9/9.8
+dng720 53:97m2 D0=120 bpp=0.557 PSNR 34.92/35.56/36.60  rowspread4 2.1/6.8/2.6
+dng720 26:97m2 D0= 24 bpp=3.179 PSNR 43.30/43.02/43.12  rowspread4 0.2/0.2/0.5
+dng720 26:97m2 D0= 36 bpp=2.120 PSNR 40.86/39.84/40.22  rowspread4 0.3/0.3/0.6
+dng720 26:97m2 D0= 54 bpp=1.335 PSNR 38.94/37.53/38.37  rowspread4 0.4/0.4/1.2
+dng720 26:97m2 D0= 80 bpp=0.866 PSNR 37.06/36.28/37.38  rowspread4 0.5/1.9/3.5
+dng720 26:97m2 D0=120 bpp=0.580 PSNR 34.92/35.60/36.67  rowspread4 0.4/7.0/6.3
+BD-rate 26 vs 53 on dng720: +2.03 %
+BD-rate 53:97m2 vs 53 on dng720: +2.33 %
+BD-rate 26:97m2 vs 53 on dng720: +4.41 %

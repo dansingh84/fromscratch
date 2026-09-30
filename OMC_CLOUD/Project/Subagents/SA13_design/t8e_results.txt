@@ -1,0 +1,4 @@
+SRCMV_dng1080 S=8 D=36.0 round=even dz=1.0 still=False zeromv=False bpp=1.085 (mv 3.47 %)
+SRCMV_dng1080 NEG=91.125 PSNR(f2+) Y/Cb/Cr 36.45/34.87/35.69 offset(f8+) +0.013/+0.010/-0.008 smudge groups f8+ Y/Cb/Cr 0/0/0 | flat f10: Y    17.28% of 8002 textured blocks | Cb    1.49% of 3966 text
+SRCMV_spot S=8 D=24.0 round=even dz=1.0 still=False zeromv=False bpp=0.552 (mv 5.63 %)
+SRCMV_spot NEG=95.307 PSNR(f2+) Y/Cb/Cr 41.68/42.65/45.85 offset(f8+) +0.041/+0.023/+0.009 smudge groups f8+ Y/Cb/Cr 0/0/0 | flat f10: Y    20.55% of 7918 textured blocks | Cb   34.06% of 3717 texture

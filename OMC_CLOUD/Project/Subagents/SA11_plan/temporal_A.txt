@@ -1,0 +1,146 @@
+SA11 TEMPORAL STABILITY -- PART A: DOCUMENTATION REVIEW (read-only).  2026-09-27.
+Trigger: S5.334 / W6 (SA8_r1lock/out/pW/w67.log, out/icl_W.txt:209-216): among SOURCE-static samples,
+~92 % of decoded samples change frame to frame (dng720 @0.5 Y 222,705/243,073; cf_gfx @0.5 Y 17,753/19,009).
+NOTE ON METRICS: every prior record below measures the "ants tail" = P(|frame-to-frame diff| > 6 codes) over
+source-flat-AND-static 16x16 blocks (tests/ants.py; TEMPORAL_T5 12.23.1), or "boil" = mean |diff|.  W6 counts
+ANY change (>= 1 code) over all source-static samples.  The two are not comparable without a histogram
+(Part B supplies one).
+
+=========================== 1. PRIOR FINDINGS, RULINGS, FALSIFICATIONS ===========================
+(file paths: v537 docs = .work/v537/docs/; ledgers = Codec/Current/)
+
+A. The defect is old and has a name ("ants", "crawl", "boil", "pulsing").
+ A1 REPORT.md 18.5 (L1277): a blind viewer identified temporal boil in source-still areas as the tell;
+    boil instrument: source 1.526, XS@2 1.417, OMC 1.651 codes/frame (OMC 8 % above source, 17 % above XS).
+    Falsified there: fill innocent (1.643); amplitude fixes no effect; "Refresh period irrelevant (R16/R1
+    = 1.64)"; deadzone HELPS (off: 2.071).  Mechanism named: lattice reconstruction amplifies near-threshold
+    survivors (0.6-step value reconstructs at a full step), re-rolled per frame.
+ A2 REPORT.md 18.6 (L1305): viewer box; the bar is XS's SUB-source calm (XS tail 7.7 % vs source 15.3 %).
+ A3 REPORT.md 18.7 (L1331): ants fix attribution: level-2 bands 4-6 carry it; fill re-injects 3.2 pp;
+    animated fill tile, not amplitude, is the fill's boil; soft threshold beats hold-then-jump; LL-gradient
+    gate removal reached sub-XS calm (box tail 18.0 -> 7.98 % @2.0).
+ A4 TEMPORAL_T5.md 12.23 (L10039-10520): "ants came back" in the T5 rebuild; on still720_444_8 (frame 0
+    x8, source tail 0) @1.0: shipped Y 7.54 / Cb 6.13 / Cr 5.53 %; **all-intra R=1: 0.50/0.56/0.54**;
+    refresh 64 halves the tail ("roughly half the absolute level is the rolling intra refresh", 12.23.3);
+    DEADZONE OFF triples it (8.68 -> 26.00 Y).  All-intra rejected as a lever: costs NEG 3.3 @0.5 on
+    cineA21 (refresh is a resilience parameter, A5).  Mechanism (12.23.5): detail coefficient near the
+    zero/one boundary carried across by sub-code wobble, each crossing = a full-step move.
+    FIX (12.23.6, shipped, OMC_CALM default on): calm positions (source-LL gradient < 24<<(d-8), |coef| <
+    3<<(d-7)) with q = 1 and |coef| < step coded as zero; runs on intra and inter slices.
+    Gates G-T5-CALM1a/b/c, CALM2a/b (T5 L370-373).
+ A5 TEMPORAL_T5 12.23.8 (L10330ff): grain fill OFF by default (14/16 cells better on ants AND NEG);
+    fill tile animates by design (sign indexed by per-frame offsets) -> static tile made normative
+    whenever --fill runs (12.23.4).  12.23.9 still1080 @0.5 shipped tail Y 0.08 % (source 0).
+ A6 LEDGER_v5_3_5.md B2.0-B2.3 (L274-377): frozen masters (arms/frozen_*_1920x1080_422_10.yuv, source tail
+    0).  B2.1: 99.5 % of non-refresh slices change (Q, prof, n_steps) EVERY FRAME on a bit-static source
+    (558/561 pairs) -- "the plan search re-runs from scratch each frame and the near-tie winner wanders with
+    residual noise"; REPRESENTATION DEGENERACY (adjacent triples encode near-identical shift sets).
+    Plan hysteresis level 1 was OFF in every normal encode (wiring gap, B2.2).  Level 1 as default
+    FALSIFIED: NEG -0.55 mean, cf_gfx@0.5 -7.13 (B2.3).  Shapes 2-4 falsified (near-tie hold, small-slack
+    cap, step ratchet).  ADOPTED shape 5 = STATIC-SLICE HOLD: hold the previous plan iff profile matches and
+    est(old) <= budget x OMC_PLAN_STATIC/100 (35); default OMC_PLAN_HYST=3 (B2.3, L371-375).
+    B2.1 localisation (fill off): "non-refreshed slices hold a ~15 % churn floor that never converges (a
+    frozen source should converge to zero); refresh-wave slices flicker at ~50 %"; derived MVs all zero on
+    frozen content (MV loop exonerated); XSL rows NOT the carrier.
+ A7 LEDGER_v5_3_5 B2.4 (L417): frozen dng tail 25.08 -> 14.94 (0.5), 23.60 -> 16.22 (1.0), 18.49 -> 17.26
+    (2.0) Y after the hold.  B2.5 (L431): with plan stable and fill off, refresh-wave slices ~41 % pair-tail
+    -- "the intra and inter stationary points differ; each refresh yanks the picture between the two
+    fixtures"; Q5's intra skip q == quant(pcoef) is structurally unreachable on refresh slices (A5 resync
+    forbids pcoef there).  B2.5 pulse instrument (L440): v5.4 frozen dng@1.0 120f: fixed 75/91/91 %, crawl
+    3/0/0 %, pulsing 20/8/7 % period 8 = the REFRESH QUALITY RAMP ("rate physics"): inter lineage
+    accumulates quality over R-1 frames, the intra refresh resets it.  Grid constancy at the refresh
+    FALSIFIED (engaged on 79 % of refresh events, moved nothing; refresh-held slices still change 62 % of
+    pixels by > 6 codes) and reverted.  Disposition: Task C "ramp invisibility" (refresh boost §48,
+    need-keyed refresh scheduling §39.5).
+ A8 LEDGER_v5_3_5 B2.6-B2.7 (L478-548): chroma fill repaint at refresh; refresh boost (OMC_RBOOST) was
+    DEAD CODE since it shipped (guard on cfg.refresh_r == 0); fixed, default 50; Cb pulsing 1596 -> 169.
+    Crawl battery (L1361): frozen_dng @0.5 Y/Cb/Cr 12.85/18.92/18.19 %, @1.0 12.04/11.37/11.91, @2.0
+    10.41/9.44/10.47; frozen_readysetgo @0.5 6.65/6.76/9.71; cityalley @0.5 3.92/2.77/3.02.
+ A9 CONTROL_PLANE.md L137-138: OMC_PLAN_HYST=3, OMC_PLAN_STATIC=35 ("shipped config replanned 99.5 % of
+    non-refresh slices every frame on a frozen source"); L501 OMC_FILLGHYS FALSIFIED (hysteresis on the
+    fill gain, §51.18.3); L72 "no refresh flicker at any setting (pulses <= 0.17 dB)".
+ A10 SESSION_LEDGER_2026-08-12.md PART XXII (L1504-1554): XSL level 6 "recomputed every frame" measured
+    +2.06 ants-tail points vs level 3 (a new ants source rejected).
+
+B. Temporal gain / reference noise (the bitrate side).
+ B1 LEDGER_SANDBOX_v2 S5.20 (L2091): static content still gains +0.9..+3 NEG at 1.0, +0.5..+1.4 at 2.0
+    (graphics +3 at 1.0); "frozen" = frame 0 repeated = upper bound; the prize lives in STILL regions;
+    proposed: per-region still/moving split with "the cheapest possible no-change coding" -- not built.
+ B2 S5.144 (L3036) SA2 I2: predicting from previous SOURCE instead of committed frame saves 12-19 % inter
+    bits @0.5 on the near-static dng control (+13.89 %); 60-72 % of the saving in LH1+HL1 = REFERENCE NOISE,
+    not motion; reference noise switches 7-30 % of bands from inter to intra ("mode flips").
+ B3 S5.152 (L3061): source-searched vectors do not help; stale-vector theory falsified (memory
+    stale-vector-theory-falsified: "temporal headroom = reference noise in level-1 bands").
+ B4 WORK_QUEUE.md L9, L109 (V23): "temporal first (creates bits)"; V23 closed.
+ B5 SA2_temporal/MEMO.md L10: per-block mode flag with "SKIP later only if the zero-residual saving is
+    shown"; per-block mode FALSIFIED (memory per-block-mode-falsified: 0.1-1.8 % of residual bits).
+ B6 LEDGER_SANDBOX_v2 S5.28 lever 14 (L2182): sub-slice scheduled refresh = paper idea, flicker risk.
+
+C. HVBC (failed codec; the individual rule was positive there).
+ C1 .work/hvbc/team_e_package/hvbc/codec.py:1383-1400: HOLD-STILL / churn-skip (ADOPTED 2026-07-14):
+    predicted tiles whose SOURCE did not change (mean |src - prev_src| < 1.5) and whose prediction meets the
+    quality floor code an EXACT zero residual -- "the encoder stops re-litigating its own quantization
+    noise on content that did not change".  Measured @1.5: cow bits -13.5 % / flicker -19 %, fence
+    -9.6/-13 %, pans never qualify; encoder-only; luma only.
+ C2 .work/hvbc/team_e_package/hvbc/DELETION_LEDGER.md:334 and :719: hold-still RE-CONFIRMED 2026-07-16
+    (no-churn arm +13.2 % bits AND visibly noisier).  MV hysteresis (stickiness) falsified (:330).
+ C3 CONSOLIDATED_FINDINGS_TILES_2026-07-17 §10 (cited in S5.331): any decoder-side shaping must be a
+    continuous deterministic function of the decoded picture; "no threshold can flicker frame-to-frame;
+    hold-still guarantees static areas identical".
+ C4 Issues_to_fix/20260811 second-agent ledger §6.1 (cited S5.331): encoder-only step changes must leave
+    reconstruction points untouched (decoder-mismatch class).
+
+D. Rulings that constrain any fix.
+ D1 Refresh R=8 is a resilience parameter (A5: lost slice recovers within the refresh period);
+    "not available as an ants knob" (T5 12.23.3); provisioning excluded.
+ D2 No opt-in trade-offs, adaptivity automatic per slice (memory no-opt-in-tradeoffs).
+ D3 Zero visible steps; any per-region parameter must be a continuous field both ends derive (memory
+    zero-visible-steps).  Thresholds on the decoder side = flicker risk (C3).
+ D4 Legality/exactness: plan hysteresis level 2 forbidden (froze signalled state, broke locks, -1.00 NEG,
+    §51.18.3; LEDGER_v5_3_5 B2.2); any hold must remain a generation fixed point (T5 5.5-5.7).
+ D5 NEG is not a gate (memory); ants tail / pulse instruments + eyes are.
+
+=========================== 2. MECHANISMS IN THE CURRENT CODEC THAT CAN MOVE A STATIC AREA ============
+(rtree4 src/codec.c line numbers; rtree4 = v537 + R1 work, the product path is shared; OMC_R1 unset)
+ M1 Rolling intra refresh: slice s is intra on frame f when fidx8 % R == s % R, R = 8 default
+    (codec.c:2738-2747).  Intra and inter stationary points differ -> period-R pulse (A4, A7).  Refresh
+    boost OMC_RBOOST=50 gives refreshed slices +50 % budget (codec.c:3462, 10023).
+ M2 Fresh rate control every frame (Q loop 12273, refine loop 12289) -> plan wander on near-ties (A6).
+    Mitigation: static-slice hold level 3 (codec.c:12358ff; inter: est(old) <= budget*35 %; intra
+    refresh slices: rhyst/rcyc_static branch 12321ff).  Slices whose residual cost exceeds 35 % of
+    budget (real grain, low rates) replan every frame.
+ M3 Inter residual re-coded every frame: the inter band codes coef - pcoef, pcoef = forward transform of
+    the motion-compensated previous committed picture (predict_plane 4546).  On a static SOURCE the
+    residual is (source - previous decode) = the codec's own quantisation error, which is re-quantised
+    and re-sent every frame -- no hold-still/zero-residual rule exists in OMC (C1 is the HVBC form).
+    Q5 skip (codec.c:1720-1730; on by default OMC_Q5FLAG=16, 3200) only drops coefficients whose q is
+    already 0 (inter) or == quant(pcoef) (intra): reconstruction-preserving, rate only, never holds.
+ M4 Per-band mode decision BMODE = bits_inter < bits_intra (codec.c:10586): recomputed each frame from
+    noisy costs; reference noise flips 7-30 % of bands (B2).  A band flipping intra<->inter moves between
+    the two stationary points.
+ M5 Deadzone / calm kill (dz_enabled 3510; OMC_CALM 3181): zero-zone around the 0/1 boundary; ants
+    mechanism A4 is what survives outside the calm class (LL gradient >= threshold, |coef| >= amp).
+ M6 Causal bit banking (avail_prefix codec.c:9903; budget_hard): a change in any earlier slice's spend
+    moves every later slice's budget -> plan/refinement changes cascade down the frame.
+ M7 OMC_ALLOC (codec.c:9977): per-slice budget cap from the PREVIOUS frame's energy record.
+ M8 Targeted partial / PBAND / PLAN-SD (codec.c:12601, 12544ff, 12433): chunk selections derived from the
+    quantised LL; follow LL changes.  spc depth clamp toward the previous slice (12646).
+ M9 XSL seam blend (xsl_prep codec.c:9802): slice k's transform uses rows of slice k-1's committed
+    reconstruction -- any change in slice k-1 perturbs slice k's top rows (B2.1 says not the carrier).
+ M10 Derived motion (derive_mv 4970): zero on frozen content (A6: exonerated); on real clips moving
+    neighbours' vectors reach static samples.
+ M11 Gamut repair (shipped default ON, omc_enc.c:76) and DCFB (OMC_DCFB default 0, codec.c:3441): repair
+    edits coefficients per slice from the per-frame picture.
+ M12 Grain fill: OFF by default (--fill); when on, tile static but amplitude follows the plan shift (A8).
+ M13 Transform support spill-over: a changing sample moves every coefficient whose support covers it
+    (level-5 LL supports hundreds of samples, S5.317 f5) -> static samples near motion change even with
+    perfect coding (the W6 caveat; Part B splits by distance).
+
+=========================== 3. WHAT THE RECORD SAYS IS STILL OPEN ===========================
+ - B2.5: "a frozen source should converge to zero" -- non-refresh slices keep a ~15 % churn floor
+   (> 6 codes); refresh ramp pulse period 8 (Task C, not closed).
+ - S5.20: still-region "cheapest no-change coding" proposed, never built.
+ - HVBC hold-still (C1) never ported: the only measured mechanism that cut both bits (-9..-13.5 %) and
+   flicker (-13..-19 %) at once on static content.
+ - No record measures ALL changes (>= 1 code) or bits split by refresh vs inter slice on a frozen input at
+   the current defaults -- Part B.

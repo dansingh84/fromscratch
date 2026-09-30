@@ -1,0 +1,35 @@
+dng720 53     D0= 24 bpp=3.101 PSNR 43.31/43.00/43.11  rowspread4 1.7/3.3/4.7
+dng720 53     D0= 36 bpp=2.054 PSNR 40.87/39.87/40.23  rowspread4 2.9/8.2/10.8
+dng720 53     D0= 54 bpp=1.272 PSNR 38.95/37.50/38.34  rowspread4 2.3/15.4/14.6
+dng720 53     D0= 80 bpp=0.822 PSNR 37.08/36.24/37.36  rowspread4 2.0/14.4/8.0
+dng720 53     D0=120 bpp=0.548 PSNR 34.94/35.56/36.60  rowspread4 2.3/7.1/3.1
+dng720 26     D0= 24 bpp=3.126 PSNR 43.27/42.96/43.07  rowspread4 0.3/0.3/0.4
+dng720 26     D0= 36 bpp=2.085 PSNR 40.87/39.86/40.24  rowspread4 0.3/0.3/0.7
+dng720 26     D0= 54 bpp=1.295 PSNR 38.94/37.54/38.38  rowspread4 0.3/0.5/1.7
+dng720 26     D0= 80 bpp=0.846 PSNR 37.08/36.29/37.39  rowspread4 0.5/2.4/3.8
+dng720 26     D0=120 bpp=0.571 PSNR 34.92/35.60/36.67  rowspread4 0.5/7.5/6.2
+dng720 26u3   D0= 24 bpp=3.433 PSNR 43.22/42.99/43.07  rowspread4 0.2/0.4/0.3
+dng720 26u3   D0= 36 bpp=2.320 PSNR 40.72/39.77/40.11  rowspread4 0.6/0.8/0.6
+dng720 26u3   D0= 54 bpp=1.456 PSNR 38.78/37.37/38.20  rowspread4 0.7/1.5/2.2
+dng720 26u3   D0= 80 bpp=0.927 PSNR 36.94/36.12/37.24  rowspread4 0.4/2.4/3.2
+dng720 26u3   D0=120 bpp=0.611 PSNR 34.82/35.49/36.59  rowspread4 0.4/3.9/4.9
+dng720 26u4   D0= 24 bpp=3.261 PSNR 43.26/43.01/43.10  rowspread4 0.3/0.4/0.3
+dng720 26u4   D0= 36 bpp=2.173 PSNR 40.81/39.83/40.19  rowspread4 0.5/0.5/0.8
+dng720 26u4   D0= 54 bpp=1.358 PSNR 38.89/37.48/38.31  rowspread4 0.6/1.0/2.0
+dng720 26u4   D0= 80 bpp=0.872 PSNR 37.04/36.24/37.35  rowspread4 0.5/2.1/3.2
+dng720 26u4   D0=120 bpp=0.585 PSNR 34.89/35.57/36.64  rowspread4 0.4/6.0/5.2
+dng720 210    D0= 24 bpp=3.159 PSNR 43.26/42.96/43.08  rowspread4 0.3/0.4/0.3
+dng720 210    D0= 36 bpp=2.117 PSNR 40.85/39.87/40.24  rowspread4 0.7/0.5/0.7
+dng720 210    D0= 54 bpp=1.319 PSNR 38.93/37.53/38.36  rowspread4 1.0/1.4/2.7
+dng720 210    D0= 80 bpp=0.860 PSNR 37.06/36.28/37.38  rowspread4 0.6/1.5/1.0
+dng720 210    D0=120 bpp=0.579 PSNR 34.92/35.60/36.67  rowspread4 0.9/3.9/2.1
+dng720 210u4  D0= 24 bpp=3.335 PSNR 43.26/43.00/43.10  rowspread4 0.5/0.4/0.5
+dng720 210u4  D0= 36 bpp=2.237 PSNR 40.79/39.83/40.17  rowspread4 1.1/0.7/0.9
+dng720 210u4  D0= 54 bpp=1.400 PSNR 38.86/37.44/38.27  rowspread4 1.5/2.5/4.1
+dng720 210u4  D0= 80 bpp=0.904 PSNR 37.02/36.21/37.31  rowspread4 1.0/3.7/3.5
+dng720 210u4  D0=120 bpp=0.603 PSNR 34.89/35.56/36.65  rowspread4 1.4/1.6/1.0
+BD-rate 26 vs 53 on dng720: +2.03 %
+BD-rate 26u3 vs 53 on dng720: +16.40 %
+BD-rate 26u4 vs 53 on dng720: +7.22 %
+BD-rate 210 vs 53 on dng720: +3.92 %
+BD-rate 210u4 vs 53 on dng720: +10.97 %

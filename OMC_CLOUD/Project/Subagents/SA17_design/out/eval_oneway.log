@@ -1,0 +1,13 @@
+ow2 dng720 @0.5  NEG 87.41 (worst 85.38)  PSNR 33.52/35.96/37.03   | today NEG 90.16 (worst 87.22) PSNR 35.22/36.10/37.14  | max frame bits/target 1.0000 over 0 oob 0
+ow2 dng720 @1.0  NEG 93.49 (worst 91.89)  PSNR 37.63/36.92/38.07   | today NEG 94.05 (worst 92.31) PSNR 38.19/37.08/37.95  | max frame bits/target 1.0000 over 0 oob 0
+ow2 spot @0.5  NEG 92.36 (worst 88.51)  PSNR 39.55/42.24/46.14   | today NEG 93.76 (worst 87.10) PSNR 39.54/42.80/46.31  | max frame bits/target 0.9999 over 0 oob 0
+ow2 dng1080 @0.5  NEG 89.06 (worst 86.61)  PSNR 34.54/34.62/35.82   | today NEG 91.08 (worst 87.51) PSNR 35.32/34.67/35.75  | max frame bits/target 1.0000 over 0 oob 0
+ow2 dng1080 @1.0  NEG 93.63 (worst 91.78)  PSNR 36.96/35.68/36.84   | today NEG 93.51 (worst 91.77) PSNR 36.91/36.04/36.74  | max frame bits/target 1.0000 over 0 oob 0
+ow2 spot @1.0  NEG 97.27 (worst 93.88)  PSNR 43.70/44.67/48.39   | today NEG 97.53 (worst 95.03) PSNR 42.94/44.79/48.16  | max frame bits/target 1.0000 over 0 oob 0
+ow2 floor @0.5  NEG 91.93 (worst 89.49)  PSNR 39.62/44.38/44.05   | today NEG 95.98 (worst 92.41) PSNR 40.71/44.73/44.31  | max frame bits/target 1.0000 over 0 oob 0
+ow2 floor @1.0  NEG 97.07 (worst 93.77)  PSNR 42.27/46.16/45.83   | today NEG 98.59 (worst 94.94) PSNR 42.60/46.01/45.48  | max frame bits/target 1.0000 over 0 oob 0
+ow2 hwy @0.5  NEG 89.82 (worst 87.59)  PSNR 39.95/47.49/44.03   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 0.9999 over 0 oob 0
+ow2 hwy @1.0  NEG 95.26 (worst 92.58)  PSNR 43.34/49.02/45.45   | today NEG 97.29 (worst 94.13) PSNR 43.90/49.00/45.36  | max frame bits/target 0.9999 over 0 oob 0
+ow2 volley @0.5  NEG 88.33 (worst 87.13)  PSNR 38.31/42.11/44.54   | today NEG 92.37 (worst 90.83) PSNR 41.28/43.36/45.90  | max frame bits/target 0.9999 over 0 oob 0
+ow2 volley @1.0  NEG 94.03 (worst 93.05)  PSNR 43.18/44.63/47.36   | today NEG 95.62 (worst 94.70) PSNR 45.20/45.63/48.10  | max frame bits/target 0.9999 over 0 oob 0
+DONE

@@ -1,0 +1,10 @@
+hold1r30 traffic @0.5 NEG 88.194 worst 83.484 PSNR 34.26/44.07/40.60
+hold0 traffic @0.5 NEG 88.676 worst 84.591 PSNR 34.18/44.05/40.56
+hold1 traffic @0.5 NEG 88.373 worst 83.799 PSNR 34.16/44.02/40.54
+hold1r30 winter @0.5 NEG 93.035 worst 89.641 PSNR 43.03/50.48/46.79
+hold0 winter @0.5 NEG 93.263 worst 90.057 PSNR 42.99/50.43/46.79
+hold1 winter @0.5 NEG 93.251 worst 90.000 PSNR 42.98/50.45/46.77
+hold1r30 city @0.5 NEG 93.887 worst 93.485 PSNR 43.34/49.53/48.48
+hold0 city @0.5 NEG 95.545 worst 94.795 PSNR 45.71/51.12/50.19
+hold1 city @0.5 NEG 93.854 worst 93.571 PSNR 43.07/49.46/48.37
+DONE

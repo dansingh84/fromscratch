@@ -1,0 +1,6 @@
+rails10 D0=48: ctx bits/px NEST=0.5674 clipref=0.3559 (+59.45%) ; zeroth-order NEST=1.4081
+rails10 D0=128: ctx bits/px NEST=0.4561 clipref=0.2759 (+65.33%) ; zeroth-order NEST=1.3229
+spot D0=48: ctx bits/px NEST=0.2823 clipref=0.2821 (+0.08%) ; zeroth-order NEST=0.3699
+spot D0=128: ctx bits/px NEST=0.1524 clipref=0.1520 (+0.22%) ; zeroth-order NEST=0.2083
+gfx D0=48: ctx bits/px NEST=0.9292 clipref=0.9292 (-0.00%) ; zeroth-order NEST=1.1355
+gfx D0=128: ctx bits/px NEST=0.5346 clipref=0.5346 (-0.00%) ; zeroth-order NEST=0.7002

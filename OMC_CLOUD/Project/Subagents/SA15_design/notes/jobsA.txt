@@ -1,0 +1,16 @@
+dng720_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1280x720_422_10.yuv 1280 720 0.5 12 dng720_0.5 --S 4|../out/tables_B.pkl
+floor_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 0.5 12 floor_0.5|../out/tables_B.pkl
+dng1080_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_422_10.yuv 1920 1080 1.0 12 dng1080_1.0 --gen2 0|../out/tables_B.pkl
+spot_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/spotrobotL_1920x1080_422_10.yuv 1920 1080 0.5 12 spot_0.5 --gen2 0|../out/tables_B.pkl
+volley_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/volleyballgameL_1920x1080_422_10.yuv 1920 1080 0.5 12 volley_0.5 --gen2 0|../out/tables_B.pkl
+hwy_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/highwaydriveL_1920x1080_422_10.yuv 1920 1080 0.5 12 hwy_0.5 --gen2 0|../out/tables_B.pkl
+cut_0.5|x 1920 1080 0.5 12 cut_0.5 --frames mk_cut|../out/tables_B.pkl
+dng720_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1280x720_422_10.yuv 1280 720 1.0 12 dng720_1.0 --S 4 --gen2 0|../out/tables_B.pkl
+dng1080_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_422_10.yuv 1920 1080 0.5 12 dng1080_0.5 --gen2 0|../out/tables_B.pkl
+spot_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/spotrobotL_1920x1080_422_10.yuv 1920 1080 1.0 12 spot_1.0 --gen2 0|../out/tables_B.pkl
+floor_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 1.0 12 floor_1.0 --gen2 0|../out/tables_B.pkl
+volley_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/volleyballgameL_1920x1080_422_10.yuv 1920 1080 1.0 12 volley_1.0 --gen2 0|../out/tables_B.pkl
+hwy_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/highwaydriveL_1920x1080_422_10.yuv 1920 1080 1.0 12 hwy_1.0 --gen2 0|../out/tables_B.pkl
+floor_0.5_tabA|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 0.5 12 floor_0.5_tabA --gen2 0|../out/tables_A.pkl
+hwy_0.5_tabA|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/highwaydriveL_1920x1080_422_10.yuv 1920 1080 0.5 12 hwy_0.5_tabA --gen2 0|../out/tables_A.pkl
+mixed_0.5|x 1920 1080 0.5 12 mixed_0.5 --frames mk_mixed|../out/tables_B.pkl

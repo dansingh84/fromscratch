@@ -1,0 +1,4 @@
+spot@0.5 g1 t=0 D=56.55 bpp=0.438 psnr=41.04/42.51/45.76 refresh=None
+spot@0.5 g1 t=1 D=43.29 bpp=0.445 psnr=42.48/43.50/46.60 refresh=0
+spot@0.5 g1 t=2 D=51.73 bpp=0.436 psnr=41.53/42.94/46.29 refresh=1
+rc=143

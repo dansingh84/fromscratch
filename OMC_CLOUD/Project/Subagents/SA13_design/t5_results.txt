@@ -1,0 +1,14 @@
+cut24 D= 14.0 bpp_q=2.807 bpp_r=3.7601 (r share 57.26 %) flips=1772 r_nonzero_px=76788 oob=0 PSNR Y/Cb/Cr 53.74/52.69/52.69
+cut24 D= 40.0 bpp_q=2.284 bpp_r=4.6901 (r share 67.25 %) flips=1040 r_nonzero_px=79584 oob=0 PSNR Y/Cb/Cr 45.81/43.24/43.24
+cut24 D= 64.0 bpp_q=2.037 bpp_r=6.0036 (r share 74.67 %) flips=925 r_nonzero_px=97944 oob=0 PSNR Y/Cb/Cr 41.51/40.32/40.32
+ext10 D= 14.0 bpp_q=3.278 bpp_r=2.4029 (r share 42.30 %) flips=17917 r_nonzero_px=93417 oob=0 PSNR Y/Cb/Cr 54.91/56.48/56.48
+ext10 D= 40.0 bpp_q=3.026 bpp_r=1.2846 (r share 29.80 %) flips=1824 r_nonzero_px=38589 oob=0 PSNR Y/Cb/Cr 44.16/44.27/44.27
+ext10 D= 64.0 bpp_q=3.009 bpp_r=1.0602 (r share 26.05 %) flips=2604 r_nonzero_px=27627 oob=0 PSNR Y/Cb/Cr 40.61/37.21/37.21
+gfx D= 14.0 bpp_q=5.010 bpp_r=0.0073 (r share 0.15 %) flips=1 r_nonzero_px=126 oob=0 PSNR Y/Cb/Cr 44.38/44.23/44.29
+gfx D= 40.0 bpp_q=1.856 bpp_r=-0.0000 (r share -0.00 %) flips=0 r_nonzero_px=0 oob=0 PSNR Y/Cb/Cr 37.39/36.16/36.51
+gfx D= 64.0 bpp_q=1.152 bpp_r=-0.0000 (r share -0.00 %) flips=0 r_nonzero_px=0 oob=0 PSNR Y/Cb/Cr 35.30/34.38/34.73
+d720 D= 14.0 bpp_q=3.812 bpp_r=0.0013 (r share 0.04 %) flips=1 r_nonzero_px=77 oob=0 PSNR Y/Cb/Cr 44.15/43.83/43.80
+d720 D= 40.0 bpp_q=1.180 bpp_r=-0.0000 (r share -0.00 %) flips=0 r_nonzero_px=0 oob=0 PSNR Y/Cb/Cr 38.41/36.80/37.80
+d720 D= 64.0 bpp_q=0.735 bpp_r=-0.0000 (r share -0.00 %) flips=0 r_nonzero_px=0 oob=0 PSNR Y/Cb/Cr 35.93/35.65/36.72
+spot D= 14.0 bpp_q=1.483 bpp_r=0.0670 (r share 4.32 %) flips=149 r_nonzero_px=11653 oob=0 PSNR Y/Cb/Cr 45.70/46.24/48.93
+spot D= 40.0 bpp_q=0.481 bpp_r=0.0267 (r share 5.26 %) flips=26 r_nonzero_px=3861 oob=0 PSNR Y/Cb/Cr 41.19/42.42/45.44

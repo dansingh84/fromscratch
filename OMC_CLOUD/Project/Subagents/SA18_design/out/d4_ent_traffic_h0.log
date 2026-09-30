@@ -1,0 +1,13 @@
+traffic 0.5 hold 0 class-symbol bits: table 3170171  empirical 2685570  ratio 1.180
+  key (0, 6, 1, 2) n 4147200 table 748281 emp 638754 ratio 1.171
+  key (0, 4, 1, 2) n 733440 table 440823 emp 423490 ratio 1.041
+  key (0, 4, 1, 1) n 303360 table 265745 emp 251441 ratio 1.057
+  key (0, 3, 1, 1) n 147360 table 196524 emp 189670 ratio 1.036
+  key (0, 5, 1, 2) n 518400 table 186713 emp 172714 ratio 1.081
+  key (0, 0, 1, 0) n 64800 table 139496 emp 133858 ratio 1.042
+  key (1, 6, 1, 2) n 4147200 table 119079 emp 10802 ratio 11.024
+  key (0, 7, 1, 2) n 2073600 table 118490 emp 55626 ratio 2.130
+  key (0, 3, 1, 2) n 111840 table 108901 emp 106169 ratio 1.026
+  key (0, 2, 1, 1) n 76560 table 105233 emp 102662 ratio 1.025
+  key (0, 2, 1, 0) n 53040 table 102509 emp 97776 ratio 1.048
+  key (0, 1, 1, 0) n 44520 table 95504 emp 92293 ratio 1.035

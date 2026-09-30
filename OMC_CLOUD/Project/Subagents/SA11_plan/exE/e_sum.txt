@@ -1,0 +1,106 @@
+== gfx_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -1.17/-1.40/-1.43 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+     point ~0.5 bpp (Qf 8.0, actual 0.44 bpp): out-of-range after final stage 0/0/0; clamp fired 71/0/0; gen1->gen2 index mismatches 1/0/0, changed pixels 5431/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 1.13 bpp): out-of-range after final stage 0/0/0; clamp fired 4/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 6.0, actual 1.99 bpp): out-of-range after final stage 0/0/0; clamp fired 1/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2K2   dB vs baseline @0.5|1.0|2.0: -1.17/-1.40/-1.43 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+     point ~0.5 bpp (Qf 8.0, actual 0.44 bpp): out-of-range after final stage 0/0/0; clamp fired 71/0/0; gen1->gen2 index mismatches 1/0/0, changed pixels 6133/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 1.13 bpp): out-of-range after final stage 0/0/0; clamp fired 4/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 6.0, actual 1.99 bpp): out-of-range after final stage 0/0/0; clamp fired 1/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2K4   dB vs baseline @0.5|1.0|2.0: -1.17/-1.40/-1.43 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+     point ~0.5 bpp (Qf 8.0, actual 0.44 bpp): out-of-range after final stage 0/0/0; clamp fired 72/0/0; gen1->gen2 index mismatches 1/0/0, changed pixels 6891/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 1.13 bpp): out-of-range after final stage 0/0/0; clamp fired 4/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 6.0, actual 1.99 bpp): out-of-range after final stage 0/0/0; clamp fired 1/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -1.17/-1.41/-1.44 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+     point ~0.5 bpp (Qf 8.0, actual 0.45 bpp): out-of-range after final stage 0/0/0; clamp fired 143/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 1.13 bpp): out-of-range after final stage 0/0/0; clamp fired 8/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 6.0, actual 1.99 bpp): out-of-range after final stage 0/0/0; clamp fired 2/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E3     dB vs baseline @0.5|1.0|2.0: -3.03/-1.93/-1.36 | -3.23/-1.54/-1.46 | -2.81/-2.04/-2.04
+     point ~0.5 bpp (Qf 9.0, actual 0.54 bpp): out-of-range after final stage 0/0/0; clamp fired 112/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 7.5, actual 1.33 bpp): out-of-range after final stage 0/0/0; clamp fired 25/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 7.0, actual 2.46 bpp): out-of-range after final stage 0/0/0; clamp fired 3/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+== dng720_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+     point ~0.5 bpp (Qf 7.0, actual 0.58 bpp): out-of-range after final stage 0/0/0; clamp fired 76/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.77 bpp): out-of-range after final stage 0/0/0; clamp fired 24/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.65 bpp): out-of-range after final stage 0/0/0; clamp fired 5/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2K2   dB vs baseline @0.5|1.0|2.0: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+     point ~0.5 bpp (Qf 7.0, actual 0.58 bpp): out-of-range after final stage 0/0/0; clamp fired 76/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.77 bpp): out-of-range after final stage 0/0/0; clamp fired 24/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.65 bpp): out-of-range after final stage 0/0/0; clamp fired 5/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2K4   dB vs baseline @0.5|1.0|2.0: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+     point ~0.5 bpp (Qf 7.0, actual 0.58 bpp): out-of-range after final stage 0/0/0; clamp fired 76/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.77 bpp): out-of-range after final stage 0/0/0; clamp fired 24/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.65 bpp): out-of-range after final stage 0/0/0; clamp fired 5/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+     point ~0.5 bpp (Qf 7.0, actual 0.58 bpp): out-of-range after final stage 0/0/0; clamp fired 152/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.77 bpp): out-of-range after final stage 0/0/0; clamp fired 48/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.65 bpp): out-of-range after final stage 0/0/0; clamp fired 10/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E3     dB vs baseline @0.5|1.0|2.0: -2.72/-2.42/-2.89 | -3.16/-1.56/-1.59 | -2.53/-2.44/-2.16
+     point ~0.5 bpp (Qf 8.5, actual 0.41 bpp): out-of-range after final stage 0/0/0; clamp fired 300/0/6; gen1->gen2 index mismatches 1/0/0, changed pixels 12675/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 7.5, actual 0.93 bpp): out-of-range after final stage 0/0/0; clamp fired 201/0/0; gen1->gen2 index mismatches 3/0/0, changed pixels 12738/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 7.0, actual 1.94 bpp): out-of-range after final stage 0/0/0; clamp fired 15/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+== dng1080_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+     point ~0.5 bpp (Qf 7.0, actual 0.52 bpp): out-of-range after final stage 0/0/0; clamp fired 69/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.74 bpp): out-of-range after final stage 0/0/0; clamp fired 11/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.78 bpp): out-of-range after final stage 0/0/0; clamp fired 3/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2K2   dB vs baseline @0.5|1.0|2.0: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+     point ~0.5 bpp (Qf 7.0, actual 0.52 bpp): out-of-range after final stage 0/0/0; clamp fired 69/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.74 bpp): out-of-range after final stage 0/0/0; clamp fired 11/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.78 bpp): out-of-range after final stage 0/0/0; clamp fired 3/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2K4   dB vs baseline @0.5|1.0|2.0: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+     point ~0.5 bpp (Qf 7.0, actual 0.52 bpp): out-of-range after final stage 0/0/0; clamp fired 69/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.74 bpp): out-of-range after final stage 0/0/0; clamp fired 11/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.78 bpp): out-of-range after final stage 0/0/0; clamp fired 3/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+     point ~0.5 bpp (Qf 7.0, actual 0.52 bpp): out-of-range after final stage 0/0/0; clamp fired 138/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.74 bpp): out-of-range after final stage 0/0/0; clamp fired 22/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.78 bpp): out-of-range after final stage 0/0/0; clamp fired 6/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E3     dB vs baseline @0.5|1.0|2.0: -3.04/-1.64/-2.13 | -2.75/-1.87/-1.82 | -2.18/-3.10/-2.50
+     point ~0.5 bpp (Qf 8.5, actual 0.36 bpp): out-of-range after final stage 0/0/0; clamp fired 173/0/1; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 7.5, actual 1.03 bpp): out-of-range after final stage 0/0/0; clamp fired 93/0/1; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 7.0, actual 2.05 bpp): out-of-range after final stage 0/0/0; clamp fired 5/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+== spot_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -0.46/-0.94/-1.69 | -0.70/-1.15/-1.89 | -0.55/-0.95/-1.84
+     point ~0.5 bpp (Qf 6.0, actual 0.54 bpp): out-of-range after final stage 0/0/0; clamp fired 641/0/0; gen1->gen2 index mismatches 12/0/0, changed pixels 74842/0/0; gen2->gen3 26/0/0 / 46594/0/0
+     point ~1.0 bpp (Qf 5.0, actual 1.18 bpp): out-of-range after final stage 0/0/0; clamp fired 380/0/0; gen1->gen2 index mismatches 615/0/0, changed pixels 262227/0/0; gen2->gen3 102/0/0 / 41872/0/0
+     point ~2.0 bpp (Qf 4.0, actual 2.47 bpp): out-of-range after final stage 0/0/0; clamp fired 287/0/0; gen1->gen2 index mismatches 12486/0/0, changed pixels 1053126/0/0; gen2->gen3 10348/0/0 / 899341/0/0
+  E2K2   dB vs baseline @0.5|1.0|2.0: -0.47/-0.94/-1.69 | -0.70/-1.15/-1.89 | -0.55/-0.95/-1.84
+     point ~0.5 bpp (Qf 6.0, actual 0.54 bpp): out-of-range after final stage 0/0/0; clamp fired 669/0/0; gen1->gen2 index mismatches 2/0/0, changed pixels 36272/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 5.0, actual 1.18 bpp): out-of-range after final stage 0/0/0; clamp fired 374/0/0; gen1->gen2 index mismatches 40/0/0, changed pixels 76267/0/0; gen2->gen3 30/0/0 / 32746/0/0
+     point ~2.0 bpp (Qf 4.0, actual 2.47 bpp): out-of-range after final stage 0/0/0; clamp fired 275/0/0; gen1->gen2 index mismatches 9981/0/0, changed pixels 831534/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E2K4   dB vs baseline @0.5|1.0|2.0: -0.46/-0.94/-1.69 | -0.69/-1.15/-1.89 | -0.55/-0.95/-1.84
+     point ~0.5 bpp (Qf 6.0, actual 0.54 bpp): out-of-range after final stage 0/0/0; clamp fired 631/0/0; gen1->gen2 index mismatches 2/0/0, changed pixels 29077/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 5.0, actual 1.18 bpp): out-of-range after final stage 0/0/0; clamp fired 369/0/0; gen1->gen2 index mismatches 202/0/0, changed pixels 155454/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 4.0, actual 2.47 bpp): out-of-range after final stage 0/0/0; clamp fired 291/0/0; gen1->gen2 index mismatches 10639/0/0, changed pixels 874157/0/0; gen2->gen3 2338/0/0 / 204743/0/0
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -0.46/-0.94/-1.69 | -0.70/-1.15/-1.89 | -0.55/-0.95/-1.84
+     point ~0.5 bpp (Qf 6.0, actual 0.54 bpp): out-of-range after final stage 0/0/0; clamp fired 1253/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 5.0, actual 1.18 bpp): out-of-range after final stage 0/0/0; clamp fired 745/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 4.0, actual 2.47 bpp): out-of-range after final stage 0/0/0; clamp fired 551/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E3     dB vs baseline @0.5|1.0|2.0: -3.46/-2.95/-5.41 | -2.54/-2.43/-4.19 | -2.64/-2.70/-2.16
+     point ~0.5 bpp (Qf 7.5, actual 0.37 bpp): out-of-range after final stage 0/0/0; clamp fired 1311/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~1.0 bpp (Qf 6.5, actual 0.95 bpp): out-of-range after final stage 0/0/0; clamp fired 653/0/0; gen1->gen2 index mismatches 1/0/0, changed pixels 7048/0/0; gen2->gen3 0/0/0 / 0/0/0
+     point ~2.0 bpp (Qf 5.5, actual 1.70 bpp): out-of-range after final stage 0/0/0; clamp fired 430/0/0; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+== cut24_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -0.90/+3.49/+3.49 | +1.15/+3.72/+3.72 | -0.22/+3.76/+3.76
+     point ~0.5 bpp (Qf 10.0, actual 0.56 bpp): out-of-range after final stage 0/0/0; clamp fired 1325/1544/1544; gen1->gen2 index mismatches 1/13/13, changed pixels 835/1828/1828; gen2->gen3 15/8/8 / 2607/1334/1334
+  E2K2   dB vs baseline @0.5|1.0|2.0: -0.88/+3.76/+3.76 | +1.36/+3.99/+3.99 | -0.21/+4.22/+4.22
+     point ~0.5 bpp (Qf 10.0, actual 0.55 bpp): out-of-range after final stage 0/0/0; clamp fired 1325/1826/1826; gen1->gen2 index mismatches 1/23/23, changed pixels 978/3144/3144; gen2->gen3 19/12/12 / 2618/2457/2457
+  E2K4   dB vs baseline @0.5|1.0|2.0: -0.86/+3.59/+3.59 | +1.48/+4.17/+4.17 | -0.13/+4.12/+4.12
+     point ~0.5 bpp (Qf 10.0, actual 0.55 bpp): out-of-range after final stage 0/0/0; clamp fired 1325/1587/1587; gen1->gen2 index mismatches 1/30/30, changed pixels 1013/3570/3570; gen2->gen3 19/18/18 / 2617/3099/3099
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -0.97/+3.35/+3.35 | +0.05/+2.94/+2.94 | -0.90/+2.97/+2.97
+     point ~0.5 bpp (Qf 10.0, actual 0.56 bpp): out-of-range after final stage 0/0/0; clamp fired 2630/2593/2593; gen1->gen2 index mismatches 19/0/0, changed pixels 2617/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E3     dB vs baseline @0.5|1.0|2.0: n/a | +3.38/+5.28/+5.28 | +5.38/+7.09/+7.09
+     point ~0.5 bpp (Qf 10.5, actual 0.50 bpp): out-of-range after final stage 0/0/0; clamp fired 3455/1358/1358; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0
+== extFULL_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -1.54/-69.68/-69.68 | -10.40/-62.87/-62.87 | n/a
+     point ~0.5 bpp (Qf 10.0, actual 1.16 bpp): out-of-range after final stage 0/0/0; clamp fired 13269/15929/15929; gen1->gen2 index mismatches 194/0/0, changed pixels 10957/0/0; gen2->gen3 1/0/0 / 257/0/0
+  E2K2   dB vs baseline @0.5|1.0|2.0: -1.54/-69.68/-69.68 | -10.40/-62.87/-62.87 | n/a
+     point ~0.5 bpp (Qf 10.0, actual 1.16 bpp): out-of-range after final stage 0/0/0; clamp fired 13270/15929/15929; gen1->gen2 index mismatches 193/0/0, changed pixels 10675/0/0; gen2->gen3 3/0/0 / 1306/0/0
+  E2K4   dB vs baseline @0.5|1.0|2.0: -1.54/-69.68/-69.68 | -10.39/-62.87/-62.87 | n/a
+     point ~0.5 bpp (Qf 10.0, actual 1.16 bpp): out-of-range after final stage 0/0/0; clamp fired 13271/15929/15929; gen1->gen2 index mismatches 79/0/0, changed pixels 10458/0/0; gen2->gen3 115/0/0 / 1383/0/0
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -1.85/-69.66/-69.66 | -10.80/-62.84/-62.84 | n/a
+     point ~0.5 bpp (Qf 10.0, actual 1.15 bpp): out-of-range after final stage 0/0/0; clamp fired 25932/31858/31858; gen1->gen2 index mismatches 3/0/0, changed pixels 538/0/0; gen2->gen3 0/0/0 / 0/0/0
+  E3     dB vs baseline @0.5|1.0|2.0: -5.21/-91.21/-91.21 | -11.59/-70.62/-70.62 | n/a
+     point ~0.5 bpp (Qf 11.0, actual 0.43 bpp): out-of-range after final stage 0/0/0; clamp fired 19690/32512/32768; gen1->gen2 index mismatches 0/0/0, changed pixels 0/0/0; gen2->gen3 0/0/0 / 0/0/0

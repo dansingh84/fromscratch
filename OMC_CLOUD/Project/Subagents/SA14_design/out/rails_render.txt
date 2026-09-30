@@ -1,0 +1,16 @@
+railgraded720 D0=48: bits(zeroth) NEST 3.477 clipcodec 2.470 | NEG NEST 94.807 clip 93.292 | PSNR NEST [np.float64(39.91), np.float64(35.59), np.float64(35.83)] clip [np.float64(39.28), np.float64(35.59), np.float64(35.82)] | differing samples: toward source 304607, away 106960 | oob NEST 0
+../renders/railgraded720_source.png: 1280x720 16-bit RGB, frame 0
+../renders/railgraded720_D48_nest.png: 1280x720 16-bit RGB, frame 0
+../renders/railgraded720_D48_clipcodec.png: 1280x720 16-bit RGB, frame 0
+railgraded720 D0=128: bits(zeroth) NEST 2.327 clipcodec 1.118 | NEG NEST 91.413 clip 88.213 | PSNR NEST [np.float64(35.59), np.float64(31.3), np.float64(32.25)] clip [np.float64(34.88), np.float64(31.3), np.float64(32.24)] | differing samples: toward source 301701, away 107701 | oob NEST 0
+../renders/railgraded720_D128_nest.png: 1280x720 16-bit RGB, frame 0
+../renders/railgraded720_D128_clipcodec.png: 1280x720 16-bit RGB, frame 0
+cfgfx D0=48: bits(zeroth) NEST 1.805 clipcodec 1.805 | NEG NEST 92.271 clip 92.272 | PSNR NEST [np.float64(37.39), np.float64(36.47), np.float64(36.88)] clip [np.float64(37.39), np.float64(36.47), np.float64(36.88)] | differing samples: toward source 1, away 2 | oob NEST 0
+../renders/cfgfx_source.png: 448x256 16-bit RGB, frame 0
+../renders/cfgfx_D48_nest.png: 448x256 16-bit RGB, frame 0
+../renders/cfgfx_D48_clipcodec.png: 448x256 16-bit RGB, frame 0
+cfgfx D0=128: bits(zeroth) NEST 0.873 clipcodec 0.873 | NEG NEST 86.241 clip 86.245 | PSNR NEST [np.float64(34.33), np.float64(33.99), np.float64(34.38)] clip [np.float64(34.33), np.float64(33.99), np.float64(34.38)] | differing samples: toward source 20, away 21 | oob NEST 0
+../renders/cfgfx_D128_nest.png: 448x256 16-bit RGB, frame 0
+../renders/cfgfx_D128_clipcodec.png: 448x256 16-bit RGB, frame 0
+railgraded720 D0=48: context bits/lumapx NEST 2.231 clip codec 2.283 (-2.3%)
+railgraded720 D0=128: context bits/lumapx NEST 1.071 clip codec 0.966 (+10.9%)

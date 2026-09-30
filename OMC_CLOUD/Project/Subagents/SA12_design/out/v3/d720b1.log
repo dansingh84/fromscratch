@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA12_design/notes/seq.py", line 165, in <module>
+    frames = load_seq(src, W, H, f0, n, still)
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA12_design/notes/seq.py", line 137, in load_seq
+    return [hf.load(path, W, H, f0 if still else f0 + i, '422') for i in range(n)]
+            ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA12_design/notes/hf.py", line 236, in load
+    return [d[:W * H].reshape(H, W), d[W * H:W * H + cw * H].reshape(H, cw), d[W * H + cw * H:].reshape(H, cw)]
+            ~~~~~~~~~~~~~~~~~^^^^^^
+ValueError: cannot reshape array of size 0 into shape (720,1280)

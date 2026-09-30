@@ -1,0 +1,12 @@
+f0 bits 2072089/2073600 est 2072649 Pe[min,med,max]=130/169/223 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': True} stats {} 29s
+f1 bits 2071122/2073600 est 2073315 Pe[min,med,max]=130/159/200 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {} 123s
+f2 bits 2071684/2073600 est 2072649 Pe[min,med,max]=128/157/194 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {} 216s
+f3 bits 2070916/2073600 est 2071190 Pe[min,med,max]=130/155/194 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {} 311s
+f4 bits 2070291/2073600 est 2070551 Pe[min,med,max]=130/155/193 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {} 403s
+f5 bits 2069714/2073600 est 2069953 Pe[min,med,max]=128/154/193 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {'emit_over_est': 1} 495s
+f6 bits 2073358/2073600 est 2073614 Pe[min,med,max]=128/160/192 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {'emit_over_est': 1} 587s
+f7 bits 2069939/2073600 est 2070122 Pe[min,med,max]=130/155/192 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {'emit_over_est': 1} 679s
+f8 bits 2070531/2073600 est 2070773 Pe[min,med,max]=130/155/193 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {'emit_over_est': 1} 770s
+f9 bits 2072023/2073600 est 2072270 Pe[min,med,max]=130/155/193 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {'emit_over_est': 2} 862s
+f10 bits 2070337/2073600 est 2070663 Pe[min,med,max]=130/155/193 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {'emit_over_est': 2} 955s
+f11 bits 2070229/2073600 est 2070487 Pe[min,med,max]=130/154/193 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 0, 'n': 135, 'intra': False} stats {'emit_over_est': 2} 1049s

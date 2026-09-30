@@ -1,0 +1,6 @@
+444/12 full Qf 6.0 per plane (out-of-range, decoder==encoder, gen2 exact, clamp-site index changes): [(0, True, False, 0), (0, True, False, 0), (0, True, False, 0)]
+444/12 full Qf 9.0 per plane (out-of-range, decoder==encoder, gen2 exact, clamp-site index changes): [(0, True, False, 8), (0, True, False, 0), (0, True, False, 0)]
+422/8 SDI-legal 1..254 Qf 2.0 per plane (out-of-range, decoder==encoder, gen2 exact, clamp-site index changes): [(0, True, False, 0), (0, True, False, 0), (0, True, False, 0)]
+422/8 SDI-legal 1..254 Qf 5.0 per plane (out-of-range, decoder==encoder, gen2 exact, clamp-site index changes): [(0, True, False, 23), (0, True, False, 0), (0, True, False, 0)]
+422/10 limited 64..940 (source clamped) Qf 4.0 per plane (out-of-range, decoder==encoder, gen2 exact, clamp-site index changes): [(0, True, True, 3248), (0, True, True, 0), (0, True, True, 0)]
+422/10 limited 64..940 (source clamped) Qf 7.0 per plane (out-of-range, decoder==encoder, gen2 exact, clamp-site index changes): [(0, True, True, 6898), (0, True, True, 0), (0, True, True, 0)]

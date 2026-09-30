@@ -1,0 +1,13 @@
+  frame 0 bpp 1.178
+  frame 1 bpp 0.656
+  frame 2 bpp 0.617
+  frame 3 bpp 0.566
+  frame 4 bpp 0.503
+  frame 5 bpp 0.412
+  frame 6 bpp 0.400
+  frame 7 bpp 0.329
+  frame 8 bpp 0.356
+  frame 9 bpp 0.374
+  frame 10 bpp 0.469
+  frame 11 bpp 0.554
+{"tag": "eyeN", "Qf": 6.0, "oor": 0} mean bpp f2+ 0.458

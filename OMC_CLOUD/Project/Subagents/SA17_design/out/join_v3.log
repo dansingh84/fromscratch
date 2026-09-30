@@ -1,0 +1,7 @@
+f 0 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 90
+f 1 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 90
+f 2 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 90
+f 3 gen2 0 same gen3 0 | encoder-join 90972 bits diff | decoder-join 816284 | loss 0 | over 90
+f 4 gen2 0 same gen3 0 | encoder-join 115074 bits diff | decoder-join 792301 | loss 4095 | over 90
+f 5 gen2 0 same gen3 0 | encoder-join 225844 bits diff | decoder-join 779696 | loss 7668 | over 90
+f 6 gen2 0 same gen3 0 | encoder-join 266626 bits diff | decoder-join 786649 | loss 7668 | over 90

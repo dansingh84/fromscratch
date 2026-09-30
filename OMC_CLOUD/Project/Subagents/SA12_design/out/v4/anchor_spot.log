@@ -1,0 +1,2 @@
+spot Qf 6.0 plain    bpp(ent) 0.478 NEG 91.901 g2 True | Y PSNR 41.24 excess +0.16 (bnd 1.15 int 0.99) first 0.99 last 1.15 | Cb PSNR 42.76 excess +0.18 (bnd 1.29 int 1.12) first 0.98 last 1.17 | Cr PSNR 46.20 excess +0.32 (bnd 1.56 int 1.24) first 1.03 last 1.20
+spot Qf 6.0 ANCHOR   bpp(ent) 0.532 NEG 91.916 g2 True | Y PSNR 40.71 excess +0.21 (bnd 1.10 int 0.89) first 0.95 last 1.03 | Cb PSNR 42.25 excess +0.27 (bnd 1.24 int 0.98) first 0.94 last 1.09 | Cr PSNR 45.51 excess +0.50 (bnd 1.48 int 0.98) first 0.98 last 1.12

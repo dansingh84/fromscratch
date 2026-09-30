@@ -1,0 +1,4 @@
+BRIGHT rows  508- 526 cols  868- 903 area    361 err    +1.5 src  623.2 slice 31
+BRIGHT rows  533- 540 cols  557- 636 area    327 err   +10.8 src  534.0 slice 33
+DARK   rows  525- 531 cols  193- 225 area    158 err    -9.5 src  522.3 slice 32
+DARK   rows  537- 545 cols  129- 152 area    154 err    -5.9 src  549.8 slice 33

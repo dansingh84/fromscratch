@@ -1,0 +1,32 @@
+== dng720_codec f8 thr 6 dens 0.4
+Y: 2 groups, 58 blocks, largest 46  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== dng720_codec f8 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== dng720_codec f9 thr 6 dens 0.4
+Y: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== dng720_codec f9 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== dng720_codec f10 thr 6 dens 0.4
+Y: 5 groups, 82 blocks, largest 47  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== dng720_codec f10 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== dng720_codec f11 thr 6 dens 0.4
+Y: 4 groups, 91 blocks, largest 57  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== dng720_codec f11 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]

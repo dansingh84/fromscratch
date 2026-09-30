@@ -1,0 +1,13 @@
+volley 0.5 hold 1 class-symbol bits: table 3421131  empirical 1833091  ratio 1.866
+  key (0, 6, 1, 1) n 2519040 table 469791 emp 166187 ratio 2.827
+  key (0, 4, 1, 0) n 644160 table 328769 emp 103379 ratio 3.180
+  key (0, 6, 1, 2) n 1159680 table 207733 emp 176290 ratio 1.178
+  key (1, 4, 1, 0) n 561120 table 199079 emp 44670 ratio 4.457
+  key (1, 2, 1, 0) n 125160 table 178638 emp 131595 ratio 1.357
+  key (1, 3, 1, 0) n 206160 table 172829 emp 101272 ratio 1.707
+  key (0, 3, 1, 0) n 206880 table 170951 emp 85657 ratio 1.996
+  key (0, 2, 1, 0) n 125520 table 170710 emp 125461 ratio 1.361
+  key (0, 4, 1, 1) n 308160 table 142022 emp 101750 ratio 1.396
+  key (1, 6, 1, 1) n 2557440 table 130547 emp 36848 ratio 3.543
+  key (0, 6, 1, 0) n 468480 table 117601 emp 15959 ratio 7.369
+  key (0, 1, 1, 0) n 64800 table 116981 emp 100817 ratio 1.160

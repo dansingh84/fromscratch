@@ -1,0 +1,13 @@
+  frame 0 bpp 0.589
+  frame 1 bpp 0.352
+  frame 2 bpp 0.430
+  frame 3 bpp 0.349
+  frame 4 bpp 0.410
+  frame 5 bpp 0.409
+  frame 6 bpp 0.347
+  frame 7 bpp 0.229
+  frame 8 bpp 0.305
+  frame 9 bpp 0.319
+  frame 10 bpp 0.316
+  frame 11 bpp 0.438
+{"tag": "dec_novec", "Qf": 6.0, "oor": 0} mean bpp f2+ 0.355

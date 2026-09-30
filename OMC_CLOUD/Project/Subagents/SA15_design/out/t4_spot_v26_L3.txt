@@ -1,0 +1,6 @@
+spot f8 TS26/v26 Lv=3 D=24 bpp=0.839 Y/Cb/Cr=44.93/45.65/48.62 oob=0 gen2diff=0
+spot f8 TS26/v26 Lv=3 D=40 bpp=0.452 Y/Cb/Cr=42.83/43.84/47.16 oob=0 gen2diff=0
+spot f8 TS26/v26 Lv=3 D=64 bpp=0.287 Y/Cb/Cr=41.01/42.63/46.00 oob=0 gen2diff=0
+spot f8 TS26/v26 Lv=3 D=100 bpp=0.194 Y/Cb/Cr=39.11/41.46/44.65 oob=0 gen2diff=0
+spot f8 TS26/v26 Lv=3 D=160 bpp=0.132 Y/Cb/Cr=37.03/40.23/43.19 oob=0 gen2diff=0
+rc=0

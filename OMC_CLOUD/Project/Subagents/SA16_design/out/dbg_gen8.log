@@ -1,0 +1,15 @@
+t 0 diff [0, 0, 0]
+t 1 diff [9495, 95, 219]
+  differing slices [103, 104, 105, 112, 113, 114, 128, 129, 130] ... total 9
+  slice 103 P g1/g2 225 225 Pe 225 225 bits 7205.7 7242.0
+    block 206 mode diff units [] hold diff {} Pu diff [] ucls at first None
+    block 207 mode diff units [] hold diff {} Pu diff [] ucls at first None
+    differing unit columns [14]
+  slice 104 P g1/g2 224 224 Pe 224 224 bits 7935.5 7935.5
+    block 208 mode diff units [] hold diff {} Pu diff [] ucls at first None
+    block 209 mode diff units [] hold diff {'ll': [14]} Pu diff [14] ucls at first None
+    differing unit columns [14, 15]
+  slice 105 P g1/g2 224 224 Pe 224 224 bits 8402.1 8402.1
+    block 210 mode diff units [] hold diff {} Pu diff [] ucls at first None
+    block 211 mode diff units [] hold diff {} Pu diff [] ucls at first None
+    differing unit columns [14, 15]

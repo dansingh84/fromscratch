@@ -1,0 +1,7 @@
+join J=6 t=6 differing samples vs upstream Y/Cb/Cr=[759521, 359020, 350829] slices differing=167/180 bpp=0.4569 overflow=0 kap med=45
+join J=6 t=7 differing samples vs upstream Y/Cb/Cr=[680439, 317103, 310516] slices differing=156/180 bpp=0.4853 overflow=0 kap med=44
+join J=6 t=8 differing samples vs upstream Y/Cb/Cr=[512902, 236811, 231659] slices differing=128/180 bpp=0.5267 overflow=0 kap med=40
+join J=6 t=9 differing samples vs upstream Y/Cb/Cr=[415942, 189399, 185673] slices differing=105/180 bpp=0.5218 overflow=0 kap med=39
+join J=6 t=10 differing samples vs upstream Y/Cb/Cr=[336583, 157814, 156110] slices differing=86/180 bpp=0.5216 overflow=0 kap med=39
+join J=6 t=11 differing samples vs upstream Y/Cb/Cr=[156477, 71583, 66313] slices differing=43/180 bpp=0.5236 overflow=0 kap med=39
+rc=0

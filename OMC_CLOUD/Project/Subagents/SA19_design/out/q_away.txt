@@ -1,0 +1,4 @@
+nice -n 19 python3 away19.py ../out/tab_eb_r2.pkl gfx 4 fuse=1 wk=1 > ../out/away_gfx.log 2>&1
+nice -n 19 python3 away19.py ../out/tab_eb_r2.pkl dng720 4 fuse=1 wk=1 > ../out/away_dng720.log 2>&1
+nice -n 19 python3 away19.py ../out/tab_eb_r2.pkl cut24 4 fuse=1 wk=1 > ../out/away_cut24.log 2>&1
+nice -n 19 python3 away19.py ../out/tab_eb_r2.pkl ext10 4 fuse=1 wk=1 > ../out/away_ext10.log 2>&1

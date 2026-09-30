@@ -1,0 +1,10 @@
+g1 t=0 bpp=0.4657 psnr_vs_input=39.98/43.49/43.61 kap[min/med/max]=34/46/60 jump>+8:0 jump<0:65 overflow=0 reading_fixes=0 unresolved_frames=0 credit=2879 pot=28800 dev(actual-lane) sum=25 max=13 refresh=(0, 0) hfslices=180 oob=0 5s
+g1 t=1 bpp=0.5155 psnr_vs_input=40.18/43.56/43.59 kap[min/med/max]=29/44/60 jump>+8:0 jump<0:65 overflow=0 reading_fixes=0 unresolved_frames=0 credit=16088 pot=11125 dev(actual-lane) sum=42 max=11 refresh=(0, 440) hfslices=32 oob=0 15s
+g1 t=2 bpp=0.4992 psnr_vs_input=41.66/44.38/44.53 kap[min/med/max]=30/41/52 jump>+8:0 jump<0:67 overflow=0 reading_fixes=0 unresolved_frames=0 credit=19217 pot=28800 dev(actual-lane) sum=-9 max=10 refresh=(440, 440) hfslices=14 oob=0 51s
+g1 t=3 bpp=0.5059 psnr_vs_input=42.12/44.74/44.77 kap[min/med/max]=31/39/52 jump>+8:0 jump<0:64 overflow=0 reading_fixes=0 unresolved_frames=0 credit=34770 pot=28800 dev(actual-lane) sum=7 max=11 refresh=(440, 440) hfslices=13 oob=0 50s
+g2 t=0 bpp=0.4657 psnr_vs_input=99.00/99.00/99.00 g2_vs_g1: identical kap[min/med/max]=34/46/60 jump>+8:0 jump<0:65 overflow=0 reading_fixes=0 unresolved_frames=0 credit=2879 pot=28800 dev(actual-lane) sum=25 max=13 refresh=(0, 0) hfslices=180 oob=0 5s
+g2 t=1 bpp=0.5155 psnr_vs_input=99.00/99.00/99.00 g2_vs_g1: identical kap[min/med/max]=29/44/60 jump>+8:0 jump<0:65 overflow=0 reading_fixes=0 unresolved_frames=0 credit=16088 pot=11125 dev(actual-lane) sum=42 max=11 refresh=(0, 440) hfslices=32 oob=0 15s
+g2 t=2 bpp=0.4992 psnr_vs_input=99.00/99.00/99.00 g2_vs_g1: identical kap[min/med/max]=30/41/52 jump>+8:0 jump<0:67 overflow=0 reading_fixes=0 unresolved_frames=0 credit=19217 pot=28800 dev(actual-lane) sum=-9 max=10 refresh=(440, 440) hfslices=14 oob=0 50s
+g2 t=3 bpp=0.5059 psnr_vs_input=99.00/99.00/99.00 g2_vs_g1: identical kap[min/med/max]=31/39/52 jump>+8:0 jump<0:64 overflow=0 reading_fixes=0 unresolved_frames=0 credit=34770 pot=28800 dev(actual-lane) sum=7 max=11 refresh=(440, 440) hfslices=13 oob=0 50s
+smoke_floor GEN2 differing samples=0 per-frame bits g2/g1=[np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0)]
+rc=0

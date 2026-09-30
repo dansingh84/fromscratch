@@ -1,0 +1,10 @@
+dng720 D0=96 f 0 bpp=0.7394 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(369, 475) Cb(0, 0) Cr(0, 0) changed=None
+dng720 D0=96 f 1 bpp=0.0999 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(58, 52) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]
+dng720 D0=96 f 2 bpp=0.1707 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(58, 52) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]
+dng720 D0=96 f 3 bpp=0.1974 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(58, 52) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]
+dng720 D0=96 f 4 bpp=0.1784 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(67, 58) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]
+dng720 D0=96 f 5 bpp=0.1484 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(58, 52) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]
+dng720 D0=96 f 6 bpp=0.1624 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(102, 124) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]
+dng720 D0=96 f 7 bpp=0.2141 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(322, 418) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]
+dng720 D0=96 f 8 bpp=0.0870 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(58, 52) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]
+dng720 D0=96 f 9 bpp=0.0999 PSNR Y/Cb/Cr=35.65/36.10/37.29 oob=0 g2=True toward/away>1 Y(58, 52) Cb(0, 0) Cr(0, 0) changed=[0, 0, 0]

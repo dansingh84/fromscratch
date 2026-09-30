@@ -1,0 +1,12 @@
+dng720 D0=96 f 0 bpp(entropy)=0.5988 PSNR Y/Cb/Cr=35.28/35.67/36.75 oob=0 gen2_same=True changed_vs_prev=-1
+dng720 D0=96 f 1 bpp(entropy)=0.3723 PSNR Y/Cb/Cr=35.32/35.70/36.79 oob=0 gen2_same=True changed_vs_prev=1450411
+dng720 D0=96 f 2 bpp(entropy)=0.4009 PSNR Y/Cb/Cr=35.26/35.61/36.74 oob=0 gen2_same=True changed_vs_prev=1558145
+dng720 D0=96 f 3 bpp(entropy)=0.3955 PSNR Y/Cb/Cr=35.22/35.54/36.70 oob=0 gen2_same=True changed_vs_prev=1609220
+dng720 D0=96 f 4 bpp(entropy)=0.3499 PSNR Y/Cb/Cr=35.20/35.47/36.69 oob=0 gen2_same=True changed_vs_prev=1626939
+dng720 D0=96 f 5 bpp(entropy)=0.2835 PSNR Y/Cb/Cr=35.19/35.41/36.64 oob=0 gen2_same=True changed_vs_prev=1629183
+dng720 D0=96 f 6 bpp(entropy)=0.3065 PSNR Y/Cb/Cr=35.17/35.41/36.62 oob=0 gen2_same=True changed_vs_prev=1630953
+dng720 D0=96 f 7 bpp(entropy)=0.2961 PSNR Y/Cb/Cr=35.17/35.36/36.59 oob=0 gen2_same=True changed_vs_prev=1633778
+dng720 D0=96 f 8 bpp(entropy)=0.2342 PSNR Y/Cb/Cr=35.17/35.38/36.61 oob=0 gen2_same=True changed_vs_prev=1638447
+dng720 D0=96 f 9 bpp(entropy)=0.2421 PSNR Y/Cb/Cr=35.18/35.33/36.59 oob=0 gen2_same=True changed_vs_prev=1634721
+dng720 D0=96 f10 bpp(entropy)=0.3456 PSNR Y/Cb/Cr=35.15/35.32/36.61 oob=0 gen2_same=True changed_vs_prev=1639272
+dng720 D0=96 f11 bpp(entropy)=0.3880 PSNR Y/Cb/Cr=35.13/35.30/36.57 oob=0 gen2_same=True changed_vs_prev=1649896

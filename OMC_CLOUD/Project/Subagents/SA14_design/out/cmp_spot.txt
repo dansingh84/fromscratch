@@ -1,0 +1,5 @@
+NEST spot D0=64 coded_bpp=0.533 VMAF-NEG(f2-11)=94.724 PSNR mean Y/Cb/Cr=41.53/42.76/45.81 worst=41.10/42.43/45.59 gen2_all_same=True oob=0
+NEST spot D0=96 coded_bpp=0.272 VMAF-NEG(f2-11)=87.394 PSNR mean Y/Cb/Cr=38.24/40.44/42.84 worst=37.66/40.12/42.65 gen2_all_same=True oob=0
+NEST spot D0=160 coded_bpp=0.217 VMAF-NEG(f2-11)=81.685 PSNR mean Y/Cb/Cr=36.83/39.54/41.99 worst=36.28/39.22/41.77 gen2_all_same=True oob=0
+TODAY spot 0.5 bpp (exact CBR) VMAF-NEG(f2-11)=93.763 PSNR mean Y/Cb/Cr=39.54/42.80/46.31 worst=36.51/42.10/45.65
+TODAY spot 1.0 bpp (exact CBR) VMAF-NEG(f2-11)=97.528 PSNR mean Y/Cb/Cr=42.94/44.79/48.16 worst=40.70/44.08/47.54

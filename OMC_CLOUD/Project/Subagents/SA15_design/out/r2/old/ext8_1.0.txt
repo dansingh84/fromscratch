@@ -1,0 +1,10 @@
+g1 t=0 bpp=1.0062 psnr=13.42/8.64/8.64 kap[min/med/max]=54/55/56 jump>+8:0 jump<0:4 overflow=0 selfread_frames=1 sr_fail=0 recov_miss=0 backtracks=0 credit=-3759 pot=4096 dev(actual-lane) sum=742 max=1744 refresh=(0, 0) hfslices=16 oob=0 3s
+g1 t=1 bpp=1.1844 psnr=10.48/6.30/6.30 kap[min/med/max]=56/56/110 jump>+8:2 jump<0:1 overflow=0 selfread_frames=2 sr_fail=1 recov_miss=2 backtracks=1 credit=-10628 pot=6448 dev(actual-lane) sum=7211 max=1887 refresh=(0, 4) hfslices=0 oob=0 6s
+g1 t=2 bpp=0.8808 psnr=12.67/7.27/7.27 kap[min/med/max]=45/62/110 jump>+8:3 jump<0:2 overflow=0 selfread_frames=3 sr_fail=1 recov_miss=2 backtracks=3 credit=14818 pot=6451 dev(actual-lane) sum=17128 max=4172 refresh=(4, 8) hfslices=0 oob=0 7s
+g1 t=3 bpp=0.9708 psnr=11.07/8.20/8.20 kap[min/med/max]=72/110/110 jump>+8:2 jump<0:0 overflow=0 selfread_frames=4 sr_fail=2 recov_miss=9 backtracks=3 credit=53113 pot=10547 dev(actual-lane) sum=39837 max=5633 refresh=(8, 8) hfslices=0 oob=0 9s
+g2 t=0 bpp=1.0062 psnr=0.00/0.00/0.00 kap[min/med/max]=54/55/56 jump>+8:0 jump<0:4 overflow=0 selfread_frames=1 sr_fail=0 recov_miss=0 backtracks=1 credit=-3759 pot=4096 dev(actual-lane) sum=742 max=1744 refresh=(0, 0) hfslices=16 oob=0 3s
+g2 t=1 bpp=1.1844 psnr=0.00/0.00/0.00 kap[min/med/max]=56/56/110 jump>+8:2 jump<0:1 overflow=0 selfread_frames=2 sr_fail=0 recov_miss=0 backtracks=4 credit=-8579 pot=6448 dev(actual-lane) sum=9260 max=2468 refresh=(0, 4) hfslices=0 oob=0 4s
+g2 t=2 bpp=0.8808 psnr=0.00/0.00/0.00 kap[min/med/max]=45/62/110 jump>+8:3 jump<0:2 overflow=0 selfread_frames=3 sr_fail=0 recov_miss=0 backtracks=8 credit=16867 pot=6451 dev(actual-lane) sum=17128 max=4172 refresh=(4, 8) hfslices=0 oob=0 4s
+g2 t=3 bpp=0.9708 psnr=0.00/0.00/0.00 kap[min/med/max]=72/110/110 jump>+8:2 jump<0:0 overflow=0 selfread_frames=3 sr_fail=0 recov_miss=0 backtracks=8 credit=58107 pot=10547 dev(actual-lane) sum=42782 max=5633 refresh=(8, 8) hfslices=0 oob=0 3s
+ext8_1.0 GEN2 differing samples=0 per-frame bits g2/g1=[np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0)]
+rc=0

@@ -1,0 +1,7 @@
+cut24_0.5: cut24_0.5 GEN2 differing samples=0 per-frame bits g2/g1=[np. | bpp=0.4635 bpp=0.4677 bpp=0.5410 bpp=0.5285 bpp=0.5159 bpp=0.5256 bpp=0.6492 bpp=0.3571 bpp=0.4634 bpp=0.6901 bpp=0.4474 bpp=0.4817  overflow=0 sr_fail=0 recov_miss=0 oob=0  min credit credit=-1565
+cut24_1.0: cut24_1.0 GEN2 differing samples=0 per-frame bits g2/g1=[np. | bpp=0.9690 bpp=0.9104 bpp=0.9517 bpp=0.9655 bpp=0.9542 bpp=0.9930 bpp=1.5914 bpp=0.6969 bpp=0.9931 bpp=0.8949 bpp=1.0384 bpp=0.9264  overflow=0 sr_fail=0 recov_miss=0 oob=0  min credit credit=-3402
+ext10_1.0: ext10_1.0 GEN2 differing samples=0 per-frame bits g2/g1=[np. | bpp=1.1840 bpp=0.7507 bpp=1.1472 bpp=1.0967  overflow=0 sr_fail=1 recov_miss=5 oob=0  min credit credit=-20413
+ext10L_1.0: ext10L_1.0 GEN2 differing samples=0 per-frame bits g2/g1=[np | bpp=1.7286 bpp=2.8157 bpp=2.2773 bpp=2.2952  overflow=0 sr_fail=0 recov_miss=0 oob=0  min credit credit=-181932
+ext8_1.0: ext8_1.0 GEN2 differing samples=0 per-frame bits g2/g1=[np.f | bpp=1.0062 bpp=1.1844 bpp=0.8808 bpp=0.9708  overflow=0 sr_fail=2 recov_miss=9 oob=0  min credit credit=-10628
+ext12_1.0: ext12_1.0 GEN2 differing samples=0 per-frame bits g2/g1=[np. | bpp=2.2539 bpp=1.2618 bpp=0.8935 bpp=0.7089  overflow=0 sr_fail=0 recov_miss=0 oob=0  min credit credit=-124244
+ext12_444_1.0: ext12_444_1.0 GEN2 differing samples=0 per-frame bits g2/g1= | bpp=1.0155 bpp=1.1034 bpp=1.1892 bpp=0.8693  overflow=0 sr_fail=0 recov_miss=0 oob=0  min credit credit=-45218

@@ -1,0 +1,6 @@
+cut24 D=14.0 units=81 lossless=50 bpp lossy-only=2.290 with-fallback=3.245
+ext10 D=14.0 units=102 lossless=5 bpp lossy-only=3.506 with-fallback=3.573
+cut24 D=40.0 units=81 lossless=50 bpp lossy-only=1.563 with-fallback=3.034
+ext10 D=40.0 units=102 lossless=5 bpp lossy-only=3.380 with-fallback=3.474
+cut24 D=80.0 units=81 lossless=38 bpp lossy-only=1.318 with-fallback=3.125
+ext10 D=80.0 units=102 lossless=5 bpp lossy-only=3.190 with-fallback=3.392

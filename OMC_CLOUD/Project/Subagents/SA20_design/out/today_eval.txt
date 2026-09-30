@@ -1,0 +1,12 @@
+cine_A005C031_1280x720_b0.5 NEG 94.197 (worst 94.197) PSNR 46.38/53.29/51.86 (worst 46.38/53.29/51.86) | all-frame NEG 92.279 | per-frame NEG 89.82 92.82 94.20
+cine_A005C031_1280x720_b1.0 NEG 96.106 (worst 96.106) PSNR 49.34/55.50/53.82 (worst 49.34/55.50/53.82) | all-frame NEG 95.363 | per-frame NEG 93.88 96.11 96.11
+cine_A005C031_1920x1080_b0.5 NEG 95.678 (worst 95.678) PSNR 49.03/54.31/52.58 (worst 49.03/54.31/52.58) | all-frame NEG 94.275 | per-frame NEG 92.09 95.05 95.68
+cine_A005C031_1920x1080_b1.0 NEG 97.088 (worst 97.088) PSNR 52.07/56.23/54.32 (worst 52.07/56.23/54.32) | all-frame NEG 96.288 | per-frame NEG 94.76 97.01 97.09
+prores_sample_1280x720_b0.5 NEG 93.403 (worst 93.403) PSNR 47.07/54.14/52.66 (worst 47.07/54.14/52.66) | all-frame NEG 92.238 | per-frame NEG 90.27 93.04 93.40
+prores_sample_1280x720_b1.0 NEG 95.375 (worst 95.375) PSNR 49.87/56.13/54.35 (worst 49.87/56.13/54.35) | all-frame NEG 94.848 | per-frame NEG 93.96 95.21 95.38
+prores_sample_1920x1080_b0.5 NEG 94.404 (worst 94.404) PSNR 49.16/54.95/53.04 (worst 49.16/54.95/53.04) | all-frame NEG 93.552 | per-frame NEG 92.07 94.18 94.40
+prores_sample_1920x1080_b1.0 NEG 95.902 (worst 95.902) PSNR 52.05/56.57/54.50 (worst 52.05/56.57/54.50) | all-frame NEG 95.484 | per-frame NEG 94.65 95.91 95.90
+gfx444_B001C001_1280x720_b0.5 NEG 95.269 (worst 95.269) PSNR 52.02/53.65/55.66 (worst 52.02/53.65/55.66) | all-frame NEG 94.342 | per-frame NEG 92.96 94.79 95.27
+gfx444_B001C001_1280x720_b1.0 NEG 96.497 (worst 96.497) PSNR 55.45/55.51/57.44 (worst 55.45/55.51/57.44) | all-frame NEG 96.208 | per-frame NEG 95.73 96.40 96.50
+gfx444_B001C001_1920x1080_b0.5 NEG 96.067 (worst 96.067) PSNR 53.72/53.35/55.43 (worst 53.72/53.35/55.43) | all-frame NEG 95.601 | per-frame NEG 94.95 95.79 96.07
+gfx444_B001C001_1920x1080_b1.0 NEG 96.755 (worst 96.755) PSNR 56.01/54.66/56.66 (worst 56.01/54.66/56.66) | all-frame NEG 96.535 | per-frame NEG 96.18 96.68 96.75

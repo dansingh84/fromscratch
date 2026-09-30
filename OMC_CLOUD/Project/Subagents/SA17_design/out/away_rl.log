@@ -1,0 +1,12 @@
+gfx 0.5 unclamped out-of-range samples 269 | legal vs clip arm: differ 1329 closer 581 farther 743 excess p50/90/99 [ 6. 49. 94.] max 148
+gfx 1.0 unclamped out-of-range samples 88 | legal vs clip arm: differ 364 closer 181 farther 181 excess p50/90/99 [ 2.  39.  64.4] max 67
+gfx 2.0 unclamped out-of-range samples 59 | legal vs clip arm: differ 279 closer 142 farther 135 excess p50/90/99 [ 2.  43.2 70.3] max 74
+dng720 0.5 unclamped out-of-range samples 1034 | legal vs clip arm: differ 4966 closer 2403 farther 2550 excess p50/90/99 [ 3.5 44.  99. ] max 165
+dng720 1.0 unclamped out-of-range samples 129 | legal vs clip arm: differ 681 closer 351 farther 327 excess p50/90/99 [ 4.  31.4 75. ] max 83
+dng720 2.0 unclamped out-of-range samples 72 | legal vs clip arm: differ 502 closer 251 farther 249 excess p50/90/99 [ 3. 42. 77.] max 86
+cut24 0.5 unclamped out-of-range samples 13602 | legal vs clip arm: differ 24953 closer 12831 farther 12118 excess p50/90/99 [  8.  112.  412.5] max 1021
+cut24 1.0 unclamped out-of-range samples 30432 | legal vs clip arm: differ 35860 closer 17842 farther 17905 excess p50/90/99 [  9.  75. 209.] max 915
+cut24 2.0 unclamped out-of-range samples 27788 | legal vs clip arm: differ 35001 closer 18994 farther 15821 excess p50/90/99 [ 3.  21.  63.4] max 115
+ext10 0.5 unclamped out-of-range samples 49578 | legal vs clip arm: differ 39519 closer 7874 farther 31644 excess p50/90/99 [  1.  53. 167.] max 785
+ext10 1.0 unclamped out-of-range samples 118095 | legal vs clip arm: differ 81937 closer 10607 farther 71321 excess p50/90/99 [  1.  62. 188.] max 797
+ext10 2.0 unclamped out-of-range samples 173836 | legal vs clip arm: differ 116771 closer 13964 farther 102799 excess p50/90/99 [  1.  30. 143.] max 445

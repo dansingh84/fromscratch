@@ -1,0 +1,30 @@
+QUEUE_ALL start Tue Sep 29 12:35:38 AM EDT 2026
+PHASE0 (pre-existing jobs) done Tue Sep 29 12:44:39 AM EDT 2026
+MERGE p3 exit 0
+EVAL floor 1.0 exit 0
+EVAL spot 0.5 exit 0
+EVAL spot 1.0 exit 0
+EVAL floor 0.5 exit 0
+EVAL dng1080 1.0 exit 0
+EVAL dng1080 0.5 exit 0
+EVAL hwy 1.0 exit 0
+EVAL hwy 0.5 exit 0
+EVAL volley 0.5 exit 0
+EVAL volley 1.0 exit 0
+QUEUE_DONE
+PHASE1 (10 points) done Tue Sep 29 01:20:27 AM EDT 2026
+RAILS exit 1
+SEQ gen exit 0
+SEQ gen floor exit 0
+SEQ mixed exit 0
+SEQ loss exit 0
+SEQ join exit 0
+QUEUE_ALL done Tue Sep 29 01:57:10 AM EDT 2026
+EVAL spot 0.5 exit 143
+EVAL dng720 1.0 exit 143
+EVAL dng720 0.5 exit 143
+EVAL spot 0.5 exit 0
+QUEUE_DONE
+EVAL dng720 1.0 exit 0
+EVAL dng720 0.5 exit 0
+QUEUE_DONE

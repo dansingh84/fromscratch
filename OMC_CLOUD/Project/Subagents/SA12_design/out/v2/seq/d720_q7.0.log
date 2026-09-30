@@ -1,0 +1,13 @@
+  frame 0 bpp 0.585
+  frame 1 bpp 0.274
+  frame 2 bpp 0.330
+  frame 3 bpp 0.312
+  frame 4 bpp 0.283
+  frame 5 bpp 0.245
+  frame 6 bpp 0.234
+  frame 7 bpp 0.222
+  frame 8 bpp 0.229
+  frame 9 bpp 0.232
+  frame 10 bpp 0.265
+  frame 11 bpp 0.303
+{"tag": "d720_q7.0", "Qf": 7.0, "oor": 0} mean bpp f2+ 0.266

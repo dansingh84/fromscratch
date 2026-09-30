@@ -1,0 +1,13 @@
+  frame 0 bpp 0.589
+  frame 1 bpp 0.352
+  frame 2 bpp 0.424
+  frame 3 bpp 0.384
+  frame 4 bpp 0.376
+  frame 5 bpp 0.433
+  frame 6 bpp 0.365
+  frame 7 bpp 0.230
+  frame 8 bpp 0.306
+  frame 9 bpp 0.321
+  frame 10 bpp 0.331
+  frame 11 bpp 0.413
+{"tag": "dec_clean", "Qf": 6.0, "oor": 0} mean bpp f2+ 0.358

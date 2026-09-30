@@ -1,0 +1,12 @@
+dng1080 Y D0=48: 1V+hold bpp 0.9869 psnr 38.56 rowphase max/min 1.208 rows0,1,15 10.66 9.10 8.82 | 2V continuous bpp 1.0066 psnr 38.31
+dng1080 Y D0=128: 1V+hold bpp 0.4120 psnr 34.97 rowphase max/min 1.062 rows0,1,15 14.30 13.63 13.46 | 2V continuous bpp 0.4085 psnr 34.84
+dng1080 Cb D0=48: 1V+hold bpp 0.8470 psnr 37.50 rowphase max/min 1.190 rows0,1,15 12.04 10.44 10.12 | 2V continuous bpp 0.8938 psnr 37.67
+dng1080 Cb D0=128: 1V+hold bpp 0.1362 psnr 34.25 rowphase max/min 1.024 rows0,1,15 15.81 15.62 15.77 | 2V continuous bpp 0.1397 psnr 34.26
+dng1080 Cr D0=48: 1V+hold bpp 0.6741 psnr 38.15 rowphase max/min 1.165 rows0,1,15 11.05 9.65 9.49 | 2V continuous bpp 0.7168 psnr 38.14
+dng1080 Cr D0=128: 1V+hold bpp 0.1210 psnr 35.43 rowphase max/min 1.024 rows0,1,15 13.62 13.60 13.67 | 2V continuous bpp 0.1161 psnr 35.42
+spot Y D0=48: 1V+hold bpp 0.4883 psnr 42.46 rowphase max/min 1.069 rows0,1,15 6.13 5.81 5.73 | 2V continuous bpp 0.4020 psnr 42.42
+spot Y D0=128: 1V+hold bpp 0.2396 psnr 38.02 rowphase max/min 1.051 rows0,1,15 9.13 9.30 9.21 | 2V continuous bpp 0.1905 psnr 38.64
+spot Cb D0=48: 1V+hold bpp 0.2448 psnr 43.30 rowphase max/min 1.057 rows0,1,15 5.26 5.27 5.40 | 2V continuous bpp 0.1914 psnr 43.29
+spot Cb D0=128: 1V+hold bpp 0.0782 psnr 39.82 rowphase max/min 1.067 rows0,1,15 7.43 7.73 7.79 | 2V continuous bpp 0.0667 psnr 40.49
+spot Cr D0=48: 1V+hold bpp 0.1533 psnr 46.22 rowphase max/min 1.171 rows0,1,15 3.54 3.95 4.06 | 2V continuous bpp 0.1083 psnr 46.18
+spot Cr D0=128: 1V+hold bpp 0.0583 psnr 42.10 rowphase max/min 1.122 rows0,1,15 5.71 6.13 6.19 | 2V continuous bpp 0.0476 psnr 42.79

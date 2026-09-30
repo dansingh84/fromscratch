@@ -1,0 +1,9 @@
+cont53 rowspread(S=16) at D0=54: 7.2/14.9/15.6
+cont26 rowspread(S=16) at D0=54: 3.3/29.4/12.2
+cont2626 rowspread(S=16) at D0=54: 3.4/31.8/14.3
+closed53_97 rowspread(S=16) at D0=54: 15.1/32.3/38.5
+closed53 rowspread(S=16) at D0=54: 15.4/33.3/37.3
+BD-rate cont26 vs cont53 on hwy: +2.52 %
+BD-rate cont2626 vs cont53 on hwy: +4.37 %
+BD-rate closed53_97 vs cont53 on hwy: -4.05 %
+BD-rate closed53 vs cont53 on hwy: -3.80 %

@@ -1,0 +1,6 @@
+  frame 0 bpp 0.476
+/home/dan/.local/lib/python3.14/site-packages/numpy/_core/fromnumeric.py:3824: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/home/dan/.local/lib/python3.14/site-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+{"tag": "spot16_c4w0.5", "Qf": 6.0, "oor": 0} mean bpp f2+ nan

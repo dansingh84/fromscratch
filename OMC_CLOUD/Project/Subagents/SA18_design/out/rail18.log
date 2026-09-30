@@ -1,0 +1,16 @@
+cut24    @0.25  frames 5: out-of-range 0 / 163840 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 9
+cut24    @0.50  frames 5: out-of-range 0 / 163840 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+cut24    @1.00  frames 5: out-of-range 0 / 163840 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+cut24    @2.00  frames 5: out-of-range 0 / 163840 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+ext10    @0.25  frames 5: out-of-range 0 / 655360 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+ext10    @0.50  frames 5: out-of-range 0 / 655360 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+ext10    @1.00  frames 5: out-of-range 0 / 655360 | gen-2 differing samples 0, frames with different bits 1 | CBR prefix overs 0
+ext10    @2.00  frames 5: out-of-range 0 / 655360 | gen-2 differing samples 0, frames with different bits 1 | CBR prefix overs 0
+ext10l1  @0.25  frames 5: out-of-range 0 / 655360 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+ext10l1  @0.50  frames 5: out-of-range 0 / 655360 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+ext10l1  @1.00  frames 5: out-of-range 0 / 655360 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+ext10l1  @2.00  frames 5: out-of-range 0 / 655360 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+gfx      @0.25  frames 5: out-of-range 0 / 1146880 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 50
+gfx      @0.50  frames 5: out-of-range 0 / 1146880 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+gfx      @1.00  frames 5: out-of-range 0 / 1146880 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0
+gfx      @2.00  frames 5: out-of-range 0 / 1146880 | gen-2 differing samples 0, frames with different bits 0 | CBR prefix overs 0

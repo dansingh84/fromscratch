@@ -1,0 +1,13 @@
+  frame 0 bpp 0.589
+  frame 1 bpp 0.352
+  frame 2 bpp 0.424
+  frame 3 bpp 0.384
+  frame 4 bpp 0.376
+  frame 5 bpp 0.433
+  frame 6 bpp 0.365
+  frame 7 bpp 0.231
+  frame 8 bpp 0.306
+  frame 9 bpp 0.320
+  frame 10 bpp 0.332
+  frame 11 bpp 0.414
+{"tag": "dec_norows", "Qf": 6.0, "oor": 0} mean bpp f2+ 0.358

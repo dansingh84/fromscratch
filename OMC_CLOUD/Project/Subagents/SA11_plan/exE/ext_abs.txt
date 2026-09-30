@@ -1,0 +1,18 @@
+extFULL_f0 E1 gen1 1.16 bpp PSNR 14.99/37.56/37.56
+extFULL_f0 E2K2 gen1 1.16 bpp PSNR 14.99/37.56/37.56
+extFULL_f0 E2K4 gen1 1.16 bpp PSNR 15.00/37.56/37.56
+extFULL_f0 E2qK4 gen1 1.15 bpp PSNR 14.57/37.56/37.56
+extFULL_f0 E3 gen1 0.43 bpp PSNR 9.11/3.01/3.01
+extFULL_f0 baseline k -3 0.46 bpp PSNR 14.14/99.00/99.00
+extFULL_f0 baseline k -2 0.46 bpp PSNR 14.14/99.00/99.00
+extFULL_f0 baseline k -1 0.45 bpp PSNR 14.14/99.00/99.00
+extFULL_f0 baseline k 0 0.45 bpp PSNR 14.11/99.00/99.00
+cut24_f0 E1 gen1 0.56 bpp PSNR 17.29/20.12/20.12
+cut24_f0 E2K2 gen1 0.55 bpp PSNR 17.29/20.40/20.40
+cut24_f0 E2K4 gen1 0.55 bpp PSNR 17.29/20.16/20.16
+cut24_f0 E2qK4 gen1 0.56 bpp PSNR 17.29/19.94/19.94
+cut24_f0 E3 gen1 0.50 bpp PSNR 20.29/21.09/21.09
+cut24_f0 baseline k -3 0.53 bpp PSNR 18.13/16.06/16.06
+cut24_f0 baseline k -2 0.52 bpp PSNR 18.10/16.03/16.03
+cut24_f0 baseline k -1 0.52 bpp PSNR 17.89/16.05/16.05
+cut24_f0 baseline k 0 0.52 bpp PSNR 18.08/16.03/16.03

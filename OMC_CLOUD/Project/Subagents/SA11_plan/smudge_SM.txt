@@ -1,0 +1,62 @@
+SA11 STEP SM -- SMUDGE TEST OF THE VERTICAL-CAUSAL PIPELINE (offline; owner's tools).  2026-09-27.  Numbers only.
+Definition used (binding): SMUDGE = grouping of red/blue in the LEVEL MAP (decode level minus source level per LL-support
+block), steady-state frames only (>= 8), found with Subagents/shared_tools/smudgegroups.py (run at the owner's S5.91
+setting thr 6 / dens 0.4 and at the tool default thr 12 / dens 0.5, --sh = slice height), renders with
+.work/v537/harness/levelmap.py (--plane all, unmarked) and SA7_legality_v2/notes/gridmap.py (unmarked + _grid: slice
+boundaries and every 64 columns).  Nothing re-implemented.
+TEMPORAL OFFLINE CODING (notes/temporal_sm.py): slices of sh rows (8 at 720p, 16 at 1080p); slice s intra on frame f when
+f = 0 or f mod 8 = s mod 8 (staggered, period 8, as today); other slices code the residual against the reconstructed
+previous frame, ZERO MOTION.  Arms:
+ vc   = the integer vertical-causal pipeline of exact_E.txt, E2qK4 (4 in-cell rounds + own-decode requantisation):
+        intra row predictor (a + 2b + c + 2) >> 2 of the reconstructed row above (frame row 0: 512), inter row predictor
+        = co-located reconstructed row of the previous frame, horizontal integer 5/3 x 5 levels, clamp [0,1023].
+ base = the float offline model of today's 2-D structure (struct_s.py), same slices and refresh rule, same quantiser.
+ codec = today's real codec decode already in the tree (NOT encoded here): SA7_legality_v2/out/DM/*_a0.d.yuv (ptree5 base,
+        cross-slice term on, gamut repair on, 12 frames; dng720 @0.5, dng1080 @0.5, spot @1.0; exact CBR).
+Frames: dng 1280x720 and dng 1920x1080 sources have 12 frames (steady-state = 8-11); spotrobotL 16 frames coded (steady
+8-15; the codec decode has 12 -> 8-11).  Rates (offline arms matched by the Qf sweep; power-of-two steps give coarse
+rate points, exact values below):
+ dng720_vc_q6.5     all-frame bpp 0.510 | steady(8+) bpp 0.457 PSNR 35.34/35.40/36.51 | f0 bpp 0.772
+ dng720_base_q6.7   all-frame bpp 0.409 | steady(8+) bpp 0.359 PSNR 35.28/35.78/36.96 | f0 bpp 0.703
+ dng720_base_q6.6   all-frame bpp 0.664 | steady(8+) bpp 0.611 PSNR 36.51/36.07/37.22 | f0 bpp 0.959
+ dng1080_vc_q6.75   all-frame bpp 0.584 | steady(8+) bpp 0.547 PSNR 34.91/33.93/35.11 | f0 bpp 0.694
+ dng1080_base_q6.6  all-frame bpp 0.551 | steady(8+) bpp 0.518 PSNR 35.67/34.49/35.69 | f0 bpp 0.696
+ spot_vc_q5.5       all-frame bpp 0.862 | steady(8+) bpp 0.854 PSNR 40.99/41.75/44.32 | f0 bpp 0.718
+ spot_base_q5.5     all-frame bpp 0.843 | steady(8+) bpp 0.824 PSNR 42.90/43.80/47.00 | f0 bpp 0.917
+ codec: dng720 0.500, dng1080 0.500, spot 1.000 bpp (exact CBR, all frames).
+ Steady-state PSNR Y/Cb/Cr (smudge/drift.txt): dng720 vc 35.34/35.40/36.51 (0.457 bpp) | base 35.28/35.78/36.96 (0.359) |
+ base 36.51/36.07/37.22 (0.611) | codec 35.35/36.12/37.15 (0.5); dng1080 vc 34.91/33.93/35.11 (0.547) | base
+ 35.67/34.49/35.69 (0.518) | codec 35.36/34.69/35.76 (0.5); spot vc 40.99/41.75/44.32 (0.854) | base 42.90/43.80/47.00
+ (0.824) | codec 42.23/44.82/48.18 (1.0).
+
+SMUDGEGROUPS (groups per frame, blocks per frame, largest group in blocks), Y | Cb | Cr:
+ thr 6 / dens 0.4 (owner, S5.91):
+  dng720 f8-11   vc    Y 1,1,0,0 groups / 8,23,0,0 blocks (largest 23) | Cb 0 | Cr 0
+                 base(0.36) Y 6,4,4,6 / 78,69,64,104 (largest 31)   | Cb 0 | Cr 0
+                 base(0.61) Y 0 | Cb 0 | Cr 0
+                 codec Y 2,0,5,4 / 58,0,82,91 (largest 57)          | Cb 0 | Cr 0
+  dng1080 f8-11  vc 0 | base 0 | codec 0   (all planes)
+  spot f8-15     vc 0 | base 0 (all planes);  codec f8-11 Y 0,2,2,2 / 0,29,44,36 (largest 28) | Cb 0 | Cr 0
+ thr 12 / dens 0.5 (tool default): 0 groups in every arm, cell, frame and plane except codec spot Y f10 1 group / 17
+  blocks, f11 1 / 8.
+ Full per-frame output: smudge/ev_<cell>_<arm>.txt; boxed PNGs for the render frames in smudge/sg/.
+
+LEVEL DRIFT (errors carried row to row) -- mean SIGNED error by row within the slice, steady frames (smudge/drift.txt),
+and by eighth of the frame height (smudge/drift_rows.txt):
+ vc: a UNIFORM POSITIVE LEVEL OFFSET of +0.9...+1.2 codes on all three planes, at every row phase of the slice (last-first
+     row -0.11...+0.05) and in every eighth of the frame height, already on frame 0 (dng720 f0 Y +0.9...+1.1, Cb +0.8...
+     +1.1, Cr +0.8...+1.1; spot f0 +0.8...+1.1) and unchanged on frames 1, 8, 11.  Mechanism (measured on one row,
+     notes/exact_e.py): the intra row predictor (a + 2b + c + 2) >> 2 rounds half up (+0.125 code per row on average)
+     and the vertical chain carries it; the residual that would correct it stays inside the dead zone of the coarse band
+     (coarse step 8 at Qf 6.5), so the level settles about +1 code high; inter rows inherit it (zero-residual copy).
+     No downward ramp within the slice.
+ base: Y last row of the slice -0.45...-0.62 codes (dng720), -0.50 (dng1080 row 15), frame mean -0.1...-0.2.
+ codec: Y first row +0.25...+0.36, last row -0.06...-0.40; chroma first row +0.38...+0.55 (the seam rows).
+ The +1-code uniform offset is BELOW smudgegroups' block threshold (6) and is not a grouping, so the tool does not report
+ it; it is a global level (colour) shift on all three planes.
+
+RENDERS (smudge/renders/, per plane Y/Cb/Cr, for the owner's eye): frames 8 and 11 (dng, 12-frame sources) and 8 and 12
+ (spot offline arms; codec spot 8 and 11): <cell>_<arm>_f<N>_level_<P>.png (levelmap.py, unmarked, +-20 codes),
+ <cell>_<arm>_f<N>_grid_lvl_<P>.png and _grid_lvl_<P>_grid.png (level map unmarked and with the slice/column grid),
+ _grid_absdiff_<P>(_grid).png (|decode - source|).  720p level maps also as _x2.png (nearest x2: a block row is 2 px at
+ slice height 8, 4 px at x2).

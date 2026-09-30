@@ -1,0 +1,4 @@
+gfx 0.5 plane 0 away samples 71 cases so far 34 fixable 19
+gfx 0.5 plane 1 away samples 0 cases so far 34 fixable 19
+gfx 0.5 plane 2 away samples 0 cases so far 34 fixable 19
+RESULT gfx 0.5 cases 34 fixable by one +-1 re-choice 19 (55.9%) {'HL1': 12, 'LH1': 2, 'LH2': 3, 'HL2': 2}

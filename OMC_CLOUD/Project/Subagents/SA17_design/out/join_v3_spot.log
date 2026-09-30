@@ -1,0 +1,3 @@
+f 0 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 135
+f 1 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 135
+f 2 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 135

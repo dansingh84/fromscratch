@@ -1,0 +1,26 @@
+dng1080@0.5 g1 t=0 D=100.94 bpp=0.453 psnr=35.40/34.57/35.75 refresh=None
+dng1080@0.5 g1 t=1 D=73.89 bpp=0.440 psnr=36.25/35.07/36.14 refresh=0
+dng1080@0.5 g1 t=2 D=70.67 bpp=0.441 psnr=36.40/35.17/36.23 refresh=1
+dng1080@0.5 g1 t=3 D=70.67 bpp=0.447 psnr=36.41/35.18/36.23 refresh=2
+dng1080@0.5 g1 t=4 D=67.59 bpp=0.451 psnr=36.58/35.35/36.35 refresh=3
+dng1080@0.5 g1 t=5 D=64.64 bpp=0.440 psnr=36.76/35.50/36.47 refresh=4
+dng1080@0.5 g1 t=6 D=64.64 bpp=0.432 psnr=36.76/35.50/36.46 refresh=5
+dng1080@0.5 g1 t=7 D=59.13 bpp=0.454 psnr=37.08/35.84/36.74 refresh=6
+dng1080@0.5 g1 t=8 D=61.83 bpp=0.450 psnr=36.93/35.66/36.60 refresh=7
+dng1080@0.5 g1 t=9 D=61.83 bpp=0.451 psnr=36.92/35.65/36.61 refresh=8
+dng1080@0.5 g1 t=10 D=73.89 bpp=0.434 psnr=36.24/35.02/36.12 refresh=9
+dng1080@0.5 g1 t=11 D=73.89 bpp=0.436 psnr=36.25/35.04/36.13 refresh=10
+dng1080@0.5 g2 t=0 D=100.94 bpp=0.453 psnr=99.00/99.00/99.00 refresh=None
+dng1080@0.5 g2 t=1 D=73.89 bpp=0.440 psnr=99.00/99.00/99.00 refresh=0
+dng1080@0.5 g2 t=2 D=70.67 bpp=0.441 psnr=99.00/99.00/99.00 refresh=1
+dng1080@0.5 g2 t=3 D=70.67 bpp=0.447 psnr=99.00/99.00/99.00 refresh=2
+dng1080@0.5 g2 t=4 D=67.59 bpp=0.451 psnr=99.00/99.00/99.00 refresh=3
+dng1080@0.5 g2 t=5 D=64.64 bpp=0.440 psnr=99.00/99.00/99.00 refresh=4
+dng1080@0.5 g2 t=6 D=64.64 bpp=0.432 psnr=99.00/99.00/99.00 refresh=5
+dng1080@0.5 g2 t=7 D=59.13 bpp=0.454 psnr=99.00/99.00/99.00 refresh=6
+dng1080@0.5 g2 t=8 D=61.83 bpp=0.450 psnr=99.00/99.00/99.00 refresh=7
+dng1080@0.5 g2 t=9 D=61.83 bpp=0.451 psnr=99.00/99.00/99.00 refresh=8
+dng1080@0.5 g2 t=10 D=73.89 bpp=0.434 psnr=99.00/99.00/99.00 refresh=9
+dng1080@0.5 g2 t=11 D=73.89 bpp=0.436 psnr=99.00/99.00/99.00 refresh=10
+dng1080_b0.5_idx0.25 GEN2 differing samples=0  bits g2/g1=1.0000  oob=0  time=2881s
+rc=0

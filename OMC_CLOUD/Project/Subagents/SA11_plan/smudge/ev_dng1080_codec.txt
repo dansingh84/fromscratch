@@ -1,0 +1,32 @@
+== dng1080_codec f8 thr 6 dens 0.4
+Y: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== dng1080_codec f8 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== dng1080_codec f9 thr 6 dens 0.4
+Y: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== dng1080_codec f9 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== dng1080_codec f10 thr 6 dens 0.4
+Y: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== dng1080_codec f10 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== dng1080_codec f11 thr 6 dens 0.4
+Y: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== dng1080_codec f11 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]

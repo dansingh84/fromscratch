@@ -1,0 +1,39 @@
+sat=0 dng1080-Y  D0= 32 bits/px=1.6281 psnr=41.705 oob=0 maxerr=32 gen2_indices_identical=True gen2_moved=0
+sat=0 dng1080-B  D0= 32 bits/px=1.5255 psnr=41.557 oob=0 maxerr=33 gen2_indices_identical=True gen2_moved=0
+sat=0 dng1080-R  D0= 32 bits/px=1.3213 psnr=41.706 oob=0 maxerr=33 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-Y     D0= 32 bits/px=0.6847 psnr=44.383 oob=0 maxerr=33 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-B     D0= 32 bits/px=0.3967 psnr=45.152 oob=0 maxerr=32 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-R     D0= 32 bits/px=0.1986 psnr=48.400 oob=0 maxerr=29 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-Y      D0= 32 bits/px=2.0160 psnr=41.650 oob=0 maxerr=32 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-B      D0= 32 bits/px=1.6055 psnr=41.482 oob=0 maxerr=31 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-R      D0= 32 bits/px=1.5457 psnr=41.653 oob=0 maxerr=34 gen2_indices_identical=True gen2_moved=0
+sat=0 rails10    D0= 32 bits/px=0.9025 psnr=37.312 oob=0 maxerr=636 gen2_indices_identical=True gen2_moved=0
+sat=0 rails12    D0=128 bits/px=0.9185 psnr=37.209 oob=0 maxerr=2547 gen2_indices_identical=True gen2_moved=0
+sat=0 railslim   D0= 32 bits/px=0.8735 psnr=38.068 oob=0 maxerr=639 gen2_indices_identical=True gen2_moved=0
+sat=0 rails8     D0=  8 bits/px=0.8678 psnr=37.235 oob=0 maxerr=159 gen2_indices_identical=True gen2_moved=0
+sat=0 dng1080-Y  D0=128 bits/px=0.3998 psnr=35.049 oob=0 maxerr=128 gen2_indices_identical=True gen2_moved=0
+sat=0 dng1080-B  D0=128 bits/px=0.1394 psnr=34.347 oob=0 maxerr=126 gen2_indices_identical=True gen2_moved=0
+sat=0 dng1080-R  D0=128 bits/px=0.1155 psnr=35.529 oob=0 maxerr=122 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-Y     D0=128 bits/px=0.2081 psnr=38.447 oob=0 maxerr=128 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-B     D0=128 bits/px=0.0674 psnr=40.531 oob=0 maxerr=101 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-R     D0=128 bits/px=0.0474 psnr=42.909 oob=0 maxerr=81 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-Y      D0=128 bits/px=0.6959 psnr=34.325 oob=0 maxerr=123 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-B      D0=128 bits/px=0.1681 psnr=33.989 oob=0 maxerr=116 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-R      D0=128 bits/px=0.1861 psnr=34.376 oob=0 maxerr=117 gen2_indices_identical=True gen2_moved=0
+sat=0 rails10    D0=128 bits/px=0.7178 psnr=26.658 oob=0 maxerr=609 gen2_indices_identical=True gen2_moved=0
+sat=0 rails12    D0=512 bits/px=0.7412 psnr=26.698 oob=0 maxerr=2439 gen2_indices_identical=True gen2_moved=0
+sat=0 railslim   D0=128 bits/px=0.6932 psnr=27.171 oob=0 maxerr=597 gen2_indices_identical=True gen2_moved=0
+sat=0 rails8     D0= 32 bits/px=0.7000 psnr=26.793 oob=0 maxerr=151 gen2_indices_identical=True gen2_moved=0
+sat=0 dng1080-Y  D0=256 bits/px=0.2003 psnr=31.859 oob=0 maxerr=299 gen2_indices_identical=True gen2_moved=0
+sat=0 dng1080-B  D0=256 bits/px=0.0361 psnr=33.392 oob=0 maxerr=169 gen2_indices_identical=True gen2_moved=0
+sat=0 dng1080-R  D0=256 bits/px=0.0367 psnr=34.351 oob=0 maxerr=240 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-Y     D0=256 bits/px=0.1143 psnr=34.804 oob=0 maxerr=234 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-B     D0=256 bits/px=0.0287 psnr=37.737 oob=0 maxerr=142 gen2_indices_identical=True gen2_moved=0
+sat=0 spot-R     D0=256 bits/px=0.0227 psnr=39.166 oob=0 maxerr=137 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-Y      D0=256 bits/px=0.3935 psnr=30.201 oob=0 maxerr=255 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-B      D0=256 bits/px=0.0476 psnr=32.722 oob=0 maxerr=194 gen2_indices_identical=True gen2_moved=0
+sat=0 gfx-R      D0=256 bits/px=0.0468 psnr=32.766 oob=0 maxerr=197 gen2_indices_identical=True gen2_moved=0
+sat=0 rails10    D0=256 bits/px=0.6133 psnr=20.744 oob=0 maxerr=644 gen2_indices_identical=True gen2_moved=0
+sat=0 rails12    D0=1024 bits/px=0.6232 psnr=20.764 oob=0 maxerr=2640 gen2_indices_identical=True gen2_moved=0
+sat=0 railslim   D0=256 bits/px=0.5914 psnr=21.021 oob=0 maxerr=632 gen2_indices_identical=True gen2_moved=0
+sat=0 rails8     D0= 64 bits/px=0.6030 psnr=20.779 oob=0 maxerr=158 gen2_indices_identical=True gen2_moved=0

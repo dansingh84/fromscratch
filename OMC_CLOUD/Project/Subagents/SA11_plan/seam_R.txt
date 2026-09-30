@@ -1,0 +1,163 @@
+SA11 SEAM / BLEND / SMUDGE -- DOCUMENTATION REVIEW (read-only).  2026-09-27.  Numbers and citations only.
+Abbreviations: LSv2 = Codec/Current/LEDGER_SANDBOX_v2.md; L53 = Codec/Current/LEDGER_v5_3.md; T5 =
+.work/v537/docs/TEMPORAL_T5.md; XSL = .work/v537/docs/XSL.md; BS = .work/v537/docs/BITSTREAM.md;
+SL12 = .work/v537/docs/SESSION_LEDGER_2026-08-12.md; HV = .work/hvbc/team_e_package/CONSOLIDATED_FINDINGS_TILES_2026-07-17.md.
+
+================ 1. HOW SLICES ARE JOINED TODAY, AND WHY ================
+ 1.1 Why: slices are coded independently (slice_h lines); rows 0 and sh-1 carry 30-60 % excess quantisation noise
+     energy; the eye integrates it into a horizontal line at every join; the incumbent has none (XSL "Why it exists";
+     BS ~872-874 "band-fix memo §21-26 ... eye gate passed with this fix").
+ 1.2 Cross-slice (XSL) transform term: slice k's vertical level-1 lifting takes d[-1] = r15 - 2 r14 + r13 of slice
+     k-1's COMMITTED reconstruction (was a copy of d[0]) (BS ~815-822 (a)); computed per slice by xsl_prep
+     (rtree4 codec.c:9802), fed to three sites: prediction forward, reconstruct_slice inverse (both ends), source
+     forward (LSv2 S5.206 L3232).  Live in the shipped build; setting it to 0 costs -0.17...-0.46 dB mean, -3.7 dB
+     worst frame (spotrobotL @1.0), chroma <= 0.03 (S5.206).  S5.202 L3220: the d[-1] term feeds the level-1 update.
+ 1.3 Boundary edit / display blend.  Level 3 (minor 9, shipped v4.14 default): row 0 blended toward (prev r15 +
+     r1)/2, prev r15 toward (r14 + r0)/2, cap ±lim, "applied to reference AND display" (BS ~815-822 (b),(c); XSL
+     "Levels").  Cap (lim) normative, rate-derived: 8 codes (10-bit) below 0.75 bpp on coded samples, 4 at/above;
+     x((maxv+1)>>10) by depth; 4:4:4 threshold 1.125 bpp; 0 at 8-bit (F-14) (BS ~824-866; T5 ~630-640; XSL "The
+     blend cap"; eye-chosen, SL12 PART V L632: cap 4/8/16 sweep @0.5 seam +1.23/+0.67/+0.40, @1.0 +0.00/-0.35).
+ 1.4 T5 form (current): the edit is a reversible two-step lifting cascade (XSL "Level 7"; T5 5.3(b) ~617-643):
+     step 1 row15 += clamp(div(row0 - row14), ±lim); step 2 row0 += clamp(div(row15' - row1), ±lim); rows 14 and 1
+     never written; applied unconditionally in the wide domain.  LOOPFREE (candidate L, OMC_XSL_LOOPFREE=1, shipped):
+     the interior edit is DISPLAY-ONLY, off the reference (L53 L154, L5285-5320: loop gain 9.6 -> 1.9 %/frame @2.0,
+     4.9 -> 0.2 % @0.5, 72-90 % of the seam repair retained; CONTROL_PLANE.md:487).  Reviewer verified loopfree = 1
+     at runtime (LSv2 S5.202 L3220).  CASC (OMC_XSL_CASC, four-row cascade) default 0 (L53 55.8c/d).
+ 1.5 Refresh barriers (A5): a slice intra-refreshed this frame takes no cross-slice terms and no edit; slice k skips
+     the retro edit of k-1 when k-1 is refreshed (BS ~876-886 (d),(e); XSL "Refresh barriers"); without them a lost
+     slice's divergence "decay stalls at ~10 codes and creeps one slice per cycle".  Barrier DISPLAY blend (f): the
+     raw boundaries get the same cascade on the EMITTED picture only (BS ~888-900: step excess 3.1 -> 6.6 codes
+     without it, 3.3 with it; T5 (c) ~645-653).  H0 measured it (SA11_plan/hold_H0.txt; LSv2 S5.336): with zero
+     residuals, only displayed row 0 / last row next to a refreshed slice change (350/880/1,188 samples).
+ 1.6 Un-blend at the next encoder: omc_enc_frame applies omc_xsl_unblend to every input frame (exact inverse of the
+     interior cascade + barrier display blend, bottom-up, per boundary kref / k1ref / interior), detector-free; on
+     masters it pre-distorts boundary rows within ±lim which the decoder's forward edit cancels; 2-line lookahead
+     (T5 ~655-670; XSL "Level 7" limits 1-2).  Measured cost on masters: the blend still removes 54-70 % of seam step
+     excess (T5 10.4 ~1147-1175: cine @0.5 +1.69 vs +4.36 no-edit codes; @1.0 +0.79 vs +2.64; gfx444 @0.5 +1.35 vs
+     +2.95; @1.0 +0.77 vs +1.88; source ~+0.2).  XSL "Level 7" limit 1: always un-blending first-generation
+     material loses ~1/3 of the repair (beach @0.5 +2.903 -> +4.873).
+ 1.7 Owner rulings: T5 ~446: "XSL must remain on: its seam blend is essential at and below 0.5 bpp; cannot be
+     removed".  LSv2 S5.344 L3585: the display seam blend stays (removing it = seam line).  LSv2 S5.345 L3587:
+     CORRECTION -- the blend shifts the level of the rows either side of every boundary = the SMUDGE (level-map
+     groupings along the slice grid); the slice-boundary treatment (XSL term + display blend) joins the replacement.
+ 1.8 Legality interaction: the blend is non-convex -- 340 of 343 out-of-range blend writes on dng720 @0.5 have every
+     operand in range; bound ±lim, two rows in sixteen (LSv2 S5.233 L3321); committed = clip(blend(clip(recon)))
+     adopted for R1.  The four-row cascade + outer clip is not one-to-one at rail samples: reference differs by
+     -1...-6 codes where the displayed value is identical; slice k+1's term reads rows the cascade later edits
+     (LSv2 S5.296 L3478).  Cross-slice propagation: slice k-1's clipped rows shift slice k's top-row coefficients by
+     ~1 code (LSv2 S5.269 L3424: XSL off -> 532 unaffected off-lattice coefs fall to 109).  ICL -> XSL -> bank:
+     extLIM Cb -14.40 dB on slice 13 (LSv2 S5.341/S5.342 L3572-3575).
+
+ 1.9 Smudge / grille records (720p, 8-row slices):
+   - LSv2 S3.13 L1062: owner's method adopted (smudgegroups.py: level map minus source's, |level| > 6, density 0.4,
+     groups >= 8 blocks); 720p @0.5 f2: 14 luma groups / 247 blocks (grille rows 650-687 one 88-block group), 5 Cb
+     groups / 69 blocks; artifactmap defaults (|level| > 12, 0.5) found NO group.  "Correction of my claim": the
+     legality step (clamp) does NOT remove the visible smudges (blotch deep blocks 105 -> 13 only); grille/text
+     smudges = texture loss inside 8-row slices at 0.5 bpp.
+   - S3.21 L1274: grille luma |err| 39.7 @0.5 sh8, 38.0 sh16, 28.7 @0.75, 22.5 @1.0; HP energy dec/src 0.70 / 0.96 /
+     0.99 / 0.96; "rate deficit on that part of the picture".  S3.22 L1305: black class new since v4 (dark blocks
+     < -20 on f0: v4.14 sh16 21, sh8 42, v5.3 72, +step 98).
+   - S5.90 L2798: 720p flatness = sect.80 fill-reach rule at sh 8 (reach 64: 3.66/3.57 % Y; reach 0: 0.08 %;
+     16-row 0.11 %).  S5.91 L2803: reach 0 fixes FLATNESS but NOT SMUDGES: 8-row f11 6 groups / 226 blocks (largest
+     177, rows 654-675), reach 0 4 / 198 (largest 138), 16-row 0 groups on every plane.
+   - S5.99 L2846: per-frame smudge blocks f2..f11 167 150 148 120 62 61 58 44 78 226; not the refresh wave; --refresh
+     1 gives 2,748-2,856 blocks/frame (12-45x worse); tracks source motion r = +0.78; carrier = inter residual size
+     that 8-row geometry (8 -> 4 -> 2 vertical samples) cannot represent.
+   - S5.102 L2868: the 720p grille = three artifacts: TEAR (fill ON x repair x refresh slice x exact CBR; slice 83
+     Q 9, |err| 55.1, level -15.4 codes full width), SMUDGE with fill OFF (refresh slice starved: Q 8, 0 steps,
+     |err| 25.6 vs 15-17), FLATNESS at both rates.
+   - S3.10 L927 / S3.11 L1040: per-row error within the slice (720p sh8 @0.5): 14.7 15.9 14.3 16.9 13.5 17.4 15.8
+     19.3; odd rows +8-15 %, last row +23-30 %; display-side arms leave boundary-row error unchanged.
+
+================ 2. ATTEMPTS TO REMOVE THE SEAM LINE / SMUDGES -- FAILED OR LIMITED ================
+ F1 XSL level 3 (in-loop, non-invertible blend): generation loss beach 3.0 bpp sh8 -8.17 dB over 6 gens (no edit
+    -0.30), lock fires 0/270 slices vs 73/270 without the edit (XSL "What the edit costs").  Replaced in T5.
+ F2 XSL levels 4-6 (strength from emptiness / seam measurement, recomputed per frame): level 6 @1.0 +2.06 ants-tail
+    points and +0.20 box boil vs level 3 (SL12 PART XXII L1504-1554); removed in T5 (T5 L512).
+ F3 XSL level 7 / T5 cascade + mandatory un-blend: seam repair kept (level 7 @0.5 sh16 city +6.978 vs level 3
+    +6.831 step excess) but needs the un-blend; on masters loses ~1/3 of the repair (XSL "Level 7"; T5 10.4).  Now
+    identified by the owner as the smudge carrier (LSv2 S5.345).
+ F4 Candidate K (OMC_XSL_CDIV, chroma divisor 2): FALSIFIED -- relocates the seam from row phase 0 to 1: cityalley
+    Cb phase-0 step 4.13 -> 2.98, phase-1 3.27 -> 3.85, total grid-locked error +68 %; pitch worse on chroma 18/20
+    cells (L53 55.7 ~43800-43860).
+ F5 OMC_XSL_SPREAD (split two-step ramp): pitch up to -61 % (dng chroma) but BREAKS A4 (8 of 12 chains fail
+    pixels-gen2; G-T5-XSL2/XSL3a fail) -- writes rows 14/1 that the inverse reads (L53 55.8a).
+ F6 OMC_XSL_CASC (four-row cascade): invertible, passes A4 11/11, but RELOCATES the artifact into the G7 class: dng
+    1080p blocks > 40: 3 -> 68 (casc 1), 61, 64; 720p 63 -> 101 / 63 / 35; default 0 (L53 55.8c/d).
+ F7 Display-side arms (cascade/spread at display): pitch statistic falls up to 40 %, boundary-row error unchanged
+    (last row +23-30 % in all 18 cells) (LSv2 S3.11 L1040).
+ F8 OMC_VEXT (linear continuation replacing the whole-sample mirror at the slice bottom, both vertical levels):
+    removes the replication (Cb 0.673 -> 0.101) but PITCH 0.151 -> 0.219 / 0.301, -3.9 NEG, row-phase evenness
+    19.5 -> 45.6 % -- rejected (L53 55.5 falsified table ~43730); later "WORSE on the error-profile face on all
+    three cells (+49/+42/+48 % at strength 2)" (LSv2 S5.103 L2874).
+ F9 OMC_FILLROWS (fill only the last N rows): PITCH 0.151 -> 0.315 / 0.343 / 0.295 -- creates a slice-pitch texture
+    modulation (L53 55.5 ~43735).
+ F10 Grain fill as the cure (--fill, uniform texture): luma pitch 0.151 -> 0.039 at full amplitude (L53 55.5), but
+    at the shipped quarter amplitude 0.083 (3x XS @0.5 on dng, 8x on cityalley) -- headline withdrawn (L53 55.7);
+    fill trades pitch/flatness against crawl and G7 blotch; fill now off by default (T5 12.23.8).
+ F11 Normative last-row rung (finer quantiser on the last row of vertical highpass bands): last-row excess
+    +23.1 -> +5.3 % (dng422), +22.8 -> +3.9 (dng720) but BREAKS the generation lock (committed shift read at ~30
+    sites) and repair passes +24-68 % (LSv2 S5.103 L2874).
+ F12 16-row slices at 720p: clears grille smudges (0 groups) and flatness but latency 1.139 ms with conversion >
+    1 ms A2 bar -- refused (LSv2 S5.89 L2794, S5.91 L2803); S3.21: 16-row restores HP energy 0.70 -> 0.96 but not
+    pattern (corr 0.66) and worsens dark speckle.  SL12 PART V L632: seam excess at sh16 lower than sh8 in every row
+    (city @0.5 f0 +10.32 vs +12.71) -- height not the cause of the cold-frame banding.
+ F13 Fill reach 0 at sh8: fixes flatness (3.66 -> 0.08 %), not smudges (226 -> 198 blocks) and blotch n>40 +20 %
+    (LSv2 S5.90/S5.91/S5.99).
+ F14 Refresh period / all-intra against the 720p smudge: --refresh 1 is 12-45x worse (LSv2 S5.99).
+ F15 Blend-aware in-cell legaliser (Step Y): moves clipping from outer to inner, total lower only on 2 cells; not
+    adopted (LSv2 S5.341).
+ F16 Cross-slice term removed (d1m = 0): -0.17...-0.46 dB mean, -3.7 dB worst; seam level worse (dng720 row-15 bias
+    -0.344 -> -0.452; cf_gfx row 13 -0.002 -> -0.532) (LSv2 S5.206).
+ F17 HVBC boundary failures (HV): pixel-domain boundary blend REJECTED by eyes twice ("blending two
+    correct-but-different colours makes a third wrong one", HV §10 L396); oracle arc of interval-bounded decoder
+    reconstructions: v1 too soft, v2 facet creases, v4/v5 hard edges, v7 multigrid "a blurry canvas" (diffusion
+    falsified), v8 crosshatch/lines (HV §10 L400-411); display gradient-fill / ramp filter (interval-bounded,
+    display-only) ease borders but cannot remove the checkerboard (HV §7 ~316-330); mode-boundary sig-mask
+    coordination REJECTED (HV §5 L162-167); spanning transform through gradient tiles: spec as written 2.3x -> ~20x
+    boundary energy (HV §4 L136-145); quantiser checkerboard (Mechanism C) untouched by every boundary fix, near-
+    lossless step 1 only at 7.2x bits, forward dither +206 % bpp (HV §6 L196-216).  HVBC died on 16x16 boundaries
+    (memory zero-visible-steps; LSv2 S5.331 cites HV §10 rules).
+ NOT FOUND in the records: overlapping / extended slices (no entry).  Self-contained slices = XSL level 0 / off,
+    the v4.14 archive default (L53 L16860-16865): see §4 for its seam figures.  Expert A/B/C (LSv2 S5.343 L3578-3580)
+    list "a cross-slice term computed from decoded rows, or self-contained slices" -- a suggestion, not measured.
+
+================ 3. INVERTIBLE FROM THE DECODED PICTURE ALONE (no hidden undo)? ================
+ YES, inside the transform, no undo: the cross-slice d[-1] term (lifting input from slice k-1's committed rows; both
+    ends derive it; exact) (BS (a); S5.206); XSL off / level 0 self-contained slices (no edit); 16-row slices;
+    OMC_VEXT (normative boundary extension inside the transform, no display step) (L53 55.5).
+ ONLY WITH AN UNDO STEP (the next encoder's mandatory omc_xsl_unblend): level 7 / T5 two-step cascade, LOOPFREE
+    display-only interior edit, barrier display blend (f), OMC_XSL_CASC four-row cascade, candidate K -- invertible
+    arithmetic but the decoded picture is the BLENDED one; recovering the coded reconstruction needs the un-blend
+    (T5 ~655-670), which on masters pre-distorts (XSL "Level 7" limit 1), and with the outer clip is NOT one-to-one
+    at rail samples (LSv2 S5.296) and is non-convex (S5.233).
+ NO: XSL level 3 and levels 4-6 (row moved toward a target computed from its own value; "cannot be undone", XSL
+    "What the edit costs"; T5 §4 item 1 ~525); OMC_XSL_SPREAD (writes rows the inverse reads; A4 fails, L53 55.8a);
+    HVBC pixel-domain blend and interval-bounded display filters / ramps / gradient-fill (display-only, not
+    reproducible by a next encoder; HV §7, §10).
+ Not a transform question: last-row rung (quantiser; broke the lock via ~30 shift readers, S5.103); fill / FILLROWS
+    / fill reach (texture synthesis / quantiser gates).
+
+================ 4. WHAT CAUSES THE SEAM LINE WITHOUT A BLEND ================
+ - Mechanism: the vertical 5/3 whole-sample mirror at the slice's last pair degenerates the last predict to a first
+   difference: x[last] = H[last] + x[last-1]; when H[last] quantises to 0 (common at 0.5 bpp, commoner on chroma)
+   the last row is an exact copy; two vertical levels compound it (bottom quarter of the slice collapses to one row)
+   (L53 55.2 ~43622-43662).  Duplicate-row fraction rows 13-14 (1080p sh16 @0.5): Y 0.532 / Cb 0.671 vs interior
+   0.12 / 0.10, source 0.029 / 0.027; tracks slice height (moves to phase 7 at sh 8); Cb seam step 12.17 vs 5.7
+   interior (55.2).  §78.10 later removed the replication (phases 13/14 0.223 -> 0.020) but pitch rose (L53 55.7).
+ - Bands: the vertical highpass bands -- LH1 (b7), HH1 (b9) at level 1, b4/b6 at level 2 (LSv2 S5.103 rule); odd
+   rows = vertical highpass rows, the first zeroed at 0.5 bpp (S3.10 L927).
+ - Per-row error, 720p sh8 @0.5 frame 2 (step tree): Y 14.7 15.9 14.3 16.9 13.5 17.4 15.8 19.3 (odd +12 %, last row
+   +30 %); cf_gfx sh8 last +23 %; 1080p sh16 last +30 %; Cb 720p 19.1 ... 23.7 (S3.10).
+ - Boundary rows carry 30-60 % excess quantisation noise energy (XSL "Why it exists"; BS ~872).
+ - Without the blend, rate dependence (seam step as multiple of interior step): city 1.824 / 1.269 / 1.067 / 1.013
+   and beach 1.705 / 1.294 / 1.048 / 1.021 at 0.5 / 1.0 / 2.0 / 3.0 bpp (XSL "The seam is rate-dependent").
+   No-edit seam excess (T5 10.4): +4.36 codes @0.5, +2.64 @1.0 (cine), +2.95 / +1.88 (gfx444), source ~+0.2.
+   XSL off vs level 3, seam SPATIAL excess: +8.86 vs +2.59 @0.5, +3.68 vs +0.82 @1.0 (SL12 PART XXII).
+   Cold intra frame 3-14x worse than steady (city @0.5 f0 +12.71 sh8 / +10.32 sh16 vs f5 +7.37 / +5.01) (SL12 V).
+ - Slice-pitch periodicity (pitch.py, dng @0.5, no fill-cure): v5.2 shipped 0.083/0.093/0.078 vs XS @0.5
+   0.027/0.034/0.033 and source 0.020/0.009/0.008; cityalley 0.214 vs XS 0.026 (L53 55.7).  DC component at the seam
+   is NOT the problem in OMC (luma seam DC 0.97 of interior; XS 1.32) -- what remains is an 8-11 % texture
+   modulation phase-locked to the slice (L53 55.4).
+ - 720p 8-row: the smudge carrier is the inter residual size the 8-row geometry cannot represent (8 -> 4 -> 2
+   vertical samples), r = +0.78 with source motion (LSv2 S5.99); refresh slice starvation (S5.102).

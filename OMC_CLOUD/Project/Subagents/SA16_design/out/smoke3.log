@@ -1,0 +1,8 @@
+f0 27s bits 460517/460800 est 460604 Pe med 230 holds {'ll': 0, 'mid': 0, 'fine': 0} PSNR 30.60/33.56/33.88 stats {}
+f1 95s bits 460685/460800 est 460751 Pe med 222 holds {'ll': 462, 'mid': 448, 'fine': 356} PSNR 32.50/34.52/34.94 stats {}
+f2 91s bits 460643/460800 est 460662 Pe med 220 holds {'ll': 25, 'mid': 23, 'fine': 4} PSNR 33.05/34.64/35.22 stats {}
+f3 91s bits 460431/460800 est 460480 Pe med 220 holds {'ll': 8, 'mid': 5, 'fine': 3} PSNR 33.23/34.69/35.32 stats {}
+f4 92s bits 460775/460800 est 460817 Pe med 219 holds {'ll': 1, 'mid': 0, 'fine': 1} PSNR 33.53/34.77/35.48 stats {}
+f5 92s bits 460376/460800 est 460376 Pe med 219 holds {'ll': 5, 'mid': 1, 'fine': 0} PSNR 33.74/34.79/35.56 stats {}
+f6 92s bits 460344/460800 est 460356 Pe med 215 holds {'ll': 20, 'mid': 8, 'fine': 5} PSNR 34.08/34.95/35.68 stats {}
+f7 92s bits 460713/460800 est 460721 Pe med 208 holds {'ll': 9, 'mid': 8, 'fine': 3} PSNR 34.56/35.11/35.92 stats {}

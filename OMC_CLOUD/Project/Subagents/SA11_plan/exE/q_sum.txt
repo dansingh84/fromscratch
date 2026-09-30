@@ -1,0 +1,80 @@
+gfx_f0     E1q    dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -1.17/-1.41/-1.44 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+    ~0.5 (0.45 bpp): out-of-range 0/0/0, clamp fired 143/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 28.34/31.05/31.01
+    ~1.0 (1.13 bpp): out-of-range 0/0/0, clamp fired 8/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 34.05/33.70/34.05
+    ~2.0 (1.99 bpp): out-of-range 0/0/0, clamp fired 2/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 36.46/35.62/35.88
+gfx_f0     E2qK1  dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -1.17/-1.41/-1.44 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+    ~0.5 (0.45 bpp): out-of-range 0/0/0, clamp fired 143/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 28.34/31.05/31.01
+    ~1.0 (1.13 bpp): out-of-range 0/0/0, clamp fired 8/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 34.05/33.70/34.05
+    ~2.0 (1.99 bpp): out-of-range 0/0/0, clamp fired 2/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 36.46/35.62/35.88
+dng720_f0  E1q    dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+    ~0.5 (0.58 bpp): out-of-range 0/0/0, clamp fired 152/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 33.87/34.68/35.70
+    ~1.0 (0.77 bpp): out-of-range 0/0/0, clamp fired 48/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.36/35.37/36.50
+    ~2.0 (1.65 bpp): out-of-range 0/0/0, clamp fired 10/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 38.98/37.36/38.14
+dng720_f0  E2qK1  dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+    ~0.5 (0.58 bpp): out-of-range 0/0/0, clamp fired 152/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 33.87/34.68/35.70
+    ~1.0 (0.77 bpp): out-of-range 0/0/0, clamp fired 48/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.36/35.37/36.50
+    ~2.0 (1.65 bpp): out-of-range 0/0/0, clamp fired 10/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 38.98/37.36/38.14
+dng1080_f0 E1q    dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+    ~0.5 (0.52 bpp): out-of-range 0/0/0, clamp fired 138/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 33.84/33.48/34.72
+    ~1.0 (0.74 bpp): out-of-range 0/0/0, clamp fired 22/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.07/34.06/35.26
+    ~2.0 (1.78 bpp): out-of-range 0/0/0, clamp fired 6/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 37.91/36.86/37.36
+dng1080_f0 E2qK1  dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+    ~0.5 (0.52 bpp): out-of-range 0/0/0, clamp fired 138/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 33.84/33.48/34.72
+    ~1.0 (0.74 bpp): out-of-range 0/0/0, clamp fired 22/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.07/34.06/35.26
+    ~2.0 (1.78 bpp): out-of-range 0/0/0, clamp fired 6/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 37.91/36.86/37.36
+spot_f0    E1q    dB vs E2qK4 @0.5|1|2: -0.00/+0.00/+0.00 | +0.01/+0.00/+0.00 | +0.00/-0.00/-0.00 | vs baseline: -0.46/-0.94/-1.69 | -0.69/-1.15/-1.89 | -0.55/-0.95/-1.84
+    ~0.5 (0.54 bpp): out-of-range 0/0/0, clamp fired 1197/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 39.59/40.66/42.91
+    ~1.0 (1.18 bpp): out-of-range 0/0/0, clamp fired 729/0/0 | gen2 idx 18/0/0 pix 32116/0/0 | gen3 idx 34/0/0 pix 24249/0/0 | PSNR 43.23/43.50/45.95
+    ~2.0 (2.47 bpp): out-of-range 0/0/0, clamp fired 527/0/0 | gen2 idx 7042/0/0 pix 598501/0/0 | gen3 idx 6003/0/0 pix 561960/0/0 | PSNR 47.46/47.65/48.87
+spot_f0    E2qK1  dB vs E2qK4 @0.5|1|2: -0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | -0.00/-0.00/-0.00 | vs baseline: -0.46/-0.94/-1.69 | -0.70/-1.15/-1.89 | -0.55/-0.95/-1.84
+    ~0.5 (0.54 bpp): out-of-range 0/0/0, clamp fired 1197/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 39.59/40.66/42.91
+    ~1.0 (1.18 bpp): out-of-range 0/0/0, clamp fired 734/0/0 | gen2 idx 1/0/0 pix 480/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 43.22/43.50/45.95
+    ~2.0 (2.47 bpp): out-of-range 0/0/0, clamp fired 546/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 47.45/47.65/48.87
+cut24_f0   E1q    dB vs E2qK4 @0.5|1|2: -0.02/-0.18/-0.18 | -0.09/-0.06/-0.06 | -0.34/-0.48/-0.48 | vs baseline: -0.98/+3.17/+3.17 | -0.03/+2.88/+2.88 | -1.24/+2.49/+2.49
+    ~0.5 (0.56 bpp): out-of-range 0/0/0, clamp fired 2584/2913/2913 | gen2 idx 15/2/2 pix 2607/363/363 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 17.28/19.75/19.75
+    ~1.0 (1.12 bpp): out-of-range 0/0/0, clamp fired 5604/1864/1864 | gen2 idx 69/29/29 pix 6266/2893/2893 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 24.44/26.31/26.31
+    ~2.0 (2.00 bpp): out-of-range 0/0/0, clamp fired 8731/3822/3822 | gen2 idx 49/23/23 pix 3054/1533/1533 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.15/37.19/37.19
+cut24_f0   E2qK1  dB vs E2qK4 @0.5|1|2: -0.01/-0.04/-0.04 | -0.16/-0.10/-0.10 | -0.35/-0.29/-0.29 | vs baseline: -0.97/+3.31/+3.31 | -0.10/+2.84/+2.84 | -1.25/+2.69/+2.69
+    ~0.5 (0.56 bpp): out-of-range 0/0/0, clamp fired 2630/2603/2603 | gen2 idx 17/0/0 pix 2624/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 17.28/19.91/19.91
+    ~1.0 (1.12 bpp): out-of-range 0/0/0, clamp fired 5571/1894/1894 | gen2 idx 65/32/32 pix 6576/3223/3223 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 24.33/26.24/26.24
+    ~2.0 (2.00 bpp): out-of-range 0/0/0, clamp fired 8729/4088/4088 | gen2 idx 25/4/4 pix 1149/206/206 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.14/37.39/37.39
+extFULL_f0 E1q    dB vs E2qK4 @0.5|1|2: -0.01/+0.00/+0.00 | -0.02/+0.00/+0.00 | -0.31/-0.30/-0.25 | vs baseline: -1.87/-69.66/-69.66 | -10.82/-62.84/-62.84 | n/a
+    ~0.5 (1.15 bpp): out-of-range 0/0/0, clamp fired 25929/31858/31858 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 14.55/37.56/37.56
+    ~1.0 (1.15 bpp): out-of-range 0/0/0, clamp fired 25929/31858/31858 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 14.55/37.56/37.56
+    ~2.0 (1.99 bpp): out-of-range 0/0/0, clamp fired 36360/32262/32126 | gen2 idx 6/0/0 pix 105/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 31.87/40.57/40.57
+extFULL_f0 E2qK1  dB vs E2qK4 @0.5|1|2: -0.01/+0.00/+0.00 | -0.02/+0.00/+0.00 | -0.01/-0.00/-0.00 | vs baseline: -1.86/-69.66/-69.66 | -10.82/-62.84/-62.84 | n/a
+    ~0.5 (1.15 bpp): out-of-range 0/0/0, clamp fired 25942/31858/31858 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 14.55/37.56/37.56
+    ~1.0 (1.15 bpp): out-of-range 0/0/0, clamp fired 25942/31858/31858 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 14.55/37.56/37.56
+    ~2.0 (1.97 bpp): out-of-range 0/0/0, clamp fired 36771/32262/32126 | gen2 idx 2/0/0 pix 50/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 32.16/40.57/40.57
+
+extFULL row-0 start variants (gen 1 PSNR Y/Cb/Cr; gen2/gen3 index mismatches):
+  r0zero   E1q    ~0.5 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0zero   E1q    ~1.0 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0zero   E1q    ~2.0 (1.99 bpp) PSNR 31.87/40.57/40.57 | oor 0/0/0 | gen2 idx 6/0/0 pix 105/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK1  ~0.5 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK1  ~1.0 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK1  ~2.0 (1.97 bpp) PSNR 32.16/40.57/40.57 | oor 0/0/0 | gen2 idx 2/0/0 pix 50/0/0 | gen3 idx 0/0/0
+  r0zero   E1     ~0.5 (1.16 bpp) PSNR 14.99/37.56/37.56 | oor 0/0/0 | gen2 idx 194/0/0 pix 10957/0/0 | gen3 idx 1/0/0
+  r0zero   E1     ~1.0 (1.16 bpp) PSNR 14.99/37.56/37.56 | oor 0/0/0 | gen2 idx 194/0/0 pix 10957/0/0 | gen3 idx 1/0/0
+  r0zero   E1     ~2.0 (1.97 bpp) PSNR 32.54/40.57/40.57 | oor 0/0/0 | gen2 idx 100/0/0 pix 2473/0/0 | gen3 idx 8/0/0
+  r0zero   E2qK4  ~0.5 (1.15 bpp) PSNR 14.57/37.56/37.56 | oor 0/0/0 | gen2 idx 3/0/0 pix 538/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK4  ~1.0 (1.15 bpp) PSNR 14.57/37.56/37.56 | oor 0/0/0 | gen2 idx 3/0/0 pix 538/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK4  ~2.0 (1.97 bpp) PSNR 32.17/40.57/40.57 | oor 0/0/0 | gen2 idx 4/0/0 pix 79/0/0 | gen3 idx 0/0/0
+  r0zero   E3     ~0.5 (0.43 bpp) PSNR 9.11/3.01/3.01 | oor 0/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0
+  r0zero   E3     ~1.0 (1.36 bpp) PSNR 15.17/37.56/37.56 | oor 0/0/0 | gen2 idx 6/0/0 pix 475/0/0 | gen3 idx 0/0/0
+  r0zero   E3     ~2.0 (2.18 bpp) PSNR 26.37/39.20/39.24 | oor 0/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0
+  r0first  E1q    ~0.5 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0first  E1q    ~1.0 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0first  E1q    ~2.0 (1.99 bpp) PSNR 31.87/40.57/40.57 | oor 0/0/0 | gen2 idx 6/0/0 pix 105/0/0 | gen3 idx 0/0/0
+  r0first  E2qK1  ~0.5 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0first  E2qK1  ~1.0 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0first  E2qK1  ~2.0 (1.97 bpp) PSNR 32.16/40.57/40.57 | oor 0/0/0 | gen2 idx 2/0/0 pix 50/0/0 | gen3 idx 0/0/0
+  r0first  E1     ~0.5 (1.16 bpp) PSNR 14.99/37.56/37.56 | oor 0/0/0 | gen2 idx 194/0/0 pix 10957/0/0 | gen3 idx 1/0/0
+  r0first  E1     ~1.0 (1.16 bpp) PSNR 14.99/37.56/37.56 | oor 0/0/0 | gen2 idx 194/0/0 pix 10957/0/0 | gen3 idx 1/0/0
+  r0first  E1     ~2.0 (1.97 bpp) PSNR 32.54/40.57/40.57 | oor 0/0/0 | gen2 idx 100/0/0 pix 2473/0/0 | gen3 idx 8/0/0
+  r0first  E2qK4  ~0.5 (1.15 bpp) PSNR 14.57/37.56/37.56 | oor 0/0/0 | gen2 idx 3/0/0 pix 538/0/0 | gen3 idx 0/0/0
+  r0first  E2qK4  ~1.0 (1.15 bpp) PSNR 14.57/37.56/37.56 | oor 0/0/0 | gen2 idx 3/0/0 pix 538/0/0 | gen3 idx 0/0/0
+  r0first  E2qK4  ~2.0 (1.97 bpp) PSNR 32.17/40.57/40.57 | oor 0/0/0 | gen2 idx 4/0/0 pix 79/0/0 | gen3 idx 0/0/0
+  r0first  E3     ~0.5 (0.43 bpp) PSNR 9.11/3.01/3.01 | oor 0/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0
+  r0first  E3     ~1.0 (1.36 bpp) PSNR 15.17/37.56/37.56 | oor 0/0/0 | gen2 idx 6/0/0 pix 475/0/0 | gen3 idx 0/0/0
+  r0first  E3     ~2.0 (2.18 bpp) PSNR 26.37/39.20/39.24 | oor 0/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0

@@ -1,0 +1,13 @@
+Owner's nine grille boxes (S3.24 method, 8x8 blocks in luma coordinates = 4x8 chroma samples), % of blocks with mean(decode-source) > +10 / > +20 (bright) and < -10 / < -20 (dark), per plane
+CLP model (final config, ~0.52 bpp coded)
+   f2  Y bright  0.0/ 0.0 dark  0.0/ 0.0 | Cb bright  1.0/ 0.0 dark  1.9/ 0.0 | Cr bright  1.0/ 0.0 dark  0.0/ 0.0
+   f8  Y bright  0.0/ 0.0 dark  0.0/ 0.0 | Cb bright  0.0/ 0.0 dark  0.0/ 0.0 | Cr bright  0.0/ 0.0 dark  0.0/ 0.0
+   f11 Y bright  0.0/ 0.0 dark  0.0/ 0.0 | Cb bright  0.0/ 0.0 dark  1.0/ 0.0 | Cr bright  1.0/ 0.0 dark  1.0/ 0.0
+today real 0.5
+   f2  Y bright 12.9/ 3.0 dark 13.9/ 2.0 | Cb bright  1.0/ 0.0 dark  1.0/ 0.0 | Cr bright  1.0/ 0.0 dark  1.9/ 0.0
+   f8  Y bright  0.0/ 0.0 dark  3.0/ 0.0 | Cb bright  0.0/ 0.0 dark  0.0/ 0.0 | Cr bright  0.0/ 0.0 dark  1.9/ 0.0
+   f11 Y bright  6.9/ 1.0 dark  8.9/ 1.0 | Cb bright  1.9/ 0.0 dark  1.9/ 0.0 | Cr bright  1.0/ 0.0 dark  1.0/ 0.0
+today real 1.0
+   f2  Y bright  0.0/ 0.0 dark  0.0/ 0.0 | Cb bright  1.0/ 0.0 dark  0.0/ 0.0 | Cr bright  1.0/ 0.0 dark  1.0/ 0.0
+   f8  Y bright  0.0/ 0.0 dark  0.0/ 0.0 | Cb bright  0.0/ 0.0 dark  0.0/ 0.0 | Cr bright  0.0/ 0.0 dark  0.0/ 0.0
+   f11 Y bright  3.0/ 0.0 dark  0.0/ 0.0 | Cb bright  1.0/ 0.0 dark  1.9/ 0.0 | Cr bright  0.0/ 0.0 dark  1.0/ 0.0

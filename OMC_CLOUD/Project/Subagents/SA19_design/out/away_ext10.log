@@ -1,0 +1,6 @@
+ext10 @0.5 plane 0: moved away 16253 (6.2000 % of samples), toward 57764, max excess 340 codes, share of plane SE 7.8240 % | farther than plain clip 19259
+ext10 @0.5 plane 1: moved away 0 (0.0000 % of samples), toward 0, max excess 0 codes, share of plane SE 0.0000 % | farther than plain clip 0
+ext10 @0.5 plane 2: moved away 7724 (5.8929 % of samples), toward 18757, max excess 702 codes, share of plane SE 0.0513 % | farther than plain clip 13313
+ext10 @1.0 plane 0: moved away 17964 (6.8527 % of samples), toward 70179, max excess 422 codes, share of plane SE 13.9635 % | farther than plain clip 24620
+ext10 @1.0 plane 1: moved away 7922 (6.0440 % of samples), toward 26867, max excess 510 codes, share of plane SE 0.0331 % | farther than plain clip 18318
+ext10 @1.0 plane 2: moved away 14873 (11.3472 % of samples), toward 63640, max excess 703 codes, share of plane SE 0.8318 % | farther than plain clip 42085

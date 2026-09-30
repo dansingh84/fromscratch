@@ -1,0 +1,26 @@
+spot@1.0 g1 t=0 D=26.51 bpp=0.908 psnr=44.26/45.01/48.03 refresh=None
+spot@1.0 g1 t=1 D=22.19 bpp=0.875 psnr=45.00/45.65/48.51 refresh=0
+spot@1.0 g1 t=2 D=24.25 bpp=0.898 psnr=44.67/45.35/48.32 refresh=1
+spot@1.0 g1 t=3 D=21.22 bpp=0.902 psnr=45.04/45.70/48.53 refresh=2
+spot@1.0 g1 t=4 D=25.36 bpp=0.851 psnr=44.14/44.80/47.88 refresh=3
+spot@1.0 g1 t=5 D=23.20 bpp=0.900 psnr=44.75/45.40/48.37 refresh=4
+spot@1.0 g1 t=6 D=22.19 bpp=0.903 psnr=45.12/45.82/48.80 refresh=5
+spot@1.0 g1 t=7 D=19.41 bpp=0.861 psnr=45.71/46.37/49.23 refresh=6
+spot@1.0 g1 t=8 D=21.22 bpp=0.908 psnr=45.12/45.79/48.77 refresh=7
+spot@1.0 g1 t=9 D=22.19 bpp=0.891 psnr=44.88/45.60/48.66 refresh=8
+spot@1.0 g1 t=10 D=22.19 bpp=0.858 psnr=45.03/45.71/48.66 refresh=9
+spot@1.0 g1 t=11 D=25.36 bpp=0.881 psnr=44.48/45.09/48.12 refresh=10
+spot@1.0 g2 t=0 D=26.51 bpp=0.908 psnr=99.00/99.00/99.00 refresh=None
+spot@1.0 g2 t=1 D=22.19 bpp=0.875 psnr=99.00/99.00/99.00 refresh=0
+spot@1.0 g2 t=2 D=24.25 bpp=0.898 psnr=99.00/99.00/99.00 refresh=1
+spot@1.0 g2 t=3 D=21.22 bpp=0.902 psnr=99.00/99.00/99.00 refresh=2
+spot@1.0 g2 t=4 D=25.36 bpp=0.851 psnr=99.00/99.00/99.00 refresh=3
+spot@1.0 g2 t=5 D=23.20 bpp=0.900 psnr=99.00/99.00/99.00 refresh=4
+spot@1.0 g2 t=6 D=22.19 bpp=0.903 psnr=99.00/99.00/99.00 refresh=5
+spot@1.0 g2 t=7 D=19.41 bpp=0.861 psnr=99.00/99.00/99.00 refresh=6
+spot@1.0 g2 t=8 D=21.22 bpp=0.908 psnr=99.00/99.00/99.00 refresh=7
+spot@1.0 g2 t=9 D=22.19 bpp=0.891 psnr=99.00/99.00/99.00 refresh=8
+spot@1.0 g2 t=10 D=22.19 bpp=0.858 psnr=99.00/99.00/99.00 refresh=9
+spot@1.0 g2 t=11 D=25.36 bpp=0.881 psnr=99.00/99.00/99.00 refresh=10
+spot_b1.0_idx0.25 GEN2 differing samples=0  bits g2/g1=1.0000  oob=0  time=3394s
+rc=0

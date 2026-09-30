@@ -1,0 +1,11 @@
+hold g1 {'ll': False, 'mid': False, 'fine': False} g2 {'ll': False, 'mid': False, 'fine': True} Pu -1 253 PuP 253 253 static True True Pe 254 254 P 254 254 stats g1 254 g2 255
+plane 0 LH1 Dq 128 f1==xp 32 / 32 f1==clip(th) 32 f2==clip(th) 32 f1!=f2 0 e1!=e2 0 MPup 0 MPlo 0
+plane 0 HL1 Dq 64 f1==xp 30 / 32 f1==clip(th) 30 f2==clip(th) 32 f1!=f2 2 e1!=e2 2 MPup 0 MPlo 0
+     at (np.int64(0), np.int64(8)) xp 64 th 64 ivl (np.int64(-704), np.int64(833)) f1 0 f2 64 e1 0 e2 1
+plane 0 HH1 Dq 256 f1==xp 32 / 32 f1==clip(th) 32 f2==clip(th) 32 f1!=f2 0 e1!=e2 0 MPup 0 MPlo 0
+plane 1 LH1 Dq 64 f1==xp 16 / 16 f1==clip(th) 16 f2==clip(th) 16 f1!=f2 0 e1!=e2 0 MPup 0 MPlo 0
+plane 1 HL1 Dq 64 f1==xp 16 / 16 f1==clip(th) 16 f2==clip(th) 16 f1!=f2 0 e1!=e2 0 MPup 0 MPlo 0
+plane 1 HH1 Dq 128 f1==xp 16 / 16 f1==clip(th) 16 f2==clip(th) 16 f1!=f2 0 e1!=e2 0 MPup 0 MPlo 0
+plane 2 LH1 Dq 64 f1==xp 16 / 16 f1==clip(th) 16 f2==clip(th) 16 f1!=f2 0 e1!=e2 0 MPup 0 MPlo 0
+plane 2 HL1 Dq 64 f1==xp 16 / 16 f1==clip(th) 16 f2==clip(th) 16 f1!=f2 0 e1!=e2 0 MPup 0 MPlo 0
+plane 2 HH1 Dq 128 f1==xp 16 / 16 f1==clip(th) 16 f2==clip(th) 16 f1!=f2 0 e1!=e2 0 MPup 0 MPlo 0

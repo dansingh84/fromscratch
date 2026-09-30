@@ -1,0 +1,2 @@
+dng720 Qf 6.0 plain    bpp(ent) 1.174 NEG 91.460 g2 True | Y PSNR 38.25 excess +0.07 (bnd 1.05 int 0.98) first 1.00 last 1.07 | Cb PSNR 36.93 excess +0.07 (bnd 1.04 int 0.97) first 1.00 last 1.08 | Cr PSNR 37.95 excess +0.07 (bnd 1.04 int 0.97) first 1.00 last 1.06
+dng720 Qf 6.0 ANCHOR   bpp(ent) 1.270 NEG 91.442 g2 True | Y PSNR 37.50 excess +0.07 (bnd 0.91 int 0.84) first 0.94 last 0.95 | Cb PSNR 36.29 excess +0.08 (bnd 0.92 int 0.84) first 0.94 last 0.96 | Cr PSNR 37.41 excess +0.07 (bnd 0.93 int 0.86) first 0.95 last 0.97

@@ -1,0 +1,13 @@
+# large media and binaries stay out of git (footage is supplied by the owner; tables/bitstreams are regenerable)
+*.yuv
+*.png
+*.omc
+*.pkl
+*.cdr
+__pycache__/
+OMC_CLOUD/footage_in/
+OMC_CLOUD/scratch/
+OMC_CLOUD/Project/.work/v537/omc_enc
+OMC_CLOUD/Project/.work/v537/omc_dec
+OMC_CLOUD/Project/.work/v537/gen_gm_basis
+*.o

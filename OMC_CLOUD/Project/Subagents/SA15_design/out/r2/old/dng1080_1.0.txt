@@ -1,0 +1,1 @@
+g1 t=0 bpp=0.9309 psnr_vs_input=36.69/35.67/36.57 kap[min/med/max]=42/50/55 jump>+8:0 jump<0:46 overflow=0 reading_fixes=0 unresolved_frames=0 credit=13665 pot=129600 dev(actual-lane) sum=-0 max=0 refresh=(0, 0) hfslices=135 oob=0 37s

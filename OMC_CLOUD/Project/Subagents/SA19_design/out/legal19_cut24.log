@@ -1,0 +1,16 @@
+cut24 @0.50 OFF: oob 0 overs 0 | clamp-site leaves 0, in-range lattice index found 0 (0.0 %)
+   plane 0: away vs clip-arm 5185 (10.5489 %), toward 9938, max excess 251 | PSNR out 13.038  clip-arm 13.006
+   plane 1: away vs clip-arm 3774 (15.3564 %), toward 5793, max excess 297 | PSNR out 15.595  clip-arm 15.585
+   plane 2: away vs clip-arm 3644 (14.8275 %), toward 5725, max excess 415 | PSNR out 15.930  clip-arm 15.967
+cut24 @0.50 FIX: oob 0 overs 0 | clamp-site leaves 3592, in-range lattice index found 801 (22.3 %)
+   plane 0: away vs clip-arm 9516 (19.3604 %), toward 11217, max excess 685 | PSNR out 12.057  clip-arm 12.403
+   plane 1: away vs clip-arm 5863 (23.8566 %), toward 5655, max excess 619 | PSNR out 14.082  clip-arm 15.316
+   plane 2: away vs clip-arm 5693 (23.1649 %), toward 5651, max excess 596 | PSNR out 14.640  clip-arm 15.672
+cut24 @1.00 OFF: oob 0 overs 0 | clamp-site leaves 0, in-range lattice index found 0 (0.0 %)
+   plane 0: away vs clip-arm 9284 (18.8883 %), toward 13153, max excess 145 | PSNR out 23.090  clip-arm 22.848
+   plane 1: away vs clip-arm 4788 (19.4824 %), toward 8952, max excess 236 | PSNR out 23.358  clip-arm 23.156
+   plane 2: away vs clip-arm 4757 (19.3563 %), toward 8974, max excess 236 | PSNR out 23.785  clip-arm 23.581
+cut24 @1.00 FIX: oob 0 overs 0 | clamp-site leaves 8593, in-range lattice index found 4727 (55.0 %)
+   plane 0: away vs clip-arm 17224 (35.0423 %), toward 9095, max excess 713 | PSNR out 12.952  clip-arm 19.882
+   plane 1: away vs clip-arm 9450 (38.4521 %), toward 7300, max excess 634 | PSNR out 16.060  clip-arm 20.599
+   plane 2: away vs clip-arm 9457 (38.4806 %), toward 7296, max excess 634 | PSNR out 16.176  clip-arm 20.710

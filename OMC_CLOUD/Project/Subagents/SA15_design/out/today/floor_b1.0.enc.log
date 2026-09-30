@@ -1,0 +1,6 @@
+omc_enc: 12 frames, 30720 bits/slice, 68 slices/frame (1.0000 bpp)
+omc_enc: gamut-strict: 13 passes max, 28 slices repaired in 52 passes (0 fell back to the harsh rule), 0 slices still out of gamut
+omc_enc: gamut-strict: worst total passes 5 of cap 52 (p50 1 p90 5 p99 5 over 28 repaired slices)
+omc_enc: gamut: 0 committed samples outside legal range
+omc_enc: baseband-safe: yes
+enc_rc=0

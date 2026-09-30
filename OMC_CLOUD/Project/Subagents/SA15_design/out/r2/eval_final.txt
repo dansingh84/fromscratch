@@ -1,0 +1,71 @@
+dng720_1.0 today  NEG mean 94.05 worst 92.31 | PSNR mean 38.19/37.08/37.95 worst 37.88/36.92/37.87 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 33.22
+dng720_1.0 cpp    NEG mean 93.05 worst 91.49 | PSNR mean 39.10/37.73/38.56 worst 38.68/37.42/38.29 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 33.81
+floor720 ref16  NEG mean 94.16 worst 89.81 | PSNR mean 42.31/44.84/44.89 worst 41.66/44.38/44.53 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 33.32
+floor720 ref0   NEG mean 94.53 worst 90.18 | PSNR mean 42.53/45.02/45.04 worst 41.94/44.63/44.71 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 32.43
+floor720 zh1    NEG mean 93.39 worst 88.89 | PSNR mean 41.81/44.57/44.63 worst 41.20/44.18/44.34 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 26.94
+dng720_0.5 cpp    NEG mean 90.34 worst 86.25 | PSNR mean 37.35/36.59/37.61 worst 35.97/36.09/37.13 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 37.50
+dng720_0.5 zh1    NEG mean 88.25 worst 84.77 | PSNR mean 36.28/36.18/37.22 worst 35.23/35.82/36.84 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 34.06
+dng720_1.0_kstab0 kstab0 NEG mean 92.87 worst 91.23 | PSNR mean 39.07/37.70/38.52 worst 38.63/37.37/38.23 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 33.95
+FAILED rc=1: python3 /home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/dng1080_1.0/src.yuv /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/dng1080_1.0/today.yuv 1920 1080 6 /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/dng1080_1.0/today_sm
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py", line 42, in <module>
+    S=planes(src); D=planes(dec); img=Image.fromarray(rgb(*D)); dr=ImageDraw.Draw(img)
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py", line 19, in planes
+    return d[:W*H].reshape(H,W), d[W*H:W*H+Wc*H].reshape(H,Wc), d[W*H+Wc*H:].reshape(H,Wc)
+           ~~~~~~~~~~~~~~~^^^^^
+ValueError: cannot reshape array of size 0 into shape (1080,1920)
+
+FAILED rc=1: python3 /home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/spot_0.5/src.yuv /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/spot_0.5/today.yuv 1920 1080 6 /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/spot_0.5/today_sm
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py", line 42, in <module>
+    S=planes(src); D=planes(dec); img=Image.fromarray(rgb(*D)); dr=ImageDraw.Draw(img)
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py", line 19, in planes
+    return d[:W*H].reshape(H,W), d[W*H:W*H+Wc*H].reshape(H,Wc), d[W*H+Wc*H:].reshape(H,Wc)
+           ~~~~~~~~~~~~~~~^^^^^
+ValueError: cannot reshape array of size 0 into shape (1080,1920)
+
+FAILED rc=1: python3 /home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/volley_0.5/src.yuv /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/volley_0.5/today.yuv 1920 1080 6 /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/volley_0.5/today_sm
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py", line 42, in <module>
+    S=planes(src); D=planes(dec); img=Image.fromarray(rgb(*D)); dr=ImageDraw.Draw(img)
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py", line 19, in planes
+    return d[:W*H].reshape(H,W), d[W*H:W*H+Wc*H].reshape(H,Wc), d[W*H+Wc*H:].reshape(H,Wc)
+           ~~~~~~~~~~~~~~~^^^^^
+ValueError: cannot reshape array of size 0 into shape (1080,1920)
+
+FAILED rc=1: python3 /home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/hwy_0.5/src.yuv /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/hwy_0.5/today.yuv 1920 1080 6 /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/r2/eval/hwy_0.5/today_sm
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py", line 42, in <module>
+    S=planes(src); D=planes(dec); img=Image.fromarray(rgb(*D)); dr=ImageDraw.Draw(img)
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/smudgegroups.py", line 19, in planes
+    return d[:W*H].reshape(H,W), d[W*H:W*H+Wc*H].reshape(H,Wc), d[W*H+Wc*H:].reshape(H,Wc)
+           ~~~~~~~~~~~~~~~^^^^^
+ValueError: cannot reshape array of size 0 into shape (1080,1920)
+
+dng1080_1.0 today  NEG mean 93.31 worst 91.77 | PSNR mean 36.90/36.02/36.72 worst 36.85/35.82/36.59 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 27.54
+dng1080_1.0 cpp    NEG mean 92.29 worst 90.78 | PSNR mean 37.44/36.38/37.16 worst 37.35/36.24/37.05 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 41.98
+spot_0.5 today  NEG mean 93.25 worst 87.10 | PSNR mean 39.35/42.76/46.24 worst 36.51/42.10/45.65 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 1 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 52.66
+spot_0.5 cpp    NEG mean 93.99 worst 90.30 | PSNR mean 41.60/42.88/45.94 worst 40.73/42.19/45.34 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 44.33
+volley_0.5 today  NEG mean 92.29 worst 90.83 | PSNR mean 41.30/43.32/45.82 worst 40.54/43.08/45.48 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 37.01
+volley_0.5 cpp    NEG mean 92.48 worst 90.14 | PSNR mean 43.04/44.31/46.53 worst 41.63/43.41/45.60 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 32.95
+hwy_0.5 today  NEG mean 93.58 worst 90.58 | PSNR mean 40.94/47.26/43.78 worst 40.74/47.21/43.63 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 42.49
+hwy_0.5 cpp    NEG mean 92.56 worst 89.76 | PSNR mean 41.85/47.47/44.37 worst 41.69/47.34/44.22 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 29.12
+floor_0.5 today  NEG mean 95.55 worst 92.41 | PSNR mean 40.71/44.74/44.32 worst 40.62/44.70/44.27 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 55.49
+floor_0.5 cpp    NEG mean 95.53 worst 92.00 | PSNR mean 41.61/45.14/44.82 worst 41.39/44.98/44.67 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 42.20
+floor_1.0 today  NEG mean 98.19 worst 94.94 | PSNR mean 42.60/46.02/45.50 worst 42.56/45.96/45.42 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 31.73
+floor_1.0 cpp    NEG mean 97.35 worst 93.99 | PSNR mean 43.12/46.37/45.95 worst 43.03/46.33/45.92 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 13.83
+dng1080_0.5 today  NEG mean 90.70 worst 87.51 | PSNR mean 35.30/34.65/35.74 worst 35.05/34.52/35.70 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 4 bright regions, 5 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 53.46
+dng1080_0.5 cpp    NEG mean 89.57 worst 87.36 | PSNR mean 36.27/35.20/36.20 worst 35.96/34.99/36.03 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 50.88
+spot_1.0 today  NEG mean 97.36 worst 95.03 | PSNR mean 43.28/44.76/48.14 worst 40.70/44.08/47.54 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 1 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 40.80
+spot_1.0 cpp    NEG mean 97.21 worst 93.94 | PSNR mean 44.47/45.09/47.98 worst 43.83/44.41/47.41 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 32.15
+hwy_1.0 today  NEG mean 97.08 worst 94.13 | PSNR mean 43.79/48.96/45.23 worst 43.61/48.83/45.11 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 30.45
+hwy_1.0 cpp    NEG mean 95.58 worst 92.60 | PSNR mean 44.26/48.78/45.73 worst 44.01/48.59/45.53 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 7.61
+volley_1.0 today  NEG mean 95.59 worst 94.70 | PSNR mean 45.23/45.62/48.08 worst 45.13/45.56/47.98 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 33.14
+volley_1.0 cpp    NEG mean 95.09 worst 93.83 | PSNR mean 46.18/46.78/48.77 worst 45.50/46.20/48.25 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 26.86
+tabA floorA NEG mean 95.39 worst 91.93 | PSNR mean 41.60/45.12/44.81 worst 41.44/44.99/44.68 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 39.53
+tabA hwyA   NEG mean 92.52 worst 89.83 | PSNR mean 41.82/47.47/44.38 worst 41.61/47.32/44.22 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 28.69
+mixed cpp    NEG mean 92.31 worst 90.05 | PSNR mean 39.30/38.95/39.55 worst 38.17/37.56/38.42 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 26.86
+cut cpp    NEG mean 91.13 worst 83.09 | PSNR mean 40.28/43.78/44.18 worst 37.61/41.04/42.85 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 42 bright regions, 44 dark regions ; 0 bright regions, 0 dark regions ; 1 bright regions, 0 dark regions | flat% 35.46
+hp_floor hp     NEG mean 95.40 worst 91.95 | PSNR mean 41.64/45.15/44.83 worst 41.49/45.04/44.73 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 40.98
+hp_volley hp     NEG mean 92.39 worst 89.98 | PSNR mean 42.98/44.28/46.49 worst 41.59/43.38/45.58 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 33.22
+hp_spot hp     NEG mean 94.19 worst 90.49 | PSNR mean 41.75/42.98/46.03 worst 40.97/42.32/45.47 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 44.53

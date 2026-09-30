@@ -1,0 +1,16 @@
+cut24 @0.25: out-of-range 0 / 196608; gen-2 differing samples 0; samples changed by legality 0 (toward 0, away 0); worse than clip 0 (max excess 0 codes); CBR overs 48
+cut24 @0.50: out-of-range 0 / 196608; gen-2 differing samples 0; samples changed by legality 24410 (toward 19040, away 5338); worse than clip 5873 (max excess 557 codes); CBR overs 40
+cut24 @1.00: out-of-range 0 / 196608; gen-2 differing samples 0; samples changed by legality 30747 (toward 23167, away 7572); worse than clip 8066 (max excess 258 codes); CBR overs 40
+cut24 @2.00: out-of-range 0 / 196608; gen-2 differing samples 0; samples changed by legality 32585 (toward 25002, away 7521); worse than clip 8331 (max excess 285 codes); CBR overs 40
+ext10 @0.25: out-of-range 0 / 524288; gen-2 differing samples 0; samples changed by legality 0 (toward 0, away 0); worse than clip 0 (max excess 0 codes); CBR overs 64
+ext10 @0.50: out-of-range 0 / 524288; gen-2 differing samples 0; samples changed by legality 67346 (toward 58675, away 8642); worse than clip 20673 (max excess 703 codes); CBR overs 48
+ext10 @1.00: out-of-range 0 / 524288; gen-2 differing samples 0; samples changed by legality 103314 (toward 92860, away 10369); worse than clip 34233 (max excess 667 codes); CBR overs 48
+ext10 @2.00: out-of-range 0 / 524288; gen-2 differing samples 0; samples changed by legality 132009 (toward 115853, away 16040); worse than clip 42036 (max excess 615 codes); CBR overs 48
+ext10l1 @0.25: out-of-range 0 / 524288; gen-2 differing samples 0; samples changed by legality 0 (toward 0, away 0); worse than clip 0 (max excess 0 codes); CBR overs 64
+ext10l1 @0.50: out-of-range 0 / 524288; gen-2 differing samples 0; samples changed by legality 46884 (toward 39774, away 7105); worse than clip 7775 (max excess 494 codes); CBR overs 48
+ext10l1 @1.00: out-of-range 0 / 524288; gen-2 differing samples 0; samples changed by legality 84368 (toward 78665, away 5695); worse than clip 6365 (max excess 494 codes); CBR overs 48
+ext10l1 @2.00: out-of-range 0 / 524288; gen-2 differing samples 0; samples changed by legality 52891 (toward 48447, away 4442); worse than clip 4716 (max excess 465 codes); CBR overs 48
+gfx @0.25: out-of-range 0 / 1376256; gen-2 differing samples 0; samples changed by legality 0 (toward 0, away 0); worse than clip 0 (max excess 0 codes); CBR overs 192
+gfx @0.50: out-of-range 0 / 1376256; gen-2 differing samples 0; samples changed by legality 40785 (toward 21574, away 19176); worse than clip 19176 (max excess 913 codes); CBR overs 160
+gfx @1.00: out-of-range 0 / 1376256; gen-2 differing samples 0; samples changed by legality 37663 (toward 20659, away 16977); worse than clip 16977 (max excess 950 codes); CBR overs 160
+gfx @2.00: out-of-range 0 / 1376256; gen-2 differing samples 0; samples changed by legality 37830 (toward 19695, away 18111); worse than clip 18111 (max excess 919 codes); CBR overs 160

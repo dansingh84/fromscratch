@@ -1,0 +1,13 @@
+final dng720 @0.5  NEG 88.97 (worst 88.10)  PSNR 34.43/36.12/37.22   | today NEG 90.16 (worst 87.22) PSNR 35.22/36.10/37.14  | max frame bits/target 0.9999 over 0 oob 0
+final dng720 @1.0  NEG 94.25 (worst 93.17)  PSNR 38.43/37.01/38.27   | today NEG 94.05 (worst 92.31) PSNR 38.19/37.08/37.95  | max frame bits/target 0.9999 over 0 oob 0
+final spot @0.5  NEG 94.41 (worst 90.76)  PSNR 39.89/42.52/46.38   | today NEG 93.76 (worst 87.10) PSNR 39.54/42.80/46.31  | max frame bits/target 0.9999 over 0 oob 0
+final dng1080 @0.5  NEG 90.25 (worst 88.56)  PSNR 35.05/34.73/35.98   | today NEG 91.08 (worst 87.51) PSNR 35.32/34.67/35.75  | max frame bits/target 1.0000 over 0 oob 0
+final spot @1.0  NEG 97.72 (worst 94.34)  PSNR 43.42/44.43/48.10   | today NEG 97.53 (worst 95.03) PSNR 42.94/44.79/48.16  | max frame bits/target 0.9999 over 0 oob 0
+final dng1080 @1.0  NEG 94.04 (worst 92.36)  PSNR 37.12/35.53/36.73   | today NEG 93.51 (worst 91.77) PSNR 36.91/36.04/36.74  | max frame bits/target 1.0000 over 0 oob 0
+final floor @0.5  NEG 95.32 (worst 91.47)  PSNR 40.35/44.99/44.58   | today NEG 95.98 (worst 92.41) PSNR 40.71/44.73/44.31  | max frame bits/target 0.9999 over 0 oob 0
+final floor @1.0  NEG 98.15 (worst 94.46)  PSNR 42.32/46.32/45.89   | today NEG 98.59 (worst 94.94) PSNR 42.60/46.01/45.48  | max frame bits/target 1.0000 over 0 oob 0
+final hwy @0.5  NEG 92.96 (worst 89.73)  PSNR 40.78/47.76/44.11   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 1.0000 over 0 oob 0
+final hwy @1.0  NEG 96.52 (worst 93.37)  PSNR 43.75/49.09/45.39   | today NEG 97.29 (worst 94.13) PSNR 43.90/49.00/45.36  | max frame bits/target 0.9999 over 0 oob 0
+final volley @0.5  NEG 91.17 (worst 90.08)  PSNR 39.57/42.67/45.29   | today NEG 92.37 (worst 90.83) PSNR 41.28/43.36/45.90  | max frame bits/target 0.9999 over 0 oob 0
+final volley @1.0  NEG 95.21 (worst 94.28)  PSNR 44.50/45.39/48.20   | today NEG 95.62 (worst 94.70) PSNR 45.20/45.63/48.10  | max frame bits/target 0.9999 over 0 oob 0
+DONE

@@ -1,0 +1,32 @@
+== spot_codec f8 thr 6 dens 0.4
+Y: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== spot_codec f8 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== spot_codec f9 thr 6 dens 0.4
+Y: 2 groups, 29 blocks, largest 19  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== spot_codec f9 thr 12 dens 0.5
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== spot_codec f10 thr 6 dens 0.4
+Y: 2 groups, 44 blocks, largest 28  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== spot_codec f10 thr 12 dens 0.5
+Y: 1 groups, 17 blocks, largest 17  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== spot_codec f11 thr 6 dens 0.4
+Y: 2 groups, 36 blocks, largest 18  [thr 6 dens 0.4]
+Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4]
+== spot_codec f11 thr 12 dens 0.5
+Y: 1 groups, 8 blocks, largest 8  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]

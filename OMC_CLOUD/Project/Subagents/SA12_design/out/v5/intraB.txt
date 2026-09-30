@@ -1,0 +1,6 @@
+spot16 sh16 CONT=4 | NEG 91.745 | bpp(ent) 0.476 PSNR 41.23/42.76/46.19 | intra boundary excess Y +0.14 Cb +0.15 Cr +0.28
+d720 sh8 CONT=4 | NEG 91.123 | bpp(ent) 1.175 PSNR 38.24/36.92/37.94 | intra boundary excess Y +0.06 Cb +0.06 Cr +0.06
+spot16 sh16 CONT=8 | NEG 91.620 | bpp(ent) 0.476 PSNR 41.22/42.74/46.16 | intra boundary excess Y +0.14 Cb +0.14 Cr +0.25
+d720 sh8 CONT=8 | NEG 90.938 | bpp(ent) 1.175 PSNR 38.23/36.90/37.93 | intra boundary excess Y +0.06 Cb +0.06 Cr +0.05
+d720 sh8 CONT=4 | NEG 90.721 | bpp(ent) 1.175 PSNR 38.22/36.89/37.91 | intra boundary excess Y +0.05 Cb +0.05 Cr +0.05
+spot16 sh16 CONT=4 | NEG 91.530 | bpp(ent) 0.476 PSNR 41.21/42.73/46.15 | intra boundary excess Y +0.13 Cb +0.13 Cr +0.24

@@ -1,0 +1,4 @@
+ext10 0.5 plane 0 away samples 6003 cases so far 1172 fixable 0
+ext10 0.5 plane 1 away samples 0 cases so far 1172 fixable 0
+ext10 0.5 plane 2 away samples 4224 cases so far 1876 fixable 0
+RESULT ext10 0.5 cases 1876 fixable by one +-1 re-choice 0 (0.0%) {}

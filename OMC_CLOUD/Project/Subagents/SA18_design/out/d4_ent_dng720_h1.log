@@ -1,0 +1,13 @@
+dng720 0.5 hold 1 class-symbol bits: table 1470137  empirical 999054  ratio 1.472
+  key (0, 6, 1, 2) n 1826560 table 316775 emp 234962 ratio 1.348
+  key (0, 4, 1, 1) n 290880 table 137054 emp 79601 ratio 1.722
+  key (1, 6, 1, 2) n 1835520 table 81883 emp 40022 ratio 2.046
+  key (1, 2, 1, 0) n 48080 table 79767 emp 57201 ratio 1.395
+  key (0, 2, 1, 0) n 49920 table 77239 emp 51683 ratio 1.494
+  key (0, 4, 1, 2) n 169920 table 75318 emp 63673 ratio 1.183
+  key (1, 0, 1, 0) n 28800 table 69965 emp 48154 ratio 1.453
+  key (0, 3, 1, 1) n 91840 table 67096 emp 49427 ratio 1.357
+  key (0, 7, 1, 2) n 921600 table 65184 emp 35022 ratio 1.861
+  key (1, 1, 1, 0) n 28800 table 63868 emp 47030 ratio 1.358
+  key (1, 3, 1, 1) n 95600 table 62432 emp 49251 ratio 1.268
+  key (0, 0, 1, 0) n 28800 table 62190 emp 52781 ratio 1.178

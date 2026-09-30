@@ -1,0 +1,9 @@
+trained cityalley_1920x1080_422_10.yuv
+trained bosphorus_1920x1080_422_10.yuv
+trained readysetgo_1920x1080_422_10.yuv
+trained trafficlightsL_1920x1080_422_10.yuv
+trained winterdriveL_1920x1080_422_10.yuv
+trained floorballtrainL_1920x1080_422_10.yuv
+trained highwayviewL_1920x1080_422_10.yuv
+keys 20 symbols 174182400
+rc=0

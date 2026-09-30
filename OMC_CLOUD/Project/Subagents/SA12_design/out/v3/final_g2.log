@@ -1,0 +1,13 @@
+  frame 0 bpp 1.178
+  frame 1 bpp 0.656
+  frame 2 bpp 0.617
+  frame 3 bpp 0.566
+  frame 4 bpp 0.503
+  frame 5 bpp 0.412
+  frame 0 bpp 1.178
+  frame 1 bpp 0.656
+  frame 2 bpp 0.617
+  frame 3 bpp 0.566
+  frame 4 bpp 0.503
+  frame 5 bpp 0.412
+{"tag": "final_g2", "Qf": 6.0, "oor": 0, "gen2": {"picture": true, "indices": true, "vectors": true}} mean bpp f2+ 0.524

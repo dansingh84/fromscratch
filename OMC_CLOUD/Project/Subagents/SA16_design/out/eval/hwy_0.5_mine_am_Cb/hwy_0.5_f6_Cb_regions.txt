@@ -1,0 +1,1 @@
+BRIGHT rows  286- 293 cols  801- 838 area    161 err    +1.7 src  523.7 slice 17

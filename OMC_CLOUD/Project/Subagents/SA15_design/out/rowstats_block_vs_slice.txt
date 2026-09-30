@@ -1,0 +1,79 @@
+value = deviation % from the 16-phase mean; the source chroma of the L arms has its own period-4 row structure (phases 3,7,11,15), see notes
+== spot_b0.5_idx0.25
+  intra Y  mean|e| ph15(slice edge)   +0.8  ph3/7/11 mean   +0.7  excess(ph15-ph3/7/11)  +0.1  other phases mean  -0.2
+  intra Y  step    ph15(slice edge)   +0.3  ph3/7/11 mean   +0.4  excess(ph15-ph3/7/11)  -0.1  other phases mean  -0.1
+  intra Cb mean|e| ph15(slice edge)   +2.8  ph3/7/11 mean   +3.5  excess(ph15-ph3/7/11)  -0.7  other phases mean  -1.1
+  intra Cb step    ph15(slice edge)  +11.2  ph3/7/11 mean  +12.0  excess(ph15-ph3/7/11)  -0.8  other phases mean  -3.9
+  intra Cr mean|e| ph15(slice edge)   +0.2  ph3/7/11 mean   +0.8  excess(ph15-ph3/7/11)  -0.6  other phases mean  -0.2
+  intra Cr step    ph15(slice edge)  +25.0  ph3/7/11 mean  +25.1  excess(ph15-ph3/7/11)  -0.1  other phases mean  -8.4
+  inter Y  mean|e| ph15(slice edge)   +0.4  ph3/7/11 mean   +0.6  excess(ph15-ph3/7/11)  -0.2  other phases mean  -0.2
+  inter Y  step    ph15(slice edge)   -0.1  ph3/7/11 mean   +0.3  excess(ph15-ph3/7/11)  -0.4  other phases mean  -0.1
+  inter Cb mean|e| ph15(slice edge)   +3.9  ph3/7/11 mean   +4.2  excess(ph15-ph3/7/11)  -0.3  other phases mean  -1.4
+  inter Cb step    ph15(slice edge)  +12.8  ph3/7/11 mean  +13.3  excess(ph15-ph3/7/11)  -0.5  other phases mean  -4.4
+  inter Cr mean|e| ph15(slice edge)   -0.1  ph3/7/11 mean   +0.3  excess(ph15-ph3/7/11)  -0.4  other phases mean  -0.1
+  inter Cr step    ph15(slice edge)  +26.7  ph3/7/11 mean  +27.2  excess(ph15-ph3/7/11)  -0.5  other phases mean  -9.0
+== spot_b1.0_idx0.25
+  intra Y  mean|e| ph15(slice edge)   +0.1  ph3/7/11 mean   -0.0  excess(ph15-ph3/7/11)  +0.1  other phases mean  +0.0
+  intra Y  step    ph15(slice edge)   -2.6  ph3/7/11 mean   -2.6  excess(ph15-ph3/7/11)  -0.0  other phases mean  +0.8
+  intra Cb mean|e| ph15(slice edge)   +3.3  ph3/7/11 mean   +4.1  excess(ph15-ph3/7/11)  -0.8  other phases mean  -1.3
+  intra Cb step    ph15(slice edge)   +7.4  ph3/7/11 mean   +8.2  excess(ph15-ph3/7/11)  -0.8  other phases mean  -2.6
+  intra Cr mean|e| ph15(slice edge)   +0.8  ph3/7/11 mean   +0.7  excess(ph15-ph3/7/11)  +0.1  other phases mean  -0.2
+  intra Cr step    ph15(slice edge)  +22.5  ph3/7/11 mean  +23.1  excess(ph15-ph3/7/11)  -0.6  other phases mean  -7.6
+  inter Y  mean|e| ph15(slice edge)   -0.2  ph3/7/11 mean   +0.0  excess(ph15-ph3/7/11)  -0.2  other phases mean  +0.0
+  inter Y  step    ph15(slice edge)   -1.9  ph3/7/11 mean   -1.5  excess(ph15-ph3/7/11)  -0.4  other phases mean  +0.5
+  inter Cb mean|e| ph15(slice edge)   +4.7  ph3/7/11 mean   +4.9  excess(ph15-ph3/7/11)  -0.2  other phases mean  -1.6
+  inter Cb step    ph15(slice edge)   +9.3  ph3/7/11 mean   +9.8  excess(ph15-ph3/7/11)  -0.5  other phases mean  -3.2
+  inter Cr mean|e| ph15(slice edge)   +0.2  ph3/7/11 mean   +0.2  excess(ph15-ph3/7/11)  -0.0  other phases mean  -0.1
+  inter Cr step    ph15(slice edge)  +25.0  ph3/7/11 mean  +25.3  excess(ph15-ph3/7/11)  -0.3  other phases mean  -8.4
+== volley_b0.5_idx0.25
+  intra Y  mean|e| ph15(slice edge)   -0.1  ph3/7/11 mean   +0.3  excess(ph15-ph3/7/11)  -0.4  other phases mean  -0.1
+  intra Y  step    ph15(slice edge)   +1.1  ph3/7/11 mean   +2.1  excess(ph15-ph3/7/11)  -1.0  other phases mean  -0.6
+  intra Cb mean|e| ph15(slice edge)   +4.9  ph3/7/11 mean   +3.3  excess(ph15-ph3/7/11)  +1.6  other phases mean  -1.2
+  intra Cb step    ph15(slice edge)  +11.7  ph3/7/11 mean  +11.1  excess(ph15-ph3/7/11)  +0.6  other phases mean  -3.7
+  intra Cr mean|e| ph15(slice edge)   +2.5  ph3/7/11 mean   +0.4  excess(ph15-ph3/7/11)  +2.1  other phases mean  -0.3
+  intra Cr step    ph15(slice edge)  +20.3  ph3/7/11 mean  +19.3  excess(ph15-ph3/7/11)  +1.0  other phases mean  -6.5
+  inter Y  mean|e| ph15(slice edge)   -0.3  ph3/7/11 mean   -0.2  excess(ph15-ph3/7/11)  -0.1  other phases mean  +0.1
+  inter Y  step    ph15(slice edge)   +0.0  ph3/7/11 mean   +0.3  excess(ph15-ph3/7/11)  -0.3  other phases mean  -0.1
+  inter Cb mean|e| ph15(slice edge)   +4.5  ph3/7/11 mean   +4.4  excess(ph15-ph3/7/11)  +0.1  other phases mean  -1.5
+  inter Cb step    ph15(slice edge)  +10.7  ph3/7/11 mean  +11.2  excess(ph15-ph3/7/11)  -0.5  other phases mean  -3.7
+  inter Cr mean|e| ph15(slice edge)   +1.0  ph3/7/11 mean   +0.1  excess(ph15-ph3/7/11)  +0.9  other phases mean  -0.1
+  inter Cr step    ph15(slice edge)  +18.4  ph3/7/11 mean  +18.8  excess(ph15-ph3/7/11)  -0.4  other phases mean  -6.2
+== floor_b0.5_idx0.25
+  intra Y  mean|e| ph15(slice edge)   +0.3  ph3/7/11 mean   +0.2  excess(ph15-ph3/7/11)  +0.1  other phases mean  -0.1
+  intra Y  step    ph15(slice edge)   -2.1  ph3/7/11 mean   -2.0  excess(ph15-ph3/7/11)  -0.1  other phases mean  +0.7
+  intra Cb mean|e| ph15(slice edge)   +2.3  ph3/7/11 mean   +2.4  excess(ph15-ph3/7/11)  -0.1  other phases mean  -0.8
+  intra Cb step    ph15(slice edge)   +8.8  ph3/7/11 mean   +9.2  excess(ph15-ph3/7/11)  -0.4  other phases mean  -3.0
+  intra Cr mean|e| ph15(slice edge)   +0.4  ph3/7/11 mean   +0.5  excess(ph15-ph3/7/11)  -0.1  other phases mean  -0.1
+  intra Cr step    ph15(slice edge)   +6.7  ph3/7/11 mean   +6.7  excess(ph15-ph3/7/11)  +0.0  other phases mean  -2.2
+  inter Y  mean|e| ph15(slice edge)   +0.0  ph3/7/11 mean   +0.2  excess(ph15-ph3/7/11)  -0.2  other phases mean  -0.1
+  inter Y  step    ph15(slice edge)   -2.5  ph3/7/11 mean   -2.3  excess(ph15-ph3/7/11)  -0.2  other phases mean  +0.8
+  inter Cb mean|e| ph15(slice edge)   +2.8  ph3/7/11 mean   +2.8  excess(ph15-ph3/7/11)  -0.0  other phases mean  -0.9
+  inter Cb step    ph15(slice edge)   +8.3  ph3/7/11 mean   +8.6  excess(ph15-ph3/7/11)  -0.3  other phases mean  -2.9
+  inter Cr mean|e| ph15(slice edge)   +0.7  ph3/7/11 mean   +0.9  excess(ph15-ph3/7/11)  -0.2  other phases mean  -0.3
+  inter Cr step    ph15(slice edge)   +5.6  ph3/7/11 mean   +6.1  excess(ph15-ph3/7/11)  -0.5  other phases mean  -2.0
+== dng1080_b1.0_idx0.25
+  intra Y  mean|e| ph15(slice edge)   +0.2  ph3/7/11 mean   +0.6  excess(ph15-ph3/7/11)  -0.4  other phases mean  -0.2
+  intra Y  step    ph15(slice edge)   -2.0  ph3/7/11 mean   -2.0  excess(ph15-ph3/7/11)  +0.0  other phases mean  +0.7
+  intra Cb mean|e| ph15(slice edge)   +0.7  ph3/7/11 mean   +0.3  excess(ph15-ph3/7/11)  +0.4  other phases mean  -0.1
+  intra Cb step    ph15(slice edge)   -3.1  ph3/7/11 mean   -3.6  excess(ph15-ph3/7/11)  +0.5  other phases mean  +1.2
+  intra Cr mean|e| ph15(slice edge)   +0.8  ph3/7/11 mean   +0.6  excess(ph15-ph3/7/11)  +0.2  other phases mean  -0.2
+  intra Cr step    ph15(slice edge)   -2.3  ph3/7/11 mean   -2.1  excess(ph15-ph3/7/11)  -0.2  other phases mean  +0.7
+  inter Y  mean|e| ph15(slice edge)   +0.3  ph3/7/11 mean   +0.4  excess(ph15-ph3/7/11)  -0.1  other phases mean  -0.1
+  inter Y  step    ph15(slice edge)   -1.9  ph3/7/11 mean   -1.6  excess(ph15-ph3/7/11)  -0.3  other phases mean  +0.6
+  inter Cb mean|e| ph15(slice edge)   +0.3  ph3/7/11 mean   +0.5  excess(ph15-ph3/7/11)  -0.2  other phases mean  -0.1
+  inter Cb step    ph15(slice edge)   -4.2  ph3/7/11 mean   -3.8  excess(ph15-ph3/7/11)  -0.4  other phases mean  +1.3
+  inter Cr mean|e| ph15(slice edge)   +0.4  ph3/7/11 mean   +0.5  excess(ph15-ph3/7/11)  -0.1  other phases mean  -0.1
+  inter Cr step    ph15(slice edge)   -2.9  ph3/7/11 mean   -2.7  excess(ph15-ph3/7/11)  -0.2  other phases mean  +0.9
+== gfx_b0.5_idx0.25
+  intra Y  mean|e| ph15(slice edge)   -0.9  ph3/7/11 mean   +0.0  excess(ph15-ph3/7/11)  -0.9  other phases mean  +0.1
+  intra Y  step    ph15(slice edge)   +2.1  ph3/7/11 mean   +2.1  excess(ph15-ph3/7/11)  +0.0  other phases mean  -0.7
+  intra Cb mean|e| ph15(slice edge)   -0.7  ph3/7/11 mean   -0.2  excess(ph15-ph3/7/11)  -0.5  other phases mean  +0.1
+  intra Cb step    ph15(slice edge)   +0.1  ph3/7/11 mean   +2.2  excess(ph15-ph3/7/11)  -2.1  other phases mean  -0.6
+  intra Cr mean|e| ph15(slice edge)   -0.1  ph3/7/11 mean   +1.8  excess(ph15-ph3/7/11)  -1.9  other phases mean  -0.5
+  intra Cr step    ph15(slice edge)   +2.5  ph3/7/11 mean   +1.4  excess(ph15-ph3/7/11)  +1.1  other phases mean  -0.6
+  inter Y  mean|e| ph15(slice edge)   +0.7  ph3/7/11 mean   +0.4  excess(ph15-ph3/7/11)  +0.3  other phases mean  -0.2
+  inter Y  step    ph15(slice edge)   +2.1  ph3/7/11 mean   +1.8  excess(ph15-ph3/7/11)  +0.3  other phases mean  -0.6
+  inter Cb mean|e| ph15(slice edge)   +0.3  ph3/7/11 mean   -0.1  excess(ph15-ph3/7/11)  +0.4  other phases mean  -0.0
+  inter Cb step    ph15(slice edge)   +0.7  ph3/7/11 mean   +1.0  excess(ph15-ph3/7/11)  -0.3  other phases mean  -0.3
+  inter Cr mean|e| ph15(slice edge)   +1.7  ph3/7/11 mean   +0.8  excess(ph15-ph3/7/11)  +0.9  other phases mean  -0.4
+  inter Cr step    ph15(slice edge)   +2.3  ph3/7/11 mean   +1.2  excess(ph15-ph3/7/11)  +1.1  other phases mean  -0.5

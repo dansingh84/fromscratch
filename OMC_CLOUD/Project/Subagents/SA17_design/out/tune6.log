@@ -1,0 +1,4 @@
+hold2 city @0.5 NEG 95.474 worst 94.760 PSNR 45.81/51.03/50.07
+hold2 traffic @0.5 NEG 88.578 worst 84.279 PSNR 34.22/44.05/40.56
+hold2 winter @0.5 NEG 93.296 worst 90.049 PSNR 43.00/50.45/46.78
+DONE

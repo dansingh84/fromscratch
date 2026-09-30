@@ -1,0 +1,12 @@
+export HF_FAST=1
+nice -n 19 python3 ../notes/hf.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/spotrobotL_1920x1080_422_10.yuv 1920 1080 5 16 422 10 0 1023 spot '{"A_c3_2v":[2,"s10","c3",true],"B_s6_2v_indep":[2,"s10","s6",false],"C_c3_3v":[3,"s10","c3",true],"D_c3_4v":[4,"s10","c3",true]}' '[2,3,4,5,6,7,8,9,10]' '[-1]' > spot.log 2>&1 &
+nice -n 19 python3 ../notes/hf.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 5 16 422 10 0 1023 floor '{"A_c3_2v":[2,"s10","c3",true],"B_s6_2v_indep":[2,"s10","s6",false],"C_c3_3v":[3,"s10","c3",true],"D_c3_4v":[4,"s10","c3",true]}' '[2,3,4,5,6,7,8,9,10]' '[-1]' > floor.log 2>&1 &
+nice -n 19 python3 ../notes/hf.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_422_10.yuv 1920 1080 5 16 422 10 0 1023 dng1080 '{"A_c3_2v":[2,"s10","c3",true],"B_s6_2v_indep":[2,"s10","s6",false],"C_c3_3v":[3,"s10","c3",true],"D_c3_4v":[4,"s10","c3",true]}' '[2,3,4,5,6,7,8,9,10]' '[-1]' > dng1080.log 2>&1 &
+nice -n 19 python3 ../notes/hf.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1280x720_422_10.yuv 1280 720 5 8 422 10 0 1023 dng720 '{"A_c3_2v":[2,"s10","c3",true],"B_s6_2v_indep":[2,"s10","s6",false],"C_c3_3v":[3,"s10","c3",true]}' '[2,3,4,5,6,7,8,9,10]' '[-1]' > dng720.log 2>&1 &
+nice -n 19 python3 ../notes/hf.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/cf_gfx_448x256_422_10.yuv 448 256 0 8 422 10 0 1023 gfx '{"A_c3_2v":[2,"s10","c3",true],"B_s6_2v_indep":[2,"s10","s6",false],"C_c3_3v":[3,"s10","c3",true]}' '[2,3,4,5,6,7,8,9,10]' '[-1]' > gfx.log 2>&1 &
+nice -n 19 python3 ../notes/base.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/spotrobotL_1920x1080_422_10.yuv 1920 1080 5 16 spot '[2,3,4,5,6,7,8,9,10]' '[-1]' > spotb.log 2>&1 &
+nice -n 19 python3 ../notes/base.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 5 16 floor '[2,3,4,5,6,7,8,9,10]' '[-1]' > floorb.log 2>&1 &
+nice -n 19 python3 ../notes/base.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_422_10.yuv 1920 1080 5 16 dng1080 '[2,3,4,5,6,7,8,9,10]' '[-1]' > dng1080b.log 2>&1 &
+nice -n 19 python3 ../notes/base.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1280x720_422_10.yuv 1280 720 5 8 dng720 '[2,3,4,5,6,7,8,9,10]' '[-1]' > dng720b.log 2>&1 &
+nice -n 19 python3 ../notes/base.py /home/user/fromscratch/OMC_CLOUD/Project/.work/arms/cf_gfx_448x256_422_10.yuv 448 256 0 8 gfx '[2,3,4,5,6,7,8,9,10]' '[-1]' > gfxb.log 2>&1 &
+wait

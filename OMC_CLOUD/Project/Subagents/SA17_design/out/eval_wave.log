@@ -1,0 +1,10 @@
+wave1 dng720 @0.5  NEG 80.94 (worst 79.26)  PSNR 31.43/35.56/36.57   | today NEG 90.16 (worst 87.22) PSNR 35.22/36.10/37.14  | max frame bits/target 1.0000 over 0 oob 0
+wave4 dng720 @0.5  NEG 89.59 (worst 85.80)  PSNR 34.81/36.11/37.25   | today NEG 90.16 (worst 87.22) PSNR 35.22/36.10/37.14  | max frame bits/target 1.0000 over 0 oob 0
+wave3 dng720 @0.5  NEG 89.22 (worst 87.10)  PSNR 34.54/36.08/37.19   | today NEG 90.16 (worst 87.22) PSNR 35.22/36.10/37.14  | max frame bits/target 1.0000 over 3 oob 0
+wave2 dng720 @0.5  NEG 87.41 (worst 85.32)  PSNR 33.52/35.96/37.03   | today NEG 90.16 (worst 87.22) PSNR 35.22/36.10/37.14  | max frame bits/target 1.0000 over 0 oob 0
+wave8 dng720 @0.5  NEG 90.23 (worst 87.77)  PSNR 35.13/36.18/37.33   | today NEG 90.16 (worst 87.22) PSNR 35.22/36.10/37.14  | max frame bits/target 1.0000 over 1 oob 0
+wave1 hwy @0.5  NEG 87.88 (worst 85.15)  PSNR 39.55/47.36/43.91   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 1.0000 over 0 oob 0
+wave2 hwy @0.5  NEG 89.82 (worst 87.59)  PSNR 39.95/47.49/44.03   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 0.9999 over 0 oob 0
+wave3 hwy @0.5  NEG 91.07 (worst 88.36)  PSNR 40.33/47.59/44.11   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 1.0000 over 0 oob 0
+wave4 hwy @0.5  NEG 91.40 (worst 88.25)  PSNR 40.44/47.64/44.11   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 1.0000 over 0 oob 0
+wave8 hwy @0.5  NEG 92.14 (worst 88.90)  PSNR 40.52/47.66/44.10   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 1.0000 over 0 oob 0

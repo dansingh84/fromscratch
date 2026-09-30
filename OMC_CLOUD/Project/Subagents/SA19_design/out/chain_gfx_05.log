@@ -1,0 +1,12 @@
+gfx gen 1 @0.50: oob 0 overs 0
+gfx gen 2 @0.50: differing samples per frame [28080, 33018, 63589, 79761] | frames with different bits 4 | oob 0 overs 0
+gfx gen 3 @0.50: differing samples per frame [7028, 12933, 22091, 27519] | frames with different bits 4 | oob 0 overs 0
+gfx gen 4 @0.50: differing samples per frame [0, 3293, 5236, 6562] | frames with different bits 3 | oob 0 overs 0
+gfx gen 5 @0.50: differing samples per frame [0, 746, 1792, 2436] | frames with different bits 3 | oob 0 overs 0
+gfx gen 6 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+gfx gen 7 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+gfx gen 8 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+gfx gen 9 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+gfx gen 10 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+gfx gen 11 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+gfx rates [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]: fixed point from generation 6

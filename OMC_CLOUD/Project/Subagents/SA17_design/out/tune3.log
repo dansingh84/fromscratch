@@ -1,0 +1,6 @@
+cyc12 traffic @0.5 NEG 84.900 worst 81.077 PSNR 33.07/43.63/40.26
+cyc16 traffic @0.5 NEG 85.603 worst 81.556 PSNR 33.19/43.68/40.32
+base traffic @0.5 NEG 84.113 worst 80.253 PSNR 32.85/43.54/40.19
+cyc16 winter @0.5 NEG 91.747 worst 88.528 PSNR 42.46/50.15/46.60
+cyc12 winter @0.5 NEG 91.589 worst 87.838 PSNR 42.40/50.15/46.60
+base winter @0.5 NEG 91.457 worst 87.839 PSNR 42.35/50.13/46.61

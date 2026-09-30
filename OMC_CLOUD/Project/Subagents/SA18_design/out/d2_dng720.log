@@ -1,0 +1,4 @@
+dng720 0.5 plane 0 away samples 388 cases so far 150 fixable 49
+dng720 0.5 plane 1 away samples 0 cases so far 150 fixable 49
+dng720 0.5 plane 2 away samples 0 cases so far 150 fixable 49
+RESULT dng720 0.5 cases 150 fixable by one +-1 re-choice 49 (32.7%) {'HL1': 27, 'LH1': 11, 'HL2': 7, 'LH2': 3, 'HH2': 1}

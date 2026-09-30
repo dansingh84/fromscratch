@@ -1,0 +1,4 @@
+omc_dec: 12 frames decoded, 0 damaged slices
+omc_dec: frame phase of the first slice: fidx8=0 (re-encode with --start-frame 0 to resume it)
+omc_dec: coded 1920x1088, display 1920x1080 -- re-encode a CDR with: -w 1920 -h 1088 --display-w 1920 --display-h 1080
+dec_rc=0

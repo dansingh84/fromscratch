@@ -1,0 +1,40 @@
+L_rho4 t=0 src_f=0 refresh_rows=(0, 0) front=0 damaged samples Y/Cb/Cr=[0, 0, 0] rows=None psnr(dec)=38.72/42.54/42.79 bpp=0.373
+L_rho4 t=1 src_f=1 refresh_rows=(0, 544) front=544 damaged samples Y/Cb/Cr=[0, 0, 0] rows=None psnr(dec)=39.20/42.93/43.03 bpp=0.431
+L_rho4 t=2 src_f=2 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[0, 0, 0] rows=None psnr(dec)=41.16/44.06/44.19 bpp=0.466
+L_rho4 t=3 src_f=3 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[10205, 4091, 3846] rows=(234, 249) psnr(dec)=41.96/44.69/44.74 bpp=0.521
+L_rho4 t=4 src_f=4 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[16918, 5027, 4927] rows=(222, 261) psnr(dec)=42.14/44.86/44.83 bpp=0.527
+L_rho4 t=5 src_f=5 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[28838, 6828, 6876] rows=(214, 269) psnr(dec)=42.39/44.99/44.97 bpp=0.522
+L_rho4 t=6 src_f=6 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[53421, 12603, 11186] rows=(206, 277) psnr(dec)=42.44/45.04/45.04 bpp=0.522
+L_rho4 t=7 src_f=7 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[61447, 16507, 19176] rows=(202, 289) psnr(dec)=42.41/44.98/45.00 bpp=0.521
+L_rho4 t=8 src_f=8 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[75242, 21250, 21831] rows=(195, 293) psnr(dec)=42.27/44.88/44.91 bpp=0.521
+L_rho4 t=9 src_f=9 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[81813, 27136, 26678] rows=(186, 301) psnr(dec)=42.29/44.94/44.92 bpp=0.524
+L_rho4 t=10 src_f=10 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[98988, 33525, 35940] rows=(178, 305) psnr(dec)=42.16/44.85/44.86 bpp=0.524
+L_rho4 t=11 src_f=11 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[114330, 39531, 45068] rows=(170, 313) psnr(dec)=41.98/44.75/44.71 bpp=0.520
+L_rho4 t=12 src_f=12 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[132656, 45498, 53920] rows=(166, 321) psnr(dec)=41.93/44.65/44.65 bpp=0.522
+L_rho4 t=13 src_f=13 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[152927, 46255, 61050] rows=(162, 333) psnr(dec)=41.62/44.41/44.41 bpp=0.523
+L_rho4 t=14 src_f=14 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[168543, 51649, 63932] rows=(150, 337) psnr(dec)=41.55/44.39/44.38 bpp=0.506
+L_rho4 t=15 src_f=15 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[191772, 56707, 68781] rows=(150, 345) psnr(dec)=41.70/44.54/44.51 bpp=0.524
+L_rho4 t=16 src_f=16 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[206730, 66079, 71489] rows=(146, 365) psnr(dec)=41.60/44.48/44.39 bpp=0.521
+L_rho4 t=17 src_f=17 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[218872, 70883, 74831] rows=(134, 365) psnr(dec)=41.47/44.41/44.32 bpp=0.525
+L_rho4 t=18 src_f=18 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[234869, 76496, 84779] rows=(134, 365) psnr(dec)=41.34/44.35/44.25 bpp=0.530
+L_rho4 t=19 src_f=19 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[244864, 83116, 90032] rows=(130, 373) psnr(dec)=41.14/44.25/44.15 bpp=0.522
+L_rho4 t=20 src_f=20 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[254095, 92323, 94697] rows=(130, 385) psnr(dec)=41.04/44.16/44.06 bpp=0.514
+L_rho4 t=21 src_f=21 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[268138, 95056, 99743] rows=(126, 387) psnr(dec)=41.06/44.18/44.08 bpp=0.520
+L_rho4 t=22 src_f=22 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[275080, 99015, 103411] rows=(116, 389) psnr(dec)=41.04/44.17/44.07 bpp=0.525
+L_rho4 t=23 src_f=23 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[285361, 102965, 110226] rows=(106, 393) psnr(dec)=40.95/44.10/44.01 bpp=0.526
+L_rho4 t=24 src_f=22 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[27446, 11308, 10772] rows=(126, 245) psnr(dec)=39.91/42.90/43.04 bpp=0.537
+L_rho4 t=25 src_f=21 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[51724, 17580, 17770] rows=(122, 265) psnr(dec)=41.81/44.35/44.40 bpp=0.509
+L_rho4 t=26 src_f=20 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[79431, 20064, 25954] rows=(118, 269) psnr(dec)=42.01/44.61/44.63 bpp=0.514
+L_rho4 t=27 src_f=19 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[109237, 26629, 38328] rows=(110, 277) psnr(dec)=42.03/44.66/44.64 bpp=0.526
+L_rho4 t=28 src_f=18 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[138028, 39089, 45024] rows=(99, 285) psnr(dec)=41.93/44.65/44.58 bpp=0.524
+L_rho4 t=29 src_f=17 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[166859, 51383, 57777] rows=(94, 297) psnr(dec)=41.81/44.59/44.52 bpp=0.521
+L_rho4 t=30 src_f=16 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[183160, 60843, 74053] rows=(86, 309) psnr(dec)=41.69/44.56/44.43 bpp=0.530
+L_rho4 t=31 src_f=15 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[199433, 72768, 84608] rows=(82, 309) psnr(dec)=41.55/44.49/44.38 bpp=0.521
+L_rho4 t=32 src_f=14 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[212276, 83042, 88684] rows=(74, 309) psnr(dec)=41.42/44.46/44.28 bpp=0.521
+L_rho4 t=33 src_f=13 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[227107, 94770, 96232] rows=(70, 321) psnr(dec)=41.28/44.34/44.22 bpp=0.525
+L_rho4 t=34 src_f=12 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[235691, 98851, 100611] rows=(66, 321) psnr(dec)=41.15/44.16/44.07 bpp=0.523
+L_rho4 t=35 src_f=11 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[248375, 104193, 103607] rows=(48, 329) psnr(dec)=40.61/43.84/43.74 bpp=0.530
+L_rho4 t=36 src_f=10 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[261457, 109031, 109953] rows=(46, 340) psnr(dec)=40.52/43.78/43.66 bpp=0.520
+L_rho4 t=37 src_f=9 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[272012, 117044, 115011] rows=(46, 345) psnr(dec)=40.55/43.79/43.66 bpp=0.516
+L_rho4 t=38 src_f=8 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[289204, 120102, 119552] rows=(40, 349) psnr(dec)=40.59/43.77/43.70 bpp=0.521
+L_rho4 t=39 src_f=7 refresh_rows=(544, 544) front=544 damaged samples Y/Cb/Cr=[296941, 127414, 125127] rows=(32, 357) psnr(dec)=40.64/43.73/43.65 bpp=0.520

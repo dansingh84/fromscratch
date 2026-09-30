@@ -1,0 +1,6 @@
+join t=4 (joiner frame 0) differing samples vs upstream=0  bits joiner/upstream=2.061  vectors equal=False
+join t=5 (joiner frame 1) differing samples vs upstream=0  bits joiner/upstream=0.966  vectors equal=False
+join t=6 (joiner frame 2) differing samples vs upstream=0  bits joiner/upstream=1.000  vectors equal=True
+join t=7 (joiner frame 3) differing samples vs upstream=0  bits joiner/upstream=1.000  vectors equal=True
+join t=8 (joiner frame 4) differing samples vs upstream=0  bits joiner/upstream=1.000  vectors equal=True
+rc=0

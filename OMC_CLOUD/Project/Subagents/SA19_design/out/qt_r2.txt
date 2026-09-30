@@ -1,0 +1,6 @@
+ nice -n 19 python3 tpp_run.py train bos 0.5 ../out/tab_eb_r2.pkl ../out/cnt_r2_bos_0.5.pkl fuse=0 ro=2 cheap=1 >> ../out/train_r2.log 2>&1
+ nice -n 19 python3 tpp_run.py train bos 1.0 ../out/tab_eb_r2.pkl ../out/cnt_r2_bos_1.0.pkl fuse=0 ro=2 cheap=1 >> ../out/train_r2.log 2>&1
+ nice -n 19 python3 tpp_run.py train city 0.5 ../out/tab_eb_r2.pkl ../out/cnt_r2_city_0.5.pkl fuse=0 ro=2 cheap=1 >> ../out/train_r2.log 2>&1
+ nice -n 19 python3 tpp_run.py train city 1.0 ../out/tab_eb_r2.pkl ../out/cnt_r2_city_1.0.pkl fuse=0 ro=2 cheap=1 >> ../out/train_r2.log 2>&1
+ nice -n 19 python3 tpp_run.py train traffic 0.5 ../out/tab_eb_r2.pkl ../out/cnt_r2_traffic_0.5.pkl fuse=0 ro=2 cheap=1 >> ../out/train_r2.log 2>&1
+ nice -n 19 python3 tpp_run.py train traffic 1.0 ../out/tab_eb_r2.pkl ../out/cnt_r2_traffic_1.0.pkl fuse=0 ro=2 cheap=1 >> ../out/train_r2.log 2>&1

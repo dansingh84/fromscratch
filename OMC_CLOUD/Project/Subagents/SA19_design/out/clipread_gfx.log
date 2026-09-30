@@ -1,0 +1,4 @@
+gfx @0.25 frames 3: clipped samples 636 | nearest-lattice read misses 89 of 688128 coefficients | top bands [((0, 'LL'), 63), ((0, 'LH1'), 5), ((0, 'LH2'), 4), ((0, 'H5'), 3), ((0, 'H4'), 3)]
+gfx @0.50 frames 3: clipped samples 134 | nearest-lattice read misses 33 of 688128 coefficients | top bands [((0, 'LL'), 21), ((0, 'H5'), 4), ((0, 'H4'), 3), ((0, 'HL1'), 3), ((0, 'H3'), 1)]
+gfx @1.00 frames 3: clipped samples 17 | nearest-lattice read misses 0 of 688128 coefficients | top bands [((0, 'LL'), 0), ((0, 'H5'), 0), ((0, 'H4'), 0), ((0, 'H3'), 0), ((0, 'HL2'), 0)]
+gfx @2.00 frames 3: clipped samples 6 | nearest-lattice read misses 1 of 688128 coefficients | top bands [((0, 'H5'), 1), ((0, 'LL'), 0), ((0, 'H4'), 0), ((0, 'H3'), 0), ((0, 'HL2'), 0)]

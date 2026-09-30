@@ -1,0 +1,4 @@
+T=32 dng1080: Y BD-rate +8.93% (psnr@D0=64 sep 37.70/0.780bpp nest 37.60/0.824bpp) | Cb BD-rate +20.30% (psnr@D0=64 sep 36.70/0.623bpp nest 36.64/0.690bpp) | Cr BD-rate +17.89% (psnr@D0=64 sep 37.40/0.475bpp nest 37.44/0.537bpp)
+T=32 spot: Y BD-rate +9.11% (psnr@D0=64 sep 41.61/0.370bpp nest 41.43/0.392bpp) | Cb BD-rate +12.55% (psnr@D0=64 sep 42.87/0.155bpp nest 42.86/0.173bpp) | Cr BD-rate +8.35% (psnr@D0=64 sep 45.95/0.096bpp nest 45.97/0.099bpp)
+T=128 dng1080: Y BD-rate +5.40% (psnr@D0=64 sep 37.70/0.780bpp nest 37.88/0.836bpp) | Cb BD-rate +8.99% (psnr@D0=64 sep 36.70/0.623bpp nest 36.95/0.682bpp) | Cr BD-rate +9.38% (psnr@D0=64 sep 37.40/0.475bpp nest 37.66/0.533bpp)
+T=128 spot: Y BD-rate +6.06% (psnr@D0=64 sep 41.61/0.370bpp nest 41.66/0.397bpp) | Cb BD-rate +9.15% (psnr@D0=64 sep 42.87/0.155bpp nest 42.94/0.173bpp) | Cr BD-rate +7.20% (psnr@D0=64 sep 45.95/0.096bpp nest 46.02/0.099bpp)

@@ -1,0 +1,19 @@
+join J=6 t=6 differing samples vs upstream Y/Cb/Cr=[759521, 359020, 350829] slices differing=167/180 bpp=0.4569 overflow=0 kap med=45
+join J=6 t=7 differing samples vs upstream Y/Cb/Cr=[680439, 317103, 310516] slices differing=156/180 bpp=0.4853 overflow=0 kap med=44
+join J=6 t=8 differing samples vs upstream Y/Cb/Cr=[512902, 236811, 231659] slices differing=128/180 bpp=0.5267 overflow=0 kap med=40
+join J=6 t=9 differing samples vs upstream Y/Cb/Cr=[415942, 189399, 185673] slices differing=105/180 bpp=0.5218 overflow=0 kap med=39
+join J=6 t=10 differing samples vs upstream Y/Cb/Cr=[336583, 157814, 156110] slices differing=86/180 bpp=0.5216 overflow=0 kap med=39
+join J=6 t=11 differing samples vs upstream Y/Cb/Cr=[156477, 71583, 66313] slices differing=43/180 bpp=0.5236 overflow=0 kap med=39
+join J=6 t=12 differing samples vs upstream Y/Cb/Cr=[106886, 50446, 46293] slices differing=26/180 bpp=0.5170 overflow=0 kap med=39
+join J=6 t=13 differing samples vs upstream Y/Cb/Cr=[180221, 78875, 75410] slices differing=55/180 bpp=0.5173 overflow=0 kap med=40
+join J=6 t=14 differing samples vs upstream Y/Cb/Cr=[154850, 69598, 66158] slices differing=50/180 bpp=0.5124 overflow=0 kap med=40
+join J=6 t=15 differing samples vs upstream Y/Cb/Cr=[155589, 72101, 69207] slices differing=49/180 bpp=0.5264 overflow=0 kap med=39
+join J=6 t=16 differing samples vs upstream Y/Cb/Cr=[153755, 69816, 67264] slices differing=46/180 bpp=0.5218 overflow=0 kap med=39
+join J=6 t=17 differing samples vs upstream Y/Cb/Cr=[151218, 68117, 67158] slices differing=45/180 bpp=0.5189 overflow=0 kap med=39
+join J=6 t=18 differing samples vs upstream Y/Cb/Cr=[141592, 64135, 62040] slices differing=43/180 bpp=0.5263 overflow=0 kap med=39
+join J=6 t=19 differing samples vs upstream Y/Cb/Cr=[112834, 51237, 49750] slices differing=34/180 bpp=0.5222 overflow=0 kap med=39
+join J=6 t=20 differing samples vs upstream Y/Cb/Cr=[98902, 44507, 44118] slices differing=30/180 bpp=0.5139 overflow=0 kap med=38
+join J=6 t=21 differing samples vs upstream Y/Cb/Cr=[86447, 39608, 37801] slices differing=26/180 bpp=0.5264 overflow=0 kap med=38
+join J=6 t=22 differing samples vs upstream Y/Cb/Cr=[94271, 43780, 41403] slices differing=28/180 bpp=0.5256 overflow=0 kap med=38
+join J=6 t=23 differing samples vs upstream Y/Cb/Cr=[108099, 50168, 48772] slices differing=31/180 bpp=0.5206 overflow=0 kap med=38
+rc=0

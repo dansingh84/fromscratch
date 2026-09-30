@@ -1,0 +1,13 @@
+  frame 0 bpp 1.086
+  frame 1 bpp 0.587
+  frame 2 bpp 0.569
+  frame 3 bpp 0.532
+  frame 4 bpp 0.470
+  frame 5 bpp 0.385
+  frame 0 bpp 1.086
+  frame 1 bpp 0.587
+  frame 2 bpp 0.569
+  frame 3 bpp 0.532
+  frame 4 bpp 0.470
+  frame 5 bpp 0.385
+{"tag": "fix_d720_g2", "Qf": 6.5, "oor": 0, "gen2": {"picture": true, "indices": true, "vectors": true}} mean bpp f2+ 0.489

@@ -1,0 +1,32 @@
+== f8 nest
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== f8 today
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== f9 nest
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== f9 today
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== f10 nest
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== f10 today
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== f11 nest
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+== f11 today
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]

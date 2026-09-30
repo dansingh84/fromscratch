@@ -1,0 +1,2 @@
+std    sh16 Qf 6.0 bpp(ent) 0.533 | Y PSNR 41.23 excess +0.59 | Cb PSNR 42.49 excess +0.81 | Cr PSNR 45.98 excess +1.20
+shift  sh16 Qf 6.0 bpp(ent) 0.448 | Y PSNR 41.59 excess +0.00 | Cb PSNR 42.90 excess +0.01 | Cr PSNR 46.16 excess -0.00

@@ -1,0 +1,9 @@
+floor_0.5 today NEG=95.984 PSNR mean Y/Cb/Cr=40.71/44.73/44.31 worst-frame=40.62/44.68/44.26
+   smudgegroups: Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5] | Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5] | Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+   flatplane: Y    57.03% of 8040 textured blocks | Cb   70.72% of 4020 textured blocks | Cr   75.95% of 4016 textured blocks
+   artifactmap: today_f6: 1 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/floor_0.5/today_am/today_f6_* | today_f6_Cb: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/floor_0.5/today_am/today_f6_Cb_* | today_f6_Cr: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/floor_0.5/today_am/today_f6_Cr_*
+floor_0.5 cpp   NEG=96.626 PSNR mean Y/Cb/Cr=41.87/45.48/45.15 worst-frame=41.72/45.34/45.02
+   smudgegroups: Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5] | Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5] | Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+   flatplane: Y    52.38% of 8040 textured blocks | Cb   68.33% of 4020 textured blocks | Cr   72.91% of 4016 textured blocks
+   artifactmap: cpp_f6: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/floor_0.5/cpp_am/cpp_f6_* | cpp_f6_Cb: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/floor_0.5/cpp_am/cpp_f6_Cb_* | cpp_f6_Cr: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/floor_0.5/cpp_am/cpp_f6_Cr_*
+rc=0

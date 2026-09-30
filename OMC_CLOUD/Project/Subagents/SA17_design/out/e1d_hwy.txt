@@ -1,0 +1,23 @@
+hwy 53     D0= 24 bpp=1.174 PSNR 45.16/49.43/46.35  rowspread4 5.9/8.9/9.1
+hwy 53     D0= 36 bpp=0.761 PSNR 43.13/48.12/44.87  rowspread4 6.6/6.7/5.8
+hwy 53     D0= 54 bpp=0.495 PSNR 41.25/46.68/43.84  rowspread4 5.8/10.0/12.2
+hwy 53     D0= 80 bpp=0.330 PSNR 39.50/45.38/42.95  rowspread4 6.0/15.5/25.6
+hwy 53     D0=120 bpp=0.214 PSNR 37.63/44.34/42.05  rowspread4 7.6/7.4/24.4
+hwy p53_1:p53_1 D0= 24 bpp=1.362 PSNR 44.90/49.22/46.05  rowspread4 2.1/6.2/2.5
+hwy p53_1:p53_1 D0= 36 bpp=0.855 PSNR 42.91/47.96/44.66  rowspread4 2.0/8.2/7.4
+hwy p53_1:p53_1 D0= 54 bpp=0.543 PSNR 41.08/46.58/43.65  rowspread4 1.7/11.4/17.6
+hwy p53_1:p53_1 D0= 80 bpp=0.354 PSNR 39.34/45.30/42.77  rowspread4 1.8/17.1/26.9
+hwy p53_1:p53_1 D0=120 bpp=0.227 PSNR 37.48/44.29/41.98  rowspread4 3.0/8.7/25.8
+hwy p53_2:p53_2 D0= 24 bpp=1.554 PSNR 44.82/48.88/45.83  rowspread4 3.8/12.4/8.0
+hwy p53_2:p53_2 D0= 36 bpp=1.010 PSNR 42.68/47.65/44.16  rowspread4 6.7/12.1/14.4
+hwy p53_2:p53_2 D0= 54 bpp=0.651 PSNR 40.78/46.37/43.01  rowspread4 7.8/12.6/18.1
+hwy p53_2:p53_2 D0= 80 bpp=0.415 PSNR 39.11/45.13/42.23  rowspread4 6.8/17.1/22.7
+hwy p53_2:p53_2 D0=120 bpp=0.261 PSNR 37.32/44.20/41.54  rowspread4 6.0/8.1/25.9
+hwy p53_5:p53_5 D0= 24 bpp=1.597 PSNR 44.80/48.76/45.79  rowspread4 3.5/12.0/7.4
+hwy p53_5:p53_5 D0= 36 bpp=1.060 PSNR 42.66/47.37/44.04  rowspread4 6.4/10.0/9.9
+hwy p53_5:p53_5 D0= 54 bpp=0.691 PSNR 40.70/46.00/42.70  rowspread4 7.5/9.3/11.3
+hwy p53_5:p53_5 D0= 80 bpp=0.445 PSNR 38.94/44.70/41.73  rowspread4 5.9/14.3/14.6
+hwy p53_5:p53_5 D0=120 bpp=0.282 PSNR 37.11/43.69/40.82  rowspread4 4.8/6.9/18.0
+BD-rate p53_1:p53_1 vs 53 on hwy: +15.44 %
+BD-rate p53_2:p53_2 vs 53 on hwy: +45.71 %
+BD-rate p53_5:p53_5 vs 53 on hwy: +59.66 %

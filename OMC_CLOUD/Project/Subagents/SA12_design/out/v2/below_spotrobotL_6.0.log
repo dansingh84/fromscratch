@@ -1,0 +1,3 @@
+spotrobotL Qf 6.0 none   bpp 0.478 Y psnr 41.24 v16 1.15 first 0.99 last 1.15 | U psnr 42.76 v16 1.28 first 0.98 last 1.17 | V psnr 46.20 v16 1.54 first 1.03 last 1.20
+spotrobotL Qf 6.0 oracle bpp 0.469 Y psnr 41.29 v16 1.10 first 0.99 last 0.98 | U psnr 42.84 v16 1.26 first 0.98 last 0.97 | V psnr 46.32 v16 1.44 first 1.02 last 0.89
+spotrobotL Qf 6.0 proxy  bpp 0.475 Y psnr 41.22 v16 1.09 first 0.98 last 1.03 | U psnr 42.80 v16 1.20 first 0.98 last 1.03 | V psnr 46.28 v16 1.38 first 1.02 last 0.95

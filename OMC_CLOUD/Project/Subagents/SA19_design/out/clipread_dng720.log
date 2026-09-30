@@ -1,0 +1,4 @@
+dng720 @0.25 frames 3: clipped samples 1118 | nearest-lattice read misses 754 of 5529600 coefficients | top bands [((0, 'LL'), 146), ((0, 'LH1'), 120), ((0, 'HH1'), 115), ((0, 'HL1'), 90), ((0, 'HH2'), 68)]
+dng720 @0.50 frames 3: clipped samples 426 | nearest-lattice read misses 132 of 5529600 coefficients | top bands [((0, 'LL'), 65), ((0, 'H5'), 30), ((0, 'H4'), 9), ((0, 'H3'), 6), ((0, 'HL1'), 6)]
+dng720 @1.00 frames 3: clipped samples 40 | nearest-lattice read misses 4 of 5529600 coefficients | top bands [((0, 'LL'), 4), ((0, 'H5'), 0), ((0, 'H4'), 0), ((0, 'H3'), 0), ((0, 'HL2'), 0)]
+dng720 @2.00 frames 3: clipped samples 3 | nearest-lattice read misses 5 of 5529600 coefficients | top bands [((0, 'H5'), 3), ((0, 'LL'), 1), ((0, 'H4'), 1), ((0, 'H3'), 0), ((0, 'HL2'), 0)]

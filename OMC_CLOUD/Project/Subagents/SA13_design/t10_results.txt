@@ -1,0 +1,10 @@
+cut24 K=1 D=14.0 units=81 iters: 0=43 1=10 2=4 3-8=4 fail=20 | H0 bpp first=2.975 emitted=2.962 | PSNR 47.28/47.48/47.44
+cut24 K=1 D=40.0 units=81 iters: 0=43 1=2 2=0 3-8=19 fail=17 | H0 bpp first=2.165 emitted=2.141 | PSNR 42.76/42.60/42.59
+cut24 K=1 D=80.0 units=81 iters: 0=43 1=14 2=0 3-8=21 fail=3 | H0 bpp first=1.864 emitted=1.837 | PSNR 38.68/39.06/39.01
+ext10 K=1 D=14.0 units=102 iters: 0=97 1=1 2=0 3-8=2 fail=2 | H0 bpp first=5.453 emitted=5.454 | PSNR 60.65/150.20/150.20
+ext10 K=1 D=40.0 units=102 iters: 0=97 1=1 2=0 3-8=0 fail=4 | H0 bpp first=5.221 emitted=5.224 | PSNR 50.35/150.20/150.20
+ext10 K=1 D=80.0 units=102 iters: 0=97 1=2 2=0 3-8=0 fail=3 | H0 bpp first=4.965 emitted=4.968 | PSNR 44.48/150.20/150.20
+gfx K=1 D=14.0 units=99 iters: 0=96 1=3 2=0 3-8=0 fail=0 | H0 bpp first=5.339 emitted=5.339 | PSNR 44.31/44.14/44.26
+gfx K=1 D=40.0 units=99 iters: 0=99 1=0 2=0 3-8=0 fail=0 | H0 bpp first=2.063 emitted=2.063 | PSNR 37.38/36.14/36.51
+cut24 K=4 D=14.0 units=81 iters: 0=43 1=14 2=0 3-8=3 fail=21 | H0 bpp first=2.977 emitted=2.973 | PSNR 47.72/47.32/47.29
+cut24 K=4 D=40.0 units=81 iters: 0=44 1=13 2=3 3-8=10 fail=11 | H0 bpp first=2.156 emitted=2.158 | PSNR 45.09/44.21/44.20

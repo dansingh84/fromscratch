@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://omc.example/omc_config.schema.json",
+  "title": "OMC codec configuration (control-plane API contract)",
+  "description": "Machine-readable mirror of omc_validate_config() in src/config.c - the C function is the authority; this schema exists for app-side pre-validation and UI generation. Measured guidance for every knob: docs/CONTROL_PLANE.md.",
+  "type": "object",
+  "required": ["width", "height", "bitdepth", "chroma", "fps", "rate"],
+  "additionalProperties": false,
+  "properties": {
+    "width":  { "type": "integer", "minimum": 1, "maximum": 8192,
+                "description": "TRUE picture width (v4.2: any value; non-aligned widths pad-and-crop automatically, <1% rate cost)" },
+    "height": { "type": "integer", "minimum": 1, "maximum": 4352,
+                "description": "TRUE picture height (v4.2: any value; pad-and-crop)" },
+    "bitdepth": { "enum": [8, 10, 12] },
+    "chroma": { "enum": ["4:2:2", "4:4:4"] },
+    "source_format": { "enum": ["ycbcr", "rgb", "mono"], "default": "ycbcr",
+      "description": "rgb: planar R,G,B in/out via lossless RCT (components <= 10-bit, 4:4:4, container promoted +2 - BITSTREAM.md sec 8); mono: single plane (key/alpha), flat-chroma convention, ~0.3% overhead" },
+    "slice_h": { "enum": [0, 8, 16], "default": 0,
+                 "description": "0 = auto (16 if height allows, else 8)" },
+    "fps": {
+      "type": "object", "required": ["num", "den"],
+      "properties": { "num": { "type": "integer", "minimum": 1, "maximum": 65535 },
+                      "den": { "type": "integer", "minimum": 1, "maximum": 65535 } }
+    },
+    "rate": {
+      "type": "object",
+      "description": "Exactly one of bpp or mbps; app converts for display",
+      "oneOf": [
+        { "required": ["bpp"],  "properties": { "bpp":  { "type": "number", "minimum": 0.3, "maximum": 24 } } },
+        { "required": ["mbps"], "properties": { "mbps": { "type": "number", "exclusiveMinimum": 0 } } }
+      ]
+    },
+    "refresh_frames": {
+      "type": "integer", "minimum": 0, "maximum": 64, "default": 8,
+      "description": "Loss-recovery window R in frames; 0 = default (8); 1 = stateless (no frame store, XS-architecture parity). Measured cost table: CONTROL_PLANE.md section 3"
+    },
+    "mode": { "enum": ["perception", "fidelity"], "default": "perception",
+              "description": "perception = grain fill on (eye-judged services); fidelity = --no-fill (metric-gated contracts). REPORT 12f" },
+    "colorimetry": {
+      "type": "object",
+      "properties": {
+        "primaries": { "enum": ["bt709", "bt2020"], "default": "bt709" },
+        "transfer":  { "enum": ["sdr", "pq", "hlg"], "default": "sdr" },
+        "matrix":    { "enum": ["bt709", "bt2020ncl"], "default": "bt709" },
+        "full_range": { "type": "boolean", "default": false }
+      }
+    },
+    "scan": { "enum": ["progressive"], "default": "progressive",
+              "description": "progressive only; interlace deferred by product decision (design retained in docs/INTERLACE_CONVENTION.md)" },
+    "tune": { "enum": ["fair", "vmaf"], "default": "fair" },
+    "deadzone": { "type": "boolean", "default": true,
+                  "description": "v4.4 detail-band deadzone (9/16 zero zone, bands 4-9; reconstruction points unchanged). Auto-disabled under tune=vmaf. Measured +0.45 dB all planes at 2.0 bpp. ENHANCEMENTS_LEDGER E-3" },
+    "grain_replace": { "type": "boolean", "default": false,
+                  "description": "v4.4 two-vote invisible-grain classifier (scale support + temporal persistence, inter slices only; |q|=1 demotions only, fill-regenerated). ~15-17% rate at equal VMAF on electronic noise, ~4-5% on coarse film grain; DEFAULT OFF pending the rev.6 blind-viewing gate. ENHANCEMENTS_LEDGER E-5" },
+    "fill_static": { "type": "boolean", "default": false,
+                  "description": "v4.7 static grain-fill tile (bitstream minor 7): grain-fill sign-tile offsets frame-independent (static grain texture, no temporal animation). BITSTREAM.md sec 9.5, ENHANCEMENTS_LEDGER E-10" },
+    "block_mv": { "type": "boolean", "default": false,
+                  "description": "v4.3 per-block motion field (bitstream minor 3). Measured ~0 dB on the delivery corpus; capability retained for future motion work. ENHANCEMENTS_LEDGER E-6" },
+    "mv_regions": { "type": "boolean", "default": false,
+                    "description": "single-hop links only; multi-hop chains reconverge instead of byte-replaying (DESIGN.md 1b)" },
+    "lossless": { "type": "boolean", "default": false,
+                  "description": "lossless-preferred: bit-exact per frame when it fits the CBR budget, graceful lossy fallback otherwise (still exact-CBR); implies no fill; pair with a high bpp (>=10 grain, >=3 clean). REPORT 14" }
+  }
+}

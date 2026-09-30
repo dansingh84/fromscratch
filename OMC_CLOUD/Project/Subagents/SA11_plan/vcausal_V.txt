@@ -1,0 +1,107 @@
+SA11 STEP V -- VERTICAL-CAUSAL FAMILY, OFFLINE (numpy; same method, frames and baseline as structure_S.txt).  2026-09-27.
+Numbers only; every row Y/Cb/Cr.  Script notes/vcausal.py, summary notes/vc_sum.py; results vc/*.json, vc/sum.txt, vc/v3.txt.
+V structure: each row transformed horizontally, 5 levels ((4,0) predictor + 5/3 update at the two finest levels, 5/3 at
+the three coarser ones = the baseline's horizontal filters); each coefficient predicted from the SAME band's
+reconstructed coefficient row above (closed loop in the coefficient domain); residual quantised per band (dead zone
+9/16, power-of-two steps from the 1-D synthesis weights, coarse-band offset k chosen as for the baseline); output =
+horizontal inverse of the reconstructed coefficient row.  Rows run top to bottom through the whole frame (slice
+boundaries play no role except in the per-slice predictor choice).  Deltas: mean over 10 cells / worst cell vs the
+baseline (today's 2-D structure, default allocation).
+V1 BAND-DOMAIN PREDICTION, fixed predictor (co = co-located coefficient above, avg3 = (a + 2b + c)/4 within the band,
+zero = no prediction):
+  V_co           | 0.5: -0.30/-0.59/-0.65 worst -0.81/-1.05/-0.94 n=10 | 1.0: -0.21/-0.64/-0.66 worst -0.49/-1.50/-1.36 n=10 | 2.0: -0.31/-0.87/-0.95 worst -0.61/-1.40/-1.35 n=10 | max out-of-range 147553
+  V_avg3         | 0.5: -3.61/-2.17/-2.39 worst -5.49/-4.09/-4.17 n=10 | 1.0: -2.70/-2.30/-2.41 worst -4.66/-4.97/-4.75 n=10 | 2.0: -2.03/-2.31/-2.36 worst -3.53/-4.34/-4.33 n=10 | max out-of-range 13217
+  V_zero         | 0.5: -4.25/-2.42/-2.61 worst -7.15/-4.19/-4.65 n=10 | 1.0: -2.84/-2.41/-2.41 worst -5.82/-5.67/-5.32 n=10 | 2.0: -1.90/-2.21/-2.14 worst -4.46/-4.67/-4.73 n=10 | max out-of-range 116302
+ Legality: NOT per-sample by construction -- out-of-range output samples up to 147,553 per frame (V_co, max over
+ cells and rates; baseline 1,995-60,538; S5a 125,114-198,729).
+V2 PER-BAND PREDICTOR CHOICE (from {co, avg3, zero}):
+ canS = per band per slice, the predictor with the smallest |error| predicting the previous reconstructed row of that
+        band from the one before (reconstructed data only, no side information);
+ canR = the same rule re-evaluated on every row;
+ sig  = per band per slice the best predictor on the SOURCE (open loop), signalled with 2 bits per band per slice per
+        plane (6 bands: 12 bits per slice per plane; 1080p 16-row slices: 68 x 3 x 12 = 2,448 bits/frame =
+        0.0012 bpp; 720p 8-row: 90 x 36 = 3,240 bits = 0.0035 bpp; cf_gfx: 32 x 36 = 1,152 bits = 0.010 bpp).
+  V_canS         | 0.5: -0.40/-0.62/-0.68 worst -1.23/-1.05/-0.95 n=10 | 1.0: -0.29/-0.60/-0.63 worst -1.09/-1.50/-1.36 n=10 | 2.0: -0.24/-0.60/-0.72 worst -0.96/-1.40/-1.35 n=10 | max out-of-range 147547
+  V_canR         | 0.5: -0.68/-0.68/-0.79 worst -2.41/-1.05/-1.17 n=10 | 1.0: -0.54/-0.64/-0.73 worst -1.33/-1.50/-1.52 n=10 | 2.0: -0.35/-0.65/-0.78 worst -0.94/-1.40/-1.35 n=10 | max out-of-range 147523
+  V_sig          | 0.5: -0.46/-0.85/-0.90 worst -0.99/-1.19/-1.17 n=10 | 1.0: -0.39/-0.85/-0.90 worst -1.06/-1.50/-1.70 n=10 | 2.0: -0.30/-0.79/-0.94 worst -0.93/-1.40/-1.77 n=10 | max out-of-range 147553
+ Reading: the fixed co-located predictor (V_co) is the best V variant at 0.5 and 1.0 bpp (-0.30/-0.59/-0.65 and
+ -0.21/-0.64/-0.66); the per-slice canonical choice (canS) equals it within 0.1 dB and is best at 2.0 bpp
+ (-0.24/-0.60/-0.72); per-row choice (canR) and the signalled open-loop choice (sig) are worse than fixed co.  Luma is
+ within 0.2-0.3 dB of the baseline on average; chroma stays -0.6...-0.9 dB.  Per cell (1.0 bpp, V_co): gfx
+ -0.45/-0.62/-0.35, dng720 f0 -0.26/-0.29/-0.27, dng1080 f0 -0.20/-0.28/-0.21, city f0 -0.10/-1.48/-1.35, spot f0
+ +0.07/-0.43/-0.98 (all cells: vc/sum.txt).
+V3 STEP ALLOCATION SEARCH (per band power-of-two offsets -2..+2, coordinate descent, 2 passes, objective = mean of the
+three plane PSNRs at the target rate; V_co and, for fairness, the baseline with the same search on its 10 bands;
+frame 0 of the five clips):
+  gfx_f0     0.5 bpp  V_co default vs base default -0.81/-0.79/-0.63 (mean -0.74) | V_co tuned vs base default -0.96/-0.30/-0.09 (mean -0.45) | V_co tuned vs base tuned -0.96/-0.54/-0.21 (mean -0.57)
+  gfx_f0     1.0 bpp  V_co default vs base default -0.45/-0.62/-0.35 (mean -0.47) | V_co tuned vs base default -0.39/-0.41/-0.26 (mean -0.35) | V_co tuned vs base tuned -0.13/-0.66/-0.44 (mean -0.41)
+  gfx_f0     2.0 bpp  V_co default vs base default -0.56/-0.67/-0.69 (mean -0.64) | V_co tuned vs base default -0.36/-0.43/-0.38 (mean -0.39) | V_co tuned vs base tuned -0.53/-0.83/-0.77 (mean -0.71)
+  dng720_f0  0.5 bpp  V_co default vs base default -0.22/-0.50/-0.58 (mean -0.43) | V_co tuned vs base default -0.33/-0.18/-0.26 (mean -0.26) | V_co tuned vs base tuned -0.30/-0.30/-0.39 (mean -0.33)
+  dng720_f0  1.0 bpp  V_co default vs base default -0.26/-0.29/-0.27 (mean -0.28) | V_co tuned vs base default -0.22/-0.12/-0.01 (mean -0.12) | V_co tuned vs base tuned -0.23/-0.17/-0.08 (mean -0.16)
+  dng720_f0  2.0 bpp  V_co default vs base default -0.35/-0.57/-0.50 (mean -0.47) | V_co tuned vs base default -0.35/-0.57/-0.50 (mean -0.47) | V_co tuned vs base tuned -0.37/-0.56/-0.51 (mean -0.48)
+  dng1080_f0 0.5 bpp  V_co default vs base default -0.54/-0.35/-0.40 (mean -0.43) | V_co tuned vs base default -0.65/-0.14/-0.17 (mean -0.32) | V_co tuned vs base tuned -0.57/-0.22/-0.27 (mean -0.35)
+  dng1080_f0 1.0 bpp  V_co default vs base default -0.20/-0.28/-0.21 (mean -0.23) | V_co tuned vs base default -0.07/-0.27/-0.10 (mean -0.15) | V_co tuned vs base tuned -0.02/-0.63/-0.47 (mean -0.37)
+  dng1080_f0 2.0 bpp  V_co default vs base default -0.61/-1.18/-1.08 (mean -0.96) | V_co tuned vs base default -0.34/-1.07/-0.80 (mean -0.74) | V_co tuned vs base tuned -0.57/-1.15/-1.09 (mean -0.94)
+  city_f0    0.5 bpp  V_co default vs base default -0.31/-1.05/-0.94 (mean -0.77) | V_co tuned vs base default -0.91/-0.16/-0.28 (mean -0.45) | V_co tuned vs base tuned +0.47/-2.13/-1.73 (mean -1.13)
+  city_f0    1.0 bpp  V_co default vs base default -0.10/-1.48/-1.35 (mean -0.98) | V_co tuned vs base default -0.68/-0.81/-0.96 (mean -0.82) | V_co tuned vs base tuned -0.51/-1.61/-1.52 (mean -1.21)
+  city_f0    2.0 bpp  V_co default vs base default +0.05/-1.37/-1.35 (mean -0.89) | V_co tuned vs base default -0.27/-0.83/-1.01 (mean -0.70) | V_co tuned vs base tuned +0.79/-1.98/-1.98 (mean -1.05)
+  spot_f0    0.5 bpp  V_co default vs base default +0.36/-0.25/-0.71 (mean -0.20) | V_co tuned vs base default +0.09/+0.08/+0.12 (mean +0.10) | V_co tuned vs base tuned +0.81/-0.46/-1.22 (mean -0.29)
+  spot_f0    1.0 bpp  V_co default vs base default +0.07/-0.43/-0.98 (mean -0.45) | V_co tuned vs base default +0.06/-0.28/-0.47 (mean -0.23) | V_co tuned vs base tuned +0.12/-0.43/-0.81 (mean -0.37)
+  spot_f0    2.0 bpp  V_co default vs base default +0.03/-0.38/-0.97 (mean -0.44) | V_co tuned vs base default +0.03/-0.35/-0.59 (mean -0.30) | V_co tuned vs base tuned +0.02/-0.53/-1.14 (mean -0.55)
+ Reading: tuning V_co's steps closes part of the gap against the DEFAULT baseline (mean over planes: gfx -0.74 -> -0.45,
+ dng720 -0.43 -> -0.26, dng1080 -0.43 -> -0.32, city -0.77 -> -0.45, spot -0.20 -> +0.10 at 0.5 bpp); the same search
+ on the baseline gains as much or more, so tuned-vs-tuned the gap stays -0.16 ... -1.21 dB (mean over planes).
+ The plane-mean objective trades luma against chroma (city tuned: Y +0.47/+0.79 while Cb/Cr -1.7...-2.1).
+V4 S5a WITH THE PER-SAMPLE CLAMP AT EVERY RECONSTRUCTED PIXEL (legal by construction) vs S5a unclamped:
+  S5aC_up3       | 0.5: +0.01/-0.01/+0.00 worst -0.12/-0.15/-0.00 n=10 | 1.0: -0.00/+0.00/+0.00 worst -0.01/-0.00/-0.00 n=10 | 2.0: +0.00/-0.00/-0.00 worst -0.01/-0.01/-0.01 n=10 | max out-of-range 5863
+  S5aC_gsel      | 0.5: +0.03/-0.00/-0.00 worst -0.03/-0.03/-0.03 n=10 | 1.0: +0.00/+0.00/-0.01 worst -0.05/-0.00/-0.09 n=10 | 2.0: -0.01/+0.00/+0.00 worst -0.04/-0.00/-0.00 n=10 | max out-of-range 6698
+
+  S5a_up3        | 0.5: -0.72/-1.09/-1.22 worst -1.24/-1.83/-1.79 n=10 | 1.0: -0.65/-1.01/-1.13 worst -0.94/-2.16/-2.02 n=10 | 2.0: -0.39/-0.78/-0.99 worst -0.70/-1.67/-1.82 n=10 | max out-of-range 198729
+  S5aC_up3       | 0.5: -0.72/-1.11/-1.22 worst -1.36/-1.83/-1.79 n=10 | 1.0: -0.65/-1.01/-1.13 worst -0.95/-2.16/-2.02 n=10 | 2.0: -0.39/-0.78/-0.99 worst -0.70/-1.67/-1.82 n=10 | max out-of-range 5863
+  S5a_gsel       | 0.5: -1.07/-0.94/-1.02 worst -2.68/-1.28/-1.39 n=10 | 1.0: -0.64/-0.94/-1.07 worst -1.43/-1.49/-1.47 n=10 | 2.0: -0.39/-0.93/-1.13 worst -1.02/-1.24/-1.62 n=10 | max out-of-range 180977
+  S5aC_gsel      | 0.5: -1.04/-0.94/-1.02 worst -2.57/-1.28/-1.38 n=10 | 1.0: -0.63/-0.93/-1.08 worst -1.40/-1.49/-1.46 n=10 | 2.0: -0.40/-0.93/-1.13 worst -1.06/-1.24/-1.62 n=10 | max out-of-range 6698
+  S5aC_up3       | 0.5: +0.01/-0.01/+0.00 worst -0.12/-0.15/-0.00 n=10 | 1.0: -0.00/+0.00/+0.00 worst -0.01/-0.00/-0.00 n=10 | 2.0: +0.00/-0.00/-0.00 worst -0.01/-0.01/-0.01 n=10 | max out-of-range 5863
+  S5aC_gsel      | 0.5: +0.03/-0.00/-0.00 worst -0.03/-0.03/-0.03 n=10 | 1.0: +0.00/+0.00/-0.01 worst -0.05/-0.00/-0.09 n=10 | 2.0: -0.01/+0.00/+0.00 worst -0.04/-0.00/-0.00 n=10 | max out-of-range 6698
+ Reading: the clamp costs nothing (-0.12...+0.03 dB); final output out-of-range 0 after the clamp (the counts shown for
+ S5aC are pre-clamp samples, 5,863-6,698 max per frame).
+V5 INTER: frame 5 coded as the residual against the reconstructed frame 4 (zero motion), each structure codes its own
+frame 4 intra first; rate = frame-5 bits only; dB vs the baseline coding the same residual (Y/Cb/Cr at 0.5 | 1.0 | 2.0):
+  gfx_f5      V_co       -1.92/-0.92/-0.75 | -1.10/-1.03/-0.84 | -1.41/-1.70/-1.63
+  gfx_f5      V_zero     -0.82/-0.64/-0.40 | -0.42/-0.43/-0.32 | -0.55/-0.88/-0.85
+  gfx_f5      V_canS     -1.77/-0.83/-0.61 | -1.21/-0.75/-0.61 | -1.30/-1.32/-1.31
+  gfx_f5      V_canR     -2.05/-0.89/-0.62 | -1.34/-0.77/-0.65 | -1.50/-1.37/-1.34
+  gfx_f5      base abs    34.37/34.02/34.38 | 36.06/35.34/35.70 | 38.31/37.62/37.91
+  dng720_f5   V_co       -1.05/-0.67/-0.60 | -1.01/-0.78/-0.70 | -0.87/-1.13/-0.94
+  dng720_f5   V_zero     -0.17/-0.20/-0.23 | -0.14/-0.30/-0.31 | +0.15/+0.29/+0.23
+  dng720_f5   V_canS     -0.42/-0.29/-0.30 | -0.44/-0.35/-0.36 | -0.01/+0.21/+0.15
+  dng720_f5   V_canR     -1.16/-0.42/-0.43 | -0.72/-0.40/-0.40 | -0.14/+0.17/+0.13
+  dng720_f5   base abs    37.14/36.41/37.46 | 38.86/37.42/38.28 | 41.11/40.02/40.47
+  dng1080_f5  V_co       -0.86/-0.90/-0.73 | -0.70/-0.87/-0.70 | -1.35/-2.00/-1.86
+  dng1080_f5  V_zero     -0.05/-0.29/-0.16 | -0.17/-0.33/-0.31 | +0.02/-0.39/-0.37
+  dng1080_f5  V_canS     -0.23/-0.37/-0.22 | -0.33/-0.39/-0.36 | -0.18/-0.52/-0.49
+  dng1080_f5  V_canR     -1.01/-0.66/-0.62 | -0.86/-0.55/-0.56 | -0.57/-0.70/-0.65
+  dng1080_f5  base abs    35.73/34.83/35.89 | 37.10/36.10/36.90 | 39.04/38.48/38.92
+  city_f5     V_co       -2.82/-3.48/-3.42 | -2.42/-3.27/-3.26 | -1.89/-3.05/-3.14
+  city_f5     V_zero     -1.81/-2.43/-2.40 | -1.26/-2.53/-2.47 | -0.36/-2.04/-2.02
+  city_f5     V_canS     -1.70/-2.33/-2.30 | -1.27/-2.54/-2.49 | -0.42/-2.08/-2.07
+  city_f5     V_canR     -1.67/-2.31/-2.29 | -1.25/-2.52/-2.45 | -0.37/-2.05/-2.03
+  city_f5     base abs    46.42/50.49/49.79 | 48.93/52.56/51.95 | 52.07/54.98/54.59
+  spot_f5     V_co       -1.73/-1.71/-2.15 | -1.10/-1.32/-1.73 | -0.54/-0.90/-1.00
+  spot_f5     V_zero     -2.56/-2.17/-2.56 | -1.52/-1.64/-2.02 | -0.62/-0.97/-1.05
+  spot_f5     V_canS     -2.14/-1.82/-2.33 | -1.45/-1.43/-2.17 | -0.89/-0.88/-1.20
+  spot_f5     V_canR     -2.25/-2.06/-2.31 | -2.14/-1.67/-2.03 | -1.09/-1.13/-1.37
+  spot_f5     base abs    40.76/42.30/45.35 | 43.47/44.32/47.52 | 46.20/46.81/49.39
+
+ Reading: on temporal residuals the gap is LARGER for the band-domain predictor (V_co -0.5...-3.5 dB) than intra;
+ with no vertical prediction (V_zero) or the canonical choice (canS) the gap shrinks on dng (dng720 canS
+ -0.42/-0.29/-0.30 @0.5, -0.01/+0.21/+0.15 @2.0; V_zero +0.15/+0.29/+0.23 @2.0) but stays large on cityalley
+ (-1.3...-2.5) and spotrobotL (-0.9...-2.3).
+OPS/SAMPLE (estimates, integer shift-add forms as in structure_S.txt) AND LOOK-BACK
+ baseline: 12.3 forward (+ the same inverse); needs the whole slice (8/16 rows) before the vertical transform.
+ V_co / V_zero: horizontal forward 10.5 + subtract 1 + quantise ~3 + dequantise/add 2 = 16.5 at the encoder plus the
+   horizontal inverse 10.5 for the output (27); decoder 2 + 10.5 = 12.5.  Look-back: 1 coefficient row (the
+   reconstructed row above, W coefficients); no row below.
+ V_avg3: +4 per sample (encoder and decoder).  canS: + 3 predictor evaluations (~18 ops per sample of one row) once per
+   slice = +1.1 (16-row) / +2.3 (8-row) per sample; look-back 2 rows.  canR: +18 per sample, 2 rows.  sig: encoder-
+   only open-loop evaluation (+18 per sample), decoder as V_co + 2 bits per band per slice.
+ S5a / S5aC: decoder 7.8-13.8 (+2 compares per sample for the clamp), encoder 15.6-21.6; look-back 1 row.

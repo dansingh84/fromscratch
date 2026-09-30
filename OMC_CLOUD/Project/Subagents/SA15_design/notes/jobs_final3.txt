@@ -1,0 +1,34 @@
+floor_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 0.5 12 floor_0.5|../out/tables_B.pkl
+floor720_ref0|../out/r2/floor720_lanczos.yuv 1280 720 0.5 12 floor720_ref0 --S 4 --gen2 0 --refresh 0 ENV:FASTREAD=1|../out/tables_B.pkl
+loss_rho4|loss2.py ../out/r2/floor720_lanczos.yuv 1280 720 0.5 40 3 60 0.25 L_rho4 ENV:S=4|../out/tables_B.pkl
+dng1080_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_422_10.yuv 1920 1080 1.0 12 dng1080_1.0 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+spot_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/spotrobotL_1920x1080_422_10.yuv 1920 1080 0.5 12 spot_0.5 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+volley_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/volleyballgameL_1920x1080_422_10.yuv 1920 1080 0.5 12 volley_0.5 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+hwy_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/highwaydriveL_1920x1080_422_10.yuv 1920 1080 0.5 12 hwy_0.5 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+cut_0.5|x 1920 1080 0.5 12 cut_0.5 --frames mk_cut|../out/tables_B.pkl
+mixed_0.5|x 1920 1080 0.5 12 mixed_0.5 --frames mk_mixed|../out/tables_B.pkl
+dng1080_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_422_10.yuv 1920 1080 0.5 12 dng1080_0.5 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+spot_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/spotrobotL_1920x1080_422_10.yuv 1920 1080 1.0 12 spot_1.0 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+floor_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 1.0 12 floor_1.0 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+volley_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/volleyballgameL_1920x1080_422_10.yuv 1920 1080 1.0 12 volley_1.0 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+hwy_1.0|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/highwaydriveL_1920x1080_422_10.yuv 1920 1080 1.0 12 hwy_1.0 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+floor_0.5_tabA|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 0.5 12 floor_0.5_tabA --gen2 0 ENV:FASTREAD=1|../out/tables_A.pkl
+hwy_0.5_tabA|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/highwaydriveL_1920x1080_422_10.yuv 1920 1080 0.5 12 hwy_0.5_tabA --gen2 0 ENV:FASTREAD=1|../out/tables_A.pkl
+floor_0.5_hp|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/floorballgameL_1920x1080_422_10.yuv 1920 1080 0.5 12 floor_0.5_hp --hp 1 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+hwy_0.5_hp|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/highwaydriveL_1920x1080_422_10.yuv 1920 1080 0.5 12 hwy_0.5_hp --hp 1 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+volley_0.5_hp|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/volleyballgameL_1920x1080_422_10.yuv 1920 1080 0.5 12 volley_0.5_hp --hp 1 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+spot_0.5_hp|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/long/spotrobotL_1920x1080_422_10.yuv 1920 1080 0.5 12 spot_0.5_hp --hp 1 --gen2 0 ENV:FASTREAD=1|../out/tables_B.pkl
+f420_0.5|../out/r2/src_dng1080_420_10.yuv 1920 1080 0.5 6 f420_0.5 --fmt 420|../out/tables_B.pkl
+f444_12_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_444_12.yuv 1920 1080 0.5 6 f444_12_0.5 --fmt 444 --depth 12|../out/tables_B.pkl
+f422_8_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_422_8.yuv 1920 1080 0.5 6 f422_8_0.5 --depth 8|../out/tables_B.pkl
+f422_12_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1920x1080_422_12.yuv 1920 1080 0.5 6 f422_12_0.5 --depth 12|../out/tables_B.pkl
+lim_0.5|/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA7_legality_v2/arms/dngL_1920x1080_422_10.yuv 1920 1080 0.5 4 lim_0.5 --rng 64,940,64,960|../out/tables_B.pkl
+dng720_0.5_zh1|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/dng_1280x720_422_10.yuv 1280 720 0.5 12 dng720_0.5_zh1 --S 4 --gen2 0 ENV:ZH=1 ENV:FASTREAD=1|../out/tables_B.pkl
+floor720_zh1|../out/r2/floor720_lanczos.yuv 1280 720 0.5 12 floor720_zh1 --S 4 --gen2 0 ENV:ZH=1 ENV:FASTREAD=1|../out/tables_B.pkl
+ext10_1.0|/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA7_legality_v2/arms/ext_10_422_l0.yuv 512 128 1.0 4 ext10_1.0|../out/tables_B.pkl
+ext10L_1.0|/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA7_legality_v2/arms/ext_10_422_l1.yuv 512 128 1.0 4 ext10L_1.0 --rng 64,940,64,960|../out/tables_B.pkl
+ext8_1.0|/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA7_legality_v2/arms/ext_8_422_l0.yuv 512 128 1.0 4 ext8_1.0 --depth 8|../out/tables_B.pkl
+ext12_1.0|/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA7_legality_v2/arms/ext_12_422_l0.yuv 512 128 1.0 4 ext12_1.0 --depth 12|../out/tables_B.pkl
+ext12_444_1.0|/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA7_legality_v2/arms/ext_12_444_l0.yuv 512 128 1.0 4 ext12_444_1.0 --depth 12 --fmt 444|../out/tables_B.pkl
+cut24_0.5|/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA7_legality_v2/arms/cut24.yuv 256 64 0.5 12 cut24_0.5|../out/tables_B.pkl
+gfx_0.5|/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/cf_gfx_448x256_422_10.yuv 448 256 0.5 12 gfx_0.5|../out/tables_B.pkl

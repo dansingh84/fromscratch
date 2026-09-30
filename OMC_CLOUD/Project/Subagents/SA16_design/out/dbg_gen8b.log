@@ -1,0 +1,5 @@
+ucls[14] 1 phi 1 holds unit 14 blocks 206,207: {'ll': [False, False], 'mid': [False, False], 'fine': [True, False]} Pu [224, -1] mode [0, 0] static [True, True]
+plane 0 LL blocks [208, 209] sym diff 1 final diff 0 first (np.int64(1), np.int64(0)) g1 q/final 2 368 g2 q/final 8 368
+plane 0 H4 blocks [208, 209] sym diff 1 final diff 1 first (np.int64(1), np.int64(1)) g1 q/final 0 0 g2 q/final 1 8
+plane 1 LL blocks [208, 209] sym diff 1 final diff 0 first (np.int64(1), np.int64(0)) g1 q/final 1 564 g2 q/final 4 564
+plane 2 H3 blocks [208, 209] sym diff 1 final diff 1 first (np.int64(1), np.int64(0)) g1 q/final 0 0 g2 q/final -1 -8

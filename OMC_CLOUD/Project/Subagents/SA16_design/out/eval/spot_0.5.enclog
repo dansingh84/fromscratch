@@ -1,0 +1,8 @@
+f0 bits 1035669/1036800 est 1035793 Pe[min,med,max]=223/254/284 viaread 0 planhist {'floor': 0, 'ge270': 42, 'ge240': 92, 'n': 135, 'intra': True} stats {} 28s
+f1 bits 1036330/1036800 est 1036796 Pe[min,med,max]=210/251/270 viaread 0 planhist {'floor': 0, 'ge270': 4, 'ge240': 83, 'n': 135, 'intra': False} stats {} 123s
+f2 bits 1035756/1036800 est 1035943 Pe[min,med,max]=210/240/281 viaread 0 planhist {'floor': 0, 'ge270': 4, 'ge240': 77, 'n': 135, 'intra': False} stats {} 218s
+f3 bits 1035760/1036800 est 1035874 Pe[min,med,max]=210/240/270 viaread 0 planhist {'floor': 0, 'ge270': 1, 'ge240': 73, 'n': 135, 'intra': False} stats {} 314s
+f4 bits 1035724/1036800 est 1036019 Pe[min,med,max]=221/240/283 viaread 0 planhist {'floor': 0, 'ge270': 4, 'ge240': 71, 'n': 135, 'intra': False} stats {} 410s
+f5 bits 1036351/1036800 est 1036627 Pe[min,med,max]=210/239/283 viaread 0 planhist {'floor': 0, 'ge270': 4, 'ge240': 64, 'n': 135, 'intra': False} stats {} 505s
+f6 bits 1035320/1036800 est 1035362 Pe[min,med,max]=210/238/270 viaread 0 planhist {'floor': 0, 'ge270': 2, 'ge240': 61, 'n': 135, 'intra': False} stats {} 600s
+f7 bits 1035207/1036800 est 1035301 Pe[min,med,max]=210/225/254 viaread 0 planhist {'floor': 0, 'ge270': 0, 'ge240': 30, 'n': 135, 'intra': False} stats {} 694s

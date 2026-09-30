@@ -1,0 +1,9 @@
+cont53 rowspread(S=16) at D0=54: 3.8/9.3/19.8
+cont26 rowspread(S=16) at D0=54: 2.0/15.8/13.3
+cont2626 rowspread(S=16) at D0=54: 2.3/15.7/15.9
+closed53_97 rowspread(S=16) at D0=54: 8.4/19.4/22.9
+closed53 rowspread(S=16) at D0=54: 8.1/18.9/22.3
+BD-rate cont26 vs cont53 on spot: +6.32 %
+BD-rate cont2626 vs cont53 on spot: +12.75 %
+BD-rate closed53_97 vs cont53 on spot: +1.58 %
+BD-rate closed53 vs cont53 on spot: -0.15 %

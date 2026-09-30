@@ -1,0 +1,33 @@
+city 0.5 bits 1036750 over 0
+bos 0.5 bits 1036378 over 0
+bos 2.0 bits 4146902 over 0
+bos 1.0 bits 2073406 over 0
+city 2.0 bits 4146875 over 0
+city 1.0 bits 2073409 over 0
+rsg 0.5 bits 1036235 over 0
+rsg 2.0 bits 4143408 over 0
+rsg 1.0 bits 2073542 over 0
+traffic 0.5 bits 1036577 over 0
+traffic 1.0 bits 2073473 over 0
+traffic 2.0 bits 4146751 over 0
+winter 0.5 bits 1035840 over 0
+winter 2.0 bits 4143503 over 0
+winter 1.0 bits 2072256 over 0
+tables 83
+city 2.0 bits 4147001 over 0
+bos 2.0 bits 4146164 over 0
+bos 1.0 bits 2072939 over 0
+city 0.5 bits 1034306 over 0
+city 1.0 bits 2073351 over 0
+bos 0.5 bits 1035748 over 0
+rsg 0.5 bits 1036753 over 0
+traffic 0.5 bits 1036212 over 0
+rsg 1.0 bits 2071172 over 0
+rsg 2.0 bits 4146331 over 0
+traffic 1.0 bits 2072633 over 0
+traffic 2.0 bits 4145167 over 0
+winter 0.5 bits 1035065 over 0
+winter 1.0 bits 2072339 over 0
+winter 2.0 bits 4143888 over 0
+tables 79
+DONE

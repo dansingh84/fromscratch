@@ -1,0 +1,5 @@
+nice -n 19 python3 s1b_hist.py hwy 0.5 > ../out/s1b_hwy.log 2>&1
+nice -n 19 python3 s1b_hist.py spot 0.5 > ../out/s1b_spot.log 2>&1
+nice -n 19 python3 s1b_hist.py volley 0.5 > ../out/s1b_volley.log 2>&1
+nice -n 19 python3 s1b_hist.py floor 0.5 > ../out/s1b_floor.log 2>&1
+nice -n 19 python3 s1b_hist.py dng720 0.5 > ../out/s1b_dng720.log 2>&1

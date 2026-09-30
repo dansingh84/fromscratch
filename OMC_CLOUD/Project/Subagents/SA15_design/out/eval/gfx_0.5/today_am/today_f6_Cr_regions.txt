@@ -1,0 +1,3 @@
+DARK   rows  102- 115 cols   73- 106 area    272 err    -3.9 src  499.4 slice 6
+DARK   rows  122- 130 cols   74- 102 area    183 err    -7.9 src  496.0 slice 7
+DARK   rows  133- 138 cols   23-  62 area    173 err   -10.3 src  513.3 slice 8

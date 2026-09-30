@@ -1,0 +1,28 @@
+BRIGHT rows  283- 310 cols 1531-1672 area   1467 err    +2.6 src  265.4 slice 17
+BRIGHT rows  282- 305 cols  266- 415 area   1123 err    +1.2 src  242.3 slice 17
+BRIGHT rows  280- 302 cols  154- 221 area    753 err    +7.7 src  203.9 slice 17
+BRIGHT rows  281- 300 cols 1417-1482 area    514 err    -0.5 src  381.8 slice 17
+BRIGHT rows  280- 296 cols  772- 828 area    358 err    +4.3 src  460.0 slice 17
+BRIGHT rows  281- 301 cols  835- 861 area    318 err    +9.9 src  547.7 slice 17
+BRIGHT rows  263- 277 cols  477- 518 area    249 err    +2.8 src  443.4 slice 16
+BRIGHT rows  292- 304 cols  693- 734 area    241 err    +5.7 src  291.2 slice 18
+BRIGHT rows  290- 302 cols 1890-1919 area    221 err    +1.4 src  128.0 slice 18
+BRIGHT rows  287- 298 cols  459- 497 area    196 err    +5.5 src  248.1 slice 17
+BRIGHT rows  280- 285 cols  501- 550 area    185 err    +3.8 src  361.7 slice 17
+BRIGHT rows  547- 555 cols 1736-1761 area    163 err    +3.2 src  148.9 slice 34
+BRIGHT rows  547- 554 cols  615- 644 area    156 err    +6.8 src  306.9 slice 34
+BRIGHT rows  545- 549 cols  693- 742 area    155 err    +5.5 src  350.1 slice 34
+BRIGHT rows  338- 346 cols 1535-1559 area    152 err    +4.6 src  210.5 slice 21
+DARK   rows  278- 294 cols  596- 666 area    564 err    -6.0 src  282.4 slice 17
+DARK   rows  284- 298 cols 1648-1699 area    381 err    -6.8 src  212.1 slice 17
+DARK   rows  274- 289 cols 1472-1526 area    356 err    -3.7 src  433.0 slice 17
+DARK   rows  288- 306 cols 1403-1454 area    347 err    -3.8 src  344.3 slice 18
+DARK   rows  284- 299 cols  409- 453 area    310 err    -8.8 src  235.9 slice 17
+DARK   rows  543- 554 cols  881- 943 area    278 err    -1.1 src  258.2 slice 33
+DARK   rows  280- 293 cols  140- 185 area    269 err    +2.1 src  211.3 slice 17
+DARK   rows  289- 303 cols 1481-1503 area    200 err    -3.5 src  582.2 slice 18
+DARK   rows  299- 308 cols  662- 690 area    196 err    -6.6 src  314.6 slice 18
+DARK   rows  531- 540 cols 1154-1181 area    172 err    -7.0 src  239.3 slice 33
+DARK   rows  132- 140 cols 1578-1601 area    171 err    -5.9 src  304.9 slice 8
+DARK   rows  283- 289 cols 1540-1572 area    163 err    -1.0 src  261.9 slice 17
+DARK   rows  545- 553 cols 1499-1526 area    156 err    -8.9 src  214.3 slice 34

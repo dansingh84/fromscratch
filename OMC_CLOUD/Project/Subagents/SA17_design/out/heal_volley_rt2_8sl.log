@@ -1,0 +1,10 @@
+volley RT=2 f 0      damaged samples       0 rows -  bits/target 0.9998 over 0
+volley RT=2 f 1      damaged samples       0 rows -  bits/target 0.9994 over 0
+volley RT=2 f 2      damaged samples       0 rows -  bits/target 0.9995 over 0
+volley RT=2 f 3 LOSS damaged samples  173067 rows 394..469  bits/target 0.9996 over 0
+volley RT=2 f 4      damaged samples  174811 rows 390..469  bits/target 0.9994 over 0
+volley RT=2 f 5      damaged samples  175444 rows 386..469  bits/target 0.9980 over 0
+volley RT=2 f 6 HEAL damaged samples       0 rows -  bits/target 0.9996 over 0
+volley RT=2 f 7      damaged samples       0 rows -  bits/target 0.9997 over 0
+volley RT=2 f 8      damaged samples       0 rows -  bits/target 0.9994 over 0
+volley RT=2 f 9      damaged samples       0 rows -  bits/target 0.9989 over 0

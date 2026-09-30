@@ -1,0 +1,4 @@
+f0 17.2s bits 460515/460800 rt0=True | g2 same=False bits 458466 (viaread 177/180) | PSNR 26.83/28.86/27.87 oob 0 fm=0 stats {'overflow': 1, 'est_bits': 460561.2274466355}
+f1 69.7s bits 460536/460800 rt0=True | g2 same=False bits 460287 (viaread 161/180) | PSNR 30.65/33.30/33.19 oob 0 fm=0 stats {'overflow': 1, 'est_bits': 532542.4188520624}
+f2 66.8s bits 460431/460800 rt0=True | g2 same=False bits 459996 (viaread 73/180) | PSNR 31.07/33.74/33.80 oob 0 fm=0 stats {'overflow': 1, 'est_bits': 541961.8131442184}
+f3 62.9s bits 460557/460800 rt0=True | g2 same=False bits 460440 (viaread 33/180) | PSNR 30.05/33.36/29.48 oob 0 fm=0 stats {'overflow': 13, 'est_bits': 541678.7245588927}

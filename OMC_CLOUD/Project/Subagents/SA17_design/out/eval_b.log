@@ -1,0 +1,4 @@
+b_53 hwy @0.5  NEG 91.47 (worst 88.65)  PSNR 39.94/47.22/43.82   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 1.0000 over 0 oob 0
+b_53 floor @0.5  NEG 93.88 (worst 89.93)  PSNR 39.72/44.28/43.92   | today NEG 95.98 (worst 92.41) PSNR 40.71/44.73/44.31  | max frame bits/target 0.9999 over 0 oob 0
+b_norefresh hwy @0.5  NEG 92.67 (worst 89.43)  PSNR 40.47/47.51/43.98   | today NEG 93.73 (worst 90.58) PSNR 41.05/47.31/43.90  | max frame bits/target 1.0000 over 0 oob 0
+b_norefresh floor @0.5  NEG 94.42 (worst 90.62)  PSNR 39.91/44.54/44.15   | today NEG 95.98 (worst 92.41) PSNR 40.71/44.73/44.31  | max frame bits/target 1.0000 over 0 oob 0

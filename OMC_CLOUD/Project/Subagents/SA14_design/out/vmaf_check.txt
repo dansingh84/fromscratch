@@ -1,0 +1,12 @@
+dng1080 D0=48 nest bits/lumapx=1.3283 VMAF-NEG=91.249 PSNR Y/Cb/Cr=37.702/36.702/37.405 oob=0
+   |nest-clip| px differing Y/Cb/Cr=[15, 0, 0] max=[38, 0, 0]
+dng1080 D0=48 clip bits/lumapx=1.3284 VMAF-NEG=91.248 PSNR Y/Cb/Cr=37.702/36.702/37.405 oob=0
+dng1080 D0=128 nest bits/lumapx=0.5278 VMAF-NEG=84.100 PSNR Y/Cb/Cr=35.050/34.345/35.527 oob=0
+   |nest-clip| px differing Y/Cb/Cr=[881, 0, 0] max=[96, 0, 0]
+dng1080 D0=128 clip bits/lumapx=0.5278 VMAF-NEG=84.102 PSNR Y/Cb/Cr=35.051/34.345/35.527 oob=0
+spot D0=48 nest bits/lumapx=0.4977 VMAF-NEG=91.741 PSNR Y/Cb/Cr=41.617/42.884/46.009 oob=0
+   |nest-clip| px differing Y/Cb/Cr=[13386, 0, 0] max=[61, 0, 0]
+spot D0=48 clip bits/lumapx=0.4955 VMAF-NEG=91.777 PSNR Y/Cb/Cr=41.624/42.884/46.009 oob=0
+spot D0=128 nest bits/lumapx=0.2682 VMAF-NEG=84.114 PSNR Y/Cb/Cr=38.433/40.504/42.907 oob=0
+   |nest-clip| px differing Y/Cb/Cr=[21954, 0, 0] max=[130, 0, 0]
+spot D0=128 clip bits/lumapx=0.2656 VMAF-NEG=84.267 PSNR Y/Cb/Cr=38.459/40.504/42.907 oob=0

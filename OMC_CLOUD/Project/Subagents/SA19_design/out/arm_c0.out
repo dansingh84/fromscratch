@@ -1,0 +1,2 @@
+Terminated                 nice -n 19 python3 tpp_run.py train city 0.5 ../out/tab_eb_r2.pkl ../out/cnt_c0_city_0.5.pkl fuse=0 still=catch >> ../out/train_c0.log 2>&1
+Terminated                 nice -n 19 python3 tpp_run.py train bos 1.0 ../out/tab_eb_r2.pkl ../out/cnt_c0_bos_1.0.pkl fuse=0 still=catch >> ../out/train_c0.log 2>&1

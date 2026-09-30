@@ -1,0 +1,3 @@
+highwaydri Qf 6.0 none   bpp 0.396 Y psnr 40.96 v16 1.14 first 1.00 last 1.14 | U psnr 47.25 v16 1.45 first 0.99 last 1.17 | V psnr 44.24 v16 1.14 first 1.03 last 1.07
+highwaydri Qf 6.0 oracle bpp 0.387 Y psnr 41.03 v16 1.10 first 1.00 last 0.98 | U psnr 47.35 v16 1.45 first 0.97 last 0.95 | V psnr 44.28 v16 1.21 first 1.02 last 0.95
+highwaydri Qf 6.0 proxy  bpp 0.394 Y psnr 40.96 v16 1.08 first 1.00 last 1.05 | U psnr 47.27 v16 1.36 first 0.98 last 1.06 | V psnr 44.24 v16 1.13 first 1.03 last 1.02

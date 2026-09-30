@@ -1,0 +1,6 @@
+bosphorus_19 Y  HH predictor dPSNR at matched rate vs two-sided: two +0.000 | causal -0.156 | inblock1_causal2 -0.157
+bosphorus_19 Cb HH predictor dPSNR at matched rate vs two-sided: two +0.000 | causal -0.074 | inblock1_causal2 -0.073
+bosphorus_19 Cr HH predictor dPSNR at matched rate vs two-sided: two +0.000 | causal -0.091 | inblock1_causal2 -0.089
+cityalley_19 Y  HH predictor dPSNR at matched rate vs two-sided: two +0.000 | causal -0.243 | inblock1_causal2 -0.244
+cityalley_19 Cb HH predictor dPSNR at matched rate vs two-sided: two +0.000 | causal -0.053 | inblock1_causal2 -0.053
+cityalley_19 Cr HH predictor dPSNR at matched rate vs two-sided: two +0.000 | causal -0.080 | inblock1_causal2 -0.077

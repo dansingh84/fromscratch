@@ -1,0 +1,265 @@
+== mine dng720 @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_dng720_0.5/sg
+c1_dng720_b0.5.d_f6: 23 bright regions, 6 dark regions -> art/mine_dng720_0.5/c1_dng720_b0.5.d_f6_*
+c1_dng720_b0.5.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_dng720_0.5/c1_dng720_b0.5.d_f6_Cb_*
+c1_dng720_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_dng720_0.5/c1_dng720_b0.5.d_f6_Cr_*
+   Y    47.38% of 3582 textured blocks | Cb   88.75% of 1786 textured blocks | Cr   86.07% of 1795 textured blocks
+  Y  dev:   -0.6   +0.4   +0.0   +0.3   %  (spread 1.0% of mean)
+  Cb dev:   -2.5   +2.2   +2.5   -2.2   %  (spread 5.1% of mean)
+  Cr dev:   -2.6   +2.2   +2.2   -1.8   %  (spread 4.8% of mean)
+== today dng720 @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_dng720_0.5/sg
+dng720_b0.5_a0.d_f6: 6 bright regions, 4 dark regions -> art/today_dng720_0.5/dng720_b0.5_a0.d_f6_*
+dng720_b0.5_a0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_dng720_0.5/dng720_b0.5_a0.d_f6_Cb_*
+dng720_b0.5_a0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_dng720_0.5/dng720_b0.5_a0.d_f6_Cr_*
+   Y    42.71% of 3582 textured blocks | Cb   85.33% of 1786 textured blocks | Cr   84.57% of 1795 textured blocks
+  Y  dev:   +1.7   -2.9   +1.3   -0.1   %  (spread 4.6% of mean)
+  Cb dev:  +11.1   -7.5   +5.7   -9.3   %  (spread 20.5% of mean)
+  Cr dev:  +10.2   -6.1   +3.7   -7.8   %  (spread 18.1% of mean)
+== mine dng720 @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_dng720_1.0/sg
+c1_dng720_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/mine_dng720_1.0/c1_dng720_b1.0.d_f6_*
+c1_dng720_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_dng720_1.0/c1_dng720_b1.0.d_f6_Cb_*
+c1_dng720_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_dng720_1.0/c1_dng720_b1.0.d_f6_Cr_*
+   Y    38.36% of 3582 textured blocks | Cb   56.33% of 1786 textured blocks | Cr   66.07% of 1795 textured blocks
+  Y  dev:   -0.1   +0.2   +0.2   -0.3   %  (spread 0.5% of mean)
+  Cb dev:   -1.5   +1.1   +1.3   -1.0   %  (spread 2.8% of mean)
+  Cr dev:   -1.0   +1.5   +1.1   -1.6   %  (spread 3.2% of mean)
+== today dng720 @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_dng720_1.0/sg
+dng720_b1.0_a0.d_f6: 0 bright regions, 0 dark regions -> art/today_dng720_1.0/dng720_b1.0_a0.d_f6_*
+dng720_b1.0_a0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_dng720_1.0/dng720_b1.0_a0.d_f6_Cb_*
+dng720_b1.0_a0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_dng720_1.0/dng720_b1.0_a0.d_f6_Cr_*
+   Y    33.56% of 3582 textured blocks | Cb   24.92% of 1786 textured blocks | Cr   50.47% of 1795 textured blocks
+  Y  dev:   +0.9   -2.2   +0.8   +0.6   %  (spread 3.1% of mean)
+  Cb dev:  +13.1  -11.8   +5.7   -7.0   %  (spread 24.9% of mean)
+  Cr dev:  +11.8  -10.1   +4.9   -6.5   %  (spread 21.9% of mean)
+== mine dng1080 @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_dng1080_0.5/sg
+c1_dng1080_b0.5.d_f6: 22 bright regions, 20 dark regions -> art/mine_dng1080_0.5/c1_dng1080_b0.5.d_f6_*
+c1_dng1080_b0.5.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_dng1080_0.5/c1_dng1080_b0.5.d_f6_Cb_*
+c1_dng1080_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_dng1080_0.5/c1_dng1080_b0.5.d_f6_Cr_*
+   Y    57.41% of 8000 textured blocks | Cb   85.71% of 3967 textured blocks | Cr   83.96% of 3939 textured blocks
+  Y  dev:   -0.4   +0.8   +0.0   -0.3   -0.2   +0.0   +0.2   -0.2   %  (spread 1.2% of mean)
+  Cb dev:   -2.1   +3.7   +2.4   -2.9   -3.3   +2.1   +2.8   -2.7   %  (spread 7.1% of mean)
+  Cr dev:   -1.6   +3.7   +2.3   -2.6   -3.1   +1.5   +2.6   -2.7   %  (spread 6.8% of mean)
+== today dng1080 @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_dng1080_0.5/sg
+dng1080_b0.5_a0.d_f6: 4 bright regions, 5 dark regions -> art/today_dng1080_0.5/dng1080_b0.5_a0.d_f6_*
+dng1080_b0.5_a0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_dng1080_0.5/dng1080_b0.5_a0.d_f6_Cb_*
+dng1080_b0.5_a0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_dng1080_0.5/dng1080_b0.5_a0.d_f6_Cr_*
+   Y    53.46% of 8000 textured blocks | Cb   80.62% of 3967 textured blocks | Cr   83.55% of 3939 textured blocks
+  Y  dev:   +7.2   -2.0   +2.5   -5.7   +0.1   -5.4   +3.0   +0.2   %  (spread 12.8% of mean)
+  Cb dev:  +24.6   +0.1   +4.1  -13.9   -0.9  -14.6   +4.6   -4.1   %  (spread 39.2% of mean)
+  Cr dev:  +24.3   +3.9   +3.7  -12.0   -4.3  -14.0   +1.4   -3.1   %  (spread 38.3% of mean)
+== mine dng1080 @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_dng1080_1.0/sg
+c1_dng1080_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/mine_dng1080_1.0/c1_dng1080_b1.0.d_f6_*
+c1_dng1080_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_dng1080_1.0/c1_dng1080_b1.0.d_f6_Cb_*
+c1_dng1080_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_dng1080_1.0/c1_dng1080_b1.0.d_f6_Cr_*
+   Y    47.79% of 8000 textured blocks | Cb   37.94% of 3967 textured blocks | Cr   60.73% of 3939 textured blocks
+  Y  dev:   -0.6   +0.4   +0.1   -0.3   -0.0   +0.2   +0.3   -0.1   %  (spread 1.0% of mean)
+  Cb dev:   -0.9   +1.0   +0.5   -1.3   -0.8   +1.2   +0.9   -0.7   %  (spread 2.5% of mean)
+  Cr dev:   -1.3   +1.9   +0.9   -2.0   -1.5   +1.3   +2.0   -1.2   %  (spread 4.0% of mean)
+== today dng1080 @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_dng1080_1.0/sg
+dng1080_b1.0_a0.d_f6: 0 bright regions, 0 dark regions -> art/today_dng1080_1.0/dng1080_b1.0_a0.d_f6_*
+dng1080_b1.0_a0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_dng1080_1.0/dng1080_b1.0_a0.d_f6_Cb_*
+dng1080_b1.0_a0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_dng1080_1.0/dng1080_b1.0_a0.d_f6_Cr_*
+   Y    27.54% of 8000 textured blocks | Cb   15.38% of 3967 textured blocks | Cr   37.14% of 3939 textured blocks
+  Y  dev:   +5.9   -3.9   +4.0   -6.1   -0.2   -5.7   +4.7   +1.2   %  (spread 12.0% of mean)
+  Cb dev:  +14.2  -10.1  +11.5  -13.5   +5.0  -14.2  +10.4   -3.3   %  (spread 28.3% of mean)
+  Cr dev:  +14.8   -9.8  +11.7  -14.7   +2.0  -14.9  +13.0   -2.0   %  (spread 29.7% of mean)
+== mine spot @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_spot_0.5/sg
+c1_spot_b0.5.d_f6: 3 bright regions, 2 dark regions -> art/mine_spot_0.5/c1_spot_b0.5.d_f6_*
+c1_spot_b0.5.d_f6_Cb: 0 bright regions, 1 dark regions -> art/mine_spot_0.5/c1_spot_b0.5.d_f6_Cb_*
+c1_spot_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_spot_0.5/c1_spot_b0.5.d_f6_Cr_*
+   Y    38.34% of 7909 textured blocks | Cb   50.63% of 3739 textured blocks | Cr   33.96% of 3972 textured blocks
+  Y  dev:   -0.6   -0.2   +0.2   +0.8   +0.6   -0.2   -0.3   -0.5   %  (spread 1.4% of mean)
+  Cb dev:   -1.6   +1.2   +5.1   -4.6   -0.0   +0.5   +4.8   -5.4   %  (spread 10.5% of mean)
+  Cr dev:   -8.6   +8.3   +1.3   -0.7   -7.0   +7.0   +1.1   -1.3   %  (spread 16.9% of mean)
+== today spot @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_spot_0.5/sg
+spot_b0.5_a0.d_f6: 0 bright regions, 1 dark regions -> art/today_spot_0.5/spot_b0.5_a0.d_f6_*
+spot_b0.5_a0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_spot_0.5/spot_b0.5_a0.d_f6_Cb_*
+spot_b0.5_a0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_spot_0.5/spot_b0.5_a0.d_f6_Cr_*
+   Y    52.66% of 7909 textured blocks | Cb   68.15% of 3739 textured blocks | Cr   72.78% of 3972 textured blocks
+  Y  dev:   +4.2   -2.5   +1.0   -3.3   +1.4   -3.0   +2.3   -0.1   %  (spread 7.4% of mean)
+  Cb dev:   +9.5   -1.1   +2.6   -9.0   +2.5   -3.8   +5.2   -6.0   %  (spread 18.6% of mean)
+  Cr dev:   -0.6   +5.8   -2.4   -2.7   -4.6   +5.0   +0.2   -0.7   %  (spread 10.4% of mean)
+== mine spot @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_spot_1.0/sg
+c1_spot_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/mine_spot_1.0/c1_spot_b1.0.d_f6_*
+c1_spot_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_spot_1.0/c1_spot_b1.0.d_f6_Cb_*
+c1_spot_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_spot_1.0/c1_spot_b1.0.d_f6_Cr_*
+   Y    27.46% of 7909 textured blocks | Cb   25.43% of 3739 textured blocks | Cr   21.65% of 3972 textured blocks
+  Y  dev:   -0.4   -0.3   +0.1   +0.7   +0.6   -0.2   -0.3   -0.2   %  (spread 1.0% of mean)
+  Cb dev:   -1.1   +0.6   +4.6   -4.3   +0.2   +0.6   +4.5   -5.0   %  (spread 9.6% of mean)
+  Cr dev:   -8.3   +8.1   +1.3   -0.6   -7.1   +7.1   +0.8   -1.4   %  (spread 16.4% of mean)
+== today spot @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_spot_1.0/sg
+spot_b1.0_a0.d_f6: 0 bright regions, 1 dark regions -> art/today_spot_1.0/spot_b1.0_a0.d_f6_*
+spot_b1.0_a0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_spot_1.0/spot_b1.0_a0.d_f6_Cb_*
+spot_b1.0_a0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_spot_1.0/spot_b1.0_a0.d_f6_Cr_*
+   Y    40.80% of 7909 textured blocks | Cb   51.40% of 3739 textured blocks | Cr   64.48% of 3972 textured blocks
+  Y  dev:   +4.9   -2.3   +1.3   -3.4   +1.8   -3.5   +1.7   -0.4   %  (spread 8.4% of mean)
+  Cb dev:  +11.4   -1.7   +3.2  -10.1   +4.0   -5.2   +5.0   -6.7   %  (spread 21.5% of mean)
+  Cr dev:   +2.2   +6.4   -2.7   -3.9   -3.9   +3.9   -0.4   -1.5   %  (spread 10.3% of mean)
+== mine floor @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_floor_0.5/sg
+c1_floor_b0.5.d_f6: 0 bright regions, 0 dark regions -> art/mine_floor_0.5/c1_floor_b0.5.d_f6_*
+c1_floor_b0.5.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_floor_0.5/c1_floor_b0.5.d_f6_Cb_*
+c1_floor_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_floor_0.5/c1_floor_b0.5.d_f6_Cr_*
+   Y    48.63% of 8040 textured blocks | Cb   54.68% of 4020 textured blocks | Cr   61.92% of 4018 textured blocks
+  Y  dev:   -1.0   -0.3   +0.0   +1.5   +1.4   -0.4   -0.5   -0.8   %  (spread 2.5% of mean)
+  Cb dev:   -3.9   +3.8   +4.5   -3.1   -1.5   +1.8   +3.4   -5.1   %  (spread 9.6% of mean)
+  Cr dev:   -5.8   +4.1   +2.9   -1.1   -2.9   +3.1   +2.5   -2.8   %  (spread 9.9% of mean)
+== today floor @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_floor_0.5/sg
+floor_b0.5.d_f6: 0 bright regions, 0 dark regions -> art/today_floor_0.5/floor_b0.5.d_f6_*
+floor_b0.5.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_floor_0.5/floor_b0.5.d_f6_Cb_*
+floor_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_floor_0.5/floor_b0.5.d_f6_Cr_*
+   Y    55.49% of 8040 textured blocks | Cb   69.58% of 4020 textured blocks | Cr   75.83% of 4018 textured blocks
+  Y  dev:   +8.0   -1.9   +1.4   -5.6   -3.1   -5.3   +3.4   +3.0   %  (spread 13.5% of mean)
+  Cb dev:  +14.6   +0.8   -0.3   -9.0   +1.4   -5.4   +2.0   -4.1   %  (spread 23.6% of mean)
+  Cr dev:  +13.0   +2.3   -0.2   -7.1   -2.8   -5.1   +0.4   -0.5   %  (spread 20.0% of mean)
+== mine floor @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_floor_1.0/sg
+c1_floor_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/mine_floor_1.0/c1_floor_b1.0.d_f6_*
+c1_floor_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_floor_1.0/c1_floor_b1.0.d_f6_Cb_*
+c1_floor_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_floor_1.0/c1_floor_b1.0.d_f6_Cr_*
+   Y    25.17% of 8040 textured blocks | Cb   32.39% of 4020 textured blocks | Cr   34.47% of 4018 textured blocks
+  Y  dev:   -0.6   -0.6   +0.0   +1.3   +1.3   -0.0   -0.7   -0.7   %  (spread 2.0% of mean)
+  Cb dev:   -3.3   +3.0   +3.9   -3.0   -1.3   +1.9   +3.5   -4.7   %  (spread 8.7% of mean)
+  Cr dev:   -5.0   +3.5   +2.4   -0.8   -2.7   +3.2   +2.2   -2.7   %  (spread 8.5% of mean)
+== today floor @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_floor_1.0/sg
+floor_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/today_floor_1.0/floor_b1.0.d_f6_*
+floor_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_floor_1.0/floor_b1.0.d_f6_Cb_*
+floor_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_floor_1.0/floor_b1.0.d_f6_Cr_*
+   Y    31.73% of 8040 textured blocks | Cb   59.08% of 4020 textured blocks | Cr   66.53% of 4018 textured blocks
+  Y  dev:   +9.6   -3.7   +2.5   -6.6   +1.1   -6.6   +3.0   +0.7   %  (spread 16.2% of mean)
+  Cb dev:  +14.7   +0.1   -1.2   -9.6   +2.9   -5.5   +2.4   -3.9   %  (spread 24.3% of mean)
+  Cr dev:  +12.5   +2.0   -2.0   -7.1   -1.3   -4.4   +1.3   -0.9   %  (spread 19.6% of mean)
+== mine hwy @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_hwy_0.5/sg
+c1_hwy_b0.5.d_f6: 1 bright regions, 1 dark regions -> art/mine_hwy_0.5/c1_hwy_b0.5.d_f6_*
+c1_hwy_b0.5.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_hwy_0.5/c1_hwy_b0.5.d_f6_Cb_*
+c1_hwy_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_hwy_0.5/c1_hwy_b0.5.d_f6_Cr_*
+   Y    35.97% of 6542 textured blocks | Cb   29.19% of 3340 textured blocks | Cr   59.24% of 3283 textured blocks
+  Y  dev:   -0.5   +0.7   +0.6   +0.0   +0.1   -0.1   +0.1   -1.0   %  (spread 1.7% of mean)
+  Cb dev:   -3.5   +3.9   +9.3   -8.4   -1.6   +1.5   +8.2   -9.4   %  (spread 18.7% of mean)
+  Cr dev:   -5.4   +6.4   +1.9   -1.9   -4.9   +3.8   +2.3   -2.2   %  (spread 11.8% of mean)
+== today hwy @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_hwy_0.5/sg
+hwy_b0.5.d_f6: 0 bright regions, 0 dark regions -> art/today_hwy_0.5/hwy_b0.5.d_f6_*
+hwy_b0.5.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_hwy_0.5/hwy_b0.5.d_f6_Cb_*
+hwy_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_hwy_0.5/hwy_b0.5.d_f6_Cr_*
+   Y    42.49% of 6542 textured blocks | Cb   78.08% of 3340 textured blocks | Cr   75.94% of 3283 textured blocks
+  Y  dev:   +7.2   -4.0   +2.6   -6.3   +1.8   -5.9   +4.7   -0.1   %  (spread 13.6% of mean)
+  Cb dev:  +13.6   +0.7   +4.0  -11.5   +2.5   -4.8   +5.2   -9.8   %  (spread 25.1% of mean)
+  Cr dev:  +15.8   +1.7   +3.6  -11.4   -5.2   -8.1   +4.6   -1.1   %  (spread 27.3% of mean)
+== mine hwy @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_hwy_1.0/sg
+c1_hwy_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/mine_hwy_1.0/c1_hwy_b1.0.d_f6_*
+c1_hwy_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_hwy_1.0/c1_hwy_b1.0.d_f6_Cb_*
+c1_hwy_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_hwy_1.0/c1_hwy_b1.0.d_f6_Cr_*
+   Y     6.19% of 6542 textured blocks | Cb   24.94% of 3340 textured blocks | Cr   19.74% of 3283 textured blocks
+  Y  dev:   -0.3   -0.1   +0.2   +0.3   +0.4   -0.1   -0.2   -0.4   %  (spread 0.8% of mean)
+  Cb dev:   -2.6   +3.4   +8.8   -8.0   -1.6   +1.3   +7.8   -9.1   %  (spread 17.9% of mean)
+  Cr dev:   -4.4   +4.1   +1.5   -0.2   -4.0   +3.5   +0.7   -1.3   %  (spread 8.5% of mean)
+== today hwy @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_hwy_1.0/sg
+hwy_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/today_hwy_1.0/hwy_b1.0.d_f6_*
+hwy_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_hwy_1.0/hwy_b1.0.d_f6_Cb_*
+hwy_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_hwy_1.0/hwy_b1.0.d_f6_Cr_*
+   Y    30.45% of 6542 textured blocks | Cb   58.50% of 3340 textured blocks | Cr   53.24% of 3283 textured blocks
+  Y  dev:   +6.4   -3.8   +2.8   -5.4   +2.4   -5.5   +3.5   -0.5   %  (spread 11.9% of mean)
+  Cb dev:  +15.8   +0.8   +3.6  -12.7   +3.1   -5.5   +4.6   -9.7   %  (spread 28.5% of mean)
+  Cr dev:  +13.4   +0.9   +0.9  -10.0   -1.8   -6.0   +3.4   -0.8   %  (spread 23.3% of mean)
+== mine volley @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_volley_0.5/sg
+c1_volley_b0.5.d_f6: 6 bright regions, 6 dark regions -> art/mine_volley_0.5/c1_volley_b0.5.d_f6_*
+c1_volley_b0.5.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_volley_0.5/c1_volley_b0.5.d_f6_Cb_*
+c1_volley_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_volley_0.5/c1_volley_b0.5.d_f6_Cr_*
+   Y    35.73% of 6977 textured blocks | Cb   59.93% of 4020 textured blocks | Cr   56.99% of 4018 textured blocks
+  Y  dev:   -0.3   +0.8   +0.4   -0.3   -0.3   -0.2   +0.3   -0.4   %  (spread 1.2% of mean)
+  Cb dev:   -1.6   +3.9   +5.4   -7.4   -1.8   +0.7   +6.5   -5.7   %  (spread 13.9% of mean)
+  Cr dev:   -7.5   +8.7   +1.5   -2.4   -6.4   +6.0   +1.4   -1.2   %  (spread 16.1% of mean)
+== today volley @0.5
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_volley_0.5/sg
+volley_b0.5.d_f6: 0 bright regions, 0 dark regions -> art/today_volley_0.5/volley_b0.5.d_f6_*
+volley_b0.5.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_volley_0.5/volley_b0.5.d_f6_Cb_*
+volley_b0.5.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_volley_0.5/volley_b0.5.d_f6_Cr_*
+   Y    37.01% of 6977 textured blocks | Cb   58.01% of 4020 textured blocks | Cr   62.97% of 4018 textured blocks
+  Y  dev:   +2.6   -1.9   +0.8   -2.1   +0.3   -1.9   +1.4   +0.7   %  (spread 4.6% of mean)
+  Cb dev:  +11.2   -1.7   +5.1  -10.2   +0.5   -5.8   +6.1   -5.1   %  (spread 21.4% of mean)
+  Cr dev:   +2.5   +3.1   -0.2   -4.3   -3.4   +0.7   +2.1   -0.4   %  (spread 7.4% of mean)
+== mine volley @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/mine_volley_1.0/sg
+c1_volley_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/mine_volley_1.0/c1_volley_b1.0.d_f6_*
+c1_volley_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/mine_volley_1.0/c1_volley_b1.0.d_f6_Cb_*
+c1_volley_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/mine_volley_1.0/c1_volley_b1.0.d_f6_Cr_*
+   Y    29.88% of 6977 textured blocks | Cb   38.73% of 4020 textured blocks | Cr   45.72% of 4018 textured blocks
+  Y  dev:   -0.1   +0.3   +0.0   -0.1   -0.1   -0.1   +0.1   -0.1   %  (spread 0.4% of mean)
+  Cb dev:   -0.8   +2.1   +5.3   -6.0   -1.2   +0.3   +5.7   -5.2   %  (spread 11.7% of mean)
+  Cr dev:   -6.5   +8.0   +1.0   -1.6   -6.4   +5.5   +1.0   -0.9   %  (spread 14.4% of mean)
+== today volley @1.0
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote art/today_volley_1.0/sg
+volley_b1.0.d_f6: 0 bright regions, 0 dark regions -> art/today_volley_1.0/volley_b1.0.d_f6_*
+volley_b1.0.d_f6_Cb: 0 bright regions, 0 dark regions -> art/today_volley_1.0/volley_b1.0.d_f6_Cb_*
+volley_b1.0.d_f6_Cr: 0 bright regions, 0 dark regions -> art/today_volley_1.0/volley_b1.0.d_f6_Cr_*
+   Y    33.14% of 6977 textured blocks | Cb   48.96% of 4020 textured blocks | Cr   54.73% of 4018 textured blocks
+  Y  dev:   +3.0   -1.2   +0.7   -2.0   +0.2   -2.0   +0.8   +0.5   %  (spread 5.0% of mean)
+  Cb dev:  +11.4   -1.0   +3.7   -9.8   +1.9   -5.2   +4.2   -5.2   %  (spread 21.2% of mean)
+  Cr dev:   +3.9   +4.2   -0.2   -4.3   -3.3   +0.4   +0.4   -1.2   %  (spread 8.5% of mean)
+ARTDONE

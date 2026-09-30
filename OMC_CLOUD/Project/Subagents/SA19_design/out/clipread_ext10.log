@@ -1,0 +1,4 @@
+ext10 @0.25 frames 3: clipped samples 14740 | nearest-lattice read misses 3003 of 393216 coefficients | top bands [((0, 'LH1'), 638), ((0, 'HH1'), 481), ((0, 'LH2'), 468), ((0, 'HL1'), 462), ((0, 'HH2'), 269)]
+ext10 @0.50 frames 3: clipped samples 51213 | nearest-lattice read misses 1833 of 393216 coefficients | top bands [((0, 'LL'), 329), ((0, 'LH1'), 271), ((0, 'HH1'), 271), ((0, 'HH2'), 263), ((0, 'H3'), 252)]
+ext10 @1.00 frames 3: clipped samples 113087 | nearest-lattice read misses 1316 of 393216 coefficients | top bands [((0, 'LL'), 378), ((2, 'LL'), 335), ((0, 'H3'), 313), ((0, 'LH1'), 66), ((0, 'LH2'), 65)]
+ext10 @2.00 frames 3: clipped samples 183651 | nearest-lattice read misses 1708 of 393216 coefficients | top bands [((0, 'HL2'), 384), ((2, 'LL'), 359), ((0, 'LL'), 352), ((1, 'LL'), 346), ((0, 'H3'), 256)]

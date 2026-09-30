@@ -1,0 +1,6 @@
+dng720 f8 TS210 Lv=2 D=24 bpp=2.738 Y/Cb/Cr=43.03/42.67/42.80 oob=0 gen2diff=0
+dng720 f8 TS210 Lv=2 D=40 bpp=1.502 Y/Cb/Cr=40.19/38.97/39.52 oob=0 gen2diff=0
+dng720 f8 TS210 Lv=2 D=64 bpp=0.850 Y/Cb/Cr=37.98/36.83/37.89 oob=0 gen2diff=0
+dng720 f8 TS210 Lv=2 D=100 bpp=0.558 Y/Cb/Cr=35.78/35.93/37.08 oob=0 gen2diff=0
+dng720 f8 TS210 Lv=2 D=160 bpp=0.365 Y/Cb/Cr=33.24/35.33/36.37 oob=0 gen2diff=30
+rc=0

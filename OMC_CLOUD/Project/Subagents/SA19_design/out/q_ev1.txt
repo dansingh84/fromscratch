@@ -1,0 +1,24 @@
+nice -n 19 python3 tpp_run.py eval dng720 0.5 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_dng720_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval dng720 0.5 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_dng720_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval dng1080 0.5 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_dng1080_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval dng1080 0.5 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_dng1080_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval spot 0.5 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_spot_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval spot 0.5 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_spot_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval floor 0.5 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_floor_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval floor 0.5 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_floor_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval hwy 0.5 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_hwy_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval hwy 0.5 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_hwy_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval volley 0.5 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_volley_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval volley 0.5 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_volley_0.5.log 2>&1
+nice -n 19 python3 tpp_run.py eval dng720 1.0 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_dng720_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval dng720 1.0 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_dng720_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval dng1080 1.0 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_dng1080_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval dng1080 1.0 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_dng1080_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval spot 1.0 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_spot_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval spot 1.0 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_spot_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval floor 1.0 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_floor_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval floor 1.0 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_floor_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval hwy 1.0 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_hwy_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval hwy 1.0 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_hwy_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval volley 1.0 ../out/tab_f0.pkl A0 fuse=0 > ../out/ev_A0_volley_1.0.log 2>&1
+nice -n 19 python3 tpp_run.py eval volley 1.0 ../out/tab_f1.pkl A1 fuse=1 wf=8 > ../out/ev_A1_volley_1.0.log 2>&1

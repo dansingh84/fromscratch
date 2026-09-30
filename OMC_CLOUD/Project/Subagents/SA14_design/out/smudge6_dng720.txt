@@ -1,0 +1,12 @@
+nest96 f8 Y: 38 643 | nest96 f8 Cb: 5 62 | nest96 f8 Cr: 6 87 | 
+nest96 f9 Y: 42 667 | nest96 f9 Cb: 10 116 | nest96 f9 Cr: 3 39 | 
+nest96 f10 Y: 42 760 | nest96 f10 Cb: 6 72 | nest96 f10 Cr: 6 75 | 
+nest96 f11 Y: 33 597 | nest96 f11 Cb: 8 96 | nest96 f11 Cr: 5 51 | 
+nest88 f8 Y: 4 40 | nest88 f8 Cb: 1 8 | nest88 f8 Cr: 0 0 | 
+nest88 f9 Y: 3 26 | nest88 f9 Cb: 0 0 | nest88 f9 Cr: 0 0 | 
+nest88 f10 Y: 6 59 | nest88 f10 Cb: 2 36 | nest88 f10 Cr: 0 0 | 
+nest88 f11 Y: 3 37 | nest88 f11 Cb: 1 15 | nest88 f11 Cr: 1 9 | 
+today f8 Y: 2 58 | today f8 Cb: 0 0 | today f8 Cr: 0 0 | 
+today f9 Y: 0 0 | today f9 Cb: 0 0 | today f9 Cr: 0 0 | 
+today f10 Y: 5 82 | today f10 Cb: 0 0 | today f10 Cr: 0 0 | 
+today f11 Y: 4 91 | today f11 Cb: 0 0 | today f11 Cr: 0 0 | 

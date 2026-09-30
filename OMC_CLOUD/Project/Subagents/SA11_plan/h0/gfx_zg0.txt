@@ -1,0 +1,35 @@
+=== gfx_zg0 env[OMC_H0_ZERO=1] args[--gamut-strict 0] bytes=57376
+per frame pair f-1->f: changed decoded samples per plane Y/Cb/Cr  [amplitude 1 | 2-3 | >=4]  (of N)
+  split f1: Y refresh-rows 7637/14336 inter-rows 1945/100352 | B refresh-rows 2939/7168 inter-rows 926/50176 | R refresh-rows 2874/7168 inter-rows 880/50176
+ f1: Y 9582/114688 (8.35%) [2234|2627|4721] max 369 || B 3865/57344 (6.74%) [1266|1206|1393] max 90 || R 3754/57344 (6.55%) [1538|1351|865] max 94
+  split f2: Y refresh-rows 12914/14336 inter-rows 2486/100352 | B refresh-rows 6501/7168 inter-rows 1367/50176 | R refresh-rows 5884/7168 inter-rows 1157/50176
+ f2: Y 15400/114688 (13.43%) [1566|2507|11327] max 453 || B 7868/57344 (13.72%) [837|1493|5538] max 264 || R 7041/57344 (12.28%) [1104|1462|4475] max 201
+  split f3: Y refresh-rows 11602/14336 inter-rows 2359/100352 | B refresh-rows 6512/7168 inter-rows 1357/50176 | R refresh-rows 5794/7168 inter-rows 1242/50176
+ f3: Y 13961/114688 (12.17%) [1784|2382|9795] max 523 || B 7869/57344 (13.72%) [806|1335|5728] max 172 || R 7036/57344 (12.27%) [975|1627|4434] max 190
+  split f4: Y refresh-rows 12859/14336 inter-rows 2456/100352 | B refresh-rows 6079/7168 inter-rows 1344/50176 | R refresh-rows 5715/7168 inter-rows 1105/50176
+ f4: Y 15315/114688 (13.35%) [1520|1970|11825] max 689 || B 7423/57344 (12.94%) [950|1441|5032] max 143 || R 6820/57344 (11.89%) [1143|1408|4269] max 287
+  split f5: Y refresh-rows 11897/14336 inter-rows 3226/100352 | B refresh-rows 6238/7168 inter-rows 1290/50176 | R refresh-rows 5190/7168 inter-rows 1155/50176
+ f5: Y 15123/114688 (13.19%) [1665|2388|11070] max 480 || B 7528/57344 (13.13%) [1003|1371|5154] max 156 || R 6345/57344 (11.06%) [1027|1304|4014] max 243
+  split f6: Y refresh-rows 11422/14336 inter-rows 3532/100352 | B refresh-rows 5857/7168 inter-rows 1486/50176 | R refresh-rows 5442/7168 inter-rows 1321/50176
+ f6: Y 14954/114688 (13.04%) [2449|2884|9621] max 772 || B 7343/57344 (12.81%) [1116|1557|4670] max 177 || R 6763/57344 (11.79%) [1318|1519|3926] max 362
+  split f7: Y refresh-rows 12920/14336 inter-rows 3650/100352 | B refresh-rows 6281/7168 inter-rows 1129/50176 | R refresh-rows 6055/7168 inter-rows 1003/50176
+ f7: Y 16570/114688 (14.45%) [2238|2950|11382] max 471 || B 7410/57344 (12.92%) [1111|1783|4516] max 153 || R 7058/57344 (12.31%) [1182|1534|4342] max 136
+converged: NOT converged (frame 7 still changes)
+PSNR vs source Y/Cb/Cr per frame: f0 26.60/32.51/32.69 f1 26.60/32.51/32.68 f2 27.01/32.68/32.86 f3 27.41/32.84/32.98 f4 28.21/32.98/33.08 f5 28.72/33.14/33.22 f6 29.02/33.24/33.42 f7 29.45/33.35/33.48
+bits per frame (payload used / budget) by slice type; estimated split LL/b1-3/b4-6/b7-9; held = static-slice holds; bands_inter = inter-coded bands summed over slices
+ f0: total used 44916 | intra 32 slices used 44916 / budget 47280 est 11563/13299/11624/6938 | held 0 pinned 0 bands_inter 0
+ f1: total used 9772 | intra 4 slices used 5488 / budget 9426 est 1460/1386/1380/1074 | inter 28 slices used 4284 / budget 41220 est 2326/9967/12039/13356 | held 0 pinned 4 bands_inter 840
+ f2: total used 14278 | intra 4 slices used 9994 / budget 10303 est 1476/2921/3105/2309 | inter 28 slices used 4284 / budget 40915 est 2514/9873/12148/12803 | held 0 pinned 0 bands_inter 840
+ f3: total used 14020 | intra 4 slices used 9736 / budget 9894 est 1411/2752/3080/2323 | inter 28 slices used 4284 / budget 41278 est 2609/8977/10647/11290 | held 4 pinned 4 bands_inter 840
+ f4: total used 15029 | intra 4 slices used 10745 / budget 11055 est 1485/2895/3174/3038 | inter 28 slices used 4284 / budget 40135 est 2722/8333/9202/8914 | held 8 pinned 8 bands_inter 840
+ f5: total used 14075 | intra 4 slices used 9791 / budget 10129 est 1421/2807/2876/2511 | inter 28 slices used 4284 / budget 41071 est 2899/8106/9013/7191 | held 9 pinned 9 bands_inter 840
+ f6: total used 13610 | intra 4 slices used 9326 / budget 9560 est 1338/2546/3051/2211 | inter 28 slices used 4284 / budget 41658 est 3112/7622/8873/6680 | held 10 pinned 10 bands_inter 840
+ f7: total used 13709 | intra 4 slices used 9425 / budget 9684 est 1420/3247/2876/1704 | inter 28 slices used 4284 / budget 41527 est 3158/7022/8262/5494 | held 12 pinned 12 bands_inter 840
+stage dump slice 5 plane Y (448 x 8): changed samples frame f-1 -> f per stage; inter = slice coded inter on frame f
+  f0->f1 inter=1 ref 3584 pcoef 138 coef_pre_inv 0 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 0 | bias 2048 ref(f)!=disp(f-1): 687 committed(f)!=disp(f): 687 disp_changed_by_row 0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f1->f2 inter=1 ref 0 pcoef 0 coef_pre_inv 0 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 0 | bias 2048 ref(f)!=disp(f-1): 687 committed(f)!=disp(f): 687 disp_changed_by_row 0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f2->f3 inter=1 ref 0 pcoef 0 coef_pre_inv 0 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 0 | bias 2048 ref(f)!=disp(f-1): 687 committed(f)!=disp(f): 687 disp_changed_by_row 0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f3->f4 inter=1 ref 0 pcoef 241 coef_pre_inv 241 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 350 | bias 2048 ref(f)!=disp(f-1): 687 committed(f)!=disp(f): 337 disp_changed_by_row 350,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f4->f5 inter=0 ref 0 pcoef 320 coef_pre_inv 315 pre_clip 2194 post_clip 2194 committed_after_edit 2194 displayed 2217 | bias 2048 ref(f)!=disp(f-1): 337 committed(f)!=disp(f): 595 disp_changed_by_row 363,333,316,310,225,224,225,221 post_clip(f)!=ref(f): 2194 pre_clip(f)!=ref(f): 2194
+  f5->f6 inter=1 ref 2194 pcoef 383 coef_pre_inv 258 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 248 | bias 2048 ref(f)!=disp(f-1): 595 committed(f)!=disp(f): 628 disp_changed_by_row 0,0,0,0,0,0,0,248 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f6->f7 inter=1 ref 0 pcoef 0 coef_pre_inv 0 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 0 | bias 2048 ref(f)!=disp(f-1): 628 committed(f)!=disp(f): 628 disp_changed_by_row 0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0

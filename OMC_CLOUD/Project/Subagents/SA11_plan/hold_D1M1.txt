@@ -1,0 +1,22 @@
+SA11 STEP D1 / M1 -- PARTIAL (stopped by the coordinator before any run; owner: focus on legality).  2026-09-27.
+STATUS: NO MEASUREMENT WAS RUN.  No code was changed for D1/M1: rtree4 src/codec.c is still
+2c0d012b02d26f01677c8c2503ec3873 (the H0 build, off-path 6/6).  No encode was launched; no process to kill;
+no .yuv files remain under SA11_plan (the H0 still inputs were already deleted).
+
+What was done (reading only, for the resume):
+ - Read LEDGER_SANDBOX_v2 S5.335-S5.337 (adversarial review of DESIGN_HOLD).
+ - Implementation plan located in rtree4 codec.c (line numbers of the H0 build):
+   D1 (refresh slices at the 2x wire cap): override budget/budget_hard just before "3. rate control"
+     (~12250) to wire_cap - header for !can_inter && frame_idx > 0 slices; the intra static-refresh plan
+     hold (plan_hyst >= 3 && !can_inter branch, ~12321) must be bypassed under D1, or the refresh keeps its
+     frame-0 plan; slice 0 overdraws the prefix bound (bank flows downward only, ~9918) -- test-only.
+   M1 (monotone refinement): re-entry via "goto encode_attempts" (label ~12637) after the emitted picture is
+     final (after r1_clip_committed(recon) ~14849): pass A normal -> SAE vs source (all planes, slice rows);
+     pass B zero residual (reuse the OMC_H0_ZERO block ~13156 through a per-slice flag) -> SAE; keep normal
+     only if strictly lower, else re-run zero.  Required fix for re-entry with --gamut-strict 0: the
+     previous slice's last committed row is retro-edited by reconstruct_slice on every pass and is saved/
+     restored only when e->gamut_strict (~14589) -> must also save/restore under M1 (else a double edit).
+     Recon rows base-2..sh are refreshed from ref before the display blend (~14813), so the blend is safe.
+ - Tools located: Subagents/shared_tools/flatplane.py, texstat.py; ants instrument .work/v537/tests/ants.py
+   (boil = its mean |frame-to-frame diff| over flat+static blocks, REPORT.md 18.5); JPEG XS runners exist in
+   .work (xsrun.sh, xs_sweep.py, xsdepth8.py) -- XS encoder binary availability not yet checked.

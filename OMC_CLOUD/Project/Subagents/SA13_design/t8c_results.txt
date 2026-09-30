@@ -1,0 +1,11 @@
+STILL_dng720_D56 S=8 D=56.0 round=even dz=1.0 still=True zeromv=False bpp=0.179 (mv 3.03 %) | Y PSNR(f2+) 36.68 offset(f8+) +0.052 rowph first/mid/last 11.66/10.86/12.57 | Cb PSNR(f2+) 35.88 offset(f8+) +0.102 rowph first/mid/last 13.25/12.75/13.89 | Cr PSNR(f2+) 37.00 offset(f8+) +0.159 rowph first/mid/last 11.57/11.06/12.19
+STILL changed-sample fraction per frame pair (all planes): 0.1393 0.0559 0.0630 0.0620 0.0720 0.0759 0.0981 0.1096 0.1238 0.1232 0.1423 0.1580 0.1586 0.1641 0.1920
+plane  blocks   decode tail%  boil    source tail%  boil    (flat<=12 still<=6, tail at |d|>6 codes)
+Y         880         1.33   0.316         0.00   0.000
+Cb         99         0.39   0.130         0.00   0.000
+Cr        390         0.66   0.190         0.00   0.000
+INTRA_dng1080_D36 S=16 D=36.0 round=even dz=1.0 still=False zeromv=False bpp=1.475 (mv 0.00 %) | Y PSNR(f2+) 37.92 offset(f8+) +0.037 rowph first/mid/last 10.65/10.26/9.23 | Cb PSNR(f2+) 36.85 offset(f8+) +0.009 rowph first/mid/last 12.23/11.68/10.22 | Cr PSNR(f2+) 37.49 offset(f8+) -0.008 rowph first/mid/last 11.16/10.82/9.75
+INTRA_dng1080_D36 NEG=93.291 PSNR(f2+) Y/Cb/Cr 37.92/36.85/37.49 offset(f8+) +0.037/+0.009/-0.008 smudge groups f8+ Y/Cb/Cr 0/0/0 | flat f10: Y    29.49% of 8002 textured blocks | Cb    7.49% of 3966 textured blocks | Cr   17.42% of 3937 textured blocks
+DZ75_dng1080_D48 S=16 D=48.0 round=even dz=0.75 still=False zeromv=False bpp=1.687 (mv 1.33 %) | Y PSNR(f2+) 36.90 offset(f8+) +0.009 rowph first/mid/last 12.12/11.65/10.22 | Cb PSNR(f2+) 36.03 offset(f8+) +0.012 rowph first/mid/last 13.70/12.90/10.99 | Cr PSNR(f2+) 36.48 offset(f8+) +0.001 rowph first/mid/last 12.89/12.25/10.63
+DZ75_dng1080_D48 NEG=92.727 PSNR(f2+) Y/Cb/Cr 36.90/36.03/36.48 offset(f8+) +0.009/+0.012/+0.001 smudge groups f8+ Y/Cb/Cr 0/0/0 | flat f10: Y     4.35% of 8002 textured blocks | Cb    0.38% of 3966 textured blocks | Cr    0.69% of 3937 textured blocks
+FLOOR_dng720_D56 S=8 D=56.0 round=floor dz=1.0 still=False zeromv=False bpp=0.616 (mv 5.86 %) | Y PSNR(f2+) 36.02 offset(f8+) -1.487 rowph first/mid/last 12.67/11.85/13.58 | Cb PSNR(f2+) 35.25 offset(f8+) -1.555 rowph first/mid/last 14.49/13.77/15.04 | Cr PSNR(f2+) 36.46 offset(f8+) -1.738 rowph first/mid/last 12.36/11.84/12.76

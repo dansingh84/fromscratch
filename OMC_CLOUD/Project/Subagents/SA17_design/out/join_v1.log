@@ -1,0 +1,24 @@
+f 0 gen2 diff 0 bits same | gen3 diff 0 | join diff - lock None | loss-decoder diff 0 | g1 over 0
+f 1 gen2 diff 0 bits same | gen3 diff 0 | join diff - lock None | loss-decoder diff 0 | g1 over 0
+f 2 gen2 diff 0 bits same | gen3 diff 0 | join diff - lock None | loss-decoder diff 0 | g1 over 0
+f 3 gen2 diff 0 bits same | gen3 diff 0 | join diff 1526819 lock None | loss-decoder diff 0 | g1 over 0
+f 4 gen2 diff 0 bits same | gen3 diff 0 | join diff 1489227 lock (1, 4) | loss-decoder diff 28209 | g1 over 0
+f 5 gen2 diff 0 bits same | gen3 diff 0 | join diff 1561445 lock (1, 4) | loss-decoder diff 34896 | g1 over 0
+f 6 gen2 diff 0 bits same | gen3 diff 0 | join diff 1590034 lock (1, 4) | loss-decoder diff 42235 | g1 over 0
+f 7 gen2 diff 0 bits same | gen3 diff 0 | join diff 1317750 lock (1, 4) | loss-decoder diff 42909 | g1 over 0
+f 8 gen2 diff 0 bits same | gen3 diff 0 | join diff 1439473 lock (1, 4) | loss-decoder diff 40180 | g1 over 0
+f 9 gen2 diff 0 bits same | gen3 diff 0 | join diff 1452755 lock (1, 4) | loss-decoder diff 34795 | g1 over 0
+f10 gen2 diff 0 bits same | gen3 diff 0 | join diff 1486542 lock (1, 4) | loss-decoder diff 22392 | g1 over 0
+f11 gen2 diff 0 bits same | gen3 diff 0 | join diff 1500993 lock (1, 4) | loss-decoder diff 14757 | g1 over 0
+f12 gen2 diff 0 bits same | gen3 diff 0 | join diff 1502063 lock (1, 4) | loss-decoder diff 4320 | g1 over 0
+f13 gen2 diff 0 bits same | gen3 diff 0 | join diff 1623176 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f14 gen2 diff 0 bits same | gen3 diff 0 | join diff 1337762 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f15 gen2 diff 0 bits same | gen3 diff 0 | join diff 1531045 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f16 gen2 diff 0 bits same | gen3 diff 0 | join diff 1559021 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f17 gen2 diff 0 bits same | gen3 diff 0 | join diff 1554597 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f18 gen2 diff 0 bits same | gen3 diff 0 | join diff 1562452 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f19 gen2 diff 0 bits same | gen3 diff 0 | join diff 1554155 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f20 gen2 diff 0 bits same | gen3 diff 0 | join diff 1550720 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f21 gen2 diff 0 bits same | gen3 diff 0 | join diff 1277088 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f22 gen2 diff 0 bits same | gen3 diff 0 | join diff 1385962 lock (1, 4) | loss-decoder diff 0 | g1 over 0
+f23 gen2 diff 0 bits same | gen3 diff 0 | join diff 1424689 lock (1, 4) | loss-decoder diff 0 | g1 over 0

@@ -1,0 +1,6 @@
+dng720 f8 TS26 Lv=2 D=24 bpp=2.674 Y/Cb/Cr=42.97/42.58/42.72 oob=0 gen2diff=0
+dng720 f8 TS26 Lv=2 D=40 bpp=1.436 Y/Cb/Cr=40.12/38.86/39.44 oob=0 gen2diff=0
+dng720 f8 TS26 Lv=2 D=64 bpp=0.817 Y/Cb/Cr=37.92/36.77/37.85 oob=0 gen2diff=0
+dng720 f8 TS26 Lv=2 D=100 bpp=0.544 Y/Cb/Cr=35.75/35.92/37.09 oob=0 gen2diff=0
+dng720 f8 TS26 Lv=2 D=160 bpp=0.355 Y/Cb/Cr=33.20/35.31/36.35 oob=0 gen2diff=30
+rc=0

@@ -1,0 +1,1 @@
+Terminated                 nice -n 19 python3 tpp_run.py train city 0.5 ../out/tab_eb_r2.pkl ../out/cnt_r2_city_0.5.pkl fuse=0 ro=2 cheap=1 >> ../out/train_r2.log 2>&1

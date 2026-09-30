@@ -1,0 +1,10 @@
+spot RT=2 f 0      damaged samples       0 rows -  bits/target 0.9994 over 0
+spot RT=2 f 1      damaged samples       0 rows -  bits/target 0.9995 over 0
+spot RT=2 f 2      damaged samples       0 rows -  bits/target 0.9998 over 0
+spot RT=2 f 3 LOSS damaged samples   35438 rows 474..493  bits/target 0.9998 over 0
+spot RT=2 f 4      damaged samples   53991 rows 466..505  bits/target 0.9997 over 0
+spot RT=2 f 5      damaged samples   74459 rows 462..509  bits/target 0.9998 over 0
+spot RT=2 f 6 HEAL damaged samples       0 rows -  bits/target 0.9996 over 0
+spot RT=2 f 7      damaged samples       0 rows -  bits/target 0.9999 over 0
+spot RT=2 f 8      damaged samples       0 rows -  bits/target 0.9998 over 0
+spot RT=2 f 9      damaged samples       0 rows -  bits/target 0.9999 over 0

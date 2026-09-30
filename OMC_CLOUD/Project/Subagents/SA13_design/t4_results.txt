@@ -1,0 +1,16 @@
+cut24 pocs D= 14.0 oob_pre=135016 unconverged@200=162 | anch: n=90 need>0=90 max=200 p99=200 >4=90 >16=90 | int: n=72 need>0=72 max=200 p99=200 >4=72 >16=72
+cut24 pocs D= 40.0 oob_pre=103238 unconverged@200=162 | anch: n=90 need>0=90 max=200 p99=200 >4=90 >16=90 | int: n=72 need>0=72 max=200 p99=200 >4=72 >16=72
+cut24 cf   D= 14.0 oob_pre=135683 unconverged@200=162 | anch: n=90 need>0=90 max=200 p99=200 >4=90 >16=90 | int: n=72 need>0=72 max=200 p99=200 >4=72 >16=72
+cut24 cf   D= 40.0 oob_pre=103603 unconverged@200=162 | anch: n=90 need>0=90 max=200 p99=200 >4=90 >16=90 | int: n=72 need>0=72 max=200 p99=200 >4=72 >16=72
+ext10 pocs D= 14.0 oob_pre=443333 unconverged@200=194 | anch: n=108 need>0=104 max=200 p99=200 >4=102 >16=102 | int: n=96 need>0=92 max=200 p99=200 >4=92 >16=92
+ext10 pocs D= 40.0 oob_pre=199954 unconverged@200=36 | anch: n=108 need>0=28 max=200 p99=200 >4=6 >16=5 | int: n=96 need>0=92 max=200 p99=200 >4=35 >16=31
+ext10 cf   D= 14.0 oob_pre=443346 unconverged@200=194 | anch: n=108 need>0=104 max=200 p99=200 >4=102 >16=102 | int: n=96 need>0=92 max=200 p99=200 >4=92 >16=92
+ext10 cf   D= 40.0 oob_pre=201026 unconverged@200=36 | anch: n=108 need>0=28 max=200 p99=200 >4=6 >16=5 | int: n=96 need>0=92 max=200 p99=200 >4=35 >16=31
+gfx pocs D= 14.0 oob_pre=1 unconverged@200=0 | anch: n=102 need>0=0 max=0 p99=0 >4=0 >16=0 | int: n=96 need>0=1 max=1 p99=0 >4=0 >16=0
+gfx pocs D= 40.0 oob_pre=2 unconverged@200=0 | anch: n=102 need>0=0 max=0 p99=0 >4=0 >16=0 | int: n=96 need>0=2 max=1 p99=1 >4=0 >16=0
+gfx cf   D= 14.0 oob_pre=1 unconverged@200=0 | anch: n=102 need>0=0 max=0 p99=0 >4=0 >16=0 | int: n=96 need>0=1 max=1 p99=0 >4=0 >16=0
+gfx cf   D= 40.0 oob_pre=2 unconverged@200=0 | anch: n=102 need>0=0 max=0 p99=0 >4=0 >16=0 | int: n=96 need>0=2 max=2 p99=2 >4=0 >16=0
+d720 pocs D= 14.0 oob_pre=2 unconverged@200=0 | anch: n=273 need>0=1 max=1 p99=0 >4=0 >16=0 | int: n=270 need>0=1 max=1 p99=0 >4=0 >16=0
+d720 pocs D= 40.0 oob_pre=2 unconverged@200=0 | anch: n=273 need>0=2 max=1 p99=0 >4=0 >16=0 | int: n=270 need>0=0 max=0 p99=0 >4=0 >16=0
+d720 cf   D= 14.0 oob_pre=2 unconverged@200=1 | anch: n=273 need>0=1 max=2 p99=0 >4=0 >16=0 | int: n=270 need>0=1 max=200 p99=0 >4=1 >16=1
+d720 cf   D= 40.0 oob_pre=2 unconverged@200=0 | anch: n=273 need>0=2 max=3 p99=0 >4=0 >16=0 | int: n=270 need>0=0 max=0 p99=0 >4=0 >16=0

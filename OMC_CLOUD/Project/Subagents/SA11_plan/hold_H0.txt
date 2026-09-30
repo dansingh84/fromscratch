@@ -1,0 +1,70 @@
+SA11 STEP H0 -- ZERO-RESIDUAL DISCRIMINATOR (test only, rtree4).  2026-09-27.  Numbers only.
+Build: rtree4 codec.c 2c0d012b02d26f01677c8c2503ec3873, omc_enc 94fa328b..., omc_dec ab127dd9...; off-path identity
+6/6 IDENTICAL after the build (SA11_plan/ident4).  Test-only switches, default off:
+  OMC_H0_ZERO=1  (codec.c:13156) on every INTER slice (can_inter) set the mode word to all-inter and zero every
+                 residual (dcoef) before the emission scan -> every index 0 -> recon coefficient = pcoef.
+                 Refresh (intra) slices untouched.  Encoder and decoder reconstruct identically (same qbuf path).
+  OMC_H0_DUMP=s  (codec.c:14626; capture hooks in reconstruct_slice 5468ff) per frame, slice s, plane Y:
+                 ref (refprev rows) | pcoef | coef before the inverse | pre-clip | post-clip / pre-boundary-edit |
+                 committed rows after the edit; compared with the decoder's DISPLAYED rows.
+Inputs: frame 0 x 8 (cf_gfx, dng 1280x720, spotrobotL 1920x1080; built byte-exact, deleted after).  Shipped
+defaults otherwise (OMC_R1 unset; gamut repair at its default = ON, then --gamut-strict 0).  Dumped slice s = 5
+(intra-refreshed on frame 5).  Driver notes/h0.sh, analysis notes/tb_an.py + notes/h0_stage.py; logs h0/<arm>.txt.
+
+1. CHANGED DECODED SAMPLES WITH ALL-ZERO INTER RESIDUALS (Y, frame pairs 1..7; refresh rows | inter rows)
+ cf_gfx @0.5, gamut ON:  total 9,928-16,604 of 114,688 (8.7-14.5 %) [amp 1 | 2-3 | >=4 at f7: 2,243|2,946|11,415]
+     refresh rows 7,939-12,946 of 14,336 (55-90 %);  inter rows 1,989-3,663 of 100,352 (2.0-3.7 %)
+ cf_gfx @0.5, gamut OFF: total 9,582-16,570 (8.4-14.4 %); refresh 7,637-12,920; inter 1,945-3,650 (1.9-3.6 %)
+ dng720 @0.5, gamut ON:  total 91,811-113,819 of 921,600 (10.0-12.4 %) [f7: 16,491|22,074|73,178]
+     refresh rows 74,713-95,622 of 112,640-122,880 (61-85 %); inter rows 17,098-18,312 of ~808,960 (2.1-2.3 %)
+ dng720 @0.5, gamut OFF: total 91,232-115,303; refresh 74,267-96,949; inter 16,965-18,354 (2.1-2.3 %)
+ spot @1.0, gamut ON:    total 129,601-246,714 of 2,073,600 (6.3-11.9 %) [f7: 62,809|71,297|85,657]
+     refresh rows 111,920-228,277 of 245,760-276,480 (40-83 %); inter rows 16,325-18,437 of ~1.82 M (0.9-1.0 %)
+ spot @1.0, gamut OFF:   total 129,241-249,200; refresh 111,574-230,704; inter 16,215-18,496 (0.9-1.0 %)
+ Reference, normal residuals (Part B / arm gfx_g0): inter rows 64-89 % (cf_gfx), 57-76 % (all cells) changed.
+ Chroma: same pattern (gfx inter rows Cb 934-1,368 of 50,176; dng 8-9k of 404,480; spot 4.9-6.9k of 913,920).
+ Converged: no, on all arms -- the remaining change is the rolling refresh (period 8) and its seam rows.
+
+2. STAGE DUMP, inter slice 5, frames 1-7 (changed samples frame f-1 -> f, Y; identical pattern on all 3 cells,
+   gamut ON and OFF)
+ f1->f2, f2->f3, f6->f7 (no refresh neighbour): ref 0, pcoef 0, coef 0, pre-clip 0, post-clip 0, committed 0,
+     DISPLAYED 0.  -> exact hold, every stage.
+ Every inter frame: pre-clip == ref and post-clip == ref (0 differing samples; gfx, dng720, spot): with a zero
+     residual the inverse transform reproduces the reference exactly (the XSL term cancels between the forward
+     of the prediction and the inverse), the clip does nothing, gamut repair ON/OFF identical.
+ f3->f4 (slice 4 above is refreshed): pcoef changes (gfx 242, dng 352, spot 1,006 coefficients -- the XSL term
+     from slice 4's new rows) but pre-clip/post-clip/committed change 0; DISPLAYED changes on ROW 0 only
+     (gfx 350, dng 880, spot 1,188 samples) = the refresh-barrier DISPLAY blend (display-only; committed unchanged).
+ f4->f5 (slice 5 itself refreshed, intra): pre-clip 2,195 / 6,629 / 21,990 samples differ from the reference
+     (gfx / dng / spot) = 61 / 74 / 72 % of the slice -- the intra re-encode does not reproduce the inter picture.
+ f5->f6 (slice 6 below refreshed): committed 0, DISPLAYED last row only (gfx 248, dng 428, spot 733) = display blend.
+ First stage where f+1 != f while the reference equals f's: NONE on an inter slice with a zero residual
+     (ref(f)==ref(f-1) implies every stage equal); the changes enter only through (a) the intra refresh and
+     (b) the display-only barrier blend on the two rows bordering a refreshed slice.
+ Displayed vs committed: constant offset of 2,048 (bias) plus a constant set of differing samples per slice
+     (gfx 687, dng 1,879, spot 2,331 -- display clip/blend), unchanged frame to frame except at barriers.
+ pcoef: NOT quantised and no DC/texture bias -- pcoef = forward transform (with this slice's XSL term) of the
+     integer motion-compensated previous FINAL picture (predict_plane codec.c 4546ff, forward at ~4702, called
+     at codec.c ~10327-10336; dcoef = coef - pcoef); recon = pcoef + dequant(q).
+
+3. BITS PER FRAME WITH THE FORCED ZERO RESIDUAL (payload used; inter slices / refresh slices)
+ cf_gfx @0.5:  inter 28 slices 4,284 bits every frame (153 bits/slice) vs 8,740-34,869 normal (f7-f1);
+               refresh 4 slices 5,592-10,731; frame total 9,876-15,015 (normal 18,159-40,461).
+ dng720 @0.5:  inter 79 slices 12,087 bits (153/slice) vs 96,778-344,357 normal; refresh 57,452-87,190;
+               frame total 69,386-99,277 (normal 175,453-401,796).
+ spot @1.0:    inter 60 slices 9,180 bits (153/slice) vs 476,766-1,634,698 normal; refresh 279,651-414,797;
+               frame total 288,678-423,824 (normal 811,357-1,914,349).
+ Gamut OFF: same inter bits; totals within 0.3 %.
+ Quality (Y dB vs source, f7): H0 29.31 / 34.23 / 44.14 vs normal 31.48 / 36.00 / 45.90 (gfx / dng / spot) --
+     the zero residual also removes the inter refinement of frames 1-3 (a frame-0-quality still, improved only
+     by refresh slices).
+
+4. WHICH STAGES MUST CHANGE FOR AN EXACT HOLD (from the measurements above)
+ (i)   the residual decision on inter slices: any non-zero index re-codes quantisation noise every frame (the
+       57-89 % churn); a zero residual gives an exact hold of prediction, transform, XSL, clip and gamut repair
+       (0 changed samples in 3 of 3 cells, repair ON and OFF).
+ (ii)  the rolling intra refresh: the intra re-encode differs from the held picture on 61-74 % of the refreshed
+       slice (40-90 % of refresh rows per frame) -- the dominant remaining change with zero residuals.
+ (iii) the refresh-barrier display blend: row 0 of the slice below and the last row of the slice above a
+       refreshed slice change in the DISPLAY only (committed unchanged): 0.9-3.7 % of inter-row samples.
+ NOT involved: prediction, pcoef (unquantised), inverse transform, XSL cancellation, clip, gamut repair.

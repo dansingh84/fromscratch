@@ -1,0 +1,1 @@
+L_rho4 t=0 src_f=0 refresh_rows=(0, 0) front=0 damaged samples Y/Cb/Cr=[0, 0, 0] rows=None psnr(dec)=38.72/42.54/42.79 bpp=0.373

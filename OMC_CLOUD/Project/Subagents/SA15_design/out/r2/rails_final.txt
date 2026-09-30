@@ -1,0 +1,8 @@
+cut24_0.5: cut24_0.5 GEN2 differing samples=0 per-frame  | oob=oob=0  overflow_max=overflow=3 fixes=reading_fixes=0 min credit=1108
+cut24_1.0: cut24_1.0 GEN2 differing samples=0 per-frame  | oob=oob=0  overflow_max=overflow=1 fixes=reading_fixes=0 min credit=2469
+ext10_1.0: ext10_1.0 GEN2 differing samples=0 per-frame  | oob=oob=0  overflow_max=overflow=1 fixes=reading_fixes=0 min credit=19312
+ext10L_1.0: ext10L_1.0 GEN2 differing samples=0 per-frame | oob=oob=0  overflow_max=overflow=1 fixes=reading_fixes=0 min credit=20305
+ext8_1.0: ext8_1.0 GEN2 differing samples=0 per-frame b | oob=oob=0  overflow_max=overflow=0 fixes=reading_fixes=0 min credit=16248
+ext12_1.0: ext12_1.0 GEN2 differing samples=0 per-frame  | oob=oob=0  overflow_max=overflow=1 fixes=reading_fixes=0 min credit=13364
+ext12_444_1.0: ext12_444_1.0 GEN2 differing samples=0 per-fr | oob=oob=0  overflow_max=overflow=2 fixes=reading_fixes=0 min credit=24773
+gfx_0.5: gfx_0.5 GEN2 differing samples=0 per-frame bi | oob=oob=0  overflow_max=overflow=0 fixes=reading_fixes=0 min credit=3131

@@ -1,0 +1,262 @@
+SA11 STEP E -- LEGALITY + GENERATION EXACTNESS OF THE VERTICAL-CAUSAL PIPELINE, OFFLINE (numpy).  2026-09-27.
+Numbers only; every row Y/Cb/Cr.  Script notes/exact_e.py; results exE/*.E.json, exE/e_sum.txt (full table),
+exE/ext_abs.txt.  Frames: frame 0 of cf_gfx 448x256, dng 1280x720, dng 1920x1080, spotrobotL 1920x1080 (4:2:2 10-bit),
+and the synthetic arms SA7_legality_v2/arms/cut24.yuv (256x64) and ext_10_422_l0.yuv (extFULL, 512x128) at ~0.5 bpp.
+PIPELINE (S5a, INTEGER throughout): row predictor p = (a + 2b + c + 2) >> 2 of the reconstructed row above (row 0:
+512); residual e = x - p; horizontal integer 5/3 lifting with update, 5 levels (h = o - floor((e0+e1)/2),
+l = e + floor((h_-1 + h + 2)/4)), symmetric extension; dead-zone 9/16 quantiser, power-of-two steps D >= 1 per band
+from the 1-D synthesis weights (coarse band x 2^-1); recon coefficient q*D; one Qf per frame (carried in the stream).
+Gen 1 encodes the source; gen 2 encodes the gen-1 DECODE with identical rules; gen 3 the gen-2 decode.
+Variants: E1 per-pixel clamp after the horizontal inverse; E2K2 / E2K4 = E1 + 2 / 4 rounds of 1-D in-cell projection
+per row (clamp -> horizontal forward -> clamp every coefficient into its quantiser cell (the integer interval that
+quantises to the emitted q) -> inverse -> clamp) at both ends; E2qK4 = E2K4 decoder + the one-step requantisation at
+the encoder (the emitted indices are q* = Q(F(r - p)) of its own E2K4 decode r, re-decoded; applied on every row);
+E3 = S5b: 1 level horizontal integer predict-only + closed-loop left DPCM on the coarse half + final pixel clamp.
+Operating points: the Qf of the sweep nearest to each target (actual bpp printed); dB vs baseline interpolated on the
+gen-1 rate sweep at exactly 0.5/1.0/2.0 against the float baseline of structure_S.txt (same allocation rules).
+Out-of-range samples after the final stage: 0 on EVERY variant, cell and rate (all planes).
+
+GEN-1 -> GEN-2 index mismatches / changed pixels (Y/Cb/Cr), and gen-2 -> gen-3 (full table in exE/e_sum.txt):
+  gfx_f0     E1     ~0.5 (0.44 bpp): clamp fired 71/0/0 | idx 1/0/0 pix 5431/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.13 bpp): clamp fired 4/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.99 bpp): clamp fired 1/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  gfx_f0     E2K2   ~0.5 (0.44 bpp): clamp fired 71/0/0 | idx 1/0/0 pix 6133/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.13 bpp): clamp fired 4/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.99 bpp): clamp fired 1/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  gfx_f0     E2K4   ~0.5 (0.44 bpp): clamp fired 72/0/0 | idx 1/0/0 pix 6891/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.13 bpp): clamp fired 4/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.99 bpp): clamp fired 1/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  gfx_f0     E2qK4  ~0.5 (0.45 bpp): clamp fired 143/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.13 bpp): clamp fired 8/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.99 bpp): clamp fired 2/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  gfx_f0     E3     ~0.5 (0.54 bpp): clamp fired 112/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.33 bpp): clamp fired 25/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (2.46 bpp): clamp fired 3/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng720_f0  E1     ~0.5 (0.58 bpp): clamp fired 76/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.77 bpp): clamp fired 24/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.65 bpp): clamp fired 5/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng720_f0  E2K2   ~0.5 (0.58 bpp): clamp fired 76/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.77 bpp): clamp fired 24/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.65 bpp): clamp fired 5/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng720_f0  E2K4   ~0.5 (0.58 bpp): clamp fired 76/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.77 bpp): clamp fired 24/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.65 bpp): clamp fired 5/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng720_f0  E2qK4  ~0.5 (0.58 bpp): clamp fired 152/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.77 bpp): clamp fired 48/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.65 bpp): clamp fired 10/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng720_f0  E3     ~0.5 (0.41 bpp): clamp fired 300/0/6 | idx 1/0/0 pix 12675/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.93 bpp): clamp fired 201/0/0 | idx 3/0/0 pix 12738/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.94 bpp): clamp fired 15/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng1080_f0 E1     ~0.5 (0.52 bpp): clamp fired 69/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.74 bpp): clamp fired 11/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.78 bpp): clamp fired 3/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng1080_f0 E2K2   ~0.5 (0.52 bpp): clamp fired 69/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.74 bpp): clamp fired 11/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.78 bpp): clamp fired 3/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng1080_f0 E2K4   ~0.5 (0.52 bpp): clamp fired 69/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.74 bpp): clamp fired 11/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.78 bpp): clamp fired 3/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng1080_f0 E2qK4  ~0.5 (0.52 bpp): clamp fired 138/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.74 bpp): clamp fired 22/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.78 bpp): clamp fired 6/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  dng1080_f0 E3     ~0.5 (0.36 bpp): clamp fired 173/0/1 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.03 bpp): clamp fired 93/0/1 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (2.05 bpp): clamp fired 5/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  spot_f0    E1     ~0.5 (0.54 bpp): clamp fired 641/0/0 | idx 12/0/0 pix 74842/0/0 | g2->g3 idx 26/0/0 pix 46594/0/0
+                    ~1.0 (1.18 bpp): clamp fired 380/0/0 | idx 615/0/0 pix 262227/0/0 | g2->g3 idx 102/0/0 pix 41872/0/0
+                    ~2.0 (2.47 bpp): clamp fired 287/0/0 | idx 12486/0/0 pix 1053126/0/0 | g2->g3 idx 10348/0/0 pix 899341/0/0
+  spot_f0    E2K2   ~0.5 (0.54 bpp): clamp fired 669/0/0 | idx 2/0/0 pix 36272/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.18 bpp): clamp fired 374/0/0 | idx 40/0/0 pix 76267/0/0 | g2->g3 idx 30/0/0 pix 32746/0/0
+                    ~2.0 (2.47 bpp): clamp fired 275/0/0 | idx 9981/0/0 pix 831534/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  spot_f0    E2K4   ~0.5 (0.54 bpp): clamp fired 631/0/0 | idx 2/0/0 pix 29077/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.18 bpp): clamp fired 369/0/0 | idx 202/0/0 pix 155454/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (2.47 bpp): clamp fired 291/0/0 | idx 10639/0/0 pix 874157/0/0 | g2->g3 idx 2338/0/0 pix 204743/0/0
+  spot_f0    E2qK4  ~0.5 (0.54 bpp): clamp fired 1253/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (1.18 bpp): clamp fired 745/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (2.47 bpp): clamp fired 551/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  spot_f0    E3     ~0.5 (0.37 bpp): clamp fired 1311/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~1.0 (0.95 bpp): clamp fired 653/0/0 | idx 1/0/0 pix 7048/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+                    ~2.0 (1.70 bpp): clamp fired 430/0/0 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  cut24_f0   E1     ~0.5 (0.56 bpp): clamp fired 1325/1544/1544 | idx 1/13/13 pix 835/1828/1828 | g2->g3 idx 15/8/8 pix 2607/1334/1334
+  cut24_f0   E2K2   ~0.5 (0.55 bpp): clamp fired 1325/1826/1826 | idx 1/23/23 pix 978/3144/3144 | g2->g3 idx 19/12/12 pix 2618/2457/2457
+  cut24_f0   E2K4   ~0.5 (0.55 bpp): clamp fired 1325/1587/1587 | idx 1/30/30 pix 1013/3570/3570 | g2->g3 idx 19/18/18 pix 2617/3099/3099
+  cut24_f0   E2qK4  ~0.5 (0.56 bpp): clamp fired 2630/2593/2593 | idx 19/0/0 pix 2617/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  cut24_f0   E3     ~0.5 (0.50 bpp): clamp fired 3455/1358/1358 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  extFULL_f0 E1     ~0.5 (1.16 bpp): clamp fired 13269/15929/15929 | idx 194/0/0 pix 10957/0/0 | g2->g3 idx 1/0/0 pix 257/0/0
+  extFULL_f0 E2K2   ~0.5 (1.16 bpp): clamp fired 13270/15929/15929 | idx 193/0/0 pix 10675/0/0 | g2->g3 idx 3/0/0 pix 1306/0/0
+  extFULL_f0 E2K4   ~0.5 (1.16 bpp): clamp fired 13271/15929/15929 | idx 79/0/0 pix 10458/0/0 | g2->g3 idx 115/0/0 pix 1383/0/0
+  extFULL_f0 E2qK4  ~0.5 (1.15 bpp): clamp fired 25932/31858/31858 | idx 3/0/0 pix 538/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+  extFULL_f0 E3     ~0.5 (0.43 bpp): clamp fired 19690/32512/32768 | idx 0/0/0 pix 0/0/0 | g2->g3 idx 0/0/0 pix 0/0/0
+
+dB vs baseline, Y/Cb/Cr at 0.5 | 1.0 | 2.0 bpp (gen 1):
+== gfx_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -1.17/-1.40/-1.43 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+  E2K2   dB vs baseline @0.5|1.0|2.0: -1.17/-1.40/-1.43 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+  E2K4   dB vs baseline @0.5|1.0|2.0: -1.17/-1.40/-1.43 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -1.17/-1.41/-1.44 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+  E3     dB vs baseline @0.5|1.0|2.0: -3.03/-1.93/-1.36 | -3.23/-1.54/-1.46 | -2.81/-2.04/-2.04
+== dng720_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+  E2K2   dB vs baseline @0.5|1.0|2.0: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+  E2K4   dB vs baseline @0.5|1.0|2.0: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+  E3     dB vs baseline @0.5|1.0|2.0: -2.72/-2.42/-2.89 | -3.16/-1.56/-1.59 | -2.53/-2.44/-2.16
+== dng1080_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+  E2K2   dB vs baseline @0.5|1.0|2.0: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+  E2K4   dB vs baseline @0.5|1.0|2.0: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+  E3     dB vs baseline @0.5|1.0|2.0: -3.04/-1.64/-2.13 | -2.75/-1.87/-1.82 | -2.18/-3.10/-2.50
+== spot_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -0.46/-0.94/-1.69 | -0.70/-1.15/-1.89 | -0.55/-0.95/-1.84
+  E2K2   dB vs baseline @0.5|1.0|2.0: -0.47/-0.94/-1.69 | -0.70/-1.15/-1.89 | -0.55/-0.95/-1.84
+  E2K4   dB vs baseline @0.5|1.0|2.0: -0.46/-0.94/-1.69 | -0.69/-1.15/-1.89 | -0.55/-0.95/-1.84
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -0.46/-0.94/-1.69 | -0.70/-1.15/-1.89 | -0.55/-0.95/-1.84
+  E3     dB vs baseline @0.5|1.0|2.0: -3.46/-2.95/-5.41 | -2.54/-2.43/-4.19 | -2.64/-2.70/-2.16
+== cut24_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -0.90/+3.49/+3.49 | +1.15/+3.72/+3.72 | -0.22/+3.76/+3.76
+  E2K2   dB vs baseline @0.5|1.0|2.0: -0.88/+3.76/+3.76 | +1.36/+3.99/+3.99 | -0.21/+4.22/+4.22
+  E2K4   dB vs baseline @0.5|1.0|2.0: -0.86/+3.59/+3.59 | +1.48/+4.17/+4.17 | -0.13/+4.12/+4.12
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -0.97/+3.35/+3.35 | +0.05/+2.94/+2.94 | -0.90/+2.97/+2.97
+  E3     dB vs baseline @0.5|1.0|2.0: n/a | +3.38/+5.28/+5.28 | +5.38/+7.09/+7.09
+== extFULL_f0
+  E1     dB vs baseline @0.5|1.0|2.0: -1.54/-69.68/-69.68 | -10.40/-62.87/-62.87 | n/a
+  E2K2   dB vs baseline @0.5|1.0|2.0: -1.54/-69.68/-69.68 | -10.40/-62.87/-62.87 | n/a
+  E2K4   dB vs baseline @0.5|1.0|2.0: -1.54/-69.68/-69.68 | -10.39/-62.87/-62.87 | n/a
+  E2qK4  dB vs baseline @0.5|1.0|2.0: -1.85/-69.66/-69.66 | -10.80/-62.84/-62.84 | n/a
+  E3     dB vs baseline @0.5|1.0|2.0: -5.21/-91.21/-91.21 | -11.59/-70.62/-70.62 | n/a
+ extFULL: the baseline codes both chroma planes exactly (PSNR capped at 99.00, 0.45 bpp: 14.14/99.00/99.00); the
+ pipeline gives 14.99/37.56/37.56 (E1, 1.16 bpp), 14.57/37.56/37.56 (E2qK4), 9.11/3.01/3.01 (E3, 0.43 bpp) -- the
+ -62...-91 dB rows are the 99-cap artefact plus a real chroma failure (row 0 predicted from 512 on a rail-valued
+ plane; E3 at Qf 11 collapses).  cut24: pipeline 17.29/20.12/20.12 (E1) vs baseline 17.89-18.13/16.03-16.06.
+
+READING
+ - E1 / E2K2 / E2K4: exact (0 index mismatches, 0 changed pixels, all planes) wherever the clamp does not fire on a
+   row whose result feeds later rows: dng720 and dng1080 at all three rates, gfx at 1.0 and 2.0.  Where the clamp
+   fires, gen 2 differs: gfx @0.5 1 index / 5,431-6,891 pixels (luma); spotrobotL luma 12 / 74,842 (0.5), 615 /
+   262,227 (1.0), 12,486 / 1,053,126 (2.0) for E1 -- a single differing index propagates to every row below through
+   the row predictor; gen 2 -> gen 3 still moves (E1 spot 26...10,348 indices).  E2 in-cell rounds reduce it on spot
+   @0.5 (E2K4: 2 / 29,077, gen 3 exact) but not at 2.0 (10,639 / 874,157).  Chroma: 0 on every natural cell.
+ - E2qK4 (encoder emits the requantised q* of its own decode): gen 2 IDENTICAL to gen 1 (0 indices, 0 pixels, all
+   planes) on gfx, dng720, dng1080 and spotrobotL at all three rates, and gen 3 identical; cut24 19 luma indices /
+   2,617 pixels at gen 2, then 0 at gen 3; extFULL 3 / 538, then 0.  Cost vs E2K4: -0.00...-0.02 dB on natural cells,
+   cut24 -0.2...-1.2 dB chroma, extFULL luma -0.43 dB.
+ - E3 (S5b): exact on dng1080, gfx, cut24, extFULL and spot except dng720 @0.5/1.0 (1-3 luma indices, 12,675-12,738
+   pixels) and spot @1.0 (1 / 7,048); but -1.4...-5.4 dB vs the baseline.
+ - E1/E2 vs baseline (natural cells): -0.39...-1.17 dB luma, -0.42...-1.43 dB chroma (dng, gfx), spot -0.46...-0.70
+   luma / -0.94...-1.89 chroma.
+ - DATA GEN 2 LACKS: none.  Every decision is computed from reconstructed data (predictor from the reconstructed row
+   above; steps from Qf and the width; E2 cells from the emitted q; E2q requantisation from the encoder's own decode)
+   plus the Qf carried in the stream.  The gen-1 mismatches in E1/E2 come from the clamp: gen 1 quantised the
+   unclamped residual of the SOURCE, gen 2 the residual of the clamped decode, which lies in a different cell at the
+   clamped samples -- E2q removes exactly that by emitting the index of the decode.
+OPS/SAMPLE (estimates, integer shift-add): E1 decoder = up3 4 + dequantise/inverse 5 levels 6.8 + add 1 + clamp 2 = 13.8;
+ encoder + forward 6.8 + subtract 1 + quantise 3 = 24.6.  E2: + per round forward 6.8 + cell clamp 4 + inverse 6.8 +
+ add/clamp 3 = 20.6 at BOTH ends (K = 2: +41, K = 4: +82).  E2qK4: decoder = E2K4 (96); encoder + forward/quantise
+ and a second E2K4 decode (~ +106, ~ 230 total).  E3: 4 + 1.5 + DPCM 5 + clamp 2 = 12.5 (encoder ~ 2x).
+ Baseline 12.3 forward + 12.3 inverse.  Look-back: 1 reconstructed row for every variant; no row below.
+
+==================== FOLLOW-UP (S5.356): E1q, E2qK1, extFULL row-0 start ====================
+E1q = clamp only + the encoder emits the requantised index of its OWN decode (q* = Q(F(r - p)), re-decoded; no
+projection rounds).  E2qK1 = 1 projection round at both ends + own-decode index.  Same integer pipeline and frames;
+all three rates on every cell (cut24 and extFULL included).  Full table exE/q_sum.txt.  dB vs E2qK4 and vs baseline
+interpolated at 0.5 | 1.0 | 2.0 bpp; points = sweep Qf nearest the target (actual bpp shown).
+gfx_f0     E1q    dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -1.17/-1.41/-1.44 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+    ~0.5 (0.45 bpp): out-of-range 0/0/0, clamp fired 143/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 28.34/31.05/31.01
+    ~1.0 (1.13 bpp): out-of-range 0/0/0, clamp fired 8/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 34.05/33.70/34.05
+    ~2.0 (1.99 bpp): out-of-range 0/0/0, clamp fired 2/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 36.46/35.62/35.88
+gfx_f0     E2qK1  dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -1.17/-1.41/-1.44 | -0.94/-0.74/-0.81 | -0.83/-0.88/-0.98
+    ~0.5 (0.45 bpp): out-of-range 0/0/0, clamp fired 143/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 28.34/31.05/31.01
+    ~1.0 (1.13 bpp): out-of-range 0/0/0, clamp fired 8/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 34.05/33.70/34.05
+    ~2.0 (1.99 bpp): out-of-range 0/0/0, clamp fired 2/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 36.46/35.62/35.88
+dng720_f0  E1q    dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+    ~0.5 (0.58 bpp): out-of-range 0/0/0, clamp fired 152/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 33.87/34.68/35.70
+    ~1.0 (0.77 bpp): out-of-range 0/0/0, clamp fired 48/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.36/35.37/36.50
+    ~2.0 (1.65 bpp): out-of-range 0/0/0, clamp fired 10/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 38.98/37.36/38.14
+dng720_f0  E2qK1  dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -0.55/-0.71/-0.82 | -0.54/-0.58/-0.59 | -0.39/-0.42/-0.47
+    ~0.5 (0.58 bpp): out-of-range 0/0/0, clamp fired 152/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 33.87/34.68/35.70
+    ~1.0 (0.77 bpp): out-of-range 0/0/0, clamp fired 48/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.36/35.37/36.50
+    ~2.0 (1.65 bpp): out-of-range 0/0/0, clamp fired 10/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 38.98/37.36/38.14
+dng1080_f0 E1q    dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+    ~0.5 (0.52 bpp): out-of-range 0/0/0, clamp fired 138/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 33.84/33.48/34.72
+    ~1.0 (0.74 bpp): out-of-range 0/0/0, clamp fired 22/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.07/34.06/35.26
+    ~2.0 (1.78 bpp): out-of-range 0/0/0, clamp fired 6/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 37.91/36.86/37.36
+dng1080_f0 E2qK1  dB vs E2qK4 @0.5|1|2: +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | vs baseline: -0.86/-0.69/-0.70 | -0.59/-0.56/-0.60 | -0.41/-0.72/-0.75
+    ~0.5 (0.52 bpp): out-of-range 0/0/0, clamp fired 138/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 33.84/33.48/34.72
+    ~1.0 (0.74 bpp): out-of-range 0/0/0, clamp fired 22/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.07/34.06/35.26
+    ~2.0 (1.78 bpp): out-of-range 0/0/0, clamp fired 6/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 37.91/36.86/37.36
+spot_f0    E1q    dB vs E2qK4 @0.5|1|2: -0.00/+0.00/+0.00 | +0.01/+0.00/+0.00 | +0.00/-0.00/-0.00 | vs baseline: -0.46/-0.94/-1.69 | -0.69/-1.15/-1.89 | -0.55/-0.95/-1.84
+    ~0.5 (0.54 bpp): out-of-range 0/0/0, clamp fired 1197/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 39.59/40.66/42.91
+    ~1.0 (1.18 bpp): out-of-range 0/0/0, clamp fired 729/0/0 | gen2 idx 18/0/0 pix 32116/0/0 | gen3 idx 34/0/0 pix 24249/0/0 | PSNR 43.23/43.50/45.95
+    ~2.0 (2.47 bpp): out-of-range 0/0/0, clamp fired 527/0/0 | gen2 idx 7042/0/0 pix 598501/0/0 | gen3 idx 6003/0/0 pix 561960/0/0 | PSNR 47.46/47.65/48.87
+spot_f0    E2qK1  dB vs E2qK4 @0.5|1|2: -0.00/+0.00/+0.00 | +0.00/+0.00/+0.00 | -0.00/-0.00/-0.00 | vs baseline: -0.46/-0.94/-1.69 | -0.70/-1.15/-1.89 | -0.55/-0.95/-1.84
+    ~0.5 (0.54 bpp): out-of-range 0/0/0, clamp fired 1197/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 39.59/40.66/42.91
+    ~1.0 (1.18 bpp): out-of-range 0/0/0, clamp fired 734/0/0 | gen2 idx 1/0/0 pix 480/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 43.22/43.50/45.95
+    ~2.0 (2.47 bpp): out-of-range 0/0/0, clamp fired 546/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 47.45/47.65/48.87
+cut24_f0   E1q    dB vs E2qK4 @0.5|1|2: -0.02/-0.18/-0.18 | -0.09/-0.06/-0.06 | -0.34/-0.48/-0.48 | vs baseline: -0.98/+3.17/+3.17 | -0.03/+2.88/+2.88 | -1.24/+2.49/+2.49
+    ~0.5 (0.56 bpp): out-of-range 0/0/0, clamp fired 2584/2913/2913 | gen2 idx 15/2/2 pix 2607/363/363 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 17.28/19.75/19.75
+    ~1.0 (1.12 bpp): out-of-range 0/0/0, clamp fired 5604/1864/1864 | gen2 idx 69/29/29 pix 6266/2893/2893 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 24.44/26.31/26.31
+    ~2.0 (2.00 bpp): out-of-range 0/0/0, clamp fired 8731/3822/3822 | gen2 idx 49/23/23 pix 3054/1533/1533 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.15/37.19/37.19
+cut24_f0   E2qK1  dB vs E2qK4 @0.5|1|2: -0.01/-0.04/-0.04 | -0.16/-0.10/-0.10 | -0.35/-0.29/-0.29 | vs baseline: -0.97/+3.31/+3.31 | -0.10/+2.84/+2.84 | -1.25/+2.69/+2.69
+    ~0.5 (0.56 bpp): out-of-range 0/0/0, clamp fired 2630/2603/2603 | gen2 idx 17/0/0 pix 2624/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 17.28/19.91/19.91
+    ~1.0 (1.12 bpp): out-of-range 0/0/0, clamp fired 5571/1894/1894 | gen2 idx 65/32/32 pix 6576/3223/3223 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 24.33/26.24/26.24
+    ~2.0 (2.00 bpp): out-of-range 0/0/0, clamp fired 8729/4088/4088 | gen2 idx 25/4/4 pix 1149/206/206 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 35.14/37.39/37.39
+extFULL_f0 E1q    dB vs E2qK4 @0.5|1|2: -0.01/+0.00/+0.00 | -0.02/+0.00/+0.00 | -0.31/-0.30/-0.25 | vs baseline: -1.87/-69.66/-69.66 | -10.82/-62.84/-62.84 | n/a
+    ~0.5 (1.15 bpp): out-of-range 0/0/0, clamp fired 25929/31858/31858 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 14.55/37.56/37.56
+    ~1.0 (1.15 bpp): out-of-range 0/0/0, clamp fired 25929/31858/31858 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 14.55/37.56/37.56
+    ~2.0 (1.99 bpp): out-of-range 0/0/0, clamp fired 36360/32262/32126 | gen2 idx 6/0/0 pix 105/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 31.87/40.57/40.57
+extFULL_f0 E2qK1  dB vs E2qK4 @0.5|1|2: -0.01/+0.00/+0.00 | -0.02/+0.00/+0.00 | -0.01/-0.00/-0.00 | vs baseline: -1.86/-69.66/-69.66 | -10.82/-62.84/-62.84 | n/a
+    ~0.5 (1.15 bpp): out-of-range 0/0/0, clamp fired 25942/31858/31858 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 14.55/37.56/37.56
+    ~1.0 (1.15 bpp): out-of-range 0/0/0, clamp fired 25942/31858/31858 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 14.55/37.56/37.56
+    ~2.0 (1.97 bpp): out-of-range 0/0/0, clamp fired 36771/32262/32126 | gen2 idx 2/0/0 pix 50/0/0 | gen3 idx 0/0/0 pix 0/0/0 | PSNR 32.16/40.57/40.57
+
+Reading:
+ - Out-of-range after the final stage: 0 on every cell, rate and plane (both variants).
+ - E1q: gen 2 and gen 3 IDENTICAL (0 indices, 0 pixels, all planes) on gfx, dng720, dng1080 at all rates and spot @0.5;
+   NOT on spot @1.0 (18 luma indices / 32,116 pixels, gen 3 34 / 24,249) and @2.0 (7,042 / 598,501; gen 3 6,003 /
+   561,960); cut24 15-69 luma and 2-29 chroma indices at gen 2, 0 at gen 3; extFULL 1-6 luma indices at gen 2, 0 at gen 3.
+ - E2qK1: identical to E2qK4's exactness on the natural cells except spot @1.0 (1 luma index / 480 pixels at gen 2,
+   0 at gen 3); cut24 17/0/0 (0.5), 65/32/32 (1.0), 25/4/4 (2.0) indices at gen 2, 0 at gen 3; extFULL 1-2, then 0.
+ - Quality: E1q and E2qK1 equal E2qK4 within 0.02 dB on natural cells; cut24 E1q -0.02...-0.48, E2qK1 -0.01...-0.35;
+   extFULL @2.0 E1q -0.25...-0.31 (E2qK1 -0.01).
+ - Ops/sample (estimates as before): E1q decoder 13.8 (= E1), encoder ~48 (encode 24.6 + requantise 9.8 + second
+   decode 13.8); E2qK1 decoder 34.4, encoder ~90; E2qK4 decoder ~96, encoder ~230.  Look-back 1 row for all.
+
+extFULL CHROMA WITH A DIFFERENT ROW-0 START (row 0 predicted from 0 = 'r0zero', or from the first source sample of the
+frame, signalled, = 'r0first'; the default was 512):
+  r0zero   E1q    ~0.5 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0zero   E1q    ~1.0 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0zero   E1q    ~2.0 (1.99 bpp) PSNR 31.87/40.57/40.57 | oor 0/0/0 | gen2 idx 6/0/0 pix 105/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK1  ~0.5 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK1  ~1.0 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK1  ~2.0 (1.97 bpp) PSNR 32.16/40.57/40.57 | oor 0/0/0 | gen2 idx 2/0/0 pix 50/0/0 | gen3 idx 0/0/0
+  r0zero   E1     ~0.5 (1.16 bpp) PSNR 14.99/37.56/37.56 | oor 0/0/0 | gen2 idx 194/0/0 pix 10957/0/0 | gen3 idx 1/0/0
+  r0zero   E1     ~1.0 (1.16 bpp) PSNR 14.99/37.56/37.56 | oor 0/0/0 | gen2 idx 194/0/0 pix 10957/0/0 | gen3 idx 1/0/0
+  r0zero   E1     ~2.0 (1.97 bpp) PSNR 32.54/40.57/40.57 | oor 0/0/0 | gen2 idx 100/0/0 pix 2473/0/0 | gen3 idx 8/0/0
+  r0zero   E2qK4  ~0.5 (1.15 bpp) PSNR 14.57/37.56/37.56 | oor 0/0/0 | gen2 idx 3/0/0 pix 538/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK4  ~1.0 (1.15 bpp) PSNR 14.57/37.56/37.56 | oor 0/0/0 | gen2 idx 3/0/0 pix 538/0/0 | gen3 idx 0/0/0
+  r0zero   E2qK4  ~2.0 (1.97 bpp) PSNR 32.17/40.57/40.57 | oor 0/0/0 | gen2 idx 4/0/0 pix 79/0/0 | gen3 idx 0/0/0
+  r0zero   E3     ~0.5 (0.43 bpp) PSNR 9.11/3.01/3.01 | oor 0/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0
+  r0zero   E3     ~1.0 (1.36 bpp) PSNR 15.17/37.56/37.56 | oor 0/0/0 | gen2 idx 6/0/0 pix 475/0/0 | gen3 idx 0/0/0
+  r0zero   E3     ~2.0 (2.18 bpp) PSNR 26.37/39.20/39.24 | oor 0/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0
+  r0first  E1q    ~0.5 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0first  E1q    ~1.0 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0first  E1q    ~2.0 (1.99 bpp) PSNR 31.87/40.57/40.57 | oor 0/0/0 | gen2 idx 6/0/0 pix 105/0/0 | gen3 idx 0/0/0
+  r0first  E2qK1  ~0.5 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0first  E2qK1  ~1.0 (1.15 bpp) PSNR 14.55/37.56/37.56 | oor 0/0/0 | gen2 idx 1/0/0 pix 220/0/0 | gen3 idx 0/0/0
+  r0first  E2qK1  ~2.0 (1.97 bpp) PSNR 32.16/40.57/40.57 | oor 0/0/0 | gen2 idx 2/0/0 pix 50/0/0 | gen3 idx 0/0/0
+  r0first  E1     ~0.5 (1.16 bpp) PSNR 14.99/37.56/37.56 | oor 0/0/0 | gen2 idx 194/0/0 pix 10957/0/0 | gen3 idx 1/0/0
+  r0first  E1     ~1.0 (1.16 bpp) PSNR 14.99/37.56/37.56 | oor 0/0/0 | gen2 idx 194/0/0 pix 10957/0/0 | gen3 idx 1/0/0
+  r0first  E1     ~2.0 (1.97 bpp) PSNR 32.54/40.57/40.57 | oor 0/0/0 | gen2 idx 100/0/0 pix 2473/0/0 | gen3 idx 8/0/0
+  r0first  E2qK4  ~0.5 (1.15 bpp) PSNR 14.57/37.56/37.56 | oor 0/0/0 | gen2 idx 3/0/0 pix 538/0/0 | gen3 idx 0/0/0
+  r0first  E2qK4  ~1.0 (1.15 bpp) PSNR 14.57/37.56/37.56 | oor 0/0/0 | gen2 idx 3/0/0 pix 538/0/0 | gen3 idx 0/0/0
+  r0first  E2qK4  ~2.0 (1.97 bpp) PSNR 32.17/40.57/40.57 | oor 0/0/0 | gen2 idx 4/0/0 pix 79/0/0 | gen3 idx 0/0/0
+  r0first  E3     ~0.5 (0.43 bpp) PSNR 9.11/3.01/3.01 | oor 0/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0
+  r0first  E3     ~1.0 (1.36 bpp) PSNR 15.17/37.56/37.56 | oor 0/0/0 | gen2 idx 6/0/0 pix 475/0/0 | gen3 idx 0/0/0
+  r0first  E3     ~2.0 (2.18 bpp) PSNR 26.37/39.20/39.24 | oor 0/0/0 | gen2 idx 0/0/0 pix 0/0/0 | gen3 idx 0/0/0
+Reading: the row-0 start changes nothing on extFULL chroma (37.56 dB at ~0.5-1.2 bpp, 40.57 dB at ~2 bpp, identical
+ for mid / zero / first).  The extFULL chroma planes are a 0/1023 CHECKERBOARD (each row the inverse of the row
+ above, alternating along the row); the up3 predictor from the inverted row above leaves a +-1023 alternating residual,
+ and the gen-1 errors sit at the ROW ENDS (columns 0-1 and W-2..W-1: the symmetric extension of the 5/3 lifting on
+ that pattern), not at row 0.  The baseline codes the same planes exactly (99-dB cap).  E3 at ~0.5 bpp: 3.01 dB
+ (Qf 11) unchanged by the start value.

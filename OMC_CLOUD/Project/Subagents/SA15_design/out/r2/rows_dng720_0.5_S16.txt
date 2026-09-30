@@ -1,0 +1,12 @@
+inter Y  mean|e| spread   4.3%  slice-edge(ph15)  +1.8%  internal block edges  +1.1%  excess  +0.7%  | +0.9 +0.6 -0.2 +2.3 -0.2 -1.0 -2.0 +0.5 -0.5 -0.5 -1.4 +0.6 -0.0 -0.2 -0.8 +1.8
+inter Y  step    spread   5.0%  slice-edge(ph15)  -0.1%  internal block edges  -1.1%  excess  +1.1%  | +2.1 -1.6 +2.5 -0.6 +1.0 -2.5 +1.0 -1.5 +1.0 -2.3 +0.8 -1.3 +1.3 -1.7 +2.0 -0.1
+inter Cb mean|e| spread   1.3%  slice-edge(ph15)  +0.4%  internal block edges  +0.3%  excess  +0.1%  | +0.7 +0.0 -0.1 +0.4 -0.2 -0.6 -0.4 +0.2 -0.1 +0.0 -0.4 +0.2 +0.0 -0.1 -0.1 +0.4
+inter Cb step    spread   2.4%  slice-edge(ph15)  -0.9%  internal block edges  -1.0%  excess  +0.1%  | +1.3 -1.0 +1.1 -1.2 +0.9 -1.1 +1.0 -1.1 +0.8 -0.9 +0.8 -0.8 +0.8 -0.8 +1.2 -0.9
+inter Cr mean|e| spread   1.9%  slice-edge(ph15)  +1.2%  internal block edges  +0.3%  excess  +0.9%  | +0.4 +0.3 +0.1 +0.8 -0.5 -0.0 -0.7 -0.4 -0.5 -0.4 -0.6 +0.3 -0.3 +0.1 +0.2 +1.2
+inter Cr step    spread   2.2%  slice-edge(ph15)  +0.5%  internal block edges  -0.3%  excess  +0.9%  | +0.8 -0.5 +1.1 -0.0 +0.5 -1.2 -0.0 -0.7 -0.1 -1.2 +0.2 -0.3 +0.3 -0.4 +1.0 +0.5
+intra Y  mean|e| spread   5.2%  slice-edge(ph15)  +0.4%  internal block edges  +1.0%  excess  -0.7%  | +1.8 +1.0 +1.8 +2.9 +1.2 -1.6 -1.2 +0.1 -0.1 -2.3 -2.0 +0.1 -0.8 -1.0 -0.4 +0.4
+intra Y  step    spread   5.7%  slice-edge(ph15)  +2.5%  internal block edges  +1.8%  excess  +0.7%  | +0.6 +0.2 +1.3 +2.7 +0.2 -1.9 -1.0 +1.8 -0.4 -3.0 -1.0 +0.9 -1.3 -1.9 +0.4 +2.5
+intra Cb mean|e| spread   2.7%  slice-edge(ph15)  -0.3%  internal block edges  -0.0%  excess  -0.3%  | +0.5 +1.4 +0.0 +1.1 -0.1 +0.6 -1.2 -1.4 -0.6 -1.2 +0.2 +0.2 +0.0 +0.5 +0.0 -0.3
+intra Cb step    spread   3.4%  slice-edge(ph15)  +2.2%  internal block edges  +1.7%  excess  +0.5%  | -1.2 +0.3 -0.6 +2.2 -0.8 -0.6 -1.2 +1.1 -0.5 -0.2 -0.8 +1.9 -0.3 -0.4 -1.1 +2.2
+intra Cr mean|e| spread   2.3%  slice-edge(ph15)  +1.5%  internal block edges  -0.4%  excess  +1.9%  | +0.8 +0.3 +0.2 -0.3 -0.5 +0.5 -0.3 -0.8 -0.6 -0.3 +0.1 -0.3 -0.8 +0.3 +0.2 +1.5
+intra Cr step    spread   5.0%  slice-edge(ph15)  +3.2%  internal block edges  +2.5%  excess  +0.7%  | -0.8 -0.4 -1.1 +2.7 -1.2 -0.9 -1.8 +2.4 -1.2 -0.9 -0.9 +2.2 -1.0 -1.3 +0.9 +3.2

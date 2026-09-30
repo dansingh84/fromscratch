@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA18_design/bench/evalcell.py", line 22, in <module>
+    x = yuv.read_frame(p, W, H, f); o, b, info = s.encode(x)
+                                                 ~~~~~~~~^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA18_design/bench/seq.py", line 108, in encode
+    plans_r, dd, exps_r, Qr, bits_r = c.read2(out, base, im, vb + vbc)
+                                      ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA18_design/bench/codec.py", line 412, in read2
+    assert ds, 'no consistent fine re-choice'
+           ^^
+AssertionError: no consistent fine re-choice

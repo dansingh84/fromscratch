@@ -1,0 +1,6 @@
+rails10 D0=32 bits=0.7901 psnr IDQ=53.946 clipref(same indices)=55.816  px differ=30484 max|IDQ-clip|=11
+spot D0=32 bits=0.6846 psnr IDQ=44.384 clipref(same indices)=44.384  px differ=1576 max|IDQ-clip|=10
+rails10 D0=128 bits=0.6156 psnr IDQ=41.555 clipref(same indices)=43.093  px differ=33022 max|IDQ-clip|=74
+spot D0=128 bits=0.2082 psnr IDQ=38.466 clipref(same indices)=38.467  px differ=4760 max|IDQ-clip|=40
+rails10 D0=256 bits=0.5218 psnr IDQ=34.885 clipref(same indices)=36.166  px differ=31973 max|IDQ-clip|=117
+spot D0=256 bits=0.1145 psnr IDQ=34.882 clipref(same indices)=34.890  px differ=12394 max|IDQ-clip|=56

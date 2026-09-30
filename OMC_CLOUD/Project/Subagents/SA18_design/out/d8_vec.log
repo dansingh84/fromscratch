@@ -1,0 +1,15 @@
+hwy     hist   pred PSNR 34.46/46.54/42.91  vec bits/frame 16643  agree-with-src 71.3%
+hwy     src    pred PSNR 35.52/46.66/43.01  vec bits/frame 16806  agree-with-src 100.0%
+hwy     stale  pred PSNR 34.55/46.57/42.93  vec bits/frame 16421  agree-with-src 69.0%
+hwy     histlp pred PSNR 34.51/46.56/42.93  vec bits/frame 17118  agree-with-src 71.5%
+hwy     zero   pred PSNR 28.65/44.10/42.09  vec bits/frame 8100  agree-with-src 58.6%
+volley  hist   pred PSNR 35.66/41.81/44.45  vec bits/frame 9502  agree-with-src 95.7%
+volley  src    pred PSNR 36.08/41.88/44.52  vec bits/frame 9802  agree-with-src 100.0%
+volley  stale  pred PSNR 35.77/41.82/44.48  vec bits/frame 9579  agree-with-src 96.2%
+volley  histlp pred PSNR 35.78/41.82/44.49  vec bits/frame 9553  agree-with-src 96.0%
+volley  zero   pred PSNR 33.55/41.60/44.15  vec bits/frame 8100  agree-with-src 94.0%
+floor   hist   pred PSNR 34.02/42.57/42.27  vec bits/frame 20477  agree-with-src 61.0%
+floor   src    pred PSNR 35.26/42.96/42.63  vec bits/frame 22063  agree-with-src 100.0%
+floor   stale  pred PSNR 34.25/42.70/42.40  vec bits/frame 22267  agree-with-src 63.9%
+floor   histlp pred PSNR 34.13/42.64/42.34  vec bits/frame 20892  agree-with-src 64.5%
+floor   zero   pred PSNR 27.34/38.90/38.85  vec bits/frame 8100  agree-with-src 56.4%

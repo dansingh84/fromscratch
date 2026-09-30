@@ -1,0 +1,5 @@
+f0 intra=True picdiff 0 oob 0 bits1 97850.3 bits2 97850.3 overs 0 max(cum-lim) -1694.9
+f1 intra=False picdiff 0 oob 0 bits1 95002.0 bits2 95002.0 overs 0 max(cum-lim) -1770.8
+f2 intra=False picdiff 0 oob 0 bits1 111323.6 bits2 111323.6 overs 0 max(cum-lim) -1754.8
+f3 intra=False picdiff 0 oob 0 bits1 116787.0 bits2 116787.0 overs 0 max(cum-lim) -1754.8
+f4 intra=False picdiff 0 oob 0 bits1 115827.0 bits2 115827.0 overs 0 max(cum-lim) -1754.8

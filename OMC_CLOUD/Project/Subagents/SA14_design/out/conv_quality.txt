@@ -1,0 +1,18 @@
+  err_vs_src: closure max 176 >64: 193 | clip max 707 >64: 709
+spot D0=64 conv=411 psnr_closure=40.650 psnr_clip=38.109 oob_unclipped=1896 px_differ_vs_clip=8103 max|diff|=738 px_diff>4=4920
+  err_vs_src: closure max 405 >64: 6601 | clip max 707 >64: 6054
+spot D0=128 conv=1181 psnr_closure=37.247 psnr_clip=36.010 oob_unclipped=2298 px_differ_vs_clip=25397 max|diff|=751 px_diff>4=17972
+  err_vs_src: closure max 405 >64: 42210 | clip max 707 >64: 38716
+spot D0=256 conv=2191 psnr_closure=33.642 psnr_clip=33.243 oob_unclipped=3111 px_differ_vs_clip=58800 max|diff|=749 px_diff>4=45021
+  err_vs_src: closure max 123 >64: 60 | clip max 732 >64: 202
+floor D0=64 conv=103 psnr_closure=39.835 psnr_clip=39.332 oob_unclipped=361 px_differ_vs_clip=4219 max|diff|=728 px_diff>4=2749
+  err_vs_src: closure max 234 >64: 6684 | clip max 732 >64: 5566
+floor D0=128 conv=578 psnr_closure=37.078 psnr_clip=36.959 oob_unclipped=474 px_differ_vs_clip=16241 max|diff|=747 px_diff>4=12915
+  err_vs_src: closure max 402 >64: 40774 | clip max 732 >64: 38460
+floor D0=256 conv=1094 psnr_closure=33.886 psnr_clip=33.936 oob_unclipped=729 px_differ_vs_clip=30575 max|diff|=702 px_diff>4=24687
+  err_vs_src: closure max 204 >64: 45 | clip max 65 >64: 2
+dng1080 D0=64 conv=2 psnr_closure=37.167 psnr_clip=37.174 oob_unclipped=2 px_differ_vs_clip=90 max|diff|=208 px_diff>4=90
+  err_vs_src: closure max 327 >64: 15804 | clip max 137 >64: 15704
+dng1080 D0=128 conv=45 psnr_closure=34.491 psnr_clip=34.499 oob_unclipped=30 px_differ_vs_clip=1053 max|diff|=288 px_diff>4=865
+  err_vs_src: closure max 343 >64: 85915 | clip max 270 >64: 84958
+dng1080 D0=256 conv=910 psnr_closure=31.108 psnr_clip=31.191 oob_unclipped=635 px_differ_vs_clip=36391 max|diff|=392 px_diff>4=30736

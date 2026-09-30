@@ -1,0 +1,10 @@
+g1 t=0 bpp=1.7286 psnr=16.01/99.00/99.00 kap[min/med/max]=56/68/70 jump>+8:1 jump<0:3 overflow=0 selfread_frames=1 sr_fail=0 recov_miss=0 backtracks=1 credit=-53324 pot=4096 dev(actual-lane) sum=-1477 max=1581 refresh=(0, 0) hfslices=16 oob=0 2s
+g1 t=1 bpp=2.8157 psnr=12.43/99.00/99.00 kap[min/med/max]=56/83/110 jump>+8:1 jump<0:0 overflow=0 selfread_frames=2 sr_fail=0 recov_miss=0 backtracks=1 credit=-146022 pot=3820 dev(actual-lane) sum=25662 max=2866 refresh=(0, 12) hfslices=1 oob=0 4s
+g1 t=2 bpp=2.2773 psnr=14.55/99.00/99.00 kap[min/med/max]=56/110/110 jump>+8:1 jump<0:0 overflow=0 selfread_frames=3 sr_fail=0 recov_miss=0 backtracks=1 credit=-169400 pot=4764 dev(actual-lane) sum=60768 max=6357 refresh=(12, 16) hfslices=0 oob=0 4s
+g1 t=3 bpp=2.2952 psnr=12.42/99.00/99.00 kap[min/med/max]=56/110/110 jump>+8:1 jump<0:0 overflow=0 selfread_frames=4 sr_fail=0 recov_miss=0 backtracks=1 credit=-181932 pot=5327 dev(actual-lane) sum=72331 max=8934 refresh=(16, 28) hfslices=2 oob=0 5s
+g2 t=0 bpp=1.7286 psnr=0.00/0.00/0.00 kap[min/med/max]=56/68/70 jump>+8:1 jump<0:3 overflow=0 selfread_frames=1 sr_fail=0 recov_miss=0 backtracks=1 credit=-53324 pot=4096 dev(actual-lane) sum=-1477 max=1581 refresh=(0, 0) hfslices=16 oob=0 2s
+g2 t=1 bpp=2.8157 psnr=0.00/0.00/0.00 kap[min/med/max]=56/83/110 jump>+8:1 jump<0:0 overflow=0 selfread_frames=2 sr_fail=0 recov_miss=0 backtracks=1 credit=-146022 pot=3820 dev(actual-lane) sum=25662 max=2866 refresh=(0, 12) hfslices=1 oob=0 3s
+g2 t=2 bpp=2.2773 psnr=0.00/0.00/0.00 kap[min/med/max]=56/110/110 jump>+8:1 jump<0:0 overflow=0 selfread_frames=3 sr_fail=0 recov_miss=0 backtracks=1 credit=-169400 pot=4764 dev(actual-lane) sum=60768 max=6357 refresh=(12, 16) hfslices=0 oob=0 4s
+g2 t=3 bpp=2.2952 psnr=0.00/0.00/0.00 kap[min/med/max]=56/110/110 jump>+8:1 jump<0:0 overflow=0 selfread_frames=4 sr_fail=0 recov_miss=0 backtracks=1 credit=-181932 pot=5327 dev(actual-lane) sum=72331 max=8934 refresh=(16, 28) hfslices=2 oob=0 5s
+ext10L_1.0 GEN2 differing samples=0 per-frame bits g2/g1=[np.float64(1.0), np.float64(1.0), np.float64(1.0), np.float64(1.0)]
+rc=0

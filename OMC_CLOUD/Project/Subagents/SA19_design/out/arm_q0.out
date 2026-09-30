@@ -1,0 +1,1 @@
+Terminated                 nice -n 19 python3 tpp_run.py train bos 1.0 ../out/tab_eb_r2.pkl ../out/cnt_q0_bos_1.0.pkl fuse=0 ecsq=0.15 >> ../out/train_q0.log 2>&1

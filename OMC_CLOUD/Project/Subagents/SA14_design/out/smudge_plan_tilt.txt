@@ -1,0 +1,6 @@
+TOPD=2 COARSED=1 D0=112 coded bpp 0.460 steady Y 35.54
+Y: 8 groups, 123 blocks, largest 33  [thr 6 dens 0.4] Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4] Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4] 
+Y: 9 groups, 128 blocks, largest 27  [thr 6 dens 0.4] Cb: 1 groups, 9 blocks, largest 9  [thr 6 dens 0.4] Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4] 
+TOPD=3 COARSED=2 D0=112 coded bpp 0.519 steady Y 35.63
+Y: 4 groups, 78 blocks, largest 29  [thr 6 dens 0.4] Cb: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4] Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4] 
+Y: 6 groups, 102 blocks, largest 32  [thr 6 dens 0.4] Cb: 1 groups, 9 blocks, largest 9  [thr 6 dens 0.4] Cr: 0 groups, 0 blocks, largest 0  [thr 6 dens 0.4] 

@@ -1,0 +1,6 @@
+bosphorus_19 Y  CQP vs 5/3 at matched entropy: -0.76 dB | at ~0.5 bpp: 5/3 [(np.float64(0.643), np.float64(45.21)), (np.float64(0.446), np.float64(43.39))] cqp [(np.float64(0.726), np.float64(45.25)), (np.float64(0.518), np.float64(43.46))]
+bosphorus_19 Cb CQP vs 5/3 at matched entropy: -0.66 dB | at ~0.5 bpp: 5/3 [(np.float64(0.634), np.float64(53.43)), (np.float64(0.402), np.float64(51.77))] cqp [(np.float64(0.733), np.float64(53.34)), (np.float64(0.464), np.float64(51.48))]
+bosphorus_19 Cr CQP vs 5/3 at matched entropy: -0.63 dB | at ~0.5 bpp: 5/3 [(np.float64(0.668), np.float64(53.14)), (np.float64(0.415), np.float64(51.4))] cqp [(np.float64(0.764), np.float64(52.98)), (np.float64(0.47), np.float64(51.05))]
+dng_1280x720 Y  CQP vs 5/3 at matched entropy: -0.53 dB | at ~0.5 bpp: 5/3 [] cqp []
+dng_1280x720 Cb CQP vs 5/3 at matched entropy: -0.19 dB | at ~0.5 bpp: 5/3 [(np.float64(0.541), np.float64(37.54))] cqp [(np.float64(0.561), np.float64(37.48))]
+dng_1280x720 Cr CQP vs 5/3 at matched entropy: -0.19 dB | at ~0.5 bpp: 5/3 [(np.float64(0.761), np.float64(39.9)), (np.float64(0.405), np.float64(38.37))] cqp [(np.float64(0.789), np.float64(39.84)), (np.float64(0.412), np.float64(38.32))]

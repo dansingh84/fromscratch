@@ -1,0 +1,10 @@
+cut24 M=14 D= 14.0 units=81 need>0=81 max=64 >2=74 >4=74 >8=66 unconverged@64=65 railset_mismatch=4 PSNR Y/Cb/Cr 55.76/53.26/53.26
+cut24 M=40 D= 40.0 units=81 need>0=81 max=64 >2=63 >4=54 >8=54 unconverged@64=54 railset_mismatch=180 PSNR Y/Cb/Cr 50.00/48.71/48.71
+/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA13_design/t7_rext_pocs.py:70: RuntimeWarning: divide by zero encountered in divide
+  ps = 10 * np.log10(1023 ** 2 / (se / n))
+ext10 M=14 D= 14.0 units=102 need>0=96 max=64 >2=5 >4=5 >8=5 unconverged@64=5 railset_mismatch=28 PSNR Y/Cb/Cr 61.25/inf/inf
+ext10 M=40 D= 40.0 units=102 need>0=96 max=64 >2=5 >4=5 >8=5 unconverged@64=5 railset_mismatch=154 PSNR Y/Cb/Cr 51.76/inf/inf
+gfx M=14 D= 14.0 units=99 need>0=0 max=0 >2=0 >4=0 >8=0 unconverged@64=0 railset_mismatch=0 PSNR Y/Cb/Cr 44.38/44.21/44.30
+gfx M=40 D= 40.0 units=99 need>0=2 max=3 >2=2 >4=0 >8=0 unconverged@64=0 railset_mismatch=2 PSNR Y/Cb/Cr 37.40/36.15/36.53
+d720 M=14 D= 14.0 units=543 need>0=3 max=1 >2=0 >4=0 >8=0 unconverged@64=0 railset_mismatch=0 PSNR Y/Cb/Cr 44.15/43.83/43.80
+d720 M=40 D= 40.0 units=543 need>0=4 max=1 >2=0 >4=0 >8=0 unconverged@64=0 railset_mismatch=1 PSNR Y/Cb/Cr 38.41/36.80/37.80

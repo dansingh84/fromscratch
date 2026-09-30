@@ -1,0 +1,16 @@
+cut24 @0.5 | legal: oob 0, PSNR 11.09/11.23/11.22, bits [7785, 7520, 7703, 7078, 7694, 7487], Pe med [299, 299, 299, 299, 299, 299], g2 identical False | clip arm: oob 0, PSNR 10.15/10.41/10.41 | samples legal worse than clip 65552 (33.3415 %), better 96202, max excess 947 codes | stats {'emit_over_est': 26}
+cut24 @1.0 | legal: oob 0, PSNR 12.24/12.38/12.38, bits [15510, 15315, 15449, 15398, 15214, 16193], Pe med [299, 299, 299, 299, 299, 285], g2 identical False | clip arm: oob 0, PSNR 11.18/11.38/11.36 | samples legal worse than clip 67426 (34.2946 %), better 101212, max excess 1023 codes | stats {'emit_over_est': 19}
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA16_design/model/t_rails.py", line 18, in <module>
+    src = yuv.read_frame(path, W, H, t); r1 = cod.encode(src); recs.append(r1); bits.append(int(cod.stats['frame_bits'])); pe.append(int(np.median(cod.last['Pe'])))
+                                              ~~~~~~~~~~^^^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA16_design/model/omc16.py", line 659, in encode
+    oct_ = [self.lane(Ts, Tp, k, P_, intra_frame, ucls, V, st, cx, vc, None) for P_ in PL]
+            ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA16_design/model/omc16.py", line 401, in lane
+    hv = np.clip(self.hold_target(pi, band, rows, xp, np.where(hdx, Dq, D), MP), self.lo, self.hi) if hdx.any() else np.zeros_like(x)
+                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA16_design/model/omc16.py", line 329, in hold_target
+    up = MP[0][pi][band][rows]; lo = MP[1][pi][band][rows]
+         ~~^^^
+TypeError: 'NoneType' object is not subscriptable

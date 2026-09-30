@@ -1,0 +1,4 @@
+NEST dng720 D0=64 coded_bpp=0.995 VMAF-NEG(f2-11)=92.434 PSNR mean Y/Cb/Cr=38.50/37.29/38.15 worst=38.43/37.27/38.11 gen2_all_same=True oob=0
+NEST dng720 D0=96 coded_bpp=0.393 VMAF-NEG(f2-11)=85.368 PSNR mean Y/Cb/Cr=35.19/35.59/36.71 worst=35.15/35.56/36.68 gen2_all_same=True oob=0
+TODAY dng720 0.5 bpp (exact CBR) VMAF-NEG(f2-11)=90.164 PSNR mean Y/Cb/Cr=35.22/36.10/37.14 worst=34.69/35.86/36.98
+TODAY dng720 1.0 bpp (exact CBR) VMAF-NEG(f2-11)=94.046 PSNR mean Y/Cb/Cr=38.19/37.08/37.95 worst=37.88/36.92/37.87

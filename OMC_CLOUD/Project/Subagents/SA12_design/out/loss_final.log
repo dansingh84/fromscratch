@@ -1,0 +1,4 @@
+Qf 5.0 conceal=other-frame mean|extra err| lost slice 17.12 | next slices +1..+4: 1.637 0.036 0.000 0.000 | rows of slice+1 with extra>0.05: 16/16
+Qf 5.0 conceal=grey        mean|extra err| lost slice 192.31 | next slices +1..+4: 17.586 0.326 0.000 0.000 | rows of slice+1 with extra>0.05: 16/16
+Qf 7.0 conceal=other-frame mean|extra err| lost slice 18.46 | next slices +1..+4: 1.770 0.036 0.000 0.000 | rows of slice+1 with extra>0.05: 16/16
+Qf 7.0 conceal=grey        mean|extra err| lost slice 192.28 | next slices +1..+4: 17.551 0.327 0.000 0.000 | rows of slice+1 with extra>0.05: 16/16

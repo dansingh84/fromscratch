@@ -1,0 +1,6 @@
+NEST_D88                     grille  luma|err|  17.2  HP ratio 1.08  HP corr 0.92  chroma|err|  11.6
+NEST_D88                     rest    luma|err|  10.4  HP ratio 0.88  HP corr 0.80  chroma|err|  12.2
+TODAY_0.5                    grille  luma|err|  34.6  HP ratio 0.79  HP corr 0.66  chroma|err|  11.8
+TODAY_0.5                    rest    luma|err|  12.1  HP ratio 0.82  HP corr 0.69  chroma|err|  12.8
+NEST_D96_0.39bpp             grille  luma|err|  23.5  HP ratio 1.16  HP corr 0.88  chroma|err|  12.3
+NEST_D96_0.39bpp             rest    luma|err|  12.1  HP ratio 0.90  HP corr 0.72  chroma|err|  13.1

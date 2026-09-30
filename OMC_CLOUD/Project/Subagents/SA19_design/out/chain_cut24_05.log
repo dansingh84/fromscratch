@@ -1,0 +1,12 @@
+cut24 gen 1 @0.50: oob 0 overs 0
+cut24 gen 2 @0.50: differing samples per frame [1929, 1899, 7185, 19571] | frames with different bits 4 | oob 0 overs 0
+cut24 gen 3 @0.50: differing samples per frame [106, 74, 2351, 3496] | frames with different bits 3 | oob 0 overs 0
+cut24 gen 4 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+cut24 gen 5 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+cut24 gen 6 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+cut24 gen 7 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+cut24 gen 8 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+cut24 gen 9 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+cut24 gen 10 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+cut24 gen 11 @0.50: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+cut24 rates [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]: fixed point from generation 4

@@ -1,0 +1,2 @@
+dng720_0.5 today  NEG mean 90.16 worst 87.22 | PSNR mean 35.22/36.10/37.14 worst 34.69/35.86/36.98 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 7 bright regions, 9 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 41.86
+dng720_0.5 cpp    NEG mean 89.99 worst 86.82 | PSNR mean 37.30/36.53/37.60 worst 36.14/36.18/37.22 | smudge groups Y/Cb/Cr 0 groups/0 groups/0 groups | artifactmap 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions ; 0 bright regions, 0 dark regions | flat% 38.25

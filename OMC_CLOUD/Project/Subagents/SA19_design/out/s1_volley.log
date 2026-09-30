@@ -1,0 +1,10 @@
+volley 0.5
+  plane 0 coarse resid P1 7.89e+07  P2 1.5e+08  fused 9.54e+07  (fused/P1 1.209)  pred energy P1/src 0.998 fused/src 0.997
+  plane 0 L2     resid P1 5e+08  P2 6.35e+08  fused 4.97e+08  (fused/P1 0.995)  pred energy P1/src 0.876 fused/src 0.836
+  plane 0 L1     resid P1 3e+09  P2 3.29e+09  fused 2.89e+09  (fused/P1 0.964)  pred energy P1/src 0.790 fused/src 0.747
+  plane 1 coarse resid P1 8.45e+06  P2 1.11e+07  fused 8.66e+06  (fused/P1 1.025)  pred energy P1/src 1.000 fused/src 1.001
+  plane 1 L2     resid P1 6.87e+07  P2 7.07e+07  fused 6.78e+07  (fused/P1 0.986)  pred energy P1/src 0.475 fused/src 0.447
+  plane 1 L1     resid P1 4.28e+08  P2 4.31e+08  fused 4.25e+08  (fused/P1 0.993)  pred energy P1/src 0.195 fused/src 0.182
+  plane 2 coarse resid P1 5.68e+06  P2 8.2e+06  fused 6.26e+06  (fused/P1 1.102)  pred energy P1/src 1.000 fused/src 1.001
+  plane 2 L2     resid P1 3.98e+07  P2 4.14e+07  fused 3.95e+07  (fused/P1 0.992)  pred energy P1/src 0.590 fused/src 0.566
+  plane 2 L1     resid P1 1.83e+08  P2 1.84e+08  fused 1.82e+08  (fused/P1 0.995)  pred energy P1/src 0.226 fused/src 0.218

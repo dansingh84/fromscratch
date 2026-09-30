@@ -1,0 +1,12 @@
+gfx 0.5 {'rail_src': 1, 'away': 71, 'away_railpair': 0, 'away_case3': 71, 'srcoob': 1}
+gfx 1.0 {'rail_src': 1, 'away': 7, 'away_railpair': 0, 'away_case3': 7, 'srcoob': 1}
+gfx 2.0 {'rail_src': 1, 'away': 2, 'away_railpair': 0, 'away_case3': 2, 'srcoob': 1}
+cut24 0.5 {'rail_src': 24768, 'away': 3382, 'away_railpair': 1784, 'away_case3': 1598, 'srcoob': 0}
+cut24 1.0 {'rail_src': 24768, 'away': 5523, 'away_railpair': 3417, 'away_case3': 2106, 'srcoob': 0}
+cut24 2.0 {'rail_src': 24768, 'away': 5186, 'away_railpair': 3787, 'away_case3': 1399, 'srcoob': 0}
+ext10 0.5 {'rail_src': 114720, 'away': 10227, 'away_railpair': 9854, 'away_case3': 373, 'srcoob': 0}
+ext10 1.0 {'rail_src': 114720, 'away': 23095, 'away_railpair': 22770, 'away_case3': 325, 'srcoob': 0}
+ext10 2.0 {'rail_src': 114720, 'away': 33113, 'away_railpair': 32941, 'away_case3': 172, 'srcoob': 0}
+dng720 0.5 {'rail_src': 3, 'away': 388, 'away_railpair': 0, 'away_case3': 388, 'srcoob': 3}
+dng720 1.0 {'rail_src': 3, 'away': 36, 'away_railpair': 0, 'away_case3': 36, 'srcoob': 3}
+dng720 2.0 {'rail_src': 3, 'away': 2, 'away_railpair': 0, 'away_case3': 2, 'srcoob': 3}

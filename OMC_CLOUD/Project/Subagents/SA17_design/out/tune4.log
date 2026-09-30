@@ -1,0 +1,6 @@
+noclean traffic @0.5 NEG 0.000 worst 0.000 PSNR 13.76/30.96/28.06
+base_ext traffic @0.5 NEG 0.000 worst 0.000 PSNR 13.75/30.96/28.06
+cyc12_ext traffic @0.5 NEG 0.000 worst 0.000 PSNR 13.77/30.96/28.06
+noclean winter @0.5 NEG 0.000 worst 0.000 PSNR 15.84/34.08/30.13
+base_ext winter @0.5 NEG 0.000 worst 0.000 PSNR 15.84/34.08/30.13
+cyc12_ext winter @0.5 NEG 0.000 worst 0.000 PSNR 15.84/34.08/30.13

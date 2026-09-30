@@ -1,0 +1,13 @@
+94a600fe8a2ab13effe9860b996e3b54  ../DESIGN.md
+d034862ddd3dd8358004bb3ea4afb4c6  ../notes/hf.py
+ac8b6a616cef8ea3fe7bc28d22f48a22  DESIGN_v2.md
+d39f64fcdefc3095c789f4b46c8edf54  notes/seq.py
+ac069311a8dc688c115602dc746375b6  notes/hf.py
+e681d26e863a7a47d451fbd4e5243add  DESIGN_v3.md
+95d6467fe80340f4759f2ae527902b85  notes/seq.py
+ed83dfc1fe6e8b36a17b929e1fe8929a  notes/hf.py
+696a203e50c9df634a9195cee3cd3fbe  DESIGN_v4.md
+d8ef522973fdbe563c3281604fe541f7  notes/seq.py
+eb541f85f8981d9ac530e5564a5164ed  notes/anchor.py
+b70184f548f427c6e0e433794ff13da4  DESIGN_v5.md
+94208eac723a95b0c67e4d7ee1915d40  notes/seq.py

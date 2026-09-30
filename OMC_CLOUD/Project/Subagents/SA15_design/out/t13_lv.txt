@@ -1,0 +1,6 @@
+dng720 plane 0 Lv1 minus Lv2 mean dPSNR -0.401 dB
+dng720 plane 1 Lv1 minus Lv2 mean dPSNR -0.269 dB
+dng720 plane 2 Lv1 minus Lv2 mean dPSNR -0.264 dB
+gfx plane 0 Lv1 minus Lv2 mean dPSNR -0.325 dB
+gfx plane 1 Lv1 minus Lv2 mean dPSNR -0.268 dB
+gfx plane 2 Lv1 minus Lv2 mean dPSNR -0.236 dB

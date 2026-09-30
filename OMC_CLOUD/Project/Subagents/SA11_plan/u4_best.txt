@@ -1,0 +1,13 @@
+d7x8_05 f=4 s=42: alternatives 3, fixed-path OK (rank0 = own plan, exact with delta*, bits*<=own) 0; of those also direct-solve exact 0
+gfx8_05 f=1 s=1: alternatives 21, fixed-path OK (rank0 = own plan, exact with delta*, bits*<=own) 14; of those also direct-solve exact 14
+   best OK: 0,10,13,0 bits d-169 dY -0.979  (PSNR 22.933/32.934/31.845 (d -0.979/+0.000/+0.000))
+   best OK+solve: 0,10,13,0 bits d-169 dY -0.979  (PSNR 22.933/32.934/31.845 (d -0.979/+0.000/+0.000))
+gfx8_05 f=4 s=4: alternatives 13, fixed-path OK (rank0 = own plan, exact with delta*, bits*<=own) 11; of those also direct-solve exact 11
+   best OK: 0,10,10,0 bits d-103 dY -0.862  (PSNR 23.134/31.207/30.197 (d -0.862/+0.000/+0.000))
+   best OK+solve: 0,10,10,0 bits d-103 dY -0.862  (PSNR 23.134/31.207/30.197 (d -0.862/+0.000/+0.000))
+gfx_05 f=0 s=15: alternatives 13, fixed-path OK (rank0 = own plan, exact with delta*, bits*<=own) 0; of those also direct-solve exact 0
+gfx_05 f=0 s=26: alternatives 22, fixed-path OK (rank0 = own plan, exact with delta*, bits*<=own) 18; of those also direct-solve exact 16
+   best OK: 0,10,14,0 bits d-53 dY -0.077  (PSNR 24.769/31.250/30.541 (d -0.077/+0.000/+0.000))
+   best OK+solve: 0,10,14,0 bits d-53 dY -0.077  (PSNR 24.769/31.250/30.541 (d -0.077/+0.000/+0.000))
+spot_10 f=0 s=3: alternatives 10, fixed-path OK (rank0 = own plan, exact with delta*, bits*<=own) 10; of those also direct-solve exact 0
+   best OK: 0,5,6,0 bits d-2606 dY -0.128  (PSNR 45.488/46.000/48.989 (d -0.128/-0.377/-0.774))

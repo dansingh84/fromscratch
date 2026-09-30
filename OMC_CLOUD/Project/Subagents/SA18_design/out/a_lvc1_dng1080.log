@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA18_design/bench/evalcell.py", line 19, in <module>
+    x = yuv.read_frame(p, W, H, f); o, b, info = s.encode(x)
+                                                 ~~~~~~~~^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA18_design/bench/seq.py", line 41, in encode
+    out, bits, info = c.code_frame(src, bpp=self.bpp, umap=self.umap() if self.universal else None)
+                      ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA18_design/bench/codec.py", line 213, in code_frame
+    bits += self.per_slice(self.row_bits(p, b, Q[b], im, collect=self.collect, e=e_rows[(p, b, p)]), b)
+                                                                                 ~~~~~~^^^^^^^^^^^
+KeyError: (0, 'LL', 0)

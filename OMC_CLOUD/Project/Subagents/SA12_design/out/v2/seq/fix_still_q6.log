@@ -1,0 +1,25 @@
+  frame 0 bpp 1.176
+  frame 1 bpp 0.148
+  frame 2 bpp 0.148
+  frame 3 bpp 0.145
+  frame 4 bpp 0.149
+  frame 5 bpp 0.143
+  frame 6 bpp 0.140
+  frame 7 bpp 0.147
+  frame 8 bpp 0.147
+  frame 9 bpp 0.148
+  frame 10 bpp 0.148
+  frame 11 bpp 0.145
+  frame 0 bpp 1.176
+  frame 1 bpp 0.148
+  frame 2 bpp 0.148
+  frame 3 bpp 0.145
+  frame 4 bpp 0.149
+  frame 5 bpp 0.143
+  frame 6 bpp 0.140
+  frame 7 bpp 0.147
+  frame 8 bpp 0.147
+  frame 9 bpp 0.148
+  frame 10 bpp 0.148
+  frame 11 bpp 0.145
+{"tag": "fix_still_q6", "Qf": 6.0, "oor": 0, "gen2": {"picture": true, "indices": true, "vectors": true}} mean bpp f2+ 0.146

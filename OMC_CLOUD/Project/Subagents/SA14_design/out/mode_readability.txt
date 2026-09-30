@@ -1,0 +1,1 @@
+mode readability (frame, plane, stripes where the flipped mode is not more expensive, stripes tested): [(2, 0, 0, 93), (2, 1, 0, 93), (2, 2, 0, 93), (3, 0, 0, 99), (3, 1, 0, 99), (3, 2, 0, 99), (4, 0, 0, 99), (4, 1, 0, 99), (4, 2, 0, 99)]

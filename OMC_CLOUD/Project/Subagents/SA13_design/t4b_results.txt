@@ -1,0 +1,12 @@
+cut24 pocs D= 14.0 oob_pre=47666 unconverged@200=88 | anch: n=90 need>0=90 max=200 p99=200 >4=28 >16=28 | int: n=72 need>0=72 max=200 p99=200 >4=72 >16=60
+cut24 pocs D= 40.0 oob_pre=59296 unconverged@200=105 | anch: n=90 need>0=90 max=200 p99=200 >4=43 >16=41 | int: n=72 need>0=72 max=200 p99=200 >4=72 >16=64
+cut24 cf   D= 14.0 oob_pre=49423 unconverged@200=130 | anch: n=90 need>0=90 max=200 p99=200 >4=59 >16=58 | int: n=72 need>0=72 max=200 p99=200 >4=72 >16=72
+cut24 cf   D= 40.0 oob_pre=58454 unconverged@200=111 | anch: n=90 need>0=90 max=200 p99=200 >4=62 >16=59 | int: n=72 need>0=72 max=200 p99=200 >4=72 >16=72
+ext10 pocs D= 14.0 oob_pre=241387 unconverged@200=80 | anch: n=108 need>0=10 max=200 p99=200 >4=4 >16=4 | int: n=96 need>0=88 max=200 p99=200 >4=76 >16=76
+ext10 pocs D= 40.0 oob_pre=51137 unconverged@200=20 | anch: n=108 need>0=9 max=200 p99=200 >4=4 >16=4 | int: n=96 need>0=32 max=200 p99=200 >4=16 >16=16
+ext10 cf   D= 14.0 oob_pre=241780 unconverged@200=81 | anch: n=108 need>0=10 max=200 p99=200 >4=6 >16=5 | int: n=96 need>0=88 max=200 p99=200 >4=76 >16=76
+ext10 cf   D= 40.0 oob_pre=50353 unconverged@200=18 | anch: n=108 need>0=9 max=200 p99=187 >4=4 >16=2 | int: n=96 need>0=32 max=200 p99=200 >4=20 >16=16
+gfx pocs D= 14.0 oob_pre=0 unconverged@200=0 | anch: n=102 need>0=0 max=0 p99=0 >4=0 >16=0 | int: n=96 need>0=0 max=0 p99=0 >4=0 >16=0
+gfx pocs D= 40.0 oob_pre=2 unconverged@200=0 | anch: n=102 need>0=0 max=0 p99=0 >4=0 >16=0 | int: n=96 need>0=2 max=1 p99=1 >4=0 >16=0
+gfx cf   D= 14.0 oob_pre=0 unconverged@200=0 | anch: n=102 need>0=0 max=0 p99=0 >4=0 >16=0 | int: n=96 need>0=0 max=0 p99=0 >4=0 >16=0
+gfx cf   D= 40.0 oob_pre=2 unconverged@200=0 | anch: n=102 need>0=0 max=0 p99=0 >4=0 >16=0 | int: n=96 need>0=2 max=1 p99=1 >4=0 >16=0

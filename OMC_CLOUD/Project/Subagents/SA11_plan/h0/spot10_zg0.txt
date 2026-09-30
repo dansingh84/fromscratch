@@ -1,0 +1,35 @@
+=== spot10_zg0 env[OMC_H0_ZERO=1] args[--gamut-strict 0] bytes=2088992
+per frame pair f-1->f: changed decoded samples per plane Y/Cb/Cr  [amplitude 1 | 2-3 | >=4]  (of N)
+  split f1: Y refresh-rows 111574/276480 inter-rows 17667/1797120 | B refresh-rows 52293/138240 inter-rows 7469/898560 | R refresh-rows 38534/138240 inter-rows 4443/898560
+ f1: Y 129241/2073600 (6.23%) [61283|44135|23823] max 66 || B 59762/1036800 (5.76%) [30758|20102|8902] max 72 || R 42977/1036800 (4.15%) [25844|13340|3793] max 27
+  split f2: Y refresh-rows 230704/276480 inter-rows 18496/1797120 | B refresh-rows 110006/138240 inter-rows 7858/898560 | R refresh-rows 102879/138240 inter-rows 5418/898560
+ f2: Y 249200/2073600 (12.02%) [77065|83889|88246] max 82 || B 117864/1036800 (11.37%) [46013|40249|31602] max 76 || R 108297/1036800 (10.45%) [52142|38704|17451] max 42
+  split f3: Y refresh-rows 216601/261120 inter-rows 17025/1812480 | B refresh-rows 103355/130560 inter-rows 7196/906240 | R refresh-rows 93382/130560 inter-rows 4927/906240
+ f3: Y 233626/2073600 (11.27%) [74775|77190|81661] max 71 || B 110551/1036800 (10.66%) [42904|38913|28734] max 59 || R 98309/1036800 (9.48%) [46532|35531|16246] max 38
+  split f4: Y refresh-rows 204537/245760 inter-rows 17002/1827840 | B refresh-rows 92635/122880 inter-rows 6994/913920 | R refresh-rows 87701/122880 inter-rows 5030/913920
+ f4: Y 221539/2073600 (10.68%) [68047|71132|82360] max 78 || B 99629/1036800 (9.61%) [35966|34769|28894] max 50 || R 92731/1036800 (8.94%) [40094|34554|18083] max 42
+  split f5: Y refresh-rows 202552/245760 inter-rows 16528/1827840 | B refresh-rows 101133/122880 inter-rows 7344/913920 | R refresh-rows 94216/122880 inter-rows 5527/913920
+ f5: Y 219080/2073600 (10.57%) [62796|69022|87262] max 149 || B 108477/1036800 (10.46%) [36771|36095|35611] max 98 || R 99743/1036800 (9.62%) [40951|35846|22946] max 56
+  split f6: Y refresh-rows 204503/245760 inter-rows 16215/1827840 | B refresh-rows 98120/122880 inter-rows 7155/913920 | R refresh-rows 90197/122880 inter-rows 4901/913920
+ f6: Y 220718/2073600 (10.64%) [65298|70919|84501] max 89 || B 105275/1036800 (10.15%) [37912|36263|31100] max 73 || R 95098/1036800 (9.17%) [42530|34756|17812] max 47
+  split f7: Y refresh-rows 203161/245760 inter-rows 16409/1827840 | B refresh-rows 93532/122880 inter-rows 6848/913920 | R refresh-rows 88446/122880 inter-rows 4890/913920
+ f7: Y 219570/2073600 (10.59%) [62952|71328|85290] max 92 || B 100380/1036800 (9.68%) [36228|34363|29789] max 63 || R 93336/1036800 (9.00%) [41077|33833|18426] max 50
+converged: NOT converged (frame 7 still changes)
+PSNR vs source Y/Cb/Cr per frame: f0 42.90/43.79/47.27 f1 42.90/43.80/47.28 f2 43.16/43.98/47.44 f3 43.35/44.13/47.58 f4 43.58/44.29/47.74 f5 44.00/44.58/48.04 f6 44.30/44.80/48.26 f7 44.62/45.02/48.47
+bits per frame (payload used / budget) by slice type; estimated split LL/b1-3/b4-6/b7-9; held = static-slice holds; bands_inter = inter-coded bands summed over slices
+ f0: total used 2062123 | intra 68 slices used 2062123 / budget 2121224 est 193116/672450/761225/414861 | held 0 pinned 0 bands_inter 0
+ f1: total used 290561 | intra 9 slices used 281534 / budget 424988 est 24935/89695/107087/57466 | inter 59 slices used 9027 / budget 1773027 est 61427/345428/594645/693344 | held 0 pinned 8 bands_inter 1770
+ f2: total used 424007 | intra 9 slices used 414980 / budget 433857 est 28733/115021/153412/116100 | inter 59 slices used 9027 / budget 1764317 est 63229/356289/584854/680869 | held 0 pinned 0 bands_inter 1770
+ f3: total used 396183 | intra 9 slices used 387156 / budget 407036 est 27742/108660/142254/106818 | inter 59 slices used 9027 / budget 1780239 est 62712/357485/629986/644339 | held 0 pinned 0 bands_inter 1770
+ f4: total used 375606 | intra 8 slices used 366426 / budget 382495 est 25967/101933/135116/100774 | inter 60 slices used 9180 / budget 1815105 est 62771/367874/667133/619955 | held 1 pinned 1 bands_inter 1800
+ f5: total used 385584 | intra 8 slices used 376404 / budget 389758 est 26399/103866/139813/104984 | inter 60 slices used 9180 / budget 1808045 est 62642/365606/682725/585230 | held 3 pinned 3 bands_inter 1800
+ f6: total used 387453 | intra 8 slices used 378273 / budget 392880 est 25938/102792/135724/111353 | inter 60 slices used 9180 / budget 1804894 est 62519/368806/708296/551019 | held 2 pinned 2 bands_inter 1800
+ f7: total used 381337 | intra 8 slices used 372157 / budget 387478 est 25828/101629/138814/103790 | inter 60 slices used 9180 / budget 1810142 est 61807/375302/739639/494350 | held 3 pinned 3 bands_inter 1800
+stage dump slice 5 plane Y (1920 x 16): changed samples frame f-1 -> f per stage; inter = slice coded inter on frame f
+  f0->f1 inter=1 ref 30711 pcoef 3430 coef_pre_inv 0 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 0 | bias 2048 ref(f)!=disp(f-1): 2331 committed(f)!=disp(f): 2331 disp_changed_by_row 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f1->f2 inter=1 ref 0 pcoef 0 coef_pre_inv 0 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 0 | bias 2048 ref(f)!=disp(f-1): 2331 committed(f)!=disp(f): 2331 disp_changed_by_row 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f2->f3 inter=1 ref 0 pcoef 0 coef_pre_inv 0 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 0 | bias 2048 ref(f)!=disp(f-1): 2331 committed(f)!=disp(f): 2331 disp_changed_by_row 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f3->f4 inter=1 ref 0 pcoef 1006 coef_pre_inv 1006 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 1188 | bias 2048 ref(f)!=disp(f-1): 2331 committed(f)!=disp(f): 1143 disp_changed_by_row 1188,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f4->f5 inter=0 ref 0 pcoef 4019 coef_pre_inv 2993 pre_clip 21990 post_clip 21990 committed_after_edit 21990 displayed 21942 | bias 2048 ref(f)!=disp(f-1): 1143 committed(f)!=disp(f): 2412 disp_changed_by_row 1662,1601,1604,1550,1494,1459,1467,1333,1181,1229,1291,1232,1177,1210,1239,1213 post_clip(f)!=ref(f): 21990 pre_clip(f)!=ref(f): 21990
+  f5->f6 inter=1 ref 21990 pcoef 5532 coef_pre_inv 1409 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 733 | bias 2048 ref(f)!=disp(f-1): 2412 committed(f)!=disp(f): 2450 disp_changed_by_row 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,733 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0
+  f6->f7 inter=1 ref 0 pcoef 0 coef_pre_inv 0 pre_clip 0 post_clip 0 committed_after_edit 0 displayed 0 | bias 2048 ref(f)!=disp(f-1): 2450 committed(f)!=disp(f): 2450 disp_changed_by_row 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 post_clip(f)!=ref(f): 0 pre_clip(f)!=ref(f): 0

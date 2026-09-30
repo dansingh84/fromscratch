@@ -1,0 +1,6 @@
+bosphorus_19 Y  dPSNR at matched rate vs V1=two/V2=two: V1=inblock V2=causal -1.43 | V1=inblock V2=two -0.96 | V1=two V2=causal -0.44 | V1=two V2=two +0.00
+bosphorus_19 Cb dPSNR at matched rate vs V1=two/V2=two: V1=inblock V2=causal -0.87 | V1=inblock V2=two -0.40 | V1=two V2=causal -0.45 | V1=two V2=two +0.00
+bosphorus_19 Cr dPSNR at matched rate vs V1=two/V2=two: V1=inblock V2=causal -0.81 | V1=inblock V2=two -0.35 | V1=two V2=causal -0.43 | V1=two V2=two +0.00
+cityalley_19 Y  dPSNR at matched rate vs V1=two/V2=two: V1=inblock V2=causal -0.84 | V1=inblock V2=two -0.47 | V1=two V2=causal -0.34 | V1=two V2=two +0.00
+cityalley_19 Cb dPSNR at matched rate vs V1=two/V2=two: V1=inblock V2=causal -0.31 | V1=inblock V2=two -0.07 | V1=two V2=causal -0.21 | V1=two V2=two +0.00
+cityalley_19 Cr dPSNR at matched rate vs V1=two/V2=two: V1=inblock V2=causal -0.34 | V1=inblock V2=two -0.10 | V1=two V2=causal -0.21 | V1=two V2=two +0.00

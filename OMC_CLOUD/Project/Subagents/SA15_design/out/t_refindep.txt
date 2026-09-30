@@ -1,0 +1,6 @@
+dng720 Y: exact with same ref True, different ref True, no ref True, oob 0
+dng720 Cb: exact with same ref True, different ref True, no ref True, oob 0
+dng720 Cr: exact with same ref True, different ref True, no ref True, oob 0
+gfx Y: exact with same ref True, different ref True, no ref True, oob 0
+gfx Cb: exact with same ref True, different ref True, no ref True, oob 0
+gfx Cr: exact with same ref True, different ref True, no ref True, oob 0

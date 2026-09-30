@@ -1,0 +1,9 @@
+BRIGHT rows  995-1011 cols  591- 654 area    356 err    +0.6 src  835.3 slice 62
+BRIGHT rows 1000-1011 cols  742- 833 area    299 err    +1.9 src  866.4 slice 62
+BRIGHT rows 1002-1011 cols  661- 720 area    238 err    +1.1 src  852.2 slice 62
+BRIGHT rows  536- 546 cols  718- 771 area    157 err    +0.7 src  355.4 slice 33
+DARK   rows  991-1008 cols  782- 901 area    466 err    +1.0 src  874.6 slice 61
+DARK   rows  995-1009 cols  683- 782 area    449 err    -0.3 src  860.2 slice 62
+DARK   rows  997-1010 cols  596- 649 area    190 err    +0.2 src  838.4 slice 62
+DARK   rows  489- 496 cols 1295-1334 area    177 err    -1.0 src  298.8 slice 30
+DARK   rows  993-1003 cols  905- 949 area    175 err    -1.8 src  884.7 slice 62

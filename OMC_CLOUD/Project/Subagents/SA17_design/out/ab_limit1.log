@@ -1,0 +1,6 @@
+LIMIT=1 dng720 @0.5 intra: NEG 74.55 (worst 73.73) PSNR 31.81/34.96/35.92 bits/target 0.9997
+LIMIT=1 dng720 @1.0 intra: NEG 89.69 (worst 88.69) PSNR 37.16/36.75/37.84 bits/target 0.9999
+LIMIT=1 spot @0.5 intra: NEG 88.39 (worst 80.98) PSNR 37.75/40.46/43.51 bits/target 0.9999
+LIMIT=1 spot @1.0 intra: NEG 97.53 (worst 92.67) PSNR 43.22/44.18/47.55 bits/target 0.9999
+LIMIT=1 gfx @0.5 intra: NEG 67.22 (worst 64.68) PSNR 27.81/32.42/32.59 bits/target 0.9995
+LIMIT=1 gfx @1.0 intra: NEG 87.73 (worst 86.35) PSNR 34.00/34.48/34.74 bits/target 0.9993

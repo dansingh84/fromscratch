@@ -1,0 +1,35 @@
+hwy 53     D0= 24 bpp=1.174 PSNR 45.16/49.43/46.35  rowspread4 5.9/8.9/9.1
+hwy 53     D0= 36 bpp=0.761 PSNR 43.13/48.12/44.87  rowspread4 6.6/6.7/5.8
+hwy 53     D0= 54 bpp=0.495 PSNR 41.25/46.68/43.84  rowspread4 5.8/10.0/12.2
+hwy 53     D0= 80 bpp=0.330 PSNR 39.50/45.38/42.95  rowspread4 6.0/15.5/25.6
+hwy 53     D0=120 bpp=0.214 PSNR 37.63/44.34/42.05  rowspread4 7.6/7.4/24.4
+hwy 26     D0= 24 bpp=1.196 PSNR 45.15/49.35/46.32  rowspread4 1.0/22.5/4.7
+hwy 26     D0= 36 bpp=0.781 PSNR 43.14/48.12/44.91  rowspread4 1.3/23.4/5.9
+hwy 26     D0= 54 bpp=0.513 PSNR 41.26/46.98/43.89  rowspread4 2.2/24.7/8.4
+hwy 26     D0= 80 bpp=0.344 PSNR 39.50/45.89/43.03  rowspread4 2.5/25.7/12.6
+hwy 26     D0=120 bpp=0.226 PSNR 37.67/44.25/42.26  rowspread4 2.7/28.2/15.0
+hwy 26u3   D0= 24 bpp=1.309 PSNR 45.04/49.20/46.17  rowspread4 1.1/22.0/4.4
+hwy 26u3   D0= 36 bpp=0.843 PSNR 43.00/48.02/44.78  rowspread4 1.2/22.8/4.5
+hwy 26u3   D0= 54 bpp=0.550 PSNR 41.15/46.91/43.78  rowspread4 1.4/24.3/6.5
+hwy 26u3   D0= 80 bpp=0.366 PSNR 39.42/45.83/42.95  rowspread4 2.1/25.7/9.7
+hwy 26u3   D0=120 bpp=0.237 PSNR 37.57/44.22/42.22  rowspread4 2.2/27.9/12.9
+hwy 26u4   D0= 24 bpp=1.236 PSNR 45.10/49.29/46.26  rowspread4 1.0/22.5/4.9
+hwy 26u4   D0= 36 bpp=0.800 PSNR 43.08/48.07/44.86  rowspread4 1.1/23.3/5.3
+hwy 26u4   D0= 54 bpp=0.527 PSNR 41.23/46.95/43.85  rowspread4 1.7/24.5/7.4
+hwy 26u4   D0= 80 bpp=0.351 PSNR 39.47/45.86/43.00  rowspread4 2.3/25.9/11.6
+hwy 26u4   D0=120 bpp=0.229 PSNR 37.62/44.24/42.24  rowspread4 2.3/28.0/13.9
+hwy 210    D0= 24 bpp=1.205 PSNR 45.14/49.33/46.30  rowspread4 0.5/16.8/6.7
+hwy 210    D0= 36 bpp=0.790 PSNR 43.15/48.10/44.88  rowspread4 0.3/17.0/7.6
+hwy 210    D0= 54 bpp=0.520 PSNR 41.29/47.06/43.91  rowspread4 0.5/17.8/7.6
+hwy 210    D0= 80 bpp=0.348 PSNR 39.52/45.84/43.07  rowspread4 1.2/18.0/7.7
+hwy 210    D0=120 bpp=0.228 PSNR 37.69/44.03/42.26  rowspread4 1.1/18.6/7.4
+hwy 210u4  D0= 24 bpp=1.277 PSNR 45.12/49.30/46.25  rowspread4 1.1/16.3/5.5
+hwy 210u4  D0= 36 bpp=0.826 PSNR 43.10/48.06/44.82  rowspread4 0.9/16.7/6.4
+hwy 210u4  D0= 54 bpp=0.540 PSNR 41.25/47.03/43.86  rowspread4 0.8/17.5/6.0
+hwy 210u4  D0= 80 bpp=0.361 PSNR 39.49/45.82/43.04  rowspread4 0.4/17.7/6.4
+hwy 210u4  D0=120 bpp=0.236 PSNR 37.66/44.02/42.24  rowspread4 0.4/18.1/6.0
+BD-rate 26 vs 53 on hwy: +2.52 %
+BD-rate 26u3 vs 53 on hwy: +12.92 %
+BD-rate 26u4 vs 53 on hwy: +6.18 %
+BD-rate 210 vs 53 on hwy: +3.41 %
+BD-rate 210u4 vs 53 on hwy: +8.80 %

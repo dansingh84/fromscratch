@@ -1,0 +1,27 @@
+=== dng720_10 bytes=921632 gamut default, OMC_R1 unset
+per frame pair f-1->f: changed decoded samples per plane Y/Cb/Cr  [amplitude 1 | 2-3 | >=4]  (of N)
+  split f1: Y refresh-rows 91197/122880 inter-rows 735036/798720 | B refresh-rows 43651/61440 inter-rows 375765/399360 | R refresh-rows 41457/61440 inter-rows 370441/399360
+ f1: Y 826233/921600 (89.65%) [121623|194553|510057] max 266 || B 419416/460800 (91.02%) [53355|93147|272914] max 121 || R 411898/460800 (89.39%) [61465|104301|246132] max 141
+  split f2: Y refresh-rows 97130/112640 inter-rows 694473/808960 | B refresh-rows 49055/56320 inter-rows 350230/404480 | R refresh-rows 48284/56320 inter-rows 342005/404480
+ f2: Y 791603/921600 (85.89%) [178990|258394|354219] max 214 || B 399285/460800 (86.65%) [79636|116840|202809] max 157 || R 390289/460800 (84.70%) [90454|127800|172035] max 115
+  split f3: Y refresh-rows 99559/112640 inter-rows 621891/808960 | B refresh-rows 52012/56320 inter-rows 300762/404480 | R refresh-rows 50618/56320 inter-rows 297826/404480
+ f3: Y 721450/921600 (78.28%) [255492|278160|187798] max 104 || B 352774/460800 (76.56%) [124128|128267|100379] max 78 || R 348444/460800 (75.62%) [127745|130679|90020] max 81
+  split f4: Y refresh-rows 103041/112640 inter-rows 609593/808960 | B refresh-rows 52885/56320 inter-rows 294563/404480 | R refresh-rows 52287/56320 inter-rows 290678/404480
+ f4: Y 712634/921600 (77.33%) [261858|274356|176420] max 122 || B 347448/460800 (75.40%) [128880|126627|91941] max 71 || R 342965/460800 (74.43%) [131896|130151|80918] max 74
+  split f5: Y refresh-rows 101573/112640 inter-rows 608749/808960 | B refresh-rows 51551/56320 inter-rows 296749/404480 | R refresh-rows 50748/56320 inter-rows 292682/404480
+ f5: Y 710322/921600 (77.07%) [259760|273817|176745] max 97 || B 348300/460800 (75.59%) [129046|128913|90341] max 77 || R 343430/460800 (74.53%) [131320|132015|80095] max 73
+  split f6: Y refresh-rows 100472/112640 inter-rows 607667/808960 | B refresh-rows 51902/56320 inter-rows 292758/404480 | R refresh-rows 51263/56320 inter-rows 286176/404480
+ f6: Y 708139/921600 (76.84%) [261386|275133|171620] max 99 || B 344660/460800 (74.80%) [129663|128983|86014] max 74 || R 337439/460800 (73.23%) [132929|130460|74050] max 80
+  split f7: Y refresh-rows 101688/112640 inter-rows 599977/808960 | B refresh-rows 52471/56320 inter-rows 291808/404480 | R refresh-rows 51673/56320 inter-rows 284345/404480
+ f7: Y 701665/921600 (76.14%) [260297|271786|169582] max 97 || B 344279/460800 (74.71%) [128518|128847|86914] max 71 || R 336018/460800 (72.92%) [132534|127276|76208] max 105
+converged: NOT converged (frame 7 still changes)
+PSNR vs source Y/Cb/Cr per frame: f0 36.01/36.49/37.42 f1 38.75/37.67/38.54 f2 40.00/38.47/39.22 f3 40.07/38.53/39.28 f4 39.97/38.44/39.18 f5 39.96/38.45/39.20 f6 39.90/38.38/39.15 f7 39.76/38.29/39.04
+bits per frame (payload used / budget) by slice type; estimated split LL/b1-3/b4-6/b7-9; held = static-slice holds; bands_inter = inter-coded bands summed over slices
+ f0: total used 886534 | intra 90 slices used 886534 / budget 904880 est 87255/243953/324272/222351 | held 0 pinned 0 bands_inter 0
+ f1: total used 866815 | intra 12 slices used 121320 / budget 185586 est 11577/32948/46518/29261 | inter 78 slices used 745495 / budget 800477 est 21852/131353/286477/324301 | held 0 pinned 11 bands_inter 2028
+ f2: total used 739704 | intra 11 slices used 176368 / budget 180016 est 10853/41053/66888/57027 | inter 79 slices used 563336 / budget 808155 est 29174/111204/129829/302857 | held 24 pinned 24 bands_inter 2225
+ f3: total used 390644 | intra 11 slices used 174109 / budget 177673 est 10615/40281/66707/55989 | inter 79 slices used 216535 / budget 810726 est 26446/63133/57120/81537 | held 65 pinned 65 bands_inter 2332
+ f4: total used 346246 | intra 11 slices used 177574 / budget 182050 est 10845/41303/67250/57740 | inter 79 slices used 168672 / budget 806069 est 25899/56857/34951/63228 | held 70 pinned 70 bands_inter 2335
+ f5: total used 355126 | intra 11 slices used 172770 / budget 176954 est 10585/40432/65604/55520 | inter 79 slices used 182356 / budget 811071 est 26224/57351/34015/76546 | held 68 pinned 68 bands_inter 2331
+ f6: total used 333256 | intra 11 slices used 171468 / budget 175724 est 10545/40490/65518/54372 | inter 79 slices used 161788 / budget 812463 est 25847/55023/38018/55249 | held 71 pinned 71 bands_inter 2336
+ f7: total used 317675 | intra 11 slices used 174982 / budget 180445 est 10671/41244/67407/55075 | inter 79 slices used 142693 / budget 807662 est 25481/51838/28472/49332 | held 73 pinned 73 bands_inter 2328

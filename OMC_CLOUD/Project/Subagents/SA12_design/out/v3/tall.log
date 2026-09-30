@@ -1,0 +1,2 @@
+slice height 16 Y p16 1.15 p8 0.99 excess +0.16 psnr 41.24 | C p16 1.29 p8 1.12 excess +0.18 psnr 42.76
+slice height 1072 Y p16 1.00 p8 1.00 excess +0.01 psnr 41.29 | C p16 1.13 p8 1.13 excess +0.01 psnr 42.83

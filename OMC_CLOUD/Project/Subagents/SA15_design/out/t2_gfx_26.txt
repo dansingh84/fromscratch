@@ -1,0 +1,5 @@
+gfx f0 TS26 Lv=2 D=16 bpp=4.688 Y/Cb/Cr=45.80/45.69/45.79 oob=0 gen2diff=0
+gfx f0 TS26 Lv=2 D=64 bpp=1.158 Y/Cb/Cr=36.69/35.71/36.12 oob=0 gen2diff=0
+gfx f0 TS26 Lv=2 D=160 bpp=0.493 Y/Cb/Cr=32.16/33.46/33.71 oob=0 gen2diff=0
+gfx f0 TS26 Lv=2 D=400 bpp=0.199 Y/Cb/Cr=26.90/31.98/32.35 oob=0 gen2diff=0
+rc=0

@@ -1,0 +1,105 @@
+{
+ "fix_spot_q6.0": {
+  "NEG_f2_11": "92.929",
+  "PSNR_mean_f2_11": "39.55/41.84/45.17",
+  "PSNR_worst_f2_11": "39.29/41.62/44.83",
+  "ants": [
+   "plane  blocks   decode tail%  boil    source tail%  boil    (flat<=12 still<=6, tail at |d|>6 codes)",
+   "Y        1001         3.56   1.708        26.53   4.674",
+   "Cb        874         2.82   1.520        22.07   4.244",
+   "Cr       2540         2.97   1.501        12.69   3.356"
+  ],
+  "smudge_f8": [
+   "Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]",
+   "Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]",
+   "Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]"
+  ],
+  "flatplane_f8": [
+   "Y    37.16% of 7899 textured blocks | Cb   53.17% of 3703 textured blocks | Cr   29.49% of 3974 textured blocks"
+  ],
+  "texstat_f8": [
+   "TEXSTAT Y AMP=0.968 PER=0.82 COR=0.775  Cb AMP=0.714 PER=0.94 COR=0.407  Cr AMP=0.785 PER=0.90 COR=0.318"
+  ],
+  "bpp_mean_f2_11": 0.38298557794234106,
+  "bpp_max_f2_11": 0.47302239721887374,
+  "changed_per_frame_Y/Cb/Cr": [
+   [
+    "0.7976",
+    "0.6892",
+    "0.4825"
+   ],
+   [
+    "0.8608",
+    "0.7496",
+    "0.6465"
+   ],
+   [
+    "0.8629",
+    "0.7729",
+    "0.6824"
+   ],
+   [
+    "0.8382",
+    "0.7698",
+    "0.6715"
+   ],
+   [
+    "0.8567",
+    "0.7746",
+    "0.6678"
+   ],
+   [
+    "0.9044",
+    "0.8097",
+    "0.7340"
+   ],
+   [
+    "0.9104",
+    "0.8215",
+    "0.7549"
+   ],
+   [
+    "0.9063",
+    "0.8247",
+    "0.7513"
+   ],
+   [
+    "0.9003",
+    "0.8240",
+    "0.7381"
+   ],
+   [
+    "0.8784",
+    "0.8078",
+    "0.7202"
+   ],
+   [
+    "0.9012",
+    "0.8186",
+    "0.7406"
+   ]
+  ]
+ },
+ "today": {
+  "NEG_f2_11": "93.763",
+  "PSNR_mean_f2_11": "39.54/42.80/46.31",
+  "PSNR_worst_f2_11": "36.51/42.10/45.65",
+  "ants": [
+   "plane  blocks   decode tail%  boil    source tail%  boil    (flat<=12 still<=6, tail at |d|>6 codes)",
+   "Y        1001         5.16   2.492        26.53   4.674",
+   "Cb        874         6.73   2.683        22.07   4.244",
+   "Cr       2540         4.49   2.386        12.69   3.356"
+  ],
+  "smudge_f8": [
+   "Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]",
+   "Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]",
+   "Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]"
+  ],
+  "flatplane_f8": [
+   "Y    48.02% of 7899 textured blocks | Cb   65.14% of 3703 textured blocks | Cr   68.97% of 3974 textured blocks"
+  ],
+  "texstat_f8": [
+   "TEXSTAT Y AMP=0.936 PER=1.18 COR=0.849  Cb AMP=0.644 PER=1.40 COR=0.508  Cr AMP=0.601 PER=2.02 COR=0.442"
+  ]
+ }
+}

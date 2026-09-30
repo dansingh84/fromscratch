@@ -1,0 +1,116 @@
+SA11 STEP S -- STRUCTURE STUDY, OFFLINE (numpy; no codec build, no encode).  2026-09-27.  Numbers only; every row Y/Cb/Cr.
+Script notes/struct_s.py (+ notes/dpcm1.c helper), summary notes/struct_sum.py; results struct/*.json, struct/sum.txt,
+struct/phase.txt.  Frames (4:2:2 10-bit, full frames, no crops): cf_gfx 448x256 f0,f5 (slice 8 rows); dng 1280x720 f0,f5
+(8 rows); dng 1920x1080 f0,f5 (16); cityalley 1920x1080 f0,f5 (16); spotrobotL 1920x1080 f0,f5 (16) = 10 cells.
+All frames coded INTRA (spatial structure only; no temporal prediction).
+METHOD
+ Structure as CORE/review/cgain2d.py: V1,H1,V2,H2 then H3,H4,H5 horizontal-only on LL2 (2 vertical, 5 horizontal levels).
+ BASELINE = today: vertical 5/3 with update at V1,V2; horizontal 9/7-M-like at H1,H2 = the (4,0) predictor
+ (-1,9,9,-1)/16 + the 5/3 update (the reviewer's approximation, not bit-exact 9/7-M); 5/3 at H3-H5.  Per slice (8/16
+ rows), whole-sample symmetric extension at slice and frame edges, FLOAT lifting (not the integer codec).
+ Quantiser: dead zone 9/16 (q = sign*floor(|c|/D + 7/16), recon q*D).  Step D = 2^round(Qf - log2 sqrt(w_b)) per band,
+ w_b = synthesis energy of a unit impulse in the band (fixed allocation, power-of-two steps), Qf swept in 0.5 steps.
+ LL / coarse band (and DPCM residual) step multiplied by 2^k, k in {-3..0}; per arm and rate the k with the best mean
+ of the three plane PSNRs is used (the same rule for the baseline; baseline picked k = -1 almost everywhere).
+ Rate = zeroth-order entropy of the quantised symbols per band (one histogram per band per frame; DPCM residuals one
+ histogram per plane); bpp = bits of all three planes / luma pixels.  PSNR per plane on the integer-rounded,
+ [0,1023]-clipped output.  Values at 0.5/1.0/2.0 bpp by linear interpolation of PSNR in log2(bpp).
+ Deltas below: mean over the 10 cells / worst cell, dB Y/Cb/Cr.
+BASELINE absolute (estimate), Y/Cb/Cr at 0.5 | 1.0 | 2.0 bpp:
+  gfx_f0      30.25/32.95/33.21 (k-1) | 34.41/34.10/34.47 (k-1) | 37.33/36.54/36.90 (k0)
+  gfx_f5      30.28/32.93/33.11 (k-1) | 34.40/34.09/34.48 (k-1) | 37.36/36.55/36.84 (k-1)
+  dng720_f0   33.53/35.24/36.33 (k-1) | 37.04/36.41/37.44 (k-1) | 40.25/39.08/39.67 (k-1)
+  dng720_f5   33.53/35.20/36.32 (k-1) | 37.03/36.39/37.44 (k-1) | 40.25/39.06/39.66 (k-1)
+  dng1080_f0  34.56/34.15/35.39 (k-1) | 36.45/35.39/36.33 (k-1) | 39.00/38.45/38.89 (k-1)
+  dng1080_f5  34.52/34.14/35.38 (k-1) | 36.43/35.38/36.29 (k-1) | 38.99/38.44/38.88 (k-1)
+  city_f0     40.84/46.48/45.69 (k-1) | 45.09/49.73/48.93 (k-1) | 49.51/52.90/52.33 (k-1)
+  city_f5     40.83/46.46/45.69 (k-1) | 45.09/49.71/48.93 (k-1) | 49.52/52.90/52.33 (k-1)
+  spot_f0     39.66/41.41/44.43 (k-1) | 43.15/44.09/47.35 (k-1) | 46.79/47.42/50.02 (k-1)
+  spot_f5     40.64/42.19/45.21 (k-1) | 44.05/44.86/48.11 (k-1) | 47.50/48.22/50.76 (k-1)
+
+S1 -- UPDATE REMOVED AT ONE LEVEL AT A TIME (everything else = baseline)
+  po_L1            | 0.5: -0.82/-0.43/-0.41 worst -1.03/-0.61/-0.50 n=10 | 1.0: -1.09/-0.98/-0.88 worst -1.25/-1.23/-1.08 n=10 | 2.0: -1.65/-1.63/-1.52 worst -1.92/-1.98/-1.77 n=10
+  po_L2            | 0.5: -1.04/-1.08/-0.98 worst -1.27/-1.46/-1.31 n=10 | 1.0: -1.28/-1.23/-1.28 worst -1.49/-1.56/-1.66 n=10 | 2.0: -0.94/-0.91/-0.99 worst -1.26/-1.08/-1.40 n=10
+  po_H3            | 0.5: -0.19/-0.21/-0.21 worst -0.25/-0.32/-0.27 n=10 | 1.0: -0.14/-0.08/-0.12 worst -0.17/-0.18/-0.22 n=10 | 2.0: -0.10/-0.06/-0.05 worst -0.12/-0.11/-0.11 n=10
+  po_H4            | 0.5: -0.12/-0.18/-0.14 worst -0.19/-0.33/-0.24 n=10 | 1.0: -0.06/-0.08/-0.08 worst -0.10/-0.14/-0.15 n=10 | 2.0: -0.03/-0.03/-0.03 worst -0.06/-0.05/-0.07 n=10
+  po_H5            | 0.5: -0.08/-0.15/-0.17 worst -0.13/-0.44/-0.37 n=10 | 1.0: -0.05/-0.06/-0.07 worst -0.07/-0.20/-0.17 n=10 | 2.0: -0.03/-0.03/-0.04 worst -0.04/-0.08/-0.07 n=10
+  po_all           | 0.5: -2.20/-2.28/-2.24 worst -2.68/-2.63/-2.64 n=10 | 1.0: -2.64/-2.42/-2.48 worst -2.86/-2.93/-2.96 n=10 | 2.0: -2.64/-2.59/-2.56 worst -2.92/-2.93/-2.87 n=10
+ Reading: the loss sits at the two finest levels: level 1 (V1+H1) -0.82/-0.43/-0.41 @0.5 growing to -1.65/-1.63/-1.52
+ @2.0; level 2 (V2+H2) -0.9...-1.3 at all rates; H3/H4/H5 each <= -0.21 mean (<= -0.44 worst).  All levels together
+ -2.20...-2.64 (Y), matching S5.349's -2.4/-3.1/-3.0 order.
+S2 -- 1 or 2 levels PREDICT-ONLY (2-tap, V and H), remaining low band coded by closed-loop causal DPCM in the pixel
+ domain (predictors: left, top, avg = floor((left+top)/2), plane = clamp(left+top-topleft), gsel = top if
+ |left-topleft| < |top-topleft| else left; top across slices = previous slice's reconstructed low-band row), residual
+ dead-zone quantiser, reconstruction clamped to [0,1023]; inverse lifting clamps every pixel-domain output.
+  S2_L1_left       | 0.5: -4.88/-3.14/-3.59 worst -5.27/-5.53/-5.97 n=10 | 1.0: -2.88/-1.71/-1.97 worst -3.68/-2.62/-3.07 n=10 | 2.0: -1.71/-1.56/-1.37 worst -2.06/-1.85/-1.85 n=10
+  S2_L1_top        | 0.5: -4.51/-2.80/-3.24 worst -5.36/-3.48/-5.35 n=10 | 1.0: -2.83/-1.25/-1.61 worst -3.49/-1.88/-2.79 n=10 | 2.0: -1.62/-1.35/-1.18 worst -2.01/-2.02/-1.97 n=10
+  S2_L1_avg        | 0.5: -2.00/-1.15/-1.48 worst -2.43/-1.86/-2.68 n=10 | 1.0: -1.43/-0.96/-0.93 worst -2.03/-1.19/-1.20 n=10 | 2.0: -1.42/-1.23/-1.10 worst -1.73/-1.72/-1.73 n=10
+  S2_L1_plane      | 0.5: -4.83/-3.89/-4.16 worst -6.05/-4.67/-6.09 n=10 | 1.0: -3.33/-2.08/-2.42 worst -3.88/-2.58/-3.66 n=10 | 2.0: -1.96/-1.77/-1.54 worst -2.26/-2.38/-2.24 n=10
+  S2_L1_gsel       | 0.5: -4.20/-2.33/-2.82 worst -5.17/-3.05/-4.21 n=10 | 1.0: -2.60/-1.16/-1.43 worst -3.26/-1.60/-1.95 n=10 | 2.0: -1.53/-1.28/-1.15 worst -1.92/-1.89/-1.89 n=10
+  S2_L2_left       | 0.5: -2.38/-1.11/-1.14 worst -3.29/-1.68/-1.74 n=10 | 1.0: -2.08/-1.56/-1.63 worst -2.34/-2.26/-2.20 n=10 | 2.0: -2.01/-1.99/-1.92 worst -2.19/-2.36/-2.23 n=10
+  S2_L2_top        | 0.5: -2.33/-0.97/-1.00 worst -3.47/-1.69/-1.75 n=10 | 1.0: -2.03/-1.52/-1.59 worst -2.49/-2.33/-2.25 n=10 | 2.0: -1.97/-1.95/-1.89 worst -2.25/-2.43/-2.29 n=10
+  S2_L2_avg        | 0.5: -1.68/-1.06/-1.00 worst -2.18/-1.75/-1.75 n=10 | 1.0: -1.98/-1.47/-1.52 worst -2.32/-2.25/-2.17 n=10 | 2.0: -1.95/-1.94/-1.88 worst -2.18/-2.35/-2.24 n=10
+  S2_L2_plane      | 0.5: -2.65/-1.17/-1.18 worst -4.19/-2.12/-1.81 n=10 | 1.0: -2.18/-1.62/-1.68 worst -2.63/-2.40/-2.32 n=10 | 2.0: -2.06/-2.04/-1.97 worst -2.32/-2.51/-2.36 n=10
+  S2_L2_gsel       | 0.5: -2.16/-0.95/-0.97 worst -3.23/-1.68/-1.75 n=10 | 1.0: -1.97/-1.49/-1.55 worst -2.36/-2.27/-2.21 n=10 | 2.0: -1.93/-1.92/-1.86 worst -2.20/-2.37/-2.24 n=10
+S3 -- S2 with longer interpolating predictors at the predict-only levels ((4,0) = (-1,9,9,-1)/16 at both levels, or
+ (6,0) = (3,-25,150,150,-25,3)/256 at level 1 and (4,0) at level 2; Appendix A constants), DPCM avg / gsel:
+  S3_40_L1_avg     | 0.5: -2.19/-1.39/-1.68 worst -2.63/-1.94/-2.78 n=10 | 1.0: -1.90/-1.27/-1.24 worst -2.45/-1.38/-1.46 n=10 | 2.0: -2.01/-1.71/-1.57 worst -2.22/-2.33/-2.31 n=10
+  S3_60_L1_avg     | 0.5: -2.37/-1.52/-1.79 worst -2.85/-2.01/-2.87 n=10 | 1.0: -2.14/-1.48/-1.44 worst -2.71/-1.60/-1.61 n=10 | 2.0: -2.33/-1.99/-1.84 worst -2.53/-2.65/-2.63 n=10
+  S3_40_L1_gsel    | 0.5: -4.37/-2.67/-3.12 worst -5.32/-3.28/-4.49 n=10 | 1.0: -2.98/-1.54/-1.82 worst -3.70/-2.09/-2.32 n=10 | 2.0: -2.12/-1.76/-1.63 worst -2.53/-2.51/-2.51 n=10
+  S3_60_L1_gsel    | 0.5: -4.52/-2.85/-3.28 worst -5.44/-3.43/-4.63 n=10 | 1.0: -3.24/-1.79/-2.07 worst -3.98/-2.32/-2.53 n=10 | 2.0: -2.59/-1.97/-1.91 worst -2.98/-2.85/-2.85 n=10
+  S3_40_L2_avg     | 0.5: -2.77/-1.51/-1.50 worst -3.80/-2.39/-2.37 n=10 | 1.0: -2.93/-2.08/-2.13 worst -3.88/-2.68/-2.81 n=10 | 2.0: -2.65/-2.60/-2.49 worst -2.86/-3.19/-2.87 n=10
+  S3_60_L2_avg     | 0.5: -2.92/-1.59/-1.58 worst -3.91/-2.50/-2.46 n=10 | 1.0: -3.18/-2.24/-2.28 worst -4.08/-2.90/-2.95 n=10 | 2.0: -2.97/-2.88/-2.76 worst -3.19/-3.54/-3.23 n=10
+  S3_40_L2_gsel    | 0.5: -2.85/-1.53/-1.63 worst -4.06/-2.47/-2.48 n=10 | 1.0: -2.95/-2.06/-2.13 worst -3.93/-2.72/-2.78 n=10 | 2.0: -2.65/-2.60/-2.49 worst -2.91/-3.22/-2.90 n=10
+  S3_60_L2_gsel    | 0.5: -3.24/-1.48/-1.61 worst -4.33/-2.55/-2.57 n=10 | 1.0: -3.17/-2.24/-2.29 worst -4.12/-2.94/-2.98 n=10 | 2.0: -2.97/-2.87/-2.76 worst -3.27/-3.56/-3.24 n=10
+ Reading: best shallow structure = S2 1 level + avg DPCM: -2.00/-1.15/-1.48 @0.5, -1.43/-0.96/-0.93 @1.0,
+ -1.42/-1.23/-1.10 @2.0; 2 levels + avg: -1.68/-1.06/-1.00, -1.98/-1.47/-1.52, -1.95/-1.94/-1.88.  None is within
+ 0.1 dB of the baseline on any plane at any rate.  Longer predictors are WORSE than 2-tap in this structure (S3 (4,0)
+ -0.2...-1.0 below S2, (6,0) below (4,0)).
+S5 -- VERTICAL CAUSAL: no vertical transform; each row predicted from reconstructed rows ABOVE (up = co-located;
+ up3 = floor((a + 2b + c + 2)/4) of the row above; lin2 = clamp(2*r1 - r2) (two rows back); gsel = co-located if
+ |c - a| > 16 in the row above else up3), residual row transformed horizontally: (a) 5/3 with update, 5 levels, all
+ bands quantised, NO clamp; (b1)/(b2) 1/2 levels horizontal predict-only (2-tap) + closed-loop left-DPCM of the coarse
+ band, reconstruction clamped per sample.  Rows are reconstructed one at a time (closed loop).
+  S5a_up           | 0.5: -0.51/-0.94/-1.03 worst -0.93/-1.68/-1.98 n=10 | 1.0: -1.08/-1.54/-1.71 worst -2.26/-4.01/-3.74 n=10 | 2.0: -1.29/-2.11/-2.39 worst -1.90/-4.76/-4.38 n=10
+  S5a_up3          | 0.5: -0.72/-1.09/-1.22 worst -1.24/-1.83/-1.79 n=10 | 1.0: -0.65/-1.01/-1.13 worst -0.94/-2.16/-2.02 n=10 | 2.0: -0.39/-0.78/-0.99 worst -0.70/-1.67/-1.82 n=10
+  S5a_lin2         | 0.5: -20.55/-6.54/-11.49 worst -26.37/-8.49/-18.90 n=10 | 1.0: -19.80/-7.82/-11.38 worst -24.65/-11.89/-16.12 n=10 | 2.0: -11.69/-11.24/-11.79 worst -12.91/-14.76/-15.09 n=10
+  S5a_gsel         | 0.5: -1.07/-0.94/-1.02 worst -2.68/-1.28/-1.39 n=10 | 1.0: -0.64/-0.94/-1.07 worst -1.43/-1.49/-1.47 n=10 | 2.0: -0.39/-0.93/-1.13 worst -1.02/-1.24/-1.62 n=10
+  S5b1_up          | 0.5: -6.82/-6.25/-6.40 worst -8.37/-8.00/-10.10 n=10 | 1.0: -5.60/-4.45/-4.89 worst -6.58/-5.80/-7.75 n=10 | 2.0: -2.91/-3.12/-3.28 worst -3.41/-3.57/-4.04 n=10
+  S5b1_up3         | 0.5: -3.47/-2.38/-2.90 worst -4.30/-3.67/-5.36 n=10 | 1.0: -2.62/-2.12/-2.52 worst -3.34/-2.79/-4.27 n=10 | 2.0: -1.76/-2.16/-2.20 worst -2.03/-2.59/-2.77 n=10
+  S5b1_lin2        | 0.5: -15.30/-9.00/-10.10 worst -18.91/-11.62/-14.56 n=10 | 1.0: -12.67/-9.71/-9.47 worst -15.07/-11.91/-14.72 n=10 | 2.0: -9.45/-7.04/-7.18 worst -13.25/-8.10/-9.48 n=10
+  S5b1_gsel        | 0.5: -5.40/-4.09/-4.83 worst -6.37/-4.97/-7.73 n=10 | 1.0: -4.02/-2.68/-3.11 worst -5.28/-3.07/-3.84 n=10 | 2.0: -1.91/-2.28/-2.35 worst -2.37/-2.87/-2.73 n=10
+  S5b2_up          | 0.5: -5.79/-4.26/-4.50 worst -7.04/-5.22/-6.07 n=10 | 1.0: -3.79/-3.06/-3.20 worst -4.53/-3.76/-4.05 n=10 | 2.0: -2.44/-3.01/-2.90 worst -2.74/-3.38/-3.27 n=10
+  S5b2_up3         | 0.5: -3.59/-2.52/-2.71 worst -4.70/-2.99/-3.54 n=10 | 1.0: -3.08/-2.79/-2.77 worst -3.49/-3.44/-3.51 n=10 | 2.0: -2.57/-2.95/-2.93 worst -2.79/-3.63/-3.73 n=10
+  S5b2_lin2        | 0.5: -15.79/-9.49/-9.26 worst -20.09/-11.08/-12.20 n=10 | 1.0: -13.46/-7.11/-8.03 worst -17.05/-11.18/-13.60 n=10 | 2.0: -8.60/-5.61/-5.59 worst -10.17/-6.21/-6.14 n=10
+  S5b2_gsel        | 0.5: -4.91/-2.90/-3.07 worst -6.97/-3.54/-3.75 n=10 | 1.0: -3.10/-2.76/-2.89 worst -3.98/-3.29/-3.83 n=10 | 2.0: -2.47/-2.94/-2.95 worst -3.00/-3.49/-3.46 n=10
+ Per cell, S5a (1.0 bpp, Y/Cb/Cr): up3 dng720 f0 -0.48/-0.55/-0.56, dng1080 f0 -0.55/-0.52/-0.56, city f0 -0.70/-2.16/-1.93,
+   spot f0 -0.52/-0.98/-1.68; gsel dng720 -0.96/-0.74/-0.67, dng1080 -0.94/-0.79/-0.78, city +0.09/-1.49/-1.28,
+   spot -0.04/-0.66/-1.30 (all cells in struct/sum.txt).
+ Reading: S5a (vertical causal + horizontal 5/3 WITH update) is the closest non-baseline structure measured:
+   up3 -0.72/-1.09/-1.22 @0.5, -0.65/-1.01/-1.13 @1.0, -0.39/-0.78/-0.99 @2.0; gsel -1.07/-0.94/-1.02, -0.64/-0.94/-1.07,
+   -0.39/-0.93/-1.13; chroma loses more than luma; still no plane within 0.1 dB.  lin2 (two-row extrapolation) diverges
+   (-6...-26 dB): the closed loop amplifies the quantisation error of two rows.  S5b (horizontal predict-only +
+   DPCM) -1.8...-9 dB.
+ Look-back (latency): S5 up/up3/gsel need 1 row above, lin2 2 rows above; NO row below in any S5 variant (the
+   baseline's vertical transform needs the whole slice; S2/S3 the whole slice too, as today).
+ Row-phase mean |error| per plane at ~1 bpp (struct/phase.txt), dng720 f0 (8-row slices):
+   baseline (0.97-1.21 bpp): Y 9.45 9.03 8.81 9.94 8.57 10.42 9.91 11.91 | Cb 11.34 ... 14.38 | Cr 10.25 ... 12.41
+     (last row +26 % Y, +27 % Cb, +21 % Cr over the row mean)
+   S5a up3 (1.27 bpp):          Y 10.64 10.72 10.73 10.66 10.69 10.72 10.71 10.66 (flat within +-0.6 %)
+                                 Cb 12.73 12.70 12.71 12.75 12.73 12.77 12.74 12.71; Cr 11.52 11.43 11.45 11.42 11.49 11.45 11.50 11.50
+   dng1080 f0 (16 rows): baseline last row Y 15.02 vs row mean ~12.0 (+25 %), Cb 17.84 vs ~13.8, Cr 15.11 vs ~12.5;
+     S5a up3 Y 11.96-12.03, Cb 13.57-13.70, Cr 12.72-12.85 across all 16 phases (flat, no slice-edge row).
+   cf_gfx f0: baseline last row Y 17.32 vs ~14.6; S5a up3 Y 15.50-15.83, Cb 16.90-17.16, Cr 15.98-16.44 (flat).
+S4 -- LEGALITY AND WORK
+ Out-of-range output samples (max over the rate sweep, per cell): S2 and S3 = 0 on every cell and rate (legal by
+   construction); S5b = 0 after the per-sample clamp (the clamp fires on 2,901-42,431 pre-clamp samples per frame,
+   max over sweep, lin2 highest); baseline (no clamp) 1,995-60,538; S1 arms 53,635-92,206; S5a (no clamp)
+   125,114-285,115.
+ Operations per sample (estimate, forward; the inverse is the same count; integer shift-add forms; predict 2-tap = 3
+   ops per odd sample, (4,0) = 8, (6,0) = 21, 5/3 update = 4 per even sample; DPCM ~10 per coarse sample incl. quantise/
+   dequantise/clamp; clamps 2 per clamped sample):
+   baseline 12.3 | predict-only everywhere 3.9 | S2 1 level 5.5 (+1 clamp in inverse) | S2 2 levels 4.4 |
+   S3 (4,0) 1 level 10.5, 2 levels 10.6 | S3 (6,0) 1 level 23.5, 2 levels 23.6 |
+   S5a: row predictor 0 (up) / 4 (up3) / ~6 (gsel) + 1 subtract + horizontal 5/3 5 levels 6.8 = 7.8-13.8 at the decoder;
+   the encoder also runs the closed-loop reconstruction (+6.8 + 1) = 15.6-21.6 |
+   S5b1: row predictor + 1.5 + DPCM 5 + clamp 2 = 8.5-14.5 (encoder + reconstruction ~same again).

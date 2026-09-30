@@ -1,0 +1,6 @@
+spot f8 TS210 Lv=2 D=24 bpp=0.898 Y/Cb/Cr=44.97/45.69/48.67 oob=0 gen2diff=92
+spot f8 TS210 Lv=2 D=40 bpp=0.515 Y/Cb/Cr=42.92/43.92/47.23 oob=0 gen2diff=68
+spot f8 TS210 Lv=2 D=64 bpp=0.339 Y/Cb/Cr=41.04/42.63/45.86 oob=0 gen2diff=114
+spot f8 TS210 Lv=2 D=100 bpp=0.242 Y/Cb/Cr=39.16/41.39/44.47 oob=0 gen2diff=191
+spot f8 TS210 Lv=2 D=160 bpp=0.168 Y/Cb/Cr=37.05/40.05/42.76 oob=0 gen2diff=248
+rc=0

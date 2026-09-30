@@ -1,0 +1,12 @@
+inter Y  mean|e| spread   1.5%  slice-edge(ph7)  +0.7%  internal block edges  +0.6%  excess  +0.1%  | +0.3 -0.5 -0.8 +0.6 +0.2 -0.1 -0.5 +0.7
+inter Y  step    spread   4.2%  slice-edge(ph7)  -1.7%  internal block edges  -2.1%  excess  +0.4%  | +1.9 -2.0 +1.9 -2.1 +1.9 -1.9 +2.1 -1.7
+inter Cb mean|e| spread   0.6%  slice-edge(ph3)  -0.1%  internal block edges  +0.3%  excess  -0.4%  | +0.1 +0.3 -0.3 -0.1
+inter Cb step    spread   2.2%  slice-edge(ph3)  -1.0%  internal block edges  -1.0%  excess  +0.0%  | +1.2 -1.0 +0.7 -1.0
+inter Cr mean|e| spread   0.4%  slice-edge(ph3)  +0.2%  internal block edges  -0.1%  excess  +0.3%  | +0.1 -0.1 -0.2 +0.2
+inter Cr step    spread   0.5%  slice-edge(ph3)  +0.0%  internal block edges  -0.3%  excess  +0.3%  | +0.1 -0.3 +0.2 +0.0
+intra Y  mean|e| spread   1.2%  slice-edge(ph7)  +0.4%  internal block edges  -0.1%  excess  +0.5%  | +0.6 -0.2 -0.4 -0.1 +0.5 -0.7 -0.3 +0.4
+intra Y  step    spread   2.0%  slice-edge(ph7)  +0.0%  internal block edges  -0.3%  excess  +0.3%  | +0.8 -0.8 +0.2 -0.3 +0.3 -1.1 +0.9 +0.0
+intra Cb mean|e| spread   0.4%  slice-edge(ph3)  -0.2%  internal block edges  +0.2%  excess  -0.4%  | +0.2 +0.2 -0.2 -0.2
+intra Cb step    spread   1.3%  slice-edge(ph3)  +0.6%  internal block edges  +0.6%  excess  -0.1%  | -0.6 +0.6 -0.6 +0.6
+intra Cr mean|e| spread   0.4%  slice-edge(ph3)  +0.2%  internal block edges  -0.1%  excess  +0.4%  | -0.1 -0.1 +0.0 +0.2
+intra Cr step    spread   2.4%  slice-edge(ph3)  +1.1%  internal block edges  +1.0%  excess  +0.1%  | -1.3 +1.0 -0.8 +1.1

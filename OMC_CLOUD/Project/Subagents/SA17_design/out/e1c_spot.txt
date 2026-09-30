@@ -1,0 +1,23 @@
+spot 53     D0= 24 bpp=1.179 PSNR 45.17/45.85/48.80  rowspread4 4.5/12.6/11.7
+spot 53     D0= 36 bpp=0.789 PSNR 43.44/44.23/47.39  rowspread4 3.8/10.3/16.2
+spot 53     D0= 54 bpp=0.546 PSNR 41.71/42.86/45.88  rowspread4 3.2/6.8/18.2
+spot 53     D0= 80 bpp=0.390 PSNR 39.94/41.54/44.25  rowspread4 3.3/6.0/17.4
+spot 53     D0=120 bpp=0.275 PSNR 37.91/40.10/42.53  rowspread4 4.0/6.1/15.6
+spot 26     D0= 24 bpp=1.233 PSNR 45.17/45.89/48.76  rowspread4 1.0/9.5/11.4
+spot 26     D0= 36 bpp=0.839 PSNR 43.47/44.30/47.44  rowspread4 1.0/11.9/11.4
+spot 26     D0= 54 bpp=0.590 PSNR 41.76/42.95/46.02  rowspread4 1.2/13.4/12.0
+spot 26     D0= 80 bpp=0.428 PSNR 40.02/41.68/44.57  rowspread4 1.4/14.1/11.7
+spot 26     D0=120 bpp=0.305 PSNR 38.08/40.31/42.83  rowspread4 1.8/14.8/11.4
+spot 53:97m2 D0= 24 bpp=1.186 PSNR 45.12/45.80/48.79  rowspread4 4.3/11.9/13.0
+spot 53:97m2 D0= 36 bpp=0.802 PSNR 43.41/44.22/47.42  rowspread4 4.1/10.3/17.7
+spot 53:97m2 D0= 54 bpp=0.559 PSNR 41.73/42.88/45.96  rowspread4 3.3/6.2/19.2
+spot 53:97m2 D0= 80 bpp=0.395 PSNR 39.92/41.55/44.30  rowspread4 3.0/5.0/19.3
+spot 53:97m2 D0=120 bpp=0.276 PSNR 37.88/40.15/42.60  rowspread4 3.8/5.8/15.8
+spot 26:97m2 D0= 24 bpp=1.257 PSNR 45.18/45.90/48.79  rowspread4 0.8/9.6/12.0
+spot 26:97m2 D0= 36 bpp=0.853 PSNR 43.46/44.30/47.49  rowspread4 0.9/11.7/11.6
+spot 26:97m2 D0= 54 bpp=0.603 PSNR 41.77/42.97/46.09  rowspread4 1.2/13.3/11.8
+spot 26:97m2 D0= 80 bpp=0.434 PSNR 40.01/41.69/44.61  rowspread4 1.2/14.2/11.7
+spot 26:97m2 D0=120 bpp=0.307 PSNR 38.05/40.35/42.90  rowspread4 1.8/15.1/11.6
+BD-rate 26 vs 53 on spot: +6.32 %
+BD-rate 53:97m2 vs 53 on spot: +1.60 %
+BD-rate 26:97m2 vs 53 on spot: +8.05 %

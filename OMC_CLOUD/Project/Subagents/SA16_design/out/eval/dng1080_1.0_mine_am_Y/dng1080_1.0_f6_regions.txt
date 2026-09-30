@@ -1,0 +1,2 @@
+BRIGHT rows  541- 548 cols 1536-1562 area    162 err    +8.4 src  276.7 slice 33
+BRIGHT rows  788- 798 cols  530- 565 area    162 err    +8.3 src  193.1 slice 49

@@ -1,0 +1,83 @@
+{
+ "fix_d720_q6.5": {
+  "NEG_f2_11": "90.587",
+  "PSNR_mean_f2_11": "36.82/36.30/37.45",
+  "PSNR_worst_f2_11": "36.71/36.27/37.44",
+  "ants": [
+   "plane  blocks   decode tail%  boil    source tail%  boil    (flat<=12 still<=6, tail at |d|>6 codes)",
+   "Y           5         3.29   1.446        19.90   3.746",
+   "Cb          5         2.20   1.025        24.77   4.423",
+   "Cr          0   no verdict -- the source has no flat, static block here"
+  ],
+  "smudge_f8": [
+   "Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]",
+   "Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]",
+   "Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]"
+  ],
+  "flatplane_f8": [
+   "Y    36.69% of 3579 textured blocks | Cb   57.25% of 1787 textured blocks | Cr   69.97% of 1795 textured blocks"
+  ],
+  "texstat_f8": [
+   "TEXSTAT Y AMP=0.986 PER=1.00 COR=0.908  Cb AMP=0.563 PER=1.16 COR=0.347  Cr AMP=0.612 PER=1.14 COR=0.415"
+  ],
+  "bpp_mean_f2_11": 0.4220215034903546,
+  "bpp_max_f2_11": 0.5689141979575275,
+  "changed_per_frame_Y/Cb/Cr": [
+   [
+    "0.7977",
+    "0.8853",
+    "0.7735"
+   ],
+   [
+    "0.8051",
+    "0.8539",
+    "0.7449"
+   ],
+   [
+    "0.7873",
+    "0.8460",
+    "0.7369"
+   ],
+   [
+    "0.7721",
+    "0.8536",
+    "0.7412"
+   ],
+   [
+    "0.7254",
+    "0.8370",
+    "0.7210"
+   ],
+   [
+    "0.7183",
+    "0.8382",
+    "0.6961"
+   ],
+   [
+    "0.6579",
+    "0.8251",
+    "0.6959"
+   ],
+   [
+    "0.6898",
+    "0.8457",
+    "0.7053"
+   ],
+   [
+    "0.6968",
+    "0.8527",
+    "0.7143"
+   ],
+   [
+    "0.7238",
+    "0.8358",
+    "0.7034"
+   ],
+   [
+    "0.7646",
+    "0.8467",
+    "0.7104"
+   ]
+  ]
+ }
+}

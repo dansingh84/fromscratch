@@ -1,0 +1,154 @@
+SA11 STEP U -- THE PLAN CLASS (instrument only).  2026-09-27.
+Tree rtree4 = rsync of rtree3 at codec.c md5 d2afb79ada2525bc555152950b89bbc8 (equal at copy time;
+pre-U source kept as SA11_plan/codec_pre_U.c).  After U: codec.c 822d5925ea254952452edb6c68bde654,
+omc_enc 51c3175c956c1de3f0f65e897e7ea33c, omc_dec c50fb09fbe0a202ed24e350798dbb0c9; step diff
+SA11_plan/sa11_U.diff (418 lines).  Switches (all default off): OMC_R1_PLANU=<list|all> (+ _RC rank cap),
+OMC_U_FORCE="f,s,prof,Q,ns,k" (gen-1 plan override), OMC_U_STOPAFTER="f,s".
+Off-path identity 6/6 IDENTICAL after each of the two builds (SA11_plan/ident, ident2).
+Neutrality: instrumented g2 == uninstrumented g2 (same binary) on 4/4 cells (gfx_05, gfx8_05, spot_10,
+d7x8_05), and == the census g2 streams (out/pP/run3) on 4/4; after the U4 build, R1U output
+byte-identical to the first build (gfx_05).  Env on every g2: OMC_R1=1 OMC_R1_STAT=1 OMC_R1_REUSE=1,
+--gamut-strict 0, seed never pinned (drivers rtree4/notes/u.sh, u4.sh assert it).
+Inputs: census gen-1 streams, delta dumps, EPLAN dumps (SA8_r1lock/out/pP/run3).  U4 gen-1 re-runs
+reproduce the census gen-1 streams byte for byte (6/6 prefixes).
+Discriminator: the ranking key recomputed from the step-2 cost snapshot equals the walk's stored key on
+12,780/12,780 candidates (351 slices); the cost tables recomputed by band_scan equal the snapshot on
+351/351 slices (tabmis 0) -- so feature (e) (key with affected coefs zeroed) uses the same code path.
+
+SLICE SETS (SA11_plan/lists/tags.txt): PLAN = the 8 brief slices (gfx_05 f0 s15, s26; gfx8_05 f0 s15,
+s26 [= gfx_05's], f1 s1, f4 s4; spot_10 f0 s3; d7x8_05 f4 s42).  C_site = 200 random (seed 11) site
+slices with gen 1's plan at rank 0 (census g1rank_plan = 0) from gfx8_05/spot_10/d7x8_05 (80/15/105);
+C_nosite = 50 such no-site slices; M = all census slices with gen 1's plan at rank > 0 (59 site, 34
+no-site; includes the plan slices' neighbours; most still lock because an equivalent plan ranks first).
+
+================================ U1 ================================
+(full tables: SA11_plan/u13_raw.txt; per-candidate lines run1/<cell>.g2.err "R1U CAND", R1VFAIL just
+before a failing candidate).  Every plan-class slice: gen 1's plan partial k = 0, no targeted/PBAND
+selection (pc=0), mode word XOR = 0 on every candidate listed (vxor/cxor 0) EXCEPT d7x8 f4 s42.
+
+gfx_05/gfx8 f0 s15 (3 sites, 1,208 aff; nlcand 151; gen 1 0,10,13,0 at rank 26):
+  ranks 0-9, 20-25: triples 2,12,x / 3,11,x / 3,10,x -- lock_verify FAILS, first failing coefficient
+    the same on all: prereject p2 (Cr) b5 i55 val=-256 shift 11 recon 0 diff 256, NOT affected.
+  ranks 10-19: 0,11,34..42 and 1,11,30: verify, pred(delta*) 2,198, bits* 1,295.  They differ from
+    gen 1 by one step coarser on bands 0.1, 0.2 (luma; 28/28 and 56/56 coefficients AFFECTED),
+    1.1, 1.2, 2.1, 2.2 (chroma, empty: key 0) plus finer on empty bands.
+  rank 26 = gen 1: pred(delta*) 0, bits* 1,318 (= gen 1).  ranks 27-35 = gen 1 + finer empty bands,
+    identical pred/bits (equivalent plans).
+gfx_05/gfx8 f0 s26 (6 sites, 912 aff; nlcand 88; gen 1 0,10,22,0 at rank 10):
+  ranks 0-9 (0,10,14..21; 1,10,8/9): all verify; pred(delta*) 866, bits* 1,438.  The ONE live
+  difference from gen 1: band 0.3 (luma) shift 7 vs 6 (refine step 21 not taken; 58 of 112 coefs
+  affected); others = empty bands.  rank 10 = gen 1: pred 0, bits* 1,469.
+gfx8 f1 s1 (20 sites, 1,540 aff; nlcand 270; gen 1 0,10,21,0 at rank 37; intra slice, mode word 0):
+  ranks 0-29 all verify; pred(delta*) 1,110 (r0-1), 1,106, 1,023, 375, 297, 907, 700 (coarser plans
+  along the refine path: 0,10,1..13 and profiles 1-3).  Rank 0 (0,10,1,0) is one step coarser on
+  luma bands 0.4-0.9 (116/224, 116/224, 116/224, 344/896, 344/896, 344/896 affected) + empty chroma.
+  First exact candidate = rank 30 (0,10,14,0), bits* 1,418 = gen 1 (differs only on empty bands;
+  equivalent).  Gen 1's own triple rank 37.
+gfx8 f4 s4 (9 sites, 1,844 aff; nlcand 82; gen 1 0,10,13,0 at rank 8; intra, mode 0):
+  ranks 0-4 (0,10,5..9): verify, pred(delta*) 595, bits* 1,344; live difference luma bands 0.6
+  (142 aff) and 0.7 (404 aff) one step coarser.  ranks 5-7 (0,10,10..12): pred 159, bits* 1,413
+  (band 0.7 still coarser).  First exact = rank 8 = gen 1: pred 0, bits* 1,516.
+spot_10 f0 s3: NOT a plan-class slice.  Gen 1's plan (0,5,10,0) IS rank 0 (derived plan identical,
+  nlcand 22), verifies, pred(delta*) 0, bits* 30,323 = gen 1.  What fails is the solve: the census
+  direct solve under rank 0 leaves pred 344 (p2), R>=64 183 vs 8 at delta*.  (Class B, as census.)
+d7x8_05 f4 s42 (NO sites; nlcand 335; gen 1 0,7,3,0 mode word 267878399 at rank 1):
+  rank 0 = 0,7,2,0 (one refine step fewer: band 0.5 shift 6 vs 5; enumeration mode word XOR 131104
+  = bits 17 and 5 (p1 b7, p0 b5)); lock_verify FAILS at prereject p0 b0 (LL) i8 val=-263 shift 2
+  diff -1 (no sites, so no affected coefficient anywhere).
+  rank 1 = gen 1's plan: verifies, verify-derived mode word XOR gen 1 = 131072 (bit 17 = p1 b7
+  derived INTER-vs-intra differently), bits* 5,016 vs gen 1's 5,015 (+1).
+
+================================ U2 ================================
+Ranking key = the enumeration's flag-free bit ESTIMATE, cheapest first (line numbers: rtree4
+  src/codec.c after U): the cost tables bc[m][p][b].bits[s] are band_scan estimates over ALL
+  coefficients of the input band INCLUDING the affected (clip-perturbed) ones (10577); the lattice
+  admission SKIPS affected coefficients when forming the chunk exponents (10661/10664), so a band
+  whose non-affected coefficients happen to lie on a coarser lattice admits the coarser shift;
+  per band the key adds bc[m][p][b].bits[s] (10988; m = the consistent mode, the cheaper if both,
+  10982; step band fan_base 10965 + fan_d*k/nch 11006); key = tk (11034); walk = argmin key, first
+  on ties (11181).  Nothing in the key tests exactness; the walk then takes the cheapest VERIFIED
+  and exact candidate by actual bits (11388), which is why the full walk still locks these slices.
+Per-band key difference rank 0 - gen 1 (KEYB lines; keyE = same with affected coefs set to 0):
+  s15:  total -97 = -88 in bands with affected coefs (0.1: 24 vs 60, 0.2: 24 vs 76; both bands 100 %
+        affected) + -9 in band 2.5 (no aff); keyE total -9.  Rank 0..9 fail verify anyway.
+  s26:  total -34, all in band 0.3 (114 vs 148; 58/112 aff); keyE -7 (15 vs 22: the non-affected
+        coefs alone still prefer the coarser shift).
+  f1 s1: total -615, ALL in affected bands 0.4-0.8 (48/142, 53/137, 14/136, 14/151, 14/192);
+        keyE 0 on every band (tie).
+  f4 s4: total -171 (0.6: 22 vs 91, 0.7: 14 vs 116, both with aff); keyE 0 (tie).
+  d7x8 f4 s42: -38 in band 0.5 (585 vs 623), no sites at all -- NOT affected-driven: the cheaper
+        plan is simply one refine step less and fails lock_verify on an LL coefficient (diff -1).
+=> On the 4 gfx site slices the preference for rank 0 is the bits term of bands containing affected
+   coefficients (86-100 % of the key gap); zeroing the affected coefficients removes it entirely on
+   2/4 (tie), leaves -7 (s26) and -9 (s15, non-aff band) on the other 2.  On the no-site slice it is
+   not affected-driven.
+
+================================ U3 ================================
+Set S per slice = verifying candidates among ranks 0..max(39, gen-1 rank).  Per feature: gen 1's
+plan "first" (strictly best), "tie_equiv" (best, tied only with plans exact at delta* with equal
+bits* = equivalent), "tie_nonequiv" (tied with a non-equivalent plan), "demoted" (a candidate
+strictly better).  (a) R2 = sum |lattice residue| over affected coefs with step >= 64 after the
+census direct solve (3 passes); (b) p2 = predicate after that solve; (c) bits2 = trial bits with
+the solved delta (bits* with delta* gives identical classes); (d) fineness = sum of band shifts
+(finest = ascending, coarsest = descending; also band-size weighted); (e) keyE.
+                    PLAN(8)                  C_site(200)              C_nosite(50)       M_site(59)
+                    first/teq/tne/dem        first/teq/tne/dem        first/teq/tne/dem  first/teq/tne/dem
+ (a) R2             0/3/4/1                  1/0/124/75               0/0/50/0           0/0/37/22
+ (b) p2             0/3/5/0                  0/0/197/3                0/0/50/0           0/0/59/0
+ (c) bits2          2/0/0/6                  175/24/0/1               45/5/0/0           9/47/0/3
+ (d) finest         1/0/0/7                  0/0/0/200                0/0/0/50           0/0/0/59
+ (d) coarsest       2/0/0/6                  170/3/12/15              49/0/1/0           9/0/0/50
+ (d) coarsest(wtd)  2/0/0/6                  197/0/0/3                50/0/0/0           9/0/0/50
+ (e) keyE           2/0/4/2                  159/19/22/0              45/5/0/0           9/39/10/1
+ key (today)        2/0/0/6                  176/22/2/0               45/5/0/0           9/47/0/3
+ combined: exact-after-solve (p2=0) first, then bits2:
+                    5/3/0/0                  174/24/0/2               45/5/0/0           9/50/0/0
+ combined: R2 then bits2: 4/3/0/1            109/15/0/76              45/5/0/0           3/34/0/22
+Answers per feature (rank gen 1's plan first on EVERY plan-class slice AND never demote it on the
+controls):  (a) NO (R2 ties non-equivalent plans on 4/8, demotes on spot s3: R2 at gen 1 183 vs 0
+on 1,5,9 and 0,5,19/21; demotes 75/200 controls).  (b) NO alone (p2=0 on many non-equivalent plans:
+ties 5/8; demotes 3/200 controls = spot slices where the direct solve fails under gen 1's plan).
+(c) NO (demoted 6/8 plan slices: cheaper non-exact rank 0; demotes 1/200 controls).  (d) NO either
+direction.  (e) NO (demotes 2/8: s26 -7, d7x8 s42; ties non-equivalent 4/8; 0/200 controls demoted,
+22 non-equivalent ties).
+Nearest to a yes = "exact after the direct solve, then cheapest bits": gen 1 first or tied only with
+equivalent plans on 8/8 plan slices; demotes 2/200 controls: gfx8 f5 s27 (plans 0,8,8..10 exact at
+974 bits vs gen 1's 975: a cheaper exact plan -- not a lock failure) and spot f0 s44 (direct solve
+fails under gen 1's plan, p2 91; the next exact plan costs 32,070 vs 31,053 = +1,017 bits -> a
+B5.5 overspend).  I.e. this rule is exactly "cheapest exact"; it needs the solve to succeed on gen 1's
+plan (spot class B) and it evaluates up to 40 candidates (not fixed work).
+
+================================ U4 ================================
+Gen 1's rate control (codec.c 12273-12303 (Q loop 12273, refine loop 12289): first Q from the floor whose estimate fits, then refine
+steps greedily, partial only at the break step) considered, among plans costing <= its choice,
+exactly the prefix plans (prof, Q, ns' < ns, 0) of its refine path (coarser Q never evaluated; gen 1
+chose k = 0 on all 6).  Each forced at gen 1 (OMC_U_FORCE), decoded, gen 2 run to the slice with the
+instrument (full table SA11_plan/u4_sum.txt, runs u4/, log u4.log).
+(i) = rank of the alternative in gen 2's ranking on gen 1's OWN decoded slice; (ii) = on the
+alternative's own decode: is its plan rank 0, exact with its delta*, bits* <= its gen-1 bits
+("fixed-path OK"), and is the direct solve exact too.  dB = slice PSNR Y/Cb/Cr vs gen 1's choice.
+ gfx s15 (gen 1 0,10,13,0; 1,318 bits; 23.131/32.602/32.018 dB): 13 alternatives, (i) none in the
+   ranking (absent: their decodes' lattices are not consistent); (ii) 0/13 OK -- rank 0 fails verify
+   or is inexact on every alternative decode (own rank 6..99).  NO free re-choice.
+ gfx s26 (0,10,22,0; 1,469 bits; 24.847/31.250/30.541): (i) 0,10,14..21 = ranks 0..7 (rank 0 is
+   0,10,14,0, pred(delta*) 866 on gen 1's decode).  (ii) 18/22 OK, 16 also direct-solve exact.
+   Best: 0,10,14,0 (= the gen-2 rank-0 plan): 1,416 bits (-53), dB -0.077/0.000/0.000; on its own
+   decode it is rank 0, exact, bits* 1,416, direct solve exact.
+ gfx8 f1 s1 (0,10,21,0; 1,418 bits; 23.912/32.934/31.845): (i) rank 0 on gen 1's decode = 0,10,1,0.
+   (ii) 14/21 OK (all also solve-exact) = 0,10,0..13; 0,10,14..20 FAIL (they decode to gen 1's
+   picture: 1,418 bits, same rank-0 problem).  Best OK: 0,10,13,0: 1,249 bits (-169),
+   dB -0.979/0/0.  The rank-0 alternative 0,10,1,0: 870 bits (-548), dB -2.959/0/0.
+ gfx8 f4 s4 (0,10,13,0; 1,516 bits; 23.997/31.207/30.197): (i) rank 0 = 0,10,5,0.  (ii) 11/13 OK
+   (all solve-exact); FAIL 0,10,2 and 0,10,3.  Best OK: 0,10,10..12,0: 1,413 bits (-103),
+   dB -0.862/0/0.  The rank-0 alternative 0,10,5,0: 1,349 bits (-167), dB -1.040/0/0.
+ spot s3 (0,5,10,0; 30,323 bits; 45.616/46.377/49.763): gen 1's plan is already rank 0.  (ii) 10/10
+   OK on the plan test, 0/10 direct-solve exact (p2 275-436 on every alternative) -> re-choosing the
+   plan does not fix the solve class.  Cheapest-loss: 0,5,9,0: -895 bits, dB -0.128/+0.001/0.000.
+ d7x8 f4 s42 (0,7,3,0; 5,015 bits; 35.259/35.096/36.056): (i) 0,7,2,0 is rank 0 on gen 1's decode
+   (fails verify there).  (ii) 3/3 alternatives are rank 0 and exact on their own decodes, but each
+   costs +1 bit at gen 2 over its gen-1 bits (bits* 3,983/4,244/4,594 vs 3,982/4,243/4,593 -- the
+   same +1 as gen 1's own plan, 5,016 vs 5,015) -> 0/3 meet bits <= gen 1.  0,7,2,0: -422 bits,
+   dB -0.235/0/0.
+Summary U4: a quality-free re-choice exists on 0/6 slices (every recoverable alternative costs
+luma dB: best -0.077 (gfx s26), -0.862, -0.979, -0.128 (spot, solve still fails), none on gfx s15,
+none meeting bits on d7x8 s42 (+1 bit systematic)).

@@ -1,0 +1,2 @@
+std    sh8 Qf 6.0 bpp(ent) 2.224 | Y PSNR 36.69 excess +0.48 | Cb PSNR 35.90 excess +0.53 | Cr PSNR 36.25 excess +0.56
+shift  sh8 Qf 6.0 bpp(ent) 1.716 | Y PSNR 37.10 excess +0.06 | Cb PSNR 36.07 excess +0.05 | Cr PSNR 36.43 excess +0.08

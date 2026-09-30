@@ -1,0 +1,13 @@
+  frame 0 bpp 0.589
+  frame 1 bpp 0.356
+  frame 2 bpp 0.437
+  frame 3 bpp 0.344
+  frame 4 bpp 0.429
+  frame 5 bpp 0.431
+  frame 6 bpp 0.390
+  frame 7 bpp 0.285
+  frame 8 bpp 0.347
+  frame 9 bpp 0.362
+  frame 10 bpp 0.340
+  frame 11 bpp 0.473
+{"tag": "spotc16_32", "Qf": 6.0, "oor": 0} mean bpp f2+ 0.384

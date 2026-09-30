@@ -1,0 +1,12 @@
+ext10 gen 1 @1.00: oob 0 overs 0
+ext10 gen 2 @1.00: differing samples per frame [16969, 18791, 18669, 47340] | frames with different bits 4 | oob 0 overs 0
+ext10 gen 3 @1.00: differing samples per frame [9451, 6677, 12378, 15198] | frames with different bits 4 | oob 0 overs 0
+ext10 gen 4 @1.00: differing samples per frame [196, 134, 4116, 5369] | frames with different bits 3 | oob 0 overs 0
+ext10 gen 5 @1.00: differing samples per frame [0, 0, 74, 2459] | frames with different bits 2 | oob 0 overs 0
+ext10 gen 6 @1.00: differing samples per frame [0, 0, 0, 346] | frames with different bits 1 | oob 0 overs 0
+ext10 gen 7 @1.00: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+ext10 gen 8 @1.00: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+ext10 gen 9 @1.00: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+ext10 gen 10 @1.00: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+ext10 gen 11 @1.00: differing samples per frame [0, 0, 0, 0] | frames with different bits 0 | oob 0 overs 0
+ext10 rates [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]: fixed point from generation 7

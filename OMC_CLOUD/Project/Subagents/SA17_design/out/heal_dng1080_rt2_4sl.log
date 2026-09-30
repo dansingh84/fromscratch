@@ -1,0 +1,10 @@
+dng1080 RT=2 f 0      damaged samples       0 rows -  bits/target 0.9998 over 0
+dng1080 RT=2 f 1      damaged samples       0 rows -  bits/target 1.0000 over 0
+dng1080 RT=2 f 2      damaged samples       0 rows -  bits/target 0.9999 over 0
+dng1080 RT=2 f 3 LOSS damaged samples  137080 rows 234..277  bits/target 0.9999 over 0
+dng1080 RT=2 f 4      damaged samples  153838 rows 222..285  bits/target 0.9997 over 0
+dng1080 RT=2 f 5      damaged samples  172330 rows 218..295  bits/target 0.9997 over 0
+dng1080 RT=2 f 6 HEAL damaged samples       0 rows -  bits/target 0.9999 over 0
+dng1080 RT=2 f 7      damaged samples       0 rows -  bits/target 0.9999 over 0
+dng1080 RT=2 f 8      damaged samples       0 rows -  bits/target 0.9999 over 0
+dng1080 RT=2 f 9      damaged samples       0 rows -  bits/target 1.0000 over 0

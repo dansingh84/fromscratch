@@ -1,0 +1,4 @@
+cut24 0.5 plane 0 away samples 1867 cases so far 368 fixable 1
+cut24 0.5 plane 1 away samples 782 cases so far 531 fixable 1
+cut24 0.5 plane 2 away samples 733 cases so far 682 fixable 1
+RESULT cut24 0.5 cases 682 fixable by one +-1 re-choice 1 (0.1%) {'HL1': 1}

@@ -1,0 +1,25 @@
+  frame 0 bpp 0.589
+  frame 1 bpp 0.351
+  frame 2 bpp 0.424
+  frame 3 bpp 0.384
+  frame 4 bpp 0.376
+  frame 5 bpp 0.433
+  frame 6 bpp 0.365
+  frame 7 bpp 0.230
+  frame 8 bpp 0.304
+  frame 9 bpp 0.321
+  frame 10 bpp 0.331
+  frame 11 bpp 0.413
+  frame 12 bpp 0.370
+  frame 13 bpp 0.331
+  frame 14 bpp 0.396
+  frame 15 bpp 0.276
+  frame 16 bpp 0.415
+  frame 17 bpp 0.348
+  frame 18 bpp 0.373
+  frame 19 bpp 0.405
+  frame 20 bpp 0.374
+  frame 21 bpp 0.316
+  frame 22 bpp 0.256
+  frame 23 bpp 0.213
+{"tag": "wg1", "Qf": 6.0, "oor": 0} mean bpp f2+ 0.348

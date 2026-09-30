@@ -1,0 +1,23 @@
+ztol1 traffic @0.5 NEG 88.466 worst 83.960 PSNR 34.17/44.02/40.53
+ztol0 traffic @0.5 NEG 88.504 worst 84.081 PSNR 34.16/44.01/40.53
+base traffic @0.5 NEG 88.373 worst 83.799 PSNR 34.16/44.02/40.54
+l1k05 traffic @0.5 NEG 87.522 worst 83.382 PSNR 34.00/43.96/40.49
+ry8 traffic @0.5 NEG 88.371 worst 83.850 PSNR 34.16/44.02/40.54
+ztol1 winter @0.5 NEG 93.306 worst 90.099 PSNR 42.98/50.42/46.76
+ztol0 winter @0.5 NEG 93.322 worst 90.144 PSNR 42.97/50.36/46.72
+base winter @0.5 NEG 93.251 worst 90.000 PSNR 42.98/50.45/46.77
+l1k05 winter @0.5 NEG 93.229 worst 90.015 PSNR 43.11/50.33/46.71
+ry8 winter @0.5 NEG 93.234 worst 89.988 PSNR 42.97/50.44/46.77
+base ftrain @0.5 NEG 92.298 worst 90.926 PSNR 37.31/41.60/42.70
+ztol1 ftrain @0.5 NEG 92.307 worst 90.949 PSNR 37.32/41.61/42.71
+ztol0 ftrain @0.5 NEG 92.284 worst 90.956 PSNR 37.35/41.63/42.72
+l1k05 ftrain @0.5 NEG 92.298 worst 90.926 PSNR 37.31/41.60/42.70
+l1k1 traffic @0.5 NEG 87.043 worst 83.218 PSNR 34.11/43.86/40.44
+l1k2 traffic @0.5 NEG 85.936 worst 82.698 PSNR 34.02/43.71/40.32
+l1k1 winter @0.5 NEG 93.150 worst 89.956 PSNR 43.22/50.21/46.65
+l1k2 winter @0.5 NEG 92.525 worst 89.491 PSNR 42.89/50.07/46.56
+l1k2 ftrain @0.5 NEG 92.303 worst 90.926 PSNR 37.32/41.60/42.70
+l1k1 ftrain @0.5 NEG 92.298 worst 90.926 PSNR 37.31/41.60/42.70
+l1k2 hview @0.5 NEG 90.266 worst 89.456 PSNR 38.50/45.68/42.91
+l1k1 hview @0.5 NEG 90.266 worst 89.456 PSNR 38.50/45.68/42.91
+DONE

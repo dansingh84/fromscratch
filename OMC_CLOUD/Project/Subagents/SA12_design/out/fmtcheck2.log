@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA12_design/out/../notes/fmtcheck.py", line 12, in <module>
+    b,ps,oor,rt0,g2,ph,ncl=hf.code_plane(p,sh,5,3,'s10','s10a',True,Qf,-1,lo,hi,depth,{})
+                           ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA12_design/notes/hf.py", line 177, in code_plane
+    if H % sh and os.environ.get('HF_SHORTLAST', '1') == '1':
+                  ^^
+UnboundLocalError: cannot access local variable 'os' where it is not associated with a value

@@ -1,0 +1,10 @@
+BRIGHT rows  669- 699 cols  261- 589 area   2856 err    +0.4 src  824.2 slice 167
+BRIGHT rows  619- 641 cols  643- 799 area    724 err    +0.5 src  892.7 slice 154
+BRIGHT rows  621- 634 cols  863- 934 area    339 err    +1.2 src  861.8 slice 155
+BRIGHT rows  661- 684 cols  391- 460 area    260 err    -0.3 src  840.7 slice 165
+BRIGHT rows  591- 603 cols  938- 998 area    199 err    +1.6 src  822.0 slice 147
+BRIGHT rows  652- 661 cols  524- 555 area    152 err    +0.9 src  871.4 slice 163
+DARK   rows  658- 713 cols  257- 593 area   3133 err    +0.1 src  806.4 slice 164
+DARK   rows  615- 635 cols  813- 957 area   1013 err    +0.1 src  862.4 slice 153
+DARK   rows  623- 645 cols  708- 795 area    606 err    -0.6 src  889.9 slice 155
+DARK   rows  686- 696 cols  751- 781 area    196 err    +2.3 src  785.5 slice 171

@@ -1,0 +1,9 @@
+cont53 rowspread(S=8) at D0=54: 2.7/16.0/15.8
+cont26 rowspread(S=8) at D0=54: 0.7/1.9/2.2
+cont2626 rowspread(S=8) at D0=54: 0.8/1.4/3.5
+closed53_97 rowspread(S=8) at D0=54: 9.3/28.2/35.1
+closed53 rowspread(S=8) at D0=54: 9.0/29.3/35.6
+BD-rate cont26 vs cont53 on dng720: +2.03 %
+BD-rate cont2626 vs cont53 on dng720: +3.62 %
+BD-rate closed53_97 vs cont53 on dng720: +7.42 %
+BD-rate closed53 vs cont53 on dng720: +4.78 %

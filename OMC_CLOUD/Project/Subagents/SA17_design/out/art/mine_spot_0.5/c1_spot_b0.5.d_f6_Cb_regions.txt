@@ -1,0 +1,1 @@
+DARK   rows  368- 373 cols  274- 332 area    167 err    -1.2 src  505.8 slice 46

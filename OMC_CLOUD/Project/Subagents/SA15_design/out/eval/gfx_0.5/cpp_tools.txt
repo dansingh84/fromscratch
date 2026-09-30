@@ -1,0 +1,10 @@
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/gfx_0.5/cpp_smudge
+
+   Y    46.62% of 444 textured blocks | Cb   73.21% of 224 textured blocks | Cr   64.84% of 219 textured blocks
+
+cpp_f6: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/gfx_0.5/cpp_am/cpp_f6_*
+cpp_f6_Cb: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/gfx_0.5/cpp_am/cpp_f6_Cb_*
+cpp_f6_Cr: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/gfx_0.5/cpp_am/cpp_f6_Cr_*

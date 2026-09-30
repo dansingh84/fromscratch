@@ -1,0 +1,13 @@
+  frame 0 bpp 0.641
+  frame 1 bpp 0.586
+  frame 2 bpp 0.353
+  frame 3 bpp 0.354
+  frame 4 bpp 0.318
+  frame 5 bpp 0.351
+  frame 6 bpp 0.364
+  frame 7 bpp 0.372
+  frame 8 bpp 0.323
+  frame 9 bpp 0.360
+  frame 10 bpp 0.392
+  frame 11 bpp 0.394
+{"tag": "hwy_s0.7", "Qf": 6.0, "oor": 0} mean bpp f2+ 0.358

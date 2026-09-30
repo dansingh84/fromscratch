@@ -1,0 +1,14 @@
+f 0 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 0
+f 1 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 0
+f 2 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 0
+f 3 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 0 | over 0
+f 4 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 27939 | over 0
+f 5 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 28056 | over 0
+f 6 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 27964 | over 0
+f 7 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 27995 | over 0
+f 8 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 27977 | over 0
+f 9 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 27754 | over 0
+f10 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 27325 | over 0
+f11 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 27433 | over 0
+f12 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 27800 | over 0
+f13 gen2 0 same gen3 0 | encoder-join - | decoder-join - | loss 37762 | over 0

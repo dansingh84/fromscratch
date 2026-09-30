@@ -1,0 +1,10 @@
+Y: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cb: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+Cr: 0 groups, 0 blocks, largest 0  [thr 12 dens 0.5]
+wrote /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/dng720_0.5/today_smudge
+
+   Y    41.86% of 3579 textured blocks | Cb   82.76% of 1787 textured blocks | Cr   83.29% of 1795 textured blocks
+
+today_f6: 7 bright regions, 9 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/dng720_0.5/today_am/today_f6_*
+today_f6_Cb: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/dng720_0.5/today_am/today_f6_Cb_*
+today_f6_Cr: 0 bright regions, 0 dark regions -> /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA15_design/out/eval/dng720_0.5/today_am/today_f6_Cr_*

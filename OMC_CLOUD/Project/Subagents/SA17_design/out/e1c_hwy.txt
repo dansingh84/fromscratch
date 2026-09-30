@@ -1,0 +1,23 @@
+hwy 53     D0= 24 bpp=1.174 PSNR 45.16/49.43/46.35  rowspread4 5.9/8.9/9.1
+hwy 53     D0= 36 bpp=0.761 PSNR 43.13/48.12/44.87  rowspread4 6.6/6.7/5.8
+hwy 53     D0= 54 bpp=0.495 PSNR 41.25/46.68/43.84  rowspread4 5.8/10.0/12.2
+hwy 53     D0= 80 bpp=0.330 PSNR 39.50/45.38/42.95  rowspread4 6.0/15.5/25.6
+hwy 53     D0=120 bpp=0.214 PSNR 37.63/44.34/42.05  rowspread4 7.6/7.4/24.4
+hwy 26     D0= 24 bpp=1.196 PSNR 45.15/49.35/46.32  rowspread4 1.0/22.5/4.7
+hwy 26     D0= 36 bpp=0.781 PSNR 43.14/48.12/44.91  rowspread4 1.3/23.4/5.9
+hwy 26     D0= 54 bpp=0.513 PSNR 41.26/46.98/43.89  rowspread4 2.2/24.7/8.4
+hwy 26     D0= 80 bpp=0.344 PSNR 39.50/45.89/43.03  rowspread4 2.5/25.7/12.6
+hwy 26     D0=120 bpp=0.226 PSNR 37.67/44.25/42.26  rowspread4 2.7/28.2/15.0
+hwy 53:97m2 D0= 24 bpp=1.165 PSNR 45.14/49.39/46.29  rowspread4 5.6/8.1/7.7
+hwy 53:97m2 D0= 36 bpp=0.765 PSNR 43.16/48.10/44.88  rowspread4 6.8/7.2/6.7
+hwy 53:97m2 D0= 54 bpp=0.503 PSNR 41.34/46.70/43.85  rowspread4 5.4/9.3/11.1
+hwy 53:97m2 D0= 80 bpp=0.332 PSNR 39.55/45.39/42.95  rowspread4 5.7/16.9/25.9
+hwy 53:97m2 D0=120 bpp=0.216 PSNR 37.70/44.43/42.12  rowspread4 7.4/6.8/21.9
+hwy 26:97m2 D0= 24 bpp=1.204 PSNR 45.20/49.34/46.33  rowspread4 0.9/22.6/5.0
+hwy 26:97m2 D0= 36 bpp=0.784 PSNR 43.18/48.13/44.91  rowspread4 1.2/23.6/6.0
+hwy 26:97m2 D0= 54 bpp=0.518 PSNR 41.32/47.02/43.92  rowspread4 2.1/25.8/8.5
+hwy 26:97m2 D0= 80 bpp=0.346 PSNR 39.57/45.90/43.00  rowspread4 2.4/25.9/12.1
+hwy 26:97m2 D0=120 bpp=0.227 PSNR 37.74/44.27/42.28  rowspread4 2.8/29.3/15.7
+BD-rate 26 vs 53 on hwy: +2.52 %
+BD-rate 53:97m2 vs 53 on hwy: -0.29 %
+BD-rate 26:97m2 vs 53 on hwy: +2.07 %

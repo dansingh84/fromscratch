@@ -1,0 +1,22 @@
+dng720 f8 53   D= 24 bpp=2.625 Y/Cb/Cr=42.73/42.34/42.50
+dng720 f8 53   D= 40 bpp=1.431 Y/Cb/Cr=39.99/38.76/39.35
+dng720 f8 53   D= 64 bpp=0.776 Y/Cb/Cr=37.75/36.64/37.72
+dng720 f8 53   D=100 bpp=0.478 Y/Cb/Cr=35.45/35.71/36.79
+dng720 f8 53   D=160 bpp=0.297 Y/Cb/Cr=32.86/34.87/35.82
+dng720 f8 po2  D= 24 bpp=2.867 Y/Cb/Cr=42.68/42.56/42.62
+dng720 f8 po2  D= 40 bpp=1.609 Y/Cb/Cr=38.59/38.26/38.56
+dng720 f8 po2  D= 64 bpp=0.877 Y/Cb/Cr=34.75/35.18/35.20
+dng720 f8 po2  D=100 bpp=0.521 Y/Cb/Cr=31.05/31.84/32.29
+dng720 f8 po2  D=160 bpp=0.309 Y/Cb/Cr=26.63/28.06/28.71
+dng720 f8 po4  D= 24 bpp=3.002 Y/Cb/Cr=42.61/42.54/42.59
+dng720 f8 po4  D= 40 bpp=1.738 Y/Cb/Cr=38.43/38.18/38.44
+dng720 f8 po4  D= 64 bpp=0.969 Y/Cb/Cr=34.58/34.97/34.95
+dng720 f8 po4  D=100 bpp=0.575 Y/Cb/Cr=30.89/31.55/32.03
+dng720 f8 po4  D=160 bpp=0.346 Y/Cb/Cr=26.71/27.93/28.63
+dng720 po2 vs 53 @0.5 bpp dPSNR Y/Cb/Cr = -4.96/-4.25/-4.87
+dng720 po2 vs 53 @1.0 bpp dPSNR Y/Cb/Cr = -3.10/-1.68/-2.47
+dng720 po2 vs 53 @2.0 bpp dPSNR Y/Cb/Cr = -1.37/-0.85/-1.00
+dng720 po4 vs 53 @0.5 bpp dPSNR Y/Cb/Cr = -5.92/-5.24/-5.78
+dng720 po4 vs 53 @1.0 bpp dPSNR Y/Cb/Cr = -3.90/-2.38/-3.26
+dng720 po4 vs 53 @2.0 bpp dPSNR Y/Cb/Cr = -2.00/-1.43/-1.58
+rc=0

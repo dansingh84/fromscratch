@@ -1,0 +1,5 @@
+dng720 gen 1 @1.00: oob 0 overs 0
+dng720 gen 2 @0.50: differing samples per frame [1658714, 1599747, 1610598, 1619630] | frames with different bits 4 | oob 0 overs 0
+dng720 gen 3 @0.50: differing samples per frame [172267, 259835, 304241, 356847] | frames with different bits 4 | oob 0 overs 0
+dng720 gen 4 @0.50: differing samples per frame [13525, 76088, 78496, 97169] | frames with different bits 4 | oob 0 overs 0
+dng720 gen 5 @0.50: differing samples per frame [10815, 14341, 19835, 30476] | frames with different bits 4 | oob 0 overs 0

@@ -1,0 +1,1 @@
+Terminated                 SA18_STILLCTX=1 nice -n 19 python3 tpp_run.py train bos 0.5 ../out/tab_eb_r2.pkl ../out/cnt_x0_bos_0.5.pkl fuse=0 cheap=1 >> ../out/train_x0.log 2>&1

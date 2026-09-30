@@ -1,0 +1,33 @@
+# SA20 RESUME (cloud session, started 2026-09-30 02:13 UTC)
+
+## 0. Group
+SA20 = designer (main session). SA20P, SA20Q = ideation (Opus 5.5), roles per LAUNCH_INSTRUCTIONS §2-§4 (SA19* -> SA20*).
+Log: GROUP_LOG.md. Priority (CLOUD_README §1.3, HANDOFF §10.2): first adversarially verify S5.404 never-away verdict,
+then an engine where never-away holds by construction at zero efficiency cost; all four goals; legality first.
+
+## 1. Environment (cloud)
+- 4 CPUs, 15 GB RAM -> at most 4 parallel 720p jobs, 2-3 at 1080p (README says 2.6 GB per 1080p job).
+- numpy 2.4 (pip). ffmpeg with libvmaf = static BtbN build /usr/local/bin/ffmpeg (Ubuntu ffmpeg has no libvmaf).
+- cloud_setup.sh done (paths rewritten, omc_enc/omc_dec built).
+
+## 2. Footage (owner, 2026-09-30; NOT the clips named in CLOUD_README §3)
+Source: PNG frames (RGB; owner: lossy-compressed originals), converted by footage_in/conv.sh:
+BT.709 matrix, limited range, Lanczos (full frame, no crop), raw planar 10-bit LE, into Project/.work/arms/.
+| clip | native | frames | mean|dY| f->f (720p) | still frac | role |
+|---|---|---|---|---|---|
+| cine_4k_A006 | 4096x2160 8-bit | 2 | 60.6 (near cut) | 0.017 | TRAIN |
+| cine_A005C021 | 2048x1152 16-bit | 2 | 8.8 | 0.089 | TRAIN |
+| gfx444_F003C012 | 4480x1856 8-bit | 3 | 13.1/14.0 | 0.09 | TRAIN |
+| cine_A005C031 | 2048x1152 16-bit | 3 | 8.1/8.1 | 0.096 | TEST |
+| gfx444_B001C001 | 1920x1080 16-bit | 3 | 1.5/1.6 | 0.22 | TEST (also 4:4:4 1080p) |
+| prores_sample | 2048x1152 16-bit | 3 | 3.9/3.9 | 0.13 | TEST |
+Sizes made: 1920x1080 and 1280x720 4:2:2 10-bit for all; gfx444_B001C001 1920x1080 4:4:4 10-bit.
+Limits: 3 frames -> steady state = frame 2 only (worst frame = that frame); no long motion cells; old bundled
+today-decodes (dng/spot/floor/...) cannot be scored (their sources are absent) -> today's baseline is re-made
+with v537 on the new clips (scratch/today/).
+Rails: synthetic rail extremes bundled (cut24, ext_*) are used unchanged.
+
+## 3. Items
+| id | item | result |
+|---|---|---|
+| E0 | pipeline check: v537 prores_sample 720p @0.5, 3 frames | NEG 92.238 (all 3 frames); 172,832 bytes = 0.500 bpp |
