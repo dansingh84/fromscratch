@@ -23,7 +23,7 @@ NF = int(os.environ.get('NF', '3'))
 HY = float([t[2:] for t in TOK if t.startswith('hy')][0]) if any(t.startswith('hy') for t in TOK) else 0  # hysteresis kappa
 KEEP = 'keep' in TOK   # keep the last-write step on source-still blocks
 RS_ = 0.5 if 'rs' in TOK else 0.0   # rounding slack added to the hysteresis threshold (codes)
-CU = 'cu' in TOK   # one catch-up per still episode (SA20P): still, not caught, step >= 1 octave finer than the last write
+CU = any(t.startswith('cu') for t in TOK); CUO = float([t[2:] for t in TOK if t.startswith('cu')][0] or 1) if CU else 1.0  # octaves finer needed   # one catch-up per still episode (SA20P): still, not caught, step >= 1 octave finer than the last write
 CAUGHT = [None]
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
@@ -71,7 +71,7 @@ def still_blocks(x, xprev):   # encoder-only: block still = >= 95 % of its luma 
 def cu_mask(st, Q, stl):
     if not CU or st is None or stl is None: return None
     if CAUGHT[0] is None: CAUGHT[0] = np.zeros(stl.shape, bool)
-    return stl & ~CAUGHT[0] & (Q <= st[0][0] / 2)
+    return stl & ~CAUGHT[0] & (Q <= st[0][0] * 2 ** -CUO * 1.001)
 def upd(st, y, ref, Q, stl=None, cu=None):   # encoder state per block: step and ladder of the last write
     # a block's last-write step moves to the current step only if its SOURCE changed (or it was written without a
     # still map); on source-still blocks it is kept (only an explicit catch-up may lower it) -- a partial write of a

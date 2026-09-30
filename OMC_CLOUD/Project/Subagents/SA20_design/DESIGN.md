@@ -278,3 +278,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   (SA20P rule): per block still & not caught & step <= last-write step / 2 -> no hysteresis in that frame (the plan
   search costs it), last-write step := current, caught until the source moves. Running on frozen10 at 0.5/1.0/2.5.
 - G26 frozen10 @0.5 with _sg_keep_rs (no catch-up): changes per transition 0.11/0.10/0.09 %, 0.02/0.02/0.03 %, then 0.00 % on all 7 remaining. The state bug and rounding fixes work. Residual 0.1 % in transition 1: suspected the 4 blocks with nonzero vectors on frozen input (to verify). Quality is held at frame 0 (NEG 90.00); the catch-up arm (_cu) is next.
+- G27 frozen10 with the fixed hold (_sg_keep_rs): 0.00 % changes on every transition at 2.5 and 4.0 (0.11/0.02 % then
+  0 at 0.5). The catch-up with a ONE-OCTAVE condition (_cu) never fired: under exact per-frame CBR, re-coding the whole
+  still region an octave finer costs more than one frame's budget, so the plan search stops just above the threshold
+  (Q 19 vs threshold 16 @0.5, 9.5 vs 8 @1.0). The control's natural single step was ~0.75 octave. Testing thresholds
+  of 0.5 and 0.25 octave (_cu0.5, _cu0.25); the caught flag keeps it to ONE catch-up per still episode.
