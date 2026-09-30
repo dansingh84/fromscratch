@@ -358,3 +358,10 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   0.5 bpp loses the picture in any CBR codec).
   Chroma ablation (one switch per run, cine + prores, 0.5/1.0/2.0, same S16 tables): base = fixed still rule
   (_sg_keep_rs_ng_cu0); +_chp (exact 4:2:2 chroma MC); +_pp (per-plane gate and noise); +both.
+- G36 gfx discriminator (out/diag_gfx.txt, f1, S16):
+  - intra vs inter at the same step: Q4.76 1.640 vs 1.561 bpp (Y 57.33 vs 57.19); Q8 0.959 vs 0.842; Q16 0.447 vs 0.294;
+  - MC prediction PSNR ~ the reference copied as is: 53.26 (16x16 Z2) / 53.40 (Z0) / 53.80 (8x8) vs 53.25 at Q4.76.
+  -> gfx is essentially static; inter re-codes the reference's error at nearly the same step, so there is no build-up.
+     Consistent with the old 2-code gate missing gfx noise, so the hold never applied. The noise-aware gate plus the
+     budget-sized catch-up (base arm of G35) is the lever; now also run on gfx at 1/2/4. 8x8 blocks +0.4..+0.7 dB MC
+     (ceiling, vector bits x4).
