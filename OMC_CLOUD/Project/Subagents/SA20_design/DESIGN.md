@@ -576,3 +576,12 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
     96.35/96.43 < today 96.50/96.88 -> per-connected-region catch-ups ((b)) needed.
   today frozen10 @0.5 per frame: 89.82 92.48 93.74 94.03 ... 94.10 (keeps building through churn); ours plateaus at
   93.91 after the single catch-up.
+- G58 (SA20P) M-hysteresis alone still oscillates on slow pans: while a block is coded every frame, "last write" =
+  the previous frame, so 0.25 px/f passes the still test, re-holds, drifts, releases (judder, period M+k). Cure =
+  stillness over a TIME WINDOW (_win):
+  - re-hold only if the 8x8 sub-block means are unchanged vs W = 4 frames back (within ~1.5 sd of noise);
+  - held blocks release from the RECONSTRUCTION side (MAD(x - D) > E_last + 1.5 n).
+  State: W sets of 4 sub-means per block (a few hundred bits/block, << 1 bit/sample).
+  Per-region catch-ups (_rr): each connected still region whole, once, fixed order, at the finest step the padding
+  funds for the whole region (>= 0.25 octave finer), else wait. The gfx Q 0.25 moving step in G57 was my floor
+  release (G55), not an inactive floor. Arm A7 = _rg_rr_mf_acc_g2_sh_win queued on all still/pan clips + gfx.

@@ -58,6 +58,12 @@ def regions(mask):
                         if 0 <= u < mask.shape[0] and 0 <= v < mask.shape[1] and mask[u, v] and not lab[u, v]: lab[u, v] = n; q.append((u, v))
                 out.append(lab == n)
     return sorted(out, key=lambda m: -m.sum())
+WIN = 'win' in TOK   # SA20P: re-hold only if sub-block means are stable over a W-frame window; release from the reconstruction side
+WW = 4; SUBH = []; ELW = [None]
+def submeans(y):   # 8x8 sub-block means of a luma plane, grouped per 16x16 block -> (NBY, NBX, 4)
+    NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.zeros((NBY * 16, NBX * 16)); d[:H, :W] = y
+    m = d.reshape(NBY * 2, 8, NBX * 2, 8).mean(axis=(1, 3))
+    return np.stack([m[0::2, 0::2], m[0::2, 1::2], m[1::2, 0::2], m[1::2, 1::2]], -1)
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -223,13 +229,15 @@ def neg3(src, dec):
 def psnr(a, b): return 10 * np.log10(1023.0 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
 src = A + TEST + '_1280x720_422_10.yuv'; X = [read(src, W, H, f) for f in range(NF)]
 for R in RATES:
-    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; ELAST[0] = None; PASS[0] = None; STILLF[0] = None; FAILC[0] = None
+    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; ELAST[0] = None; PASS[0] = None; STILLF[0] = None; FAILC[0] = None; ELW[0] = None; SUBH.clear()
     NBY, NBX = (H + 15) // 16, (W + 15) // 16
     for t, x in enumerate(X):
         T_[0] = t; CUOFF[0] = CUAFTER; REFH[0] = ref
         if ACC:
             STILLF[0] = None
-            if t == 0: XLAST[0] = x[0].copy(); PASS[0] = None
+            if t == 0:
+                XLAST[0] = x[0].copy(); PASS[0] = None
+                if WIN: SUBH.append(submeans(x[0]))
             else:
                 ng_ = noise_gate(x, X[t - 1], 0); nb_ = SIG[0] * 1.13
                 m0 = bmad(x[0], XLAST[0]); raw = ng_ & (m0 <= (1.5 if G2 else 1.3) * nb_)
@@ -237,6 +245,13 @@ for R in RATES:
                     msh = np.min([bmad(x[0], np.roll(XLAST[0], sft, ax)) for sft in (1, -1) for ax in (0, 1)], axis=0)
                     raw &= ~(msh < m0 - 0.15 * nb_)
                 prevP = PASS[0] if PASS[0] is not None else np.full(raw.shape, MPASS)
+                if WIN:
+                    SUBH.append(submeans(x[0]))
+                    if len(SUBH) >= 2:   # window of up to WW frames (the earliest available before WW frames exist)
+                        dm = np.abs(SUBH[-1] - SUBH[max(0, len(SUBH) - 1 - WW)]).max(-1); raw &= dm <= 0.7 * SIG[0] * np.sqrt(2) * 1.5
+                    held = (PASS[0] if PASS[0] is not None else np.zeros(raw.shape, int)) >= MPASS
+                    if ELW[0] is not None:   # reconstruction-side release of held blocks
+                        rel = held & (bmad(x[0], ref[0]) > ELW[0] + 1.5 * nb_); raw &= ~rel
                 if G2:   # release only after 2 consecutive fails; a held block survives one noisy frame
                     FAILC[0] = np.where(raw, 0, (FAILC[0] if FAILC[0] is not None else np.zeros(raw.shape, int)) + 1)
                     keep_ = (prevP >= MPASS) & (FAILC[0] < 2)
@@ -293,6 +308,10 @@ for R in RATES:
         if RG: cu = CUB[0] if (CUB[0] is not None) else (np.zeros(stl.shape, bool) if stl is not None else None)
         else: cu = None if CUOFF[0] or (RAMP and t <= RAMP) else cu_mask(st, Q, stl)
         st = upd(st, y, ref, Q, stl, cu)
+        if WIN:   # error at last write per block (reconstruction side)
+            e_now = bmad(x[0], y[0])
+            if ELW[0] is None or t == 0: ELW[0] = e_now
+            else: ELW[0] = np.where(bmad(y[0], ref[0]) > 0, e_now, ELW[0])
         if ACC and t:
             wrb = bmad(y[0], ref[0]) > 0; wr_s = np.repeat(np.repeat(wrb, 16, 0), 16, 1)[:H, :W]
             XLAST[0] = np.where(wr_s, x[0], XLAST[0])
