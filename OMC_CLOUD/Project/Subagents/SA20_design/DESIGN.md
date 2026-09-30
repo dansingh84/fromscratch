@@ -720,3 +720,12 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
       (coded, not moved). Measure the error of samples downstream of clipped samples vs same-level samples elsewhere,
       per plane, on cut24/ext10. No excess -> the per-sample form stands; excess -> a legality-caused away effect to
       fix at the root.
+- G72 (G71c) downstream-of-clip error (bench/downstream.py; samples within 3 of a sample whose rail-free value left
+  the range), mean |error|, ours vs clip of the rail-free decode on the SAME samples:
+  cut24  Q8 Y 0.39 vs 0.62, C 0.75 vs 0.79 | Q32 Y 1.69 vs 1.99, C 2.57 vs 2.71 | Q128 Y 17.91 vs 21.87, C 23.27 vs 24.44
+  ext10  Q8 Y 0.47 vs 0.54 | Q32 Y 1.94 vs 2.48, C 0.25 vs 0.50 | Q128 Y 11.34 vs 19.28, C 0.00 vs 3.50
+  ext10l1: none / equal.
+  -> excess is NEGATIVE in every cell and plane: clipping inside the loop IMPROVES the predictions it feeds; no
+     legality-caused away effect in aggregate. The per-sample form stands (single samples can still land farther
+     than the rail-free clip, G67; on average they land closer). The higher error near rails vs elsewhere is equal
+     in both decodes = content, not legality.
