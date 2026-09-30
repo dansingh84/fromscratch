@@ -557,3 +557,13 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - if no catch-up fires, re-search the moving step without the floor.
   today's codec on the synthetic clips (0.5/2.0, NEG3): frozen10 92.01/95.80, nfrozen2 91.87/95.59,
   npan 91.69/95.70, pan0.25 92.01/95.89, pan1.0 92.02/96.13 (per-frame in out/today_eval_synth.txt).
+- G56 (SA20Q) motion-aware hold:
+  - noise false releases are negligible at a 0.15 n margin (>= 3.5-5 sd of the MAD-difference spread); textured still
+    blocks never falsely release;
+  - MEMORY: run the shift test against the stored reference D(t-1), already in DDR, not a stored source copy;
+  - sub-pixel onset: also test +-0.5 px (bilinear), so drift is caught at ~0.25-0.4 px; judge the one-time onset lag by eye.
+  Pre-registered pan bound (0.25/0.5/1 px, clean and sigma 2-3, N >= 10-12, 0.5-4.0), blocks classed by source texture:
+  - textured: changes >= N - L with L <= 2 (0.25 px), <= 1 (0.5 px), 0 (>= 1 px);
+  - flat: 0 changes allowed; intermittent textured <= 1 %;
+  - per-frame error flat after onset;
+  - CONTROL no-hold arm: hold on vs off within 0.1 NEG (mean and worst frame) and 0.1 dB per plane on pans.
