@@ -1019,3 +1019,18 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   mixed-rate hops. It was built before the record check = a repeat of falsified ideas.
 - H17 Process rule from here: every new candidate goes to SA20Q's record and constraint check BEFORE any code is
   written, and is built only if it states what differs at the root from every killed relative.
+- H18 Owner 2026-09-30: a failed idea means the redesign did not go far enough upstream; redesign from scratch.
+  Latency must stay within JPEG XS (~32 lines excl. conversion, < 1 ms incl.); every candidate states its lines.
+  Upstream of H8: why is averaging (shared coarse values: efficient, one role, no grid) barred? Because every design
+  in the pack treats legality as a CORRECTION after reconstruction. An out-of-range sample is either clipped alone
+  (never-away holds, exactness breaks: the clipped picture's analysis is off-lattice, re-encoders settle only at
+  gen 4-7, R-CLIP / SA19 L4) or moved with its coded mean held fixed (exactness holds, the partner moves away:
+  ~50/50, 13-312 samples/frame, up to 72 codes; S5.404). Redesign target: a representation in which an illegal value
+  cannot be expressed, so no legaliser exists; then nothing is corrected, nothing moves away, and averaging returns.
+  Candidate mechanisms under record check (SA20Q) and development (SA20P): range-bounded lifting (each detail's
+  reconstruction set derived from the decoded coarse value), range-preserving invertible integer lifting, exact
+  companding of the legal range.
+  SA20P's other families (for the record): blue-noise role map in the pyramid (turns the grid into a fixed
+  aperiodic modulation: hides the role difference, does not remove it; fallback only), RD-optimal leaf choice
+  (encoder add-on), Wyner-Ziv / coset coding (no gain: the encoder holds the side information), frame-alternating
+  roles (period-2 shimmer; phase not readable from the image), per-sample LS prediction (per-pixel multipliers, C3).
