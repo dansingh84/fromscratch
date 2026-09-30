@@ -56,7 +56,9 @@ def ent(q):  # zeroth order + 1-bit context (left or up nonzero), bits
         if v.size == 0: continue
         _, n = np.unique(v, return_counts=True); p = n / v.size; bits += -(n * np.log2(p)).sum()
     return bits
-def dz(v, s, rho=0.35): return np.sign(v) * np.floor(np.abs(v) / s + rho)
+import os as _os
+_RHO = float(_os.environ.get('RHO', '0.35'))
+def dz(v, s, rho=None): return np.sign(v) * np.floor(np.abs(v) / s + (_RHO if rho is None else rho))
 
 # band gains (synthesis energy of a unit impulse), for gain-normalised steps
 def gains(shape):

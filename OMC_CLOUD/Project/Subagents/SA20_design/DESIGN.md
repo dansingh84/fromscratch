@@ -389,3 +389,12 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   45 % -> 8.7 % changes before the block gate). po takes a per-sample step map QM (bit-identical at QM = 1).
   Bench: _rg (the (a)+(b) plan, 1 bit/block map charge) vs _cua (c) on gfx 1/2, cine 0.5/1, noisy frozen sigma 2
   (10 f) and noisy pan (10 f).
+- G40 TRAINING-CLIP FIT (leave-one-out S16 tables, intra f0, vs today's f0; out/fit_vs_today_train.txt), NEG at 1.0..4.0:
+  - cine_A005C021 cm1: +2.09/+1.37/+0.75/+0.71/+0.50/+0.40 (and +6.05 @0.5);
+  - cine_4k_A006 cm1: -0.77/-0.39/-0.22/-0.31/-0.17/-0.00 (+8.15 @0.5), although luma PSNR is +2.1 dB;
+  - gfx F003 cm1: -1.18/-0.57/-0.20/-0.24/-0.01/-0.05 (-0.17 @0.5), luma PSNR +1.3..+2.2 dB.
+  cm0.85/0.7 lower NEG further on every clip. -> The intra "NEG >= today everywhere" of G18 (3 test clips) does NOT
+  generalise: on the fine-texture 4K-downscaled clip and on gfx F003 we are BEHIND on NEG while AHEAD on PSNR, the
+  signature of detail loss (VMAF-NEG rewards kept texture; PSNR rewards smoothing). Suspect: the dead zone (rho 0.35)
+  zeroes small leaves, and interpolation fills smooth. Screen: rho 0.35 / 0.42 / 0.5 on A006 (RHO env).
+  No chroma curve is fitted until this is understood (every cm < 1 lowers NEG).
