@@ -43,6 +43,21 @@ XLAST = [None]; PASS = [None]; STILLF = [None]; MPASS = 3
 G2 = 'g2' in TOK   # higher-confidence gate: 35th-pct noise, MAD <= 1.5 n, |mean| <= 5 n/16, release after 2 consecutive fails, catch-up step >= moving/2
 FAILC = [None]
 SH = 'sh' in TOK   # motion-aware hold: release if a 1-px shift of the last-write source explains x_t better than zero shift
+RR = 'rr' in TOK   # per-connected-region catch-ups (SA20Q (b)): regions largest first, each whole, at the finest fitting step
+def regions(mask):
+    from collections import deque
+    lab = np.zeros(mask.shape, int); out = []; n = 0
+    for i in range(mask.shape[0]):
+        for j in range(mask.shape[1]):
+            if mask[i, j] and not lab[i, j]:
+                n += 1; q = deque([(i, j)]); lab[i, j] = n; cells = []
+                while q:
+                    a, b = q.popleft(); cells.append((a, b))
+                    for da, db in ((1, 0), (-1, 0), (0, 1), (0, -1)):
+                        u, v = a + da, b + db
+                        if 0 <= u < mask.shape[0] and 0 <= v < mask.shape[1] and mask[u, v] and not lab[u, v]: lab[u, v] = n; q.append((u, v))
+                out.append(lab == n)
+    return sorted(out, key=lambda m: -m.sum())
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -244,7 +259,18 @@ for R in RATES:
         if RG and best is not None and t and st is not None and not (RAMP and t <= RAMP):
             stl0 = still_blocks(x, X[t - 1]); CAUGHT[0] = np.zeros(stl0.shape, bool) if CAUGHT[0] is None else CAUGHT[0]
             cand = stl0 & ~CAUGHT[0]; Qm = best[0]
-            if cand.any():
+            if cand.any() and RR:
+                acc_m = np.zeros(cand.shape, bool); qmap = np.ones(cand.shape); got = []
+                for reg in regions(cand)[:6]:
+                    QLr = st[0][0][reg].max()
+                    for Qc in [g for g in GRID[::2] if g <= QLr * 2 ** -0.25 * 1.001 and (not G2 or g >= Qm / 2 * 0.999)]:
+                        CUB[0] = acc_m | reg; QMB[0] = np.where(reg, Qc / Qm, qmap)
+                        syc, yc = code_frame(x, ref, Qm, st, X[t - 1]); bc = fcost(syc, Qm) + 10 * NBLK + NBLK
+                        if bc <= budget:
+                            best = (Qm, bc, yc, syc); acc_m = acc_m | reg; qmap = np.where(reg, Qc / Qm, qmap); got.append((int(reg.sum()), Qc)); break
+                CUB[0] = acc_m if acc_m.any() else None; QMB[0] = qmap if acc_m.any() else None
+                if got: rginfo = (None, got)
+            elif cand.any():
                 QLr = st[0][0][cand].max()   # the set's coarsest last step: Q_c must be >= 0.25 octave finer than it
                 for Qc in [g for g in GRID if g <= QLr * 2 ** -0.25 * 1.001 and (not G2 or g >= Qm / 2 * 0.999)]:
                     CUB[0] = cand; QMB[0] = np.where(cand, Qc / Qm, 1.0)
@@ -276,8 +302,11 @@ for R in RATES:
             else:
                 wr = bmad(y[0], ref[0]) > 0; ELAST[0] = np.where(wr, e_now, ELAST[0])
         if RG and rginfo is not None:
-            for k in range(3): st[k][0][cu] = rginfo[0] * ((cm if CI is None else CI) if k else 1)
-        if RG: cuinfo.append('%s' % ('-' if rginfo is None else '%d@%.1f' % (rginfo[1], rginfo[0])))
+            if rginfo[0] is None:
+                for k in range(3): st[k][0][cu] = (QMB[0][cu] * Q) * ((cm if CI is None else CI) if k else 1)
+            else:
+                for k in range(3): st[k][0][cu] = rginfo[0] * ((cm if CI is None else CI) if k else 1)
+        if RG: cuinfo.append('-' if rginfo is None else ('+'.join('%d@%.1f' % g for g in rginfo[1]) if rginfo[0] is None else '%d@%.1f' % (rginfo[1], rginfo[0])))
         if (CU or RG) and stl is not None and cu is not None:
             CAUGHT[0] = ((CAUGHT[0] if CAUGHT[0] is not None else np.zeros(stl.shape, bool)) | cu) & stl   # caught until the source moves
             if not RG: cuinfo.append(int(cu.sum()))
