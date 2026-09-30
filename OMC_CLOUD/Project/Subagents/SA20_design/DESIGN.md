@@ -217,3 +217,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   prores 0.5 +1.97 (+2.56/-0.24/-0.36) 1.0 +0.82 (Cr -0.03) 1.5 +0.42 2.0 +0.31 2.5 +0.27 3.0 +0.20 4.0 +0.16
   -> remaining misses: chroma at 0.5 on cine/prores and prores Cr at 1.0; NEG margin there is +0.6..+2.0.
      S16 with cm 0.85 / 0.7 queued to fit the one fixed chroma curve.
+- G19 (SA20P on S16): admissible for memory: 16 x 1024 x ~19 bit = 0.31 Mbit per set, ~4 Mbit over 13 lanes at 8K,
+  under the 4-5 Mbit cap. Neighbour INDEX contexts are on record (SA17 in-slice left+above, reset at the slice top).
+  Conditions:
+  - up/diagonal neighbours only from complete rows: define the lane partition (column stripes, left context reset
+    at stripe edges);
+  - the ACTIVITY term reads reconstructed samples (SA16 bug-4 class: clamp- and plan-dependent), so it needs an
+    estimate + reserve, else drop it; S16i (indices only) is being measured to decide;
+  - tables trained on the exact inter config; gen-2 bits identical; per-slice exact CBR.

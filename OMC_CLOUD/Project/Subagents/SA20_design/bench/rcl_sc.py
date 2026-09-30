@@ -20,15 +20,15 @@ TRAIN = [('cine_4k_A006', 2), ('cine_A005C021', 2), ('gfx444_F003C012', 3)]
 TEST = sys.argv[1]; CM = float(sys.argv[2]) if len(sys.argv) > 2 else 1.0; ES = list(range(-2, 25))
 def nzc(q):
     nz = q != 0; c = np.zeros_like(nz); c[:, 1:] |= nz[:, :-1]; c[1:, :] |= nz[:-1, :]; return c.astype(int)
-def mag(q, a):
+def mag(q, a, ua=True):
     q = np.abs(q.astype(float)); m = np.zeros_like(q)
     m[:, 1:] += q[:, :-1]; m[1:, :] += q[:-1, :]; m[1:, 1:] += 0.5 * q[:-1, :-1]; m[1:, :-1] += 0.5 * q[:-1, 1:]
-    return m + a[:q.shape[0], :q.shape[1]]
-def cls(q, a, K): return np.minimum((np.log2(1 + mag(q, a)) * K / 7).astype(int), K - 1)
-VAR = {'S16': (16, 0, 0), 'S16p': (16, 1, 0), 'S16pk': (16, 1, 1), 'S12pk': (12, 1, 1)}
+    return m + a[:q.shape[0], :q.shape[1]] if ua else m
+def cls(q, a, K, ua=True): return np.minimum((np.log2(1 + mag(q, a, ua)) * K / 7).astype(int), K - 1)
+VAR = {'S16': (16, 0, 0), 'S16p': (16, 1, 0), 'S16pk': (16, 1, 1), 'S12pk': (12, 1, 1), 'S16i': (16, 0, 0, 0)}
 if os.environ.get('ONLY'): VAR = {k: VAR[k] for k in os.environ['ONLY'].split(',')}
 def keys(pl, key, q, a, v):
-    K, P_, Kp = VAR[v]; c = cls(q, a, K)
+    K, P_, Kp = VAR[v][:3]; c = cls(q, a, K, VAR[v][3] if len(VAR[v]) > 3 else True)
     return c + K * ((pl if P_ else 0) * 2 + ((key[0] == 'c') if Kp else 0))
 def syms(planes, Q):
     out = []
