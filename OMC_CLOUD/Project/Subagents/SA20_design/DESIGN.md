@@ -475,3 +475,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   today:    Y AMP 0.987 COR 0.788 | Cb 0.657/0.419 | Cr 0.331/0.204 | PER Cb 1.05, Cr 1.43 (periodic chroma structure)
   -> rho 0.42 keeps texture at source energy (no amplification), with higher correlation to the source than today on
      every plane. No grain-amplification trap on this cell. intra_eval.py now prints texstat per arm.
+- G49 NESTED rho fit, training clips, rate-matched intra NEG vs today (out/rho_vs_today_train.txt), 0.5..4.0:
+  A006  rho .35 +8.15/-0.77/-0.39/-0.22/-0.31/-0.17/0.00 | .42 +10.81/+0.11/-0.05/0.00/-0.16/-0.04/+0.01 | .50 +11.96/+0.36/-0.09/0.00/-0.15/-0.03/0.00
+  C021  rho .35 +6.05/+2.09/+1.37/+0.75/+0.71/+0.50/+0.40 | .42 +6.04/+2.26/+1.45/+0.79/+0.67/+0.52/+0.42 | .50 +5.65/+1.97/+1.26/+0.69/+0.59/+0.42/+0.38
+  F003  rho .35 -0.17/-1.18/-0.57/-0.20/-0.24/-0.01/-0.05 | .42 +0.65/-0.70/-0.25/-0.04/-0.09/+0.05/-0.03 | .50 +0.94/-0.44/-0.10/+0.01/-0.10/+0.07
+  Nested choice (fit on the other two clips): 0.42 for every clip (0.5 wins A006/F003 NEG slightly but loses chroma
+  0.5-1.0 dB everywhere). Spread: 0.42-0.5, same direction everywhere -> ship rho 0.42 (intra), per SA20Q's rule.
+  G41 VERDICT (intra, rho 0.42), cells FAILING (NEG < -0.05 or a plane < -0.1 dB):
+  - A006: NEG @2.5 -0.16; Cb/Cr @0.5 -2.46/-3.89, @1.0 -0.81/-1.62, @1.5 Cr -0.70, @2.0 Cr -0.11;
+  - F003: NEG @1.0 -0.70, @1.5 -0.25, @2.5 -0.09; Cb/Cr @0.5-2.5 -0.07..-0.50;
+  - C021: Cb/Cr @0.5 -0.84/-1.33.
+  -> Form (i) intra with S16 + rho 0.42 is NOT yet >= today on every cell. Luma PSNR leads by 1-4.7 dB everywhere, so
+     bits are spent on luma that chroma and NEG need. Next lever: the single chroma-step function (nested) at rho 0.42.
