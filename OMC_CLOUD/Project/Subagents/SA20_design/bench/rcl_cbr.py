@@ -345,6 +345,13 @@ for R in RATES:
         ch.append('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k])[np.abs(X[t][k] - X[t-1][k]) <= 2].mean()) for k in range(3)))
     print('   changed share ALL samples Y/Cb/Cr per transition ' + ' '.join('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k]).mean()) for k in range(3)) for t in range(1, NF))
           + ((' | still-labelled blocks ' + '/'.join('%.0f%%' % (100 * still_blocks(X[t], X[t - 1]).mean()) for t in range(1, NF))) if SG else ''), flush=True)
+    # temporal activity vs the SOURCE (A2 'sub-source calm'): boil = mean |frame-to-frame delta|, ants = share |delta| > 6
+    bo = []
+    for k in range(3):
+        do = np.mean([np.abs(rec[t][k] - rec[t - 1][k]).mean() for t in range(1, NF)]); ds = np.mean([np.abs(X[t][k] - X[t - 1][k]).mean() for t in range(1, NF)])
+        ao = np.mean([(np.abs(rec[t][k] - rec[t - 1][k]) > 6).mean() for t in range(1, NF)]); as_ = np.mean([(np.abs(X[t][k] - X[t - 1][k]) > 6).mean() for t in range(1, NF)])
+        bo.append('%s boil %.3f (src %.3f) ants %.2f%% (src %.2f%%)' % ('YUV'[k], do, ds, 100 * ao, 100 * as_))
+    print('   temporal activity ' + ' | '.join(bo), flush=True)
     if NF >= 6:   # per-block luma change histogram over all transitions (SA20Q bound): 0 / 1 / intermittent / continuous
         NBY_, NBX_ = (H + 15) // 16, (W + 15) // 16; cnt = np.zeros((NBY_, NBX_), int)
         for t in range(1, NF): cnt += bmad(rec[t][0], rec[t - 1][0]) > 0

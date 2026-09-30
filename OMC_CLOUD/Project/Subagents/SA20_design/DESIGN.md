@@ -593,3 +593,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   freezes the grain while the source grain moves; the error = fresh source noise each frame. Today follows the grain
   (= churn). If the no-hold control confirms it, this is the measured PRICE of the owner's zero-churn rule on grainy
   still content, to be reported rather than engineered around (grain synthesis is banned).
+- G60 (SA20Q) G59 is NOT yet a price: the owner's zero-change bar was set on byte-identical frozen input; for real
+  grainy content the recorded bar is A2 "sub-source calm" (output boil and ants tail <= the source's). Freezing
+  grain is our gate's choice. The compliant third arm is GRAIN-FOLLOW: the still gate off, per-sample hysteresis
+  (kappa Q_last + rounding slack) kept, so leaves track the real grain once it exceeds the step, with no sub-code wobble.
+  Three arms on gfx B001 and cine C031 @1.0: HOLD (_win arm), NO-HOLD (cm1_zb2_chp_s16), GRAIN-FOLLOW
+  (cm1_zb2_hy0.75_rs_chp_s16). Output now reports boil and ants (|delta| > 6) per plane vs the source.
+  PASS grain-follow: NEG >= today, boil <= source, ants <= source per plane, no visible shimmer; frozen input still 0.
+  Judge NEG against the source everywhere; the eye decides (the renders go to the owner).
