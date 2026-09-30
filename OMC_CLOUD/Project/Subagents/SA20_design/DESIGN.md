@@ -421,3 +421,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   0.75 -0.64, SA16 PSNR-optimal ladder zeroed level 1 (-4.8); grain fill and synthesized texture banned; per-cell
   tuned dead zones banned.
   Intra verdict rule (G41) agreed by both thinkers, plus nested leave-one-out for levers.
+- G43 VMAF-NEG feature breakdown ours - today (bench/diag_feat.py, intra f0 @1.0):
+  A006: VIF s0 +0.051, s1 -0.021, s2 -0.015, s3 -0.008; ADM s0 +0.023, s1 +0.005, s2 -0.003, s3 -0.001; NEG -0.99.
+  gfx F003: VIF s0 +0.037, s1 -0.009, s2 -0.007, s3 -0.004; ADM s0 +0.008, s2 -0.005, s3 -0.002; NEG -0.70.
+  -> Confirms G42: we lead at the finest scale and trail at VIF scales 1-3 / ADM 2-3 (mid/coarse fidelity). The
+     lever is more precision at the coarse levels (steeper ladder, f < 0.7), not texture keeping.
