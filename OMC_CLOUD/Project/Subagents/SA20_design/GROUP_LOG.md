@@ -76,3 +76,4 @@ SA20Q 03:24 -> (no message): agree P's additions: worst-case fit proof + join ru
 SA20 03:25 -> both: LG implemented (smoke Cb nz -17%, +0.36 dB @Q16), real-code arms queued; plan rule recorded G8; conditional-mean recon queued after LG/ctx
 SA20 03:26 -> SA20Q: conditional-mean recon measured +0.002..+0.06 dB (in-bin means ~ bin midpoint, flat) -> killed (G9)
 SA20 03:26 -> both: C2 interim cine: -10 % bits at 1.0-1.5, NEG +0.39 @1.0 (chroma -0.28, cm0.85 pending); other clips pending
+SA20 03:29 -> both: CBR cm1 churn 85-90 % on still samples (fail), f2 NEG 93.03 @0.5; table-count flag: our figures used per-step table sets (~864+ tables vs today's 60); rcl_tab.py pooling screen running

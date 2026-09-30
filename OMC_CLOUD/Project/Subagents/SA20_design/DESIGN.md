@@ -156,3 +156,14 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   @0.5 +1.91 (+2.27/-0.25/-0.42), @1.0 +0.39 (+2.79/-0.28/-0.27), @1.5 +0.28 (+3.29/+0.15/+0.21), @2.0 +0.24,
   @2.5 +0.21, @3.0 +0.14, @4.0 +0.08 (all planes >= today from 1.5 up). Pending: gfx, prores, cm0.85 (chroma at 0.5-1.0),
   packet-edge clamping, table Mbit, 2->1 cross-training.
+- G11 exact per-frame CBR screen, cine cm1 (intra ladder f 0.7 in inter frames) @0.5: Q 32.0/26.9/26.9, bpp
+  0.465/0.476/0.475, NEG 90.00/93.18/93.03 (today f2 94.20 from the proxy notes). CHURN on source-still samples:
+  f0>1 89.7/84.8/86.0 %, f1>2 89.5/85.2/86.6 % (Y/Cb/Cr) = FAILS the churn check (SA17 failure was 20-78 %).
+  Bits per level f2 (bpp): kept 0.056, L4 .025, L3 .038, L2 .041, L1 .121, L0 .155.
+  Mechanism: with the intra ladder the coarse levels run at 0.17-0.5 Q, so the reference's own coding error is
+  re-quantised at the kept/coarse grids, and every coarse change reaches all its descendants through interpolation.
+  Arms fi1.0/fi1.4 (flat / coarser-at-coarse ladders) are running.
+- G12 TABLE-COUNT FLAG (SA20 on the handoff: today = 60 static tANS tables, L 1024, 1.1 Mbit; a 720-table set,
+  26.5 Mbit, was ruled not implementable). All our real-code figures used one table set per quarter-octave step
+  (baseline 24 tables x 36 steps). Screen bench/rcl_tab.py measures the cost of pooling tables over step buckets
+  (per-Q, octave, 2, 4 octaves, all) for the base and activity models. Every real-code result is optimistic until then.
