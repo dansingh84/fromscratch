@@ -310,3 +310,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Q 16-27 (0.5-0.9 bpp) on all 3 clips. Vs today: cine @0.5 -0.32 NEG, and chroma fails at 0.5-1.0 on cine and prores.
   -> the same-row left neighbour carries a large share of the gain; the per-symbol loop is real. Next: S16l2 (left
   neighbour at distance 2 -> a 2-cycle loop in a lane, the standard relaxation).
+- G31 lane-costing estimate (rcl_s16 EST=1, intra f0, S16):
+  - emitted minus estimate (activity from SOURCE coarse samples) stays within -0.9..+0.45 % on all 3 clips at every
+    step (both signs, no rate trend);
+  - the +-1-class upper bound (SA20Q) pads +12..+126 % (the max over classes charges zeros at high-activity
+    classes), far above the 1-2 % pass -> REJECTED as a costing rule.
+  Rule adopted: estimate + ~1 % reserve for the lanes, SA20P's single re-choice (finest plan whose worst-case bound
+  fits) as the guarantee. Firing rate and padding still to be measured under per-slice CBR (intra here; inter,
+  cut frames and rails pending).
