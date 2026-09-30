@@ -831,3 +831,25 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
     _sn  sigma-hat from the current source's spatial Laplacian (Immerkaer; 20th percentile per luma band so edges
          and texture are excluded), independent of motion (tools/diag_sigma.py compares both estimators);
     _rm<m> a finer step is taken only if it fits m x budget (coarsening and holding use the full budget).
+- G76b corrections and the clean-picture measurement.
+  - CORRECTION to G76 (pan root cause): tools/diag_sigma.py shows the frame-difference sigma-hat is NOT inflated on the
+    slow pan (median luma: pan0.25 temporal 0.44 / spatial 0.80; frozen10 0.44 / 0.82; pan1.0 1.17 / 0.83;
+    nfrozen2 1.91 / 2.18; nfrozen3 2.88 / 3.06; npan0.5s2 2.11 / 2.10). The pan0.25 @2.0 loss follows the step
+    saw-tooth: k=3 Q 2.83/3.36/2.83/4.00/3.36/2.83 with Y PSNR per frame 54.95/56.17/55.18/56.32/54.95/54.92, a
+    1.4 dB pulse every other frame; k=1.5 holds 2.83 and stays at 56.8-56.9. The last-frame NEG (the bound) lands on
+    a trough. Spatial sigma is inflated by texture on clean content (0.82 vs 0.44) -> _sn alone is wrong; SA20P's
+    min(spatial, temporal) is arm _snm.
+  - Clean-picture PSNR (tools/diag_clean.py; decode vs the noise-free frozen picture, frames 0-9):
+    nfrozen2 @0.5 45.21 46.02 46.01 46.01 46.01 46.02 46.03 46.08 46.23 46.49 (source itself 54.09)
+    nfrozen3 @0.5 44.90 45.66 45.64 ... 45.72 45.86 46.02                      (source 50.62)
+    nfrozen2 @2.0 51.01 51.01 50.86 50.77 50.72 50.67 50.63 50.59 50.55 50.52
+    nfrozen3 @2.0 48.49 48.48 48.31 48.22 48.13 48.03 47.97 47.90 47.84 47.81
+    -> @0.5 the late refinement is real picture detail (moves toward the clean picture, +0.5 dB);
+       @2.0 the output drifts AWAY from the clean picture by 0.5-0.7 dB over 8 frames: grain-follow keeps writing
+       noise tails (> 3 sigma) into held samples, so the held picture accumulates grain. Legal (each write moves toward
+       the SOURCE), but it is a slow grain build-up = still a trend.
+  - Group ruling (SA20P + SA20Q, GROUP_LOG): the trend bound stays as registered from frame 2; @0.5 FAILS. Fix at the
+    root: frames 0-1 are already exempt from the slew; what frame 1 cannot fund is the one catch-up, never a creep.
+    rm0.85 first, rm0 (no refinement after the ramp) as control, then rm0.9.
+  - G77 queued (queues/q_sn.sh): snm x rm0.85, snm x rm0, sn x rm0.85 on pan0.25, nfrozen2/3, npan0.5s2, frozen10;
+    control rerun with temporal metrics.

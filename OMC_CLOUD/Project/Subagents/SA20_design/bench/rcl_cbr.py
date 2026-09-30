@@ -70,7 +70,7 @@ EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byt
 XLC = [None]
 GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
 QN = float([t[2:] for t in TOK if t.startswith('qn')][0]) if any(t.startswith('qn') for t in TOK) else 0.0   # frame-step floor c x median luma sigma-hat (no quantising below the noise)
-SN = 'sn' in TOK   # sigma-hat from the current source's spatial Laplacian (Immerkaer), per luma band, not the frame difference
+SN = 'sn' in TOK; SNM = 'snm' in TOK   # sigma-hat from the current source's spatial Laplacian (Immerkaer), per luma band, not the frame difference
 RM = float([t[2:] for t in TOK if t.startswith('rm')][0]) if any(t.startswith('rm') for t in TOK) else 1.0   # refine only if the finer step fits RM x budget
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
@@ -124,7 +124,7 @@ def noise_gate(x, xprev, k=0):
     nb = np.maximum(n[lb], 0.5)          # mean |d| of pure noise = sigma sqrt2 sqrt(2/pi) ~ 1.13 sigma
     still = (mad <= 1.5 * nb) & (np.abs(md) <= (5 if G2 else 3) * nb / np.sqrt(16 * bw))
     SIG[0] = nb / 1.13                   # per-block sigma estimate (of the plane asked for)
-    if SN: SIG[0] = spatial_sigma(x[k], lb, bw)   # motion-independent: a pan's frame difference is not noise
+    if SN or SNM: sp_ = spatial_sigma(x[k], lb, bw); SIG[0] = np.minimum(SIG[0], sp_) if SNM else sp_   # snm: min(spatial, temporal), SA20P   # motion-independent: a pan's frame difference is not noise
     return still
 def spatial_sigma(p, lb, bw):   # Immerkaer: sigma = sqrt(pi/2)/6 mean|L*p|, L = [1,-2,1] x [1,-2,1]; low percentile per luma band excludes edges/texture
     NBY, NBX = lb.shape; hh, ww = NBY * 16, NBX * bw; h_, w_ = p.shape
@@ -308,7 +308,7 @@ for R in RATES:
             mid = (lo + hi) // 2; Q = GRID[mid]
             sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None)
             b = fcost(sy, Q) + (10 * NBLK if t else 0)
-            ok = b <= budget and (RM >= 1.0 or QPREV[0] is None or Q >= QPREV[0] or b <= RM * budget)   # rate margin on refinement: no sawtooth
+            ok = b <= budget and (RM >= 1.0 or QPREV[0] is None or t <= max(RAMP, 1) or Q >= QPREV[0] or b <= RM * budget)   # rate margin on refinement: no sawtooth
             if ok: best = (Q, b, y, sy); hi = mid - 1
             else: lo = mid + 1
         if RG and best is not None and t and st is not None and not (RAMP and t <= RAMP):
