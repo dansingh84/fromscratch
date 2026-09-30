@@ -38,6 +38,7 @@ A = '/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/'
 TRAIN = [('cine_4k_A006', 2), ('cine_A005C021', 2), ('gfx444_F003C012', 3)]
 TEST, ARM = sys.argv[1], sys.argv[2]; W, H = 1280, 720
 cm = float(ARM.split('_')[0][2:]); CL = ARM.endswith('_cl')
+LG = float([t[2:] for t in ARM.split('_') if t.startswith('lg')][0]) if '_lg' in ARM else 0  # luma-guided chroma interpolation
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_fi'); os.makedirs(OUT, exist_ok=True)
 def code_frame(planes, Q, SYS):
     Y = None; outs = []
@@ -45,8 +46,8 @@ def code_frame(planes, Q, SYS):
         SY = []
         if pl == 0: y = po(p, Q, 0.7, 0, SY)[1]; Y = y
         else:
-            Yd = (Y[:, 0::2] + Y[:, 1::2] + 1) >> 1 if CL else None
-            y = po(p, Q * cm, 0.7, 0, SY, Yd=Yd)[1]
+            Yd = (Y[:, 0::2] + Y[:, 1::2] + 1) >> 1 if (CL or LG) else None
+            y = po(p, Q * cm, 0.7, 0, SY, Yd=Yd, LG=LG)[1]
         SYS.append((min(pl, 1), SY)); outs.append(y)
     return outs
 src = A + TEST + '_1280x720_422_10.yuv'; x = read(src, W, H, 0)

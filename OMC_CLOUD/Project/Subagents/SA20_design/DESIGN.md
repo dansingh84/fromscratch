@@ -139,3 +139,10 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   NEG >= today after the 1 % header charge on all 3 clips; else killed.
   Queued lever (SA20Q): conditional-mean reconstruction, delta(class of the final-neighbour gradient vs prediction),
   static LUT, |delta| <= step/8, continuous; guard texstat/flatplane/renders + static control.
+- G7 luma-guided chroma interpolation (LG, SA20P; bench/n4_core.po LG=k): where the final co-located luma between the two
+  inner DD4 taps differs by more than k x step, chroma is predicted a + w(b - a), w = target luma position in eighths
+  (shift-add). Smoke (cine f0, Cb, Q16, intra): nonzero symbols 8657 -> 7196 (LG1), PSNR 53.44 -> 53.80. Real-code arms
+  cm1_lg1, cm0.85_lg1, cm1_lg2 queued (out/rcl_fi/lg_vs_today.txt). Kill: < +0.1 dB worse chroma plane @1.0 on 2 of 3 clips.
+- G8 engine rate-control rule (SA20Q flag, both agree): plan from the previous frame's emitted cost, one predetermined
+  coarser re-choice, proof the coarsest plan fits, gen 1 emits the plan read from its own picture (joiner needs no
+  history). rcl_cbr's multi-Q search is a screen (upper bound) only.

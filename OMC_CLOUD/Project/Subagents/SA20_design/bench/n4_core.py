@@ -38,7 +38,9 @@ def alpha_map(ck, yk, shp, BS):
             a[2*i:2*i+2*BS, 2*j:2*j+2*BS] = al
     return a
 
-def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None):
+def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0):
+    # LG > 0: luma-GUIDED chroma interpolation (0 bits): where the final co-located luma has an edge between the two inner
+    # taps (|ya - yb| > LG * step), predict a + w (b - a), w = position of the target luma between ya and yb (eighths)
     # ACT (optional list): per symbol array, the decoder-side activity of its prediction support / step (final data only)
     if P is None: P = np.zeros_like(x)
     x = x - P   # residual domain; every clip is done in the PIXEL domain: clip(P + v) - P
@@ -72,24 +74,34 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None):
     for lvl in range(L - 1, -1, -1):
         kind, shp = grids[lvl]; s_l = Q * f ** lvl; r, c = strides(lvl)
         xg = tg[lvl][::r, ::c][:shp[0], :shp[1]]; full = np.zeros(shp, np.int64); Pg = P[::r, ::c][:shp[0], :shp[1]]
-        if Yd is not None:
+        if Yd is not None and not LG:
             yg = Yd[::r, ::c][:shp[0], :shp[1]]
             AL = alpha_map(cur, yg[0::2, 0::2] if kind == '2d' else yg[:, 0::2], shp, BS)
             def lt(sl, pd): return np.round(AL[sl] * (yg[sl] - pd)).astype(np.int64)
         else:
-            yg = np.zeros(shp, np.int64)
+            yg = Yd[::r, ::c][:shp[0], :shp[1]] if LG else np.zeros(shp, np.int64)
             def lt(sl, pd): return 0
+        def gd(pr, cc, yc, yt, axis):
+            if not LG: return pr
+            n = pr.shape[axis]; ii = np.arange(n)
+            def tap(k, o):
+                k = np.moveaxis(k, axis, 0); return np.moveaxis(k[np.clip(ii + o, 0, k.shape[0] - 1)], 0, axis)
+            a, b, ya, yb = tap(cc, 0), tap(cc, 1), tap(yc, 0), tap(yc, 1); t = yt[:pr.shape[0], :pr.shape[1]]
+            d = yb - ya; e = np.abs(d) > LG * s_l
+            w = np.clip(np.round(8 * (t - ya) / np.where(e, d, 1)), 0, 8)
+            return np.where(e, a + ((w.astype(np.int64) * (b - a) + 4) >> 3), pr)
         if kind == 'h':
             full[:, 0::2] = cur; pr = pred_axis(cur, shp[1] // 2, 1)
             if Yd is not None: pr = pr + lt((slice(None), slice(1, None, 2)), pred_axis(yg[:, 0::2], shp[1] // 2, 1))
+            pr = gd(pr, cur, yg[:, 0::2], yg[:, 1::2], 1)
             q = dz(xg[:, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l)); full[:, 1::2] = np.clip(Pg[:, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[:, 1::2]
         else:
             full[0::2, 0::2] = cur
-            pr = pred_axis(cur, shp[1] // 2, 1); pr = pr + lt((slice(0, None, 2), slice(1, None, 2)), pred_axis(yg[0::2, 0::2], shp[1] // 2, 1)); q = dz(xg[0::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l))
+            pr = pred_axis(cur, shp[1] // 2, 1); pr = pr + lt((slice(0, None, 2), slice(1, None, 2)), pred_axis(yg[0::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, cur, yg[0::2, 0::2], yg[0::2, 1::2], 1); q = dz(xg[0::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l))
             full[0::2, 1::2] = np.clip(Pg[0::2, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[0::2, 1::2]
-            pr = pred_axis(cur, shp[0] // 2, 0); pr = pr + lt((slice(1, None, 2), slice(0, None, 2)), pred_axis(yg[0::2, 0::2], shp[0] // 2, 0)); q = dz(xg[1::2, 0::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[0] // 2, 0, s_l))
+            pr = pred_axis(cur, shp[0] // 2, 0); pr = pr + lt((slice(1, None, 2), slice(0, None, 2)), pred_axis(yg[0::2, 0::2], shp[0] // 2, 0)); pr = gd(pr, cur, yg[0::2, 0::2], yg[1::2, 0::2], 0); q = dz(xg[1::2, 0::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[0] // 2, 0, s_l))
             full[1::2, 0::2] = np.clip(Pg[1::2, 0::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[1::2, 0::2]
-            pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); pr = pr + lt((slice(1, None, 2), slice(1, None, 2)), pred_axis(yg[1::2, 0::2], shp[1] // 2, 1)); q = dz(xg[1::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(full[1::2, 0::2], shp[1] // 2, 1, s_l))
+            pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); pr = pr + lt((slice(1, None, 2), slice(1, None, 2)), pred_axis(yg[1::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, full[1::2, 0::2], yg[1::2, 0::2], yg[1::2, 1::2], 1); q = dz(xg[1::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(full[1::2, 0::2], shp[1] // 2, 1, s_l))
             full[1::2, 1::2] = np.clip(Pg[1::2, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[1::2, 1::2]
         cur = full
     return bits, cur + P
