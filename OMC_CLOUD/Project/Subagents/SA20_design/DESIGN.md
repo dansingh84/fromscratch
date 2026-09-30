@@ -918,3 +918,20 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   auxiliary's upsampling phase, which enters only through prediction accuracy (measured against the prime-fold
   null). The auxiliary supplies the non-causal low band that T1 lacks, which should also bound error propagation
   along the scan (streaks).
+- H7 T2 / T3 withdrawn before further work: an auxiliary coarse signal that is not an output sample, plus a
+  per-sample residual, is the DOL family (Burt-Adelson Laplacian; SA18P), killed on generation-2 exactness: only the
+  picture crosses a hop, so generation 2 must re-derive the auxiliary from the decoded picture and gets different
+  indices (5-40 % re-read mismatch, dng720 / hwy); the slack rescue (D1) died on its bit margin. T2's partial
+  efficiency screen (out/t2/, D4 KA0.5 alpha0.5: NEG vs pyramid -0.71/-0.20, -0.01/-0.42, +0.24/+0.11 on
+  C031/B001/prores at 0.5/1.0) does not matter under that kill. T3 (U-only prediction, least-squares auxiliary,
+  continuous rate solve) shares the auxiliary, so it is withdrawn too. The patches inside T2 (alpha decay, finer
+  step list, chroma multiplier, block-mean auxiliary) go with it.
+- H8 Requirement conflict, stated with the measurements so far:
+  (R1) exactness across generations: every coded quantity must be re-derivable from OUTPUT samples (DOL/D1 record);
+  (R2) never-away per sample: private per-sample leaves, no averaging across positions (S5.404, SA19);
+  (R3) no pattern: identical per-phase statistics (S5.369), so every output sample must come from the same process;
+  (R4) efficiency >= today: needs non-causal multi-resolution information.
+  Pyramid (form i): R1, R2, R4 hold; R3 fails (32-px grid, H1).  T1: R1, R2, R3 hold (plus a scan direction); R4
+  fails by 1.8-3.1 NEG at 0.5 bpp (H4).  T2: R2, R3, near-R4; R1 fails by the DOL mechanism.
+  Under R1, multi-resolution information must come from output samples, which gives those samples a different role
+  (R3 fails); an identical role for all output samples leaves only causal information (R4 fails).

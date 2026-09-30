@@ -1,0 +1,36 @@
+gfx444_F003C012 cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16 @0.5 Q per frame 64.00/53.82/45.25 bpp 0.436/0.456/0.237 | NEG 80.52/86.63/78.25 | last NEG 78.250 PSNR 39.74/45.41/45.39 oob 0
+   changed share ALL samples Y/Cb/Cr per transition 94.21%/83.24%/82.27% 59.39%/37.79%/39.04%
+   temporal activity Y boil 14.651 (src 13.568) ants 47.48% (src 40.65%) | U boil 2.940 (src 1.788) ants 16.21% (src 2.75%) | V boil 2.946 (src 1.666) ants 16.18% (src 2.76%)
+   Y ants per transition 57.38%(src 42.07%) 37.59%(src 39.24%)
+   churn still Y/Cb/Cr per transition 89.83%/82.27%/81.07% 33.34%/31.99%/32.29% | Y PSNR per frame 40.95/41.60/39.74
+   bits/level (bpp, level 5 = kept DPCM) f0 5:0.059 4:0.043 3:0.061 2:0.063 1:0.113 0:0.098 ; f1 5:0.027 4:0.027 3:0.041 2:0.053 1:0.136 0:0.133 ; f2 5:0.013 4:0.012 3:0.015 2:0.017 1:0.048 0:0.093
+gfx444_F003C012 cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16 @1.0 Q per frame 26.91/22.63/19.03 bpp 0.891/0.908/0.436 | NEG 91.02/95.79/89.66 | last NEG 89.658 PSNR 43.71/49.14/49.36 oob 0
+   changed share ALL samples Y/Cb/Cr per transition 94.26%/87.20%/85.24% 65.71%/44.13%/44.33%
+   temporal activity Y boil 13.917 (src 13.568) ants 43.99% (src 40.65%) | U boil 2.372 (src 1.788) ants 8.68% (src 2.75%) | V boil 2.349 (src 1.666) ants 8.73% (src 2.76%)
+   Y ants per transition 49.18%(src 42.07%) 38.81%(src 39.24%)
+   churn still Y/Cb/Cr per transition 89.18%/86.24%/83.86% 40.40%/38.08%/37.13% | Y PSNR per frame 46.17/46.89/43.71
+   bits/level (bpp, level 5 = kept DPCM) f0 5:0.083 4:0.061 3:0.095 2:0.119 1:0.276 0:0.257 ; f1 5:0.040 4:0.039 3:0.065 2:0.095 1:0.312 0:0.318 ; f2 5:0.020 4:0.020 3:0.028 2:0.037 1:0.120 0:0.171
+gfx444_F003C012 cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16 @1.5 Q per frame 16.00/13.45/11.31 bpp 1.372/1.405/0.649 | NEG 93.78/98.16/93.13 | last NEG 93.135 PSNR 45.92/50.93/51.51 oob 0
+   changed share ALL samples Y/Cb/Cr per transition 92.89%/83.19%/81.42% 67.91%/48.06%/45.99%
+   temporal activity Y boil 13.599 (src 13.568) ants 42.04% (src 40.65%) | U boil 2.069 (src 1.788) ants 6.06% (src 2.75%) | V boil 1.986 (src 1.666) ants 5.78% (src 2.76%)
+   Y ants per transition 45.31%(src 42.07%) 38.76%(src 39.24%)
+   churn still Y/Cb/Cr per transition 85.37%/81.34%/79.19% 42.58%/41.80%/38.63% | Y PSNR per frame 49.43/50.57/45.92
+   bits/level (bpp, level 5 = kept DPCM) f0 5:0.102 4:0.074 3:0.117 2:0.165 1:0.448 0:0.465 ; f1 5:0.046 4:0.047 3:0.075 2:0.121 1:0.471 0:0.607 ; f2 5:0.025 4:0.026 3:0.039 2:0.055 1:0.181 0:0.284
+gfx444_F003C012 cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16 @2.0 Q per frame 11.31/9.51/8.00 bpp 1.899/1.907/0.858 | NEG 94.98/98.98/94.40 | last NEG 94.396 PSNR 46.88/51.80/52.47 oob 0
+   changed share ALL samples Y/Cb/Cr per transition 93.37%/84.76%/83.33% 68.83%/49.51%/48.79%
+   temporal activity Y boil 13.569 (src 13.568) ants 41.81% (src 40.65%) | U boil 2.045 (src 1.788) ants 5.60% (src 2.75%) | V boil 1.968 (src 1.666) ants 5.25% (src 2.76%)
+   Y ants per transition 44.68%(src 42.07%) 38.94%(src 39.24%)
+   churn still Y/Cb/Cr per transition 86.01%/82.91%/81.26% 43.25%/42.91%/41.29% | Y PSNR per frame 51.74/52.61/46.88
+   bits/level (bpp, level 5 = kept DPCM) f0 5:0.124 4:0.082 3:0.134 2:0.193 1:0.633 0:0.732 ; f1 5:0.055 4:0.053 3:0.091 2:0.145 1:0.610 0:0.914 ; f2 5:0.029 4:0.032 3:0.048 2:0.070 1:0.250 0:0.389
+gfx444_F003C012 cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16 @2.5 Q per frame 9.51/8.00/6.73 bpp 2.106/2.289/0.979 | NEG 95.30/99.34/94.93 | last NEG 94.931 PSNR 47.48/52.24/53.00 oob 0
+   changed share ALL samples Y/Cb/Cr per transition 93.22%/84.92%/83.91% 69.98%/49.59%/49.04%
+   temporal activity Y boil 13.536 (src 13.568) ants 41.58% (src 40.65%) | U boil 1.992 (src 1.788) ants 5.01% (src 2.75%) | V boil 1.931 (src 1.666) ants 4.80% (src 2.76%)
+   Y ants per transition 44.14%(src 42.07%) 39.02%(src 39.24%)
+   churn still Y/Cb/Cr per transition 85.19%/82.99%/81.82% 44.51%/42.86%/41.37% | Y PSNR per frame 52.76/54.04/47.48
+   bits/level (bpp, level 5 = kept DPCM) f0 5:0.136 4:0.089 3:0.142 2:0.207 1:0.653 0:0.879 ; f1 5:0.057 4:0.058 3:0.092 2:0.162 1:0.703 0:1.179 ; f2 5:0.031 4:0.034 3:0.052 2:0.077 1:0.276 0:0.469
+gfx444_F003C012 cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16 @3.0 Q per frame 6.73/8.00/6.73 bpp 2.910/2.361/0.984 | NEG 95.97/99.34/94.96 | last NEG 94.965 PSNR 47.45/52.12/52.93 oob 0
+   changed share ALL samples Y/Cb/Cr per transition 92.95%/84.12%/82.72% 69.72%/49.63%/48.85%
+   temporal activity Y boil 13.521 (src 13.568) ants 41.52% (src 40.65%) | U boil 1.994 (src 1.788) ants 5.14% (src 2.75%) | V boil 1.907 (src 1.666) ants 4.88% (src 2.76%)
+   Y ants per transition 43.98%(src 42.07%) 39.05%(src 39.24%)
+   churn still Y/Cb/Cr per transition 83.80%/81.57%/80.07% 44.09%/42.93%/41.23% | Y PSNR per frame 55.45/53.99/47.45
+   bits/level (bpp, level 5 = kept DPCM) f0 5:0.163 4:0.107 3:0.160 2:0.240 1:0.807 0:1.434 ; f1 5:0.056 4:0.057 3:0.090 2:0.159 1:0.694 0:1.266 ; f2 5:0.031 4:0.034 3:0.053 2:0.078 1:0.276 0:0.472
