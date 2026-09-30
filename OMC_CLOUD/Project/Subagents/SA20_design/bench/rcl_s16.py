@@ -18,10 +18,11 @@ TR = [c for c in TRAIN if c[0] != TEST]; K = 16
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_s16'); os.makedirs(OUT, exist_ok=True)
 def mag(q, a):
     q = np.abs(q.astype(float)); m = np.zeros_like(q)
-    if CTX != 'S16u': m[:, 1:] += q[:, :-1]
+    if CTX == 'S16l2': m[:, 2:] += q[:, :-2]; m[:, 1:2] += 0   # left at distance 2: a 2-cycle loop in a lane
+    elif CTX != 'S16u': m[:, 1:] += q[:, :-1]
     m[1:, :] += q[:-1, :]; m[1:, 1:] += 0.5 * q[:-1, :-1]; m[1:, :-1] += 0.5 * q[:-1, 1:]
     if CTX == 'S16u': m[1:, 1:] += 0.5 * q[:-1, :-1]; m[1:, :-1] += 0.5 * q[:-1, 1:]   # rebalance weight lost from left
-    return m + a[:q.shape[0], :q.shape[1]] if CTX == 'S16' else m
+    return m + a[:q.shape[0], :q.shape[1]] if CTX in ('S16', 'S16l2') else m
 def cls(q, a): return np.minimum((np.log2(1 + mag(q, a)) * K / 7).astype(int), K - 1)
 def syms(planes, Q):
     out = []; ys = []

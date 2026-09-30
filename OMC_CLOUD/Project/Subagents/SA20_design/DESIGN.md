@@ -306,3 +306,7 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Noisy frozen sigma 2 FAILED: 83 % changes per frame, although 98 % of blocks were labelled still. My bug: the 2 sigma
   floor was put inside KQ, which is scaled by 0.7^level, so the coarse levels had ~0.17 x 2 sigma. Predict-only levels
   keep RAW samples with full noise, so the floor must be additive at every level. Fixed; re-queued.
+- G30 S16u (row above + diagonals + activity, NO left neighbour) vs S16: +3..+6 % bits at high rates, +18..+32 % at
+  Q 16-27 (0.5-0.9 bpp) on all 3 clips. Vs today: cine @0.5 -0.32 NEG, and chroma fails at 0.5-1.0 on cine and prores.
+  -> the same-row left neighbour carries a large share of the gain; the per-symbol loop is real. Next: S16l2 (left
+  neighbour at distance 2 -> a 2-cycle loop in a lane, the standard relaxation).
