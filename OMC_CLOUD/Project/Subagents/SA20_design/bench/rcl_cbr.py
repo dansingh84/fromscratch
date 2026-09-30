@@ -68,6 +68,7 @@ SL = 'sl' in TOK   # step slew limit: after the ramp, the frame step moves at mo
 QPREV = [None]
 EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byte-identical to its last write (hash in hardware)
 XLC = [None]
+GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -181,6 +182,9 @@ def code_frame(x, ref, Q, st=None, xprev=None):
         HT = None
         if HY and st is not None and mode == 'inter' and not (RAMP and T_[0] <= RAMP):
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
+            if GN and not SG and xprev is not None:   # grain-follow noise floor, per block sigma-hat of this plane
+                noise_gate(x, xprev, pl); sg_ = expand(SIG[0], p.shape, bw)
+                HT = (KQ, expand(st[pl][1], p.shape, bw), GN * sg_ + RS_, sg_)
             if SG and xprev is not None:
                 stl_ = still_blocks(x, xprev, pl if PP else 0)
                 if EH: KQ0 = KQ.copy()   # grain-follow blocks keep kappa*Delta_last; exact-still blocks handled below
@@ -192,7 +196,7 @@ def code_frame(x, ref, Q, st=None, xprev=None):
                 if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)
                 if EH:   # non-still (grain-follow) blocks: per-sample hysteresis kappa*Delta_last, no noise floor
                     ns_ = expand((~stl_).astype(float), p.shape, bw) > 0; KQ = np.where(ns_, KQ0, KQ); NF_ = np.where(ns_, RS_, NF_) if isinstance(NF_, np.ndarray) else NF_
-            HT = (KQ, expand(st[pl][1], p.shape, bw), NF_ if (SG and xprev is not None) else RS_)
+            if not (GN and not SG and xprev is not None): HT = (KQ, expand(st[pl][1], p.shape, bw), NF_ if (SG and xprev is not None) else RS_)
         QMp = None if (QMB[0] is None or mode == 'intra') else expand(QMB[0], p.shape, 16 if pl == 0 else 8)
         y = po(p, Q * ((cm if (mode == 'intra' or CI is None) else CI) if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC, QM=QMp)[1]
         out.append(y); sy.append(((min(pl, 1), mode), SY, AC))

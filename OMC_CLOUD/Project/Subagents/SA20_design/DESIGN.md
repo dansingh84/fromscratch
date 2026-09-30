@@ -793,3 +793,6 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
     C021 +2.17/+1.41; B001 +0.38/+0.21 -> fails its pre-registered pass (F003) -> KILLED.
   kept rounding 0.5 + leaf rho 0.42, cm1 (BEST so far): A006 +0.41/+0.05, C021 +2.17/+1.39, F003 -0.28/-0.09;
     chroma still behind on A006 (Cb/Cr -0.88/-1.88 @1.0) and F003 (-0.66/-0.17). cm0.85: chroma nearer, NEG lower.
+- G74 noise-floor sweep (G71a) launched: grain-follow (no still gate) + asymmetric slew + ramp1; a leaf fires iff
+  |residual| > max(dead zone, kappa x last-write step, k sigma-hat), with k+1 on the kept grid; k = 1.5, 2, 2.5, 3
+  on noisy frozen sigma 2/3, noisy pan and clean 0.25 px pan (10 frames, 0.5/2.0 bpp).

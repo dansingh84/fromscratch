@@ -74,7 +74,7 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None,
         _e[0] = v; q = dz(v, s_, RHOK if (RHOK >= 0 and CUR_L[0] >= 1) else None)
         return q if th is None else np.where(np.abs(v) < th[:v.shape[0], :v.shape[1]], 0, q)
     def thg(lvl, r, c, shp):
-        return None if HT is None else (HT[0] * HT[1] ** lvl + np.where(HT[0] > 0, HT[2] if len(HT) > 2 else 0.0, 0.0))[::r, ::c][:shp[0], :shp[1]]
+        return None if HT is None else (HT[0] * HT[1] ** lvl + np.where(HT[0] > 0, HT[2] if len(HT) > 2 else 0.0, 0.0) + (HT[3] if (len(HT) > 3 and lvl == L) else 0.0))[::r, ::c][:shp[0], :shp[1]]
     def rv(q, s_, lvl):
         qa = np.minimum(np.abs(q), 4).astype(int); nz = q != 0
         if ACT is not None and ACT and ACT[-1].shape[:2] >= q.shape[:2]:   # activity class x 10 (decoder-side, final data)
