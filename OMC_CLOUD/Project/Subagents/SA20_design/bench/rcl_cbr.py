@@ -23,6 +23,8 @@ NF = int(os.environ.get('NF', '3'))
 HY = float([t[2:] for t in TOK if t.startswith('hy')][0]) if any(t.startswith('hy') for t in TOK) else 0  # hysteresis kappa
 KEEP = 'keep' in TOK   # keep the last-write step on source-still blocks
 RS_ = 0.5 if 'rs' in TOK else 0.0   # rounding slack added to the hysteresis threshold (codes)
+CU = 'cu' in TOK   # one catch-up per still episode (SA20P): still, not caught, step >= 1 octave finer than the last write
+CAUGHT = [None]
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -66,7 +68,11 @@ def still_blocks(x, xprev):   # encoder-only: block still = >= 95 % of its luma 
     NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.abs(x[0] - xprev[0]) <= 2
     pad = np.ones((NBY * 16, NBX * 16), bool); pad[:H, :W] = d
     return pad.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) >= 0.95
-def upd(st, y, ref, Q, stl=None):   # encoder state per block: step and ladder of the last write
+def cu_mask(st, Q, stl):
+    if not CU or st is None or stl is None: return None
+    if CAUGHT[0] is None: CAUGHT[0] = np.zeros(stl.shape, bool)
+    return stl & ~CAUGHT[0] & (Q <= st[0][0] / 2)
+def upd(st, y, ref, Q, stl=None, cu=None):   # encoder state per block: step and ladder of the last write
     # a block's last-write step moves to the current step only if its SOURCE changed (or it was written without a
     # still map); on source-still blocks it is kept (only an explicit catch-up may lower it) -- a partial write of a
     # few samples must not lower the threshold of the whole block (that spreads an uncontrolled catch-up)
@@ -77,6 +83,7 @@ def upd(st, y, ref, Q, stl=None):   # encoder state per block: step and ladder o
         pad = np.zeros((hh, ww), bool); pad[:ch.shape[0], :ch.shape[1]] = ch
         wr = pad.reshape(NBY, 16, NBX, bw).any(axis=(1, 3))
         if stl is not None and KEEP: wr &= ~stl
+        if cu is not None: wr |= cu   # the catch-up rewrites the whole block at the current step
         st[k][0][wr] = Q * (cm if k else 1); st[k][1][wr] = FI
     return st
 def expand(b, shp, bw):   # per-block map (16 rows x bw cols) -> per-sample map
@@ -94,7 +101,10 @@ def code_frame(x, ref, Q, st=None, xprev=None):
         HT = None
         if HY and st is not None and mode == 'inter':
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
-            if SG and xprev is not None: KQ = KQ * expand(still_blocks(x, xprev).astype(float), p.shape, bw)
+            if SG and xprev is not None:
+                stl_ = still_blocks(x, xprev); KQ = KQ * expand(stl_.astype(float), p.shape, bw)
+                cm_ = cu_mask(st, Q, stl_)
+                if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)
             HT = (KQ, expand(st[pl][1], p.shape, bw), RS_)
         y = po(p, Q * (cm if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC)[1]
         out.append(y); sy.append(((min(pl, 1), mode), SY, AC))
@@ -138,7 +148,7 @@ def neg3(src, dec):
 def psnr(a, b): return 10 * np.log10(1023.0 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
 src = A + TEST + '_1280x720_422_10.yuv'; X = [read(src, W, H, f) for f in range(NF)]
 for R in RATES:
-    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None
+    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []
     NBY, NBX = (H + 15) // 16, (W + 15) // 16
     for t, x in enumerate(X):
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
@@ -151,7 +161,11 @@ for R in RATES:
             else: lo = mid + 1
         if best is None: Q = GRID[-1]; sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None); best = (Q, fcost(sy, Q) + (10 * NBLK if t else 0), y, sy)
         Q, b, y, sy = best
-        st = upd(st, y, ref, Q, still_blocks(x, X[t - 1]) if t else None)
+        stl = still_blocks(x, X[t - 1]) if t else None; cu = cu_mask(st, Q, stl)
+        st = upd(st, y, ref, Q, stl, cu)
+        if CU and stl is not None:
+            CAUGHT[0] = (CAUGHT[0] | cu) & stl   # caught until the source moves
+            cuinfo.append(int(cu.sum()))
         ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
     fn = os.path.join(OUT, '%s_%s_%.1f.yuv' % (TEST, ARM, R))
     with open(fn, 'wb') as fo:
@@ -166,6 +180,7 @@ for R in RATES:
     ch = []
     for t in range(1, NF):
         ch.append('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k])[np.abs(X[t][k] - X[t-1][k]) <= 2].mean()) for k in range(3)))
+    if CU: print('   catch-up blocks per inter frame ' + '/'.join(map(str, cuinfo)), flush=True)
     print('   churn still Y/Cb/Cr per transition ' + ' '.join(ch) + ' | Y PSNR per frame ' + '/'.join('%.2f' % psnr(rec[t][0], X[t][0]) for t in range(NF)), flush=True)
     print('   bits/level (bpp, level 5 = kept DPCM) ' + ' ; '.join(
         'f%d ' % t + ' '.join('%d:%.3f' % (l, v / (W * H)) for l, v in sorted(d.items(), reverse=True)) for t, d in enumerate(spl)), flush=True)

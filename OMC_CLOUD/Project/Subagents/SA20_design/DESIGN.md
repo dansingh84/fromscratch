@@ -271,3 +271,9 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
       error exceeds kappa x s. Fix (_rs): threshold = kappa x s_last + 0.5.
   pan 0.5 px/f (gated): Y PSNR per frame flat 46.29 -> 46.16 (no lag); the "still" churn figure is not meaningful on
   pans (flat moving areas pass the frame-difference test). Arm _sg_keep_rs running on frozen10 at 0.5/2.5/4.0.
+- G25 frozen10 @1.0 (gated hysteresis, before the fixes): 0.00 % changes on all 9 transitions, but quality frozen at
+  frame 0 (Y 49.41, NEG 93.70; 0.814 bpp spent coding zeros = padding under CBR). Control without hysteresis: ONE
+  74 % transition (Y 49.41 -> 52.33, NEG 93.70 -> 95.07), then 0.00 % on all later transitions (re-quantising at
+  the same step is idempotent). That single step is what the catch-up must deliver, once, on purpose. Arm _cu
+  (SA20P rule): per block still & not caught & step <= last-write step / 2 -> no hysteresis in that frame (the plan
+  search costs it), last-write step := current, caught until the source moves. Running on frozen10 at 0.5/1.0/2.5.
