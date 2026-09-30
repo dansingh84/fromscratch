@@ -40,6 +40,8 @@ REFH = [None]; ELAST = [None]; NBH = [None]
 MF = 'mf' in TOK   # region plan: moving step never finer than the still region's step (padding left for the catch-up)
 ACC = 'acc' in TOK   # SA20Q: still = source unchanged since the block's LAST WRITE (accumulated) + M consecutive passes
 XLAST = [None]; PASS = [None]; STILLF = [None]; MPASS = 3
+G2 = 'g2' in TOK   # higher-confidence gate: 35th-pct noise, MAD <= 1.5 n, |mean| <= 5 n/16, release after 2 consecutive fails, catch-up step >= moving/2
+FAILC = [None]
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -88,9 +90,9 @@ def noise_gate(x, xprev, k=0):
     lb = np.minimum((lum.reshape(NBY, 16, NBX, bw).mean(axis=(1, 3)) / 128).astype(int), 7)
     n = np.zeros(8)
     for b in range(8):
-        v = mad[lb == b]; n[b] = np.percentile(v, 20) if v.size >= 8 else np.percentile(mad, 20)
+        pc = 35 if G2 else 20; v = mad[lb == b]; n[b] = np.percentile(v, pc) if v.size >= 8 else np.percentile(mad, pc)
     nb = np.maximum(n[lb], 0.5)          # mean |d| of pure noise = sigma sqrt2 sqrt(2/pi) ~ 1.13 sigma
-    still = (mad <= 1.5 * nb) & (np.abs(md) <= 3 * nb / np.sqrt(16 * bw))
+    still = (mad <= 1.5 * nb) & (np.abs(md) <= (5 if G2 else 3) * nb / np.sqrt(16 * bw))
     SIG[0] = nb / 1.13                   # per-block sigma estimate (of the plane asked for)
     return still
 def bmad(a, b):
@@ -205,7 +207,7 @@ def neg3(src, dec):
 def psnr(a, b): return 10 * np.log10(1023.0 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
 src = A + TEST + '_1280x720_422_10.yuv'; X = [read(src, W, H, f) for f in range(NF)]
 for R in RATES:
-    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; ELAST[0] = None; PASS[0] = None; STILLF[0] = None
+    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; ELAST[0] = None; PASS[0] = None; STILLF[0] = None; FAILC[0] = None
     NBY, NBX = (H + 15) // 16, (W + 15) // 16
     for t, x in enumerate(X):
         T_[0] = t; CUOFF[0] = CUAFTER; REFH[0] = ref
@@ -214,8 +216,13 @@ for R in RATES:
             if t == 0: XLAST[0] = x[0].copy(); PASS[0] = None
             else:
                 ng_ = noise_gate(x, X[t - 1], 0); nb_ = SIG[0] * 1.13
-                raw = ng_ & (bmad(x[0], XLAST[0]) <= 1.3 * nb_)
-                PASS[0] = np.where(raw, (PASS[0] if PASS[0] is not None else np.full(raw.shape, MPASS)) + 1, 0)
+                raw = ng_ & (bmad(x[0], XLAST[0]) <= (1.5 if G2 else 1.3) * nb_)
+                prevP = PASS[0] if PASS[0] is not None else np.full(raw.shape, MPASS)
+                if G2:   # release only after 2 consecutive fails; a held block survives one noisy frame
+                    FAILC[0] = np.where(raw, 0, (FAILC[0] if FAILC[0] is not None else np.zeros(raw.shape, int)) + 1)
+                    keep_ = (prevP >= MPASS) & (FAILC[0] < 2)
+                    PASS[0] = np.where(raw, prevP + 1, np.where(keep_, prevP, 0))
+                else: PASS[0] = np.where(raw, prevP + 1, 0)
                 STILLF[0] = PASS[0] >= MPASS
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
         CUB[0] = None; QMB[0] = None; rginfo = None
@@ -235,7 +242,7 @@ for R in RATES:
             cand = stl0 & ~CAUGHT[0]; Qm = best[0]
             if cand.any():
                 QLr = st[0][0][cand].max()   # the set's coarsest last step: Q_c must be >= 0.25 octave finer than it
-                for Qc in [g for g in GRID if g <= QLr * 2 ** -0.25 * 1.001]:
+                for Qc in [g for g in GRID if g <= QLr * 2 ** -0.25 * 1.001 and (not G2 or g >= Qm / 2 * 0.999)]:
                     CUB[0] = cand; QMB[0] = np.where(cand, Qc / Qm, 1.0)
                     syc, yc = code_frame(x, ref, Qm, st, X[t - 1]); bc = fcost(syc, Qm) + 10 * NBLK + NBLK
                     if bc <= budget: best = (Qm, bc, yc, syc); rginfo = (Qc, int(cand.sum())); break
