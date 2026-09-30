@@ -618,3 +618,13 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   (ramp Q 4 -> steady = a ramp-snap question judged by eye) or steady grain following. Output now prints Y ants per
   transition. Ramp frames 0-1 run with no hysteresis (_ramp1 on GF), switched on at f2; check that the switch-on shows
   no snap (change map f1 -> f2 + render). GF gfx f2 Cr -0.95 dB is a chroma fail (chroma-step function).
+- G63 windowed hold (_win) vs the NO-HOLD control (cm1_zb2_chp_s16), last-frame NEG:
+  noisy pan 0.5 px: 0.5 bpp win 90.40 vs control 90.74; 2.0 bpp win 93.69 vs control 95.35 (the control is flat
+  95.3 over 10 frames; win decays) -> the hold FAILS the pre-registered control test (within 0.1) by 0.3-1.7 NEG.
+  clean pans: win 93.21/93.68 vs control 93.40/93.70 @0.5 (within 0.2).
+  frozen/noisy frozen: win passes (0 changes after the catch-up; noisy frozen @1.0 all blocks exactly 1 change).
+  gfx: win 95.98/96.26 = the hold's grain cost (G59).
+  The control shows 26.8 % "intermittent" blocks on the clean 0.25 px pan with no hold at all: the intermittency
+  count is only meaningful split by source texture (as SA20Q specified); the raw histogram is not a verdict.
+  -> Every gated hold costs NEG on noisy slow pans and on grainy stills. GRAIN-FOLLOW (no gate, per-sample
+     hysteresis) is the candidate if it holds frozen input (gf_* running).
