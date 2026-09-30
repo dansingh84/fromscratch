@@ -352,6 +352,7 @@ for R in RATES:
         ao = np.mean([(np.abs(rec[t][k] - rec[t - 1][k]) > 6).mean() for t in range(1, NF)]); as_ = np.mean([(np.abs(X[t][k] - X[t - 1][k]) > 6).mean() for t in range(1, NF)])
         bo.append('%s boil %.3f (src %.3f) ants %.2f%% (src %.2f%%)' % ('YUV'[k], do, ds, 100 * ao, 100 * as_))
     print('   temporal activity ' + ' | '.join(bo), flush=True)
+    print('   Y ants per transition ' + ' '.join('%.2f%%(src %.2f%%)' % (100 * (np.abs(rec[t][0] - rec[t - 1][0]) > 6).mean(), 100 * (np.abs(X[t][0] - X[t - 1][0]) > 6).mean()) for t in range(1, NF)), flush=True)
     if NF >= 6:   # per-block luma change histogram over all transitions (SA20Q bound): 0 / 1 / intermittent / continuous
         NBY_, NBX_ = (H + 15) // 16, (W + 15) // 16; cnt = np.zeros((NBY_, NBX_), int)
         for t in range(1, NF): cnt += bmad(rec[t][0], rec[t - 1][0]) > 0

@@ -613,3 +613,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   -> GRAIN-FOLLOW is the best arm: NEG >= today at f2 on gfx, parity on cine; boil below source on every plane, ants
      tail below today's (above the source on gfx, as in every arm and today). Open: gfx Cr -0.95 dB, the f1 dip, and
      the frozen/noisy-frozen/noisy-pan behaviour of GF (no still gate): running (gf_*).
+- G62 (SA20Q) the bar stays "ants <= source per plane" (today's ants ARE the named failure; the pack's bar is XS
+  sub-source calm): GF currently FAILS gfx luma ants (1.78 vs 1.17 %). Locate the tail first: the f1 -> f2 re-code
+  (ramp Q 4 -> steady = a ramp-snap question judged by eye) or steady grain following. Output now prints Y ants per
+  transition. Ramp frames 0-1 run with no hysteresis (_ramp1 on GF), switched on at f2; check that the switch-on shows
+  no snap (change map f1 -> f2 + render). GF gfx f2 Cr -0.95 dB is a chroma fail (chroma-step function).
