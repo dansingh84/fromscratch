@@ -69,6 +69,7 @@ The exact command lines of every batch are in queues/q_*.sh (one script per batc
 | H4 (T1) | `cd bench/t1; gcc -O2 -shared -fPIC -o t1core.so t1core.c -lm; CM=1.4 RHO=0.2 RATES=0.5,1.0 python3 t1_intra.py` (CM 0.5-1.4, RHO 0.2-0.42) |
 | H10, H11 (G-b) | `cd bench/t1; ALPHA=0 CLIPS=cine_A005C031,gfx444_B001C001,prores_sample RATES=0.5,1.0,2.0 python3 t1_seq.py` (ALPHA=1 for the dropped variant); `python3 diag_pred.py CLIP`; `ALPHA=1 python3 diag_inter.py cine_A005C031 17.45` |
 | H13 | `cd bench/t1; ALPHA=0 python3 diag_rate.py cine_A005C031 17.45` |
+| H16 (L2) | `cd bench/t1; CLIPS=cine_A005C031 RATES=1.0 python3 l2_intra.py` (env NIT) |
 | H6, G81 (T2, withdrawn H7) | `cd bench/t1; D=4 KA=0.5 ALPHA=0.5 RHO=0.42 python3 t2_intra.py`; screen queues/q_t2.sh |
 
 ## 6. Code state per entry

@@ -1005,3 +1005,10 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   fail R4 (efficiency), T2 fails R1 (exactness, DOL precedent). Untested variant left on record: a fixed aperiodic
   (blue-noise) kept lattice (H10), whose pattern would be a fixed noise veil rather than a grid. The conflict and
   the R2 reading question go to the owner.
+- H16 L2 fixed-lattice two-pass (owner 2026-09-30: "keep searching new ideas"; bench/t1/l2_intra.py). Pass 1: cell
+  index m = floor(x / S) on a fixed value lattice, coded losslessly (T1 scan at step 1); pass 2 (no bits): constrained
+  smoothing inside each sample's cell (8 x binomial low-pass + clamp). Exact, never-away and one-role by construction.
+  cine_A005C031 intra @1.0: S 26, 0.960 bpp, NEG 80.20 vs today 93.88 (-13.68), PSNR 44.09/44.46/45.64 vs
+  47.83/54.36/52.91. KILLED: lossless coding of a posterised image pays for every grain flip across a cell edge, and
+  the in-cell smoothing removes texture. A fixed lattice gives up the prediction-relative quantiser that makes T1
+  (and every working codec) cheap.
