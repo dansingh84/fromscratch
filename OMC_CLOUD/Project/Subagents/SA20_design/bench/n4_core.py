@@ -38,7 +38,10 @@ def alpha_map(ck, yk, shp, BS):
             a[2*i:2*i+2*BS, 2*j:2*j+2*BS] = al
     return a
 
-def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0):
+def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None):
+    # RO (dict (level, min(|q|,4)) -> delta in steps, |delta| <= 1/8): conditional-mean reconstruction of NONZERO leaves,
+    # value = q s + sign(q) delta s (0 bits, static LUT). RS (dict): collects sum/count of the true in-bin position
+    # (e sign(q) / s - |q|) per class, for training the LUT.
     # LG > 0: luma-GUIDED chroma interpolation (0 bits): where the final co-located luma has an edge between the two inner
     # taps (|ya - yb| > LG * step), predict a + w (b - a), w = position of the target luma between ya and yb (eighths)
     # ACT (optional list): per symbol array, the decoder-side activity of its prediction support / step (final data only)
@@ -59,6 +62,20 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0):
         bl = blur(x, min(l, 4)); s_l = Q * f ** l
         return bl if T == np.inf else np.where(np.abs(x - bl) <= T * s_l, bl, x)
     tg = {l: target(l) for l in range(L + 1)}
+    _e = [None]
+    def dzr(v, s_): _e[0] = v; return dz(v, s_)
+    def rv(q, s_, lvl):
+        qa = np.minimum(np.abs(q), 4).astype(int); nz = q != 0
+        if ACT is not None and ACT and ACT[-1].shape[:2] >= q.shape[:2]:   # activity class x 10 (decoder-side, final data)
+            qa = qa + 10 * np.searchsorted(np.array([0.5, 1.5, 4.0]), ACT[-1][:q.shape[0], :q.shape[1]])
+        if RS is not None:
+            u = _e[0] * np.sign(q) / s_ - np.abs(q)
+            for k in np.unique(qa[nz]):
+                m = nz & (qa == k); a = RS.setdefault((lvl, k), [0.0, 0]); a[0] += u[m].sum(); a[1] += int(m.sum())
+        if not RO: return np.round(q * s_).astype(np.int64)
+        d = np.zeros(q.shape)
+        for k in np.unique(qa[nz]): d[qa == k] = RO.get((lvl, int(k)), 0.0)
+        return np.round(q * s_ + np.sign(q) * d * s_).astype(np.int64)
     r, c = strides(L); xk = tg[L][::r, ::c]; Pk = P[::r, ::c]; sc = Q * f ** L; bits = 0.0
     y = np.zeros_like(xk); qa = np.zeros_like(xk)
     for j in range(xk.shape[1]):
@@ -94,15 +111,15 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0):
             full[:, 0::2] = cur; pr = pred_axis(cur, shp[1] // 2, 1)
             if Yd is not None: pr = pr + lt((slice(None), slice(1, None, 2)), pred_axis(yg[:, 0::2], shp[1] // 2, 1))
             pr = gd(pr, cur, yg[:, 0::2], yg[:, 1::2], 1)
-            q = dz(xg[:, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l)); full[:, 1::2] = np.clip(Pg[:, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[:, 1::2]
+            q = dzr(xg[:, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l)); full[:, 1::2] = np.clip(Pg[:, 1::2] + pr + rv(q, s_l, lvl), LO, HI) - Pg[:, 1::2]
         else:
             full[0::2, 0::2] = cur
-            pr = pred_axis(cur, shp[1] // 2, 1); pr = pr + lt((slice(0, None, 2), slice(1, None, 2)), pred_axis(yg[0::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, cur, yg[0::2, 0::2], yg[0::2, 1::2], 1); q = dz(xg[0::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l))
-            full[0::2, 1::2] = np.clip(Pg[0::2, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[0::2, 1::2]
-            pr = pred_axis(cur, shp[0] // 2, 0); pr = pr + lt((slice(1, None, 2), slice(0, None, 2)), pred_axis(yg[0::2, 0::2], shp[0] // 2, 0)); pr = gd(pr, cur, yg[0::2, 0::2], yg[1::2, 0::2], 0); q = dz(xg[1::2, 0::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[0] // 2, 0, s_l))
-            full[1::2, 0::2] = np.clip(Pg[1::2, 0::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[1::2, 0::2]
-            pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); pr = pr + lt((slice(1, None, 2), slice(1, None, 2)), pred_axis(yg[1::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, full[1::2, 0::2], yg[1::2, 0::2], yg[1::2, 1::2], 1); q = dz(xg[1::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(full[1::2, 0::2], shp[1] // 2, 1, s_l))
-            full[1::2, 1::2] = np.clip(Pg[1::2, 1::2] + pr + np.round(q * s_l).astype(np.int64), LO, HI) - Pg[1::2, 1::2]
+            pr = pred_axis(cur, shp[1] // 2, 1); pr = pr + lt((slice(0, None, 2), slice(1, None, 2)), pred_axis(yg[0::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, cur, yg[0::2, 0::2], yg[0::2, 1::2], 1); q = dzr(xg[0::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l))
+            full[0::2, 1::2] = np.clip(Pg[0::2, 1::2] + pr + rv(q, s_l, lvl), LO, HI) - Pg[0::2, 1::2]
+            pr = pred_axis(cur, shp[0] // 2, 0); pr = pr + lt((slice(1, None, 2), slice(0, None, 2)), pred_axis(yg[0::2, 0::2], shp[0] // 2, 0)); pr = gd(pr, cur, yg[0::2, 0::2], yg[1::2, 0::2], 0); q = dzr(xg[1::2, 0::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[0] // 2, 0, s_l))
+            full[1::2, 0::2] = np.clip(Pg[1::2, 0::2] + pr + rv(q, s_l, lvl), LO, HI) - Pg[1::2, 0::2]
+            pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); pr = pr + lt((slice(1, None, 2), slice(1, None, 2)), pred_axis(yg[1::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, full[1::2, 0::2], yg[1::2, 0::2], yg[1::2, 1::2], 1); q = dzr(xg[1::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(full[1::2, 0::2], shp[1] // 2, 1, s_l))
+            full[1::2, 1::2] = np.clip(Pg[1::2, 1::2] + pr + rv(q, s_l, lvl), LO, HI) - Pg[1::2, 1::2]
         cur = full
     return bits, cur + P
 

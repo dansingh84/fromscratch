@@ -146,3 +146,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
 - G8 engine rate-control rule (SA20Q flag, both agree): plan from the previous frame's emitted cost, one predetermined
   coarser re-choice, proof the coarsest plan fits, gen 1 emits the plan read from its own picture (joiner needs no
   history). rcl_cbr's multi-Q search is a screen (upper bound) only.
+- G9 conditional-mean reconstruction (SA20Q; po RO/RS, LUT trained on the 3 training clips, class = level x min(|q|,4)
+  x decoder-side activity class, |delta| <= step/8), intra luma cine frame 0, recon PSNR (bits unchanged except via the loop):
+  Q8 53.662 -> 53.723 (+0.06), Q16 49.410 -> 49.412, Q32 45.449 -> 45.463. Per-|q| only: +0.004 / -0.05 dB.
+  In-bin means sit at +0.0..+0.16 step, near the dead-zone bin midpoint (+0.15) in every class: the in-bin
+  distribution is nearly flat, so no class split carries a usable offset. -> KILLED (< 0.1 dB at every step).
