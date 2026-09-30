@@ -1,0 +1,2 @@
+gfx444_B001C001 today @1.0 Y boil 1.518 (src 1.585) ants 2.06% (src 1.17%) | U boil 1.158 (src 1.569) ants 0.37% (src 0.49%) | V boil 0.820 (src 1.133) ants 0.11% (src 0.02%)
+cine_A005C031 today @1.0 Y boil 7.527 (src 8.129) ants 28.49% (src 31.13%) | U boil 1.360 (src 1.546) ants 1.13% (src 2.54%) | V boil 1.642 (src 2.133) ants 1.84% (src 3.92%)

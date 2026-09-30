@@ -601,3 +601,7 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   (cm1_zb2_hy0.75_rs_chp_s16). Output now reports boil and ants (|delta| > 6) per plane vs the source.
   PASS grain-follow: NEG >= today, boil <= source, ants <= source per plane, no visible shimmer; frozen input still 0.
   Judge NEG against the source everywhere; the eye decides (the renders go to the owner).
+  today @1.0 (3 frames), boil = mean |delta| per plane, ants = share |delta| > 6:
+  gfx B001: Y boil 1.518 (src 1.585) ants 2.06 % (src 1.17 %) | Cb 1.158 (1.569) 0.37 % (0.49 %) | Cr 0.820 (1.133) 0.11 % (0.02 %)
+  cine C031: Y 7.527 (8.129) 28.49 % (31.13 %) | Cb 1.360 (1.546) 1.13 % (2.54 %) | Cr 1.642 (2.133) 1.84 % (3.92 %)
+  -> today's boil is below the source everywhere, but its ants tail on gfx luma and Cr is ABOVE the source.
