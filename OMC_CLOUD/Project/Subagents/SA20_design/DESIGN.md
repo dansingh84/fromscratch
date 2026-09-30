@@ -507,3 +507,16 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Drift release = the S5.390 error-triggered form. It must be hysteretic (release at E_last + 1.5 sigma-hat, E_last
   resets at the re-code, re-entry only via the normal still test). Report release events per block per 10 frames:
   0 on noisy frozen, ~1 per block crossing on slow pans.
+- G52 (SA20Q, SA20P agrees) the drift release can oscillate on slow pans (hold -> drift -> re-code -> hold: periodic
+  jumps = judder, killed by S5.390). Root fix (_acc):
+  - still = the source is unchanged since the block's LAST WRITE (accumulated: MAD(x_t - x_last) <= 1.3 x noise)
+    AND frame-to-frame noise-consistent;
+  - temporal hysteresis: still only after M = 3 consecutive passes.
+  The bench stores the last-write source frame; SA20P's memory form = per-block source mean (+ gradient) at last write
+  + MAD(x_t - decode_(t-1)) for mean-preserving texture shifts; per-block state at 8K to report.
+  Pre-registered (SA20Q), pans 0.25/0.5/1 px clean and noisy, >= 10 frames:
+  - per block, changes 0 or >= N-2; intermittent (2..N-3) <= 1 % of pan blocks, no periodic pattern;
+  - moving-region error flat (slope, peak-to-peak);
+  - render for judder;
+  - frozen/noisy frozen 0 after the one catch-up.
+  Output now prints the per-block change histogram. Queue q_acc.

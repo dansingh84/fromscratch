@@ -38,6 +38,8 @@ CUB = [None]; QMB = [None]
 DR = 'dr' in TOK   # drift release: still only while MAD(x - own recon) <= E_last + 1.5 noise (error-triggered, S5.390)
 REFH = [None]; ELAST = [None]; NBH = [None]
 MF = 'mf' in TOK   # region plan: moving step never finer than the still region's step (padding left for the catch-up)
+ACC = 'acc' in TOK   # SA20Q: still = source unchanged since the block's LAST WRITE (accumulated) + M consecutive passes
+XLAST = [None]; PASS = [None]; STILLF = [None]; MPASS = 3
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -95,6 +97,8 @@ def bmad(a, b):
     NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.zeros((NBY * 16, NBX * 16)); d[:H, :W] = np.abs(a - b)
     return d.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3))
 def still_blocks(x, xprev, k=0):   # encoder-only: block still = >= 95 % of its luma samples within 2 codes of the previous source
+    if ACC and k == 0 and STILLF[0] is not None:
+        noise_gate(x, xprev, 0); return STILLF[0]
     if NG:
         st_ = noise_gate(x, xprev, k)
         if DR and k == 0 and REFH[0] is not None and ELAST[0] is not None:
@@ -201,10 +205,18 @@ def neg3(src, dec):
 def psnr(a, b): return 10 * np.log10(1023.0 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
 src = A + TEST + '_1280x720_422_10.yuv'; X = [read(src, W, H, f) for f in range(NF)]
 for R in RATES:
-    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; ELAST[0] = None
+    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; ELAST[0] = None; PASS[0] = None; STILLF[0] = None
     NBY, NBX = (H + 15) // 16, (W + 15) // 16
     for t, x in enumerate(X):
         T_[0] = t; CUOFF[0] = CUAFTER; REFH[0] = ref
+        if ACC:
+            STILLF[0] = None
+            if t == 0: XLAST[0] = x[0].copy(); PASS[0] = None
+            else:
+                ng_ = noise_gate(x, X[t - 1], 0); nb_ = SIG[0] * 1.13
+                raw = ng_ & (bmad(x[0], XLAST[0]) <= 1.3 * nb_)
+                PASS[0] = np.where(raw, (PASS[0] if PASS[0] is not None else np.full(raw.shape, MPASS)) + 1, 0)
+                STILLF[0] = PASS[0] >= MPASS
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
         CUB[0] = None; QMB[0] = None; rginfo = None
         lo, hi = 0, len(GRID) - 1; best = None
@@ -238,6 +250,9 @@ for R in RATES:
         if RG: cu = CUB[0] if (CUB[0] is not None) else (np.zeros(stl.shape, bool) if stl is not None else None)
         else: cu = None if CUOFF[0] or (RAMP and t <= RAMP) else cu_mask(st, Q, stl)
         st = upd(st, y, ref, Q, stl, cu)
+        if ACC and t:
+            wrb = bmad(y[0], ref[0]) > 0; wr_s = np.repeat(np.repeat(wrb, 16, 0), 16, 1)[:H, :W]
+            XLAST[0] = np.where(wr_s, x[0], XLAST[0])
         if DR:   # error at last write, per block (luma): set where the block was written (changed) or at intra
             e_now = bmad(x[0], y[0])
             if ELAST[0] is None or t == 0: ELAST[0] = e_now
@@ -265,6 +280,12 @@ for R in RATES:
         ch.append('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k])[np.abs(X[t][k] - X[t-1][k]) <= 2].mean()) for k in range(3)))
     print('   changed share ALL samples Y/Cb/Cr per transition ' + ' '.join('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k]).mean()) for k in range(3)) for t in range(1, NF))
           + ((' | still-labelled blocks ' + '/'.join('%.0f%%' % (100 * still_blocks(X[t], X[t - 1]).mean()) for t in range(1, NF))) if SG else ''), flush=True)
+    if NF >= 6:   # per-block luma change histogram over all transitions (SA20Q bound): 0 / 1 / intermittent / continuous
+        NBY_, NBX_ = (H + 15) // 16, (W + 15) // 16; cnt = np.zeros((NBY_, NBX_), int)
+        for t in range(1, NF): cnt += bmad(rec[t][0], rec[t - 1][0]) > 0
+        n = NF - 1; tot = cnt.size
+        print('   per-block change count over %d transitions: 0: %.1f%% | 1: %.1f%% | 2..%d (intermittent): %.1f%% | >=%d: %.1f%%' % (
+            n, 100 * (cnt == 0).mean(), 100 * (cnt == 1).mean(), n - 2, 100 * ((cnt >= 2) & (cnt <= n - 2)).mean(), n - 1, 100 * (cnt >= n - 1).mean()), flush=True)
     if CU or RG: print('   catch-up blocks per inter frame ' + '/'.join(map(str, cuinfo)), flush=True)
     print('   churn still Y/Cb/Cr per transition ' + ' '.join(ch) + ' | Y PSNR per frame ' + '/'.join('%.2f' % psnr(rec[t][0], X[t][0]) for t in range(NF)), flush=True)
     print('   bits/level (bpp, level 5 = kept DPCM) ' + ' ; '.join(
