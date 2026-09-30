@@ -107,7 +107,7 @@ is a disqualifying artifact (S5.344), so dense rail content stays an open proble
 - Lines, grids and seams are disqualifying in absolute terms; today's codec is no baseline for them.
 - No patches: when an idea or feature fails, redesign from scratch further upstream.
 - Latency: no noticeable increase over JPEG XS (~32 lines excl. conversion, < 1 ms incl.).
-- Rate hops: a change of rate may cost once; after that the chain must not drift (fixed point, no accumulating loss).
+- Byte-exact across UNLIMITED generations (pictures and bits), proven by construction; a rate change may cost once, then the chain is a fixed point (no drift).
 - Never-away: "Go with what the engineer would accept": legal output, no bit or quality cost from legality, no
   visible effect of any legality move on the hardest cases (renders), worst-case move size reported (DESIGN H21).
 - Sub-agents generate their own ideas, vet mine and each other's.

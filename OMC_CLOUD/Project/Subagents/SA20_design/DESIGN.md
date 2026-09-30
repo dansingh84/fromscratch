@@ -1084,3 +1084,7 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   white-on-black edge at 0.5 bpp. My round-3 idea (to be vetted): joint pair quantisation inside the legal box
   (coarse index chosen jointly with the detail; coarse lattice containing both rails), so the source pair stays
   representable.
+- H23 OWNER (2026-09-30): "it must be byte exact. Across unlimited generations." -> byte-identical pictures AND bits
+  at every generation, without limit (goal 3 wording). A 10-generation chain is only the test; every design must
+  PROVE idempotence by construction (generation 2 re-reads exactly what generation 1 coded, so every later generation
+  repeats it), including CBR re-encodes and baseband hops; a rate change costs once and is then such a fixed point.
