@@ -327,3 +327,14 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   -> worst-frame NEG ranges from parity to ahead, but inter chroma is short. Levers: a separate INTER chroma multiplier
      (fitted on the training clips), the chroma curve, and the fixed still rule (keep/rs/ng/cu0) under S16.
      Caveats: one Q per frame, source-searched vectors, 10-bit vector charge.
+- G33 (SA20P) gfx inter luma deficit (-0.8..-2.1 dB, against -0.14..-0.29 for intra) points to PREDICTION.
+  Discriminator before any lever (out/diag_gfx.txt):
+  (a) f1 intra vs inter bits/PSNR at the same step;
+  (b) MC PSNR for 16x16 vs 8x8 blocks, Z2 vs Z0 (ceilings only: half-pel is on SA17P's do-not list, source vectors are
+      not gen-2 exact);
+  (c) bits by level at text edges.
+  Levers by outcome:
+  - prediction loses to intra -> a continuous prediction-weight field from decoded data (per-block modes are falsified);
+  - vector precision or staleness -> coarse-first current-frame vectors on decoded coarse data (SA18 D13/D14, exact by
+    construction; SA20P's first pick);
+  - interpolator -> the gradient-weighted blend.

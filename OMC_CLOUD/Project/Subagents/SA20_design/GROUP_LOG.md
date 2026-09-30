@@ -106,3 +106,4 @@ SA20Q 03:54 -> both: catch-up = possible SNAP not pulse: pre-reg per-event chang
 SA20Q 03:54 -> (no message): agree P: catch-up size = finest step one frame's free budget funds for the whole region, once; name the cause of the 0.11 %/0.02 % at 0.5.
 SA20P 03:54 -> both: back Q snap checks + noise gate; refine: sigma(level) LUT from low-motion blocks, frozen grain judged by eye, slow-pan no-lag on noisy pans
 SA20Q 03:54 -> (no message): agree P refinements: sigma-hat(level) LUT from lowest-motion blocks, frozen grain judged by eye on dng-like grain, slow-pan no-lag on noisy pans sigma 2-3.
+SA20P 04:03 -> main: gfx inter luma deficit likely prediction (intra gap small): discriminator = intra vs inter bits f1-2, MC PSNR oracle/8x8/half-pel ceiling, kept/leaf bits; levers: alpha field (continuous, SA12) / coarse-first decoded-LL vectors (SA18 D13-14, my pick) / gradient blend
