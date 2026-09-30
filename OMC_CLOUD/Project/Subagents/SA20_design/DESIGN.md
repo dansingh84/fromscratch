@@ -532,3 +532,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   -> Root of the churn and smear = frame-to-frame gate mislabels (the accumulated test + M=3 hysteresis, q_acc, targets
      exactly this). Plan flaws to fix: (i) the moving floor must apply only when a catch-up can use the padding;
      (ii) the catch-up step must be bounded below (never finer than ~the moving step), not 0.2.
+- G54 accumulated still test + M=3 hysteresis (A3 = _rg_mf_acc):
+  - frozen10 @0.5: ramp frames 0-1, ONE whole-frame catch-up in f2 (3600 blocks @Q16), then 0.00 % on all 7 later
+    transitions; NEG 91.22 -> 93.91 held. PASS pattern (ramp + one catch-up + zero).
+  - noisy frozen sigma 2: 13-16 %/frame; ~6 % of blocks fail the gate each frame on pure noise, their caught flag clears
+    and they are re-caught at Q 0.2-0.4 (lossless-grade) each frame. Gate confidence too low (the 20th-percentile noise
+    estimate and the 3 sigma/16 mean test fail ~1-2 % of noise blocks each, compounded).
+  - clean pans 0.25/1 px: catch-ups every frame, 13-29 % intermittent blocks (bound 1 %) -> FAIL.
+  - noisy pan 0.5 px: NEG decays f1 -> f9 (0.5: 91.99 -> 90.68, 2.0: 95.65 -> 93.66).
+  - gfx: 96.43 / 96.60 (2.0 f2 spends 1.0 of 2.0 bpp).
+  Needed: gate thresholds at higher confidence; the caught flag must not clear on a single failed frame; a floor on
+  the catch-up step (never finer than the moving step). Today's codec is running on the synthetic clips (frozen10,
+  nfrozen2, npan, pans) as the reference for decay and churn.
