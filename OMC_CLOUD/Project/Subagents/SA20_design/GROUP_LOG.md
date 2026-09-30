@@ -84,3 +84,5 @@ SA20Q 03:30 -> both: concede P: per-block state (~0.16 bit/sample) not per-sampl
 SA20P 03:30 -> (no message) converged with Q: per-block state, per-sample leaf decision, churn bar 0, block-pitch level map/rowphase check, pooled tables w/ lane replication
 SA20 03:31 -> both: pooling: base in 60 tables = +10..33 % bits at mid steps; all G figures optimistic; testing step-invariant scale-class model (rcl_sc) ; implementing hysteresis rule (G14)
 SA20 03:34 -> both: churn roots: DPCM-start bug in inter (fixed), motion search picks nonzero vectors on frozen input (zero bias Z=2), hysteresis then gives 0.12 % change on frozen; CBR re-queued
+SA20P 03:35 -> both: zero-vector bias admissible (SA17 ZTOL2) but source-searched vectors not gen2-exact (SA18 D9) -> vectors from decoded data, 10-gen chain on a moving cell; catch-up trigger: still & not-caught & step>=1 octave finer than Delta_last & budget covers whole region, else wait; caught clears only on source change; pass <=1 change/sample frozen, render, worst wait
+SA20P 03:35 -> main: zero bias OK (SA17 ZTOL2); source-searched vectors = gen-2 risk in moving areas; catch-up rule once per still episode (G16)

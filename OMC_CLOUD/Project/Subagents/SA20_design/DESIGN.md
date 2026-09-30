@@ -188,3 +188,14 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
       FROZEN clip. Encoder fix: zero-vector bias (keep v = 0 unless the best beats it by > Z codes/sample; Z = 2).
   (c) Hysteresis dead zone (G14) on top: single-frame frozen test at Q 32 -> 26.9: changed samples 66.4 % (a+b fixed,
       no hysteresis) -> 0.12 % (kappa 0.75). CBR arms cm1_zb2_hy0.75 and control cm1_zb2 queued on frozen, cine, gfx, prores.
+- G16 (SA20P) zero-vector bias: admissible (on record as SA17 ZTOL 2; ZTOL 0/1 gained +0.05-0.13 NEG but brought the
+  flicker back). OPEN RISK: vectors searched against the SOURCE are not reproducible at gen 2 (SA18 D9: 11.5 % of hwy
+  block predictions differed). Still areas are safe (gen 2 gets 0). Moving areas need a vector rule that is a function
+  of decoded data, or a canonical re-derivation of gen 1's vectors; a moving cell goes into the 10-generation chain.
+  Catch-up (encoder-only, per-block state, once per still episode). A block catches up only if ALL hold:
+  - still (vector 0, source within the noise tolerance);
+  - its caught flag is clear;
+  - the current step is >= 1 octave finer than the block's last-write step;
+  - the free budget covers the WHOLE connected still region, else it waits (no partial mosaic).
+  Clear caught when the source changes. Pass: frozen changes/sample <= 1 over the run per plane; render of the
+  catch-up frame; worst-case wait on a busy clip.
