@@ -65,9 +65,10 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None,
         bl = blur(x, min(l, 4)); s_l = Q * f ** l
         return bl if T == np.inf else np.where(np.abs(x - bl) <= T * s_l, bl, x)
     tg = {l: target(l) for l in range(L + 1)}
-    _e = [None]
+    _e = [None]; CUR_L = [0]
+    RHOK = float(os.environ.get('RHOK', '-1'))   # rounding offset for samples coded at levels >= 1 (kept coarse); -1 = default
     def dzr(v, s_, th=None):
-        _e[0] = v; q = dz(v, s_)
+        _e[0] = v; q = dz(v, s_, RHOK if (RHOK >= 0 and CUR_L[0] >= 1) else None)
         return q if th is None else np.where(np.abs(v) < th[:v.shape[0], :v.shape[1]], 0, q)
     def thg(lvl, r, c, shp):
         return None if HT is None else (HT[0] * HT[1] ** lvl + np.where(HT[0] > 0, HT[2] if len(HT) > 2 else 0.0, 0.0))[::r, ::c][:shp[0], :shp[1]]
@@ -88,7 +89,7 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None,
     y = np.zeros_like(xk); qa = np.zeros_like(xk); thk = thg(L, r, c, xk.shape); INTER = bool(P.any())
     for j in range(xk.shape[1]):
         pr = (y[:, j - 1] if j else np.full(xk.shape[0], 512)) if not INTER else np.zeros(xk.shape[0], np.int64)  # inter: kept residuals predicted by 0 (the MC reference predicts; residual DPCM chains)
-        sc = SCg[:, j]; q = dz(xk[:, j] - pr, sc)
+        sc = SCg[:, j]; q = dz(xk[:, j] - pr, sc, RHOK if RHOK >= 0 else None)
         if HT is not None: q = np.where(np.abs(xk[:, j] - pr) < thk[:, j], 0, q)
         qa[:, j] = q; y[:, j] = np.clip(Pk[:, j] + pr + np.round(q * sc).astype(np.int64), LO, HI) - Pk[:, j]
     SY.append((('c', L), qa)); cur = y
@@ -99,6 +100,7 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None,
         k = np.moveaxis(k, axis, 0); m = k.shape[0]; i = np.arange(n); g = lambda t: k[np.clip(t, 0, m - 1)]
         return np.moveaxis(np.abs(g(i + 1) - g(i)), 0, axis) / s_
     for lvl in range(L - 1, -1, -1):
+        CUR_L[0] = lvl
         kind, shp = grids[lvl]; s_l = Q * f ** lvl; r, c = strides(lvl); Sg = s_l * QM[::r, ::c][:shp[0], :shp[1]]
         xg = tg[lvl][::r, ::c][:shp[0], :shp[1]]; full = np.zeros(shp, np.int64); Pg = P[::r, ::c][:shp[0], :shp[1]]; hg = thg(lvl, r, c, shp)
         def H_(a, b): return None if hg is None else hg[a, b]

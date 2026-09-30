@@ -426,3 +426,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   gfx F003: VIF s0 +0.037, s1 -0.009, s2 -0.007, s3 -0.004; ADM s0 +0.008, s2 -0.005, s3 -0.002; NEG -0.70.
   -> Confirms G42: we lead at the finest scale and trail at VIF scales 1-3 / ADM 2-3 (mid/coarse fidelity). The
      lever is more precision at the coarse levels (steeper ladder, f < 0.7), not texture keeping.
+- G44 SMUDGE (owner smudgegroups, thr 6 dens 0.4, frame 0 @1.0, out/smudge/): cine_4k_A006 OURS Y 1 group (10 blocks,
+  rows 442-451 cols 704-799), Cb 1 (8), Cr 2 (17); TODAY 0/0/0. gfx F003 ours 0/0/0, today 0/0/0.
+  -> intra form (i) at the G18 ladder FAILS goal 1 (no smudges) on A006. The coarse-scale error of G42/G43 is visible.
+  Pass rule for every ladder/rounding arm (SA20P + SA20Q), all required:
+  - smudgegroups + artifactmap clean per plane;
+  - per-scale VIF/ADM >= today;
+  - error ratio vs today <= ~1 at 8-32 px.
+  Kept-sample rounding: report bits per level alongside. The chroma offset merges into one chroma-step function.
