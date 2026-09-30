@@ -34,6 +34,7 @@ Status (latest):
   still/moving steps are dropped; a visible fallback plan is disqualifying (S5.344). Owner guidance 2026-09-30
   (working guidance, not a rule): proceed with the current never-away reading as long as the output is
   artifact-free.
+- GATE G78 (lines, seams, smudges on every frame) is open: every result above is provisional until it passes.
 - Not yet run: >= 10-generation chains, per-slice exact CBR, owner's visual tools on inter frames, renders review.
 
 Clips. Owner footage (720p, 4:2:2 10-bit, 2-3 frames, from lossy PNG): test = cine_A005C031, gfx444_B001C001,
@@ -853,3 +854,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
     rm0.85 first, rm0 (no refinement after the ramp) as control, then rm0.9.
   - G77 queued (queues/q_sn.sh): snm x rm0.85, snm x rm0, sn x rm0.85 on pan0.25, nfrozen2/3, npan0.5s2, frozen10;
     control rerun with temporal metrics.
+- G78 GATE (owner, 2026-09-30): lines and seam blends are disqualifying, the same as smudges. Until now only smudge
+  groups were measured, and only on intra frames. From here no arm counts as passing unless tools/visual_check.py is
+  clean on every owner clip, every rate, every frame, every plane. Pass criteria, set before the results are seen:
+  - smudge groups: 0 where today is 0, and never more than today;
+  - lines: no row or column above 1.5x its neighbourhood that today does not also have (content lines hit both);
+  - grid pattern (error by row mod 4 / column mod 32 or 16): ours <= today + 0.03;
+  - seams (error step across 8/16/32-px luma, 4/8/16 chroma boundaries vs elsewhere): ours <= today + 0.03.
+  Any failure is fixed at its cause before any other lever. Every earlier "pass" in this log is provisional until then.
