@@ -21,6 +21,7 @@ ZB = float([t[2:] for t in TOK if t.startswith('zb')][0]) if any(t.startswith('z
 SG = 'sg' in TOK   # hysteresis only on SOURCE-still blocks (encoder-only gate, SA20Q)
 NF = int(os.environ.get('NF', '3'))
 HY = float([t[2:] for t in TOK if t.startswith('hy')][0]) if any(t.startswith('hy') for t in TOK) else 0  # hysteresis kappa
+S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
 GRID = [2 ** (e / 4) for e in range(-8, 28)]
@@ -40,6 +41,34 @@ def cost(SY, key0, tab):
             v = q[c == cc]; h = tab.get(key0 + key + (cc,), np.zeros(129)) + 1; p = h / h.sum()
             bits += -np.log2(p[np.clip(v, -64, 64) + 64]).sum(); esc = np.abs(v) > 63; bits += (12 + 2 * np.log2(np.abs(v[esc]))).sum()
     return bits
+def cls16(q, a):
+    qa = np.abs(q.astype(float)); m = np.zeros_like(qa)
+    m[:, 1:] += qa[:, :-1]; m[1:, :] += qa[:-1, :]; m[1:, 1:] += 0.5 * qa[:-1, :-1]; m[1:, :-1] += 0.5 * qa[:-1, 1:]
+    return np.minimum((np.log2(1 + m + a[:q.shape[0], :q.shape[1]]) * 16 / 7).astype(int), 15)
+def tally16(SY, AC, mode, tab):
+    for (key, q), a in zip(SY, AC):
+        k = cls16(q, a); v = np.clip(q.astype(np.int64), -64, 64) + 64
+        for kk in np.unique(k): np.add.at(tab.setdefault((mode, kk), np.zeros(129)), v[k == kk], 1)
+def cost16(SY, AC, mode, tab):
+    b = 0.0
+    for (key, q), a in zip(SY, AC):
+        k = cls16(q, a); q = q.astype(np.int64)
+        for kk in np.unique(k):
+            x = q[k == kk]; h = tab.get((mode, kk), np.zeros(129)) + 1; p = h / h.sum()
+            b += -np.log2(p[np.clip(x, -64, 64) + 64]).sum() + (12 + 2 * np.log2(np.abs(x[np.abs(x) > 63]))).sum()
+    return b
+def fcost(sy, Q):   # frame cost of [(key0, SY, AC)]
+    if S16: return sum(cost16(SY, AC, key0[1], TABS) for key0, SY, AC in sy)
+    return sum(cost(SY, key0, TABS[Q]) for key0, SY, AC in sy)
+def upd(st, y, ref, Q):   # encoder state per block: step and ladder of the last write (block changed = written)
+    NBY, NBX = (H + 15) // 16, (W + 15) // 16
+    if st is None: return [(np.full((NBY, NBX), Q * (cm if k else 1)), np.full((NBY, NBX), 0.7)) for k in range(3)]
+    for k in range(3):
+        bw = 16 if k == 0 else 8; ch = (y[k] != ref[k]); hh, ww = NBY * 16, NBX * bw
+        pad = np.zeros((hh, ww), bool); pad[:ch.shape[0], :ch.shape[1]] = ch
+        wr = pad.reshape(NBY, 16, NBX, bw).any(axis=(1, 3))
+        st[k][0][wr] = Q * (cm if k else 1); st[k][1][wr] = FI
+    return st
 def expand(b, shp, bw):   # per-block map (16 rows x bw cols) -> per-sample map
     return np.repeat(np.repeat(b, 16, 0), bw, 1)[:shp[0], :shp[1]]
 def code_frame(x, ref, Q, st=None, xprev=None):
@@ -49,7 +78,7 @@ def code_frame(x, ref, Q, st=None, xprev=None):
         V = motion(x[0], ref[0], Z=ZB); Ps = [apply(ref[0], V, 16, 1), apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]; mode = 'inter'
     out = []; sy = []
     for pl, (p, P) in enumerate(zip(x, Ps)):
-        SY = []; Yd = None
+        SY = []; AC = []; Yd = None
         if pl and CL:
             Yf = out[0]; Yd = ((Yf[:, 0::2] + Yf[:, 1::2] + 1) >> 1) - ((Ps[0][:, 0::2] + Ps[0][:, 1::2] + 1) >> 1)
         HT = None
@@ -61,11 +90,21 @@ def code_frame(x, ref, Q, st=None, xprev=None):
                 stl = pad.reshape(hh // 16, 16, ww // 16, 16).mean(axis=(1, 3)) >= 0.95
                 KQ = KQ * expand(stl.astype(float), p.shape, bw)
             HT = (KQ, expand(st[pl][1], p.shape, bw))
-        y = po(p, Q * (cm if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT)[1]
-        out.append(y); sy.append(((min(pl, 1), mode), SY))
+        y = po(p, Q * (cm if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC)[1]
+        out.append(y); sy.append(((min(pl, 1), mode), SY, AC))
     return sy, out
 tpath = os.path.join(OUT, 'tables_%s.pkl' % ARM)
 if os.path.exists(tpath): TABS = pickle.load(open(tpath, 'rb'))
+elif S16:   # pooled over every other quarter-octave step of the owner range, sequences coded with the arm's state
+    TABS = {}
+    for Q in [2 ** (e / 4) for e in range(-2, 25, 2)]:
+        for clip, nf in TRAIN:
+            ref = None; st = None; fr = [read(A + clip + '_1280x720_422_10.yuv', W, H, f) for f in range(nf)]
+            for f in range(nf):
+                sy, y = code_frame(fr[f], ref, Q, st, fr[f - 1] if f else None)
+                for key0, SY, AC in sy: tally16(SY, AC, key0[1], TABS)
+                st = upd(st, y, ref, Q); ref = y
+    pickle.dump(TABS, open(tpath, 'wb'))
 else:
     TABS = {}
     for Q in GRID:
@@ -74,15 +113,15 @@ else:
             ref = None
             for f in range(nf):
                 sy, ref = code_frame(read(A + clip + '_1280x720_422_10.yuv', W, H, f), ref, Q)
-                for key0, SY in sy: tally(SY, key0, tab)
+                for key0, SY, AC in sy: tally(SY, key0, tab)
         TABS[Q] = tab
     pickle.dump(TABS, open(tpath, 'wb'))
 if TEST == 'train': sys.exit(0)
 def split(sy, Q):
     # bits per level class: kept = coarsest DPCM grid ('c'), leaves per finer level; summed over planes
     d = {}
-    for key0, SY in sy:
-        for key, q in SY: d[key[1]] = d.get(key[1], 0.0) + cost([(key, q)], key0, TABS[Q])
+    for key0, SY, AC in sy:
+        for (key, q), a in zip(SY, AC): d[key[1]] = d.get(key[1], 0.0) + (cost16([(key, q)], [a], key0[1], TABS) if S16 else cost([(key, q)], key0, TABS[Q]))
     return d
 def neg3(src, dec):
     cmd = ['ffmpeg', '-v', 'error', '-f', 'rawvideo', '-pix_fmt', 'yuv422p10le', '-s', '%dx%d' % (W, H), '-i', dec,
@@ -101,19 +140,12 @@ for R in RATES:
         while lo <= hi:
             mid = (lo + hi) // 2; Q = GRID[mid]
             sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None)
-            b = sum(cost(SY, key0, TABS[Q]) for key0, SY in sy) + (10 * NBLK if t else 0)
+            b = fcost(sy, Q) + (10 * NBLK if t else 0)
             if b <= budget: best = (Q, b, y, sy); hi = mid - 1
             else: lo = mid + 1
-        if best is None: Q = GRID[-1]; sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None); best = (Q, sum(cost(SY, k, TABS[Q]) for k, SY in sy), y, sy)
+        if best is None: Q = GRID[-1]; sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None); best = (Q, fcost(sy, Q) + (10 * NBLK if t else 0), y, sy)
         Q, b, y, sy = best
-        # encoder state per block: step and ladder of the last write (block changed = written)
-        if st is None: st = [(np.full((NBY, NBX), Q * (cm if k else 1)), np.full((NBY, NBX), 0.7)) for k in range(3)]
-        else:
-            for k in range(3):
-                bw = 16 if k == 0 else 8; ch = (y[k] != ref[k]); hh, ww = NBY * 16, NBX * bw
-                pad = np.zeros((hh, ww), bool); pad[:ch.shape[0], :ch.shape[1]] = ch
-                wr = pad.reshape(NBY, 16, NBX, bw).any(axis=(1, 3))
-                st[k][0][wr] = Q * (cm if k else 1); st[k][1][wr] = FI
+        st = upd(st, y, ref, Q)
         ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
     fn = os.path.join(OUT, '%s_%s_%.1f.yuv' % (TEST, ARM, R))
     with open(fn, 'wb') as fo:
