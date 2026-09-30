@@ -70,6 +70,7 @@ EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byt
 XLC = [None]
 GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
 QN = float([t[2:] for t in TOK if t.startswith('qn')][0]) if any(t.startswith('qn') for t in TOK) else 0.0   # frame-step floor c x median luma sigma-hat (no quantising below the noise)
+OB = 'ob' in TOK; SM = 'sm' in TOK   # G78 seams: overlapped MC; continuous per-sample parameter fields
 SN = 'sn' in TOK; SNM = 'snm' in TOK   # sigma-hat from the current source's spatial Laplacian (Immerkaer), per luma band, not the frame difference
 RM = float([t[2:] for t in TOK if t.startswith('rm')][0]) if any(t.startswith('rm') for t in TOK) else 1.0   # refine only if the finer step fits RM x budget
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
@@ -179,14 +180,39 @@ def apply_c(ref, V):   # chroma prediction at the exact half-sample position for
             P[by:by + h, bx:bx + w] = a if r == 0 else (a + pad[by + R_ + 1 + dy:by + R_ + 1 + dy + h, bx + R_ + 2 + q:bx + R_ + 2 + q + w] + 1) >> 1
     return P
 def expand(b, shp, bw):   # per-block map (16 rows x bw cols) -> per-sample map
+    if SM and b.dtype != bool: return smooth_field(b.astype(float), shp, bw)
     return np.repeat(np.repeat(b, 16, 0), bw, 1)[:shp[0], :shp[1]]
+def smooth_field(b, shp, bw):   # _sm: bilinear between block centres = a continuous per-sample field (owner: no block-keyed steps)
+    def w(n, B, nb):
+        c = (np.arange(n) + 0.5) / B - 0.5; i0 = np.clip(np.floor(c).astype(int), 0, nb - 1); i1 = np.clip(i0 + 1, 0, nb - 1)
+        f = np.clip(c - np.floor(c), 0, 1); f = np.where(c < 0, 0.0, np.where(c > nb - 1, 0.0, f)); return i0, i1, f
+    r0, r1, fr = w(shp[0], 16, b.shape[0]); c0, c1, fc = w(shp[1], bw, b.shape[1])
+    top = b[r0][:, c0] * (1 - fc) + b[r0][:, c1] * fc; bot = b[r1][:, c0] * (1 - fc) + b[r1][:, c1] * fc
+    return top * (1 - fr[:, None]) + bot * fr[:, None]
+OBW = np.sin(np.pi * (np.arange(32) + 0.5) / 32) ** 2   # raised-cosine window, hop 16: w(n) + w(n + 16) = 1
+def apply_ob(ref, V, bw, chroma):   # _ob: overlapped block MC, each vector weighted over a 2x window; continuous at block edges
+    Hh, Ww = ref.shape; R_ = 24; pad = np.pad(ref.astype(float), R_, mode='edge')
+    acc = np.zeros((Hh + 32, Ww + 2 * bw)); wsum = np.zeros_like(acc)   # acc offset: 16 rows, bw cols
+    wx = np.sin(np.pi * (np.arange(2 * bw) + 0.5) / (2 * bw)) ** 2; W2 = OBW[:, None] * wx[None, :]
+    for i in range(V.shape[0]):
+        for j in range(V.shape[1]):
+            y0, x0 = i * 16 - 8, j * bw - bw // 2          # window origin in frame coordinates
+            if i * 16 >= Hh or j * bw >= Ww: continue
+            dy, dx = int(V[i, j][0]), int(V[i, j][1])
+            if chroma:
+                q, r = divmod(dx, 2); a_ = pad[y0 + R_ + dy:y0 + R_ + dy + 32, x0 + R_ + q:x0 + R_ + q + 2 * bw]
+                if r: a_ = (a_ + pad[y0 + R_ + dy:y0 + R_ + dy + 32, x0 + R_ + q + 1:x0 + R_ + q + 1 + 2 * bw]) / 2
+            else: a_ = pad[y0 + R_ + dy:y0 + R_ + dy + 32, x0 + R_ + dx:x0 + R_ + dx + 2 * bw]
+            acc[y0 + 16:y0 + 48, x0 + bw:x0 + 3 * bw] += a_ * W2; wsum[y0 + 16:y0 + 48, x0 + bw:x0 + 3 * bw] += W2
+    return np.round(acc[16:16 + Hh, bw:bw + Ww] / wsum[16:16 + Hh, bw:bw + Ww]).astype(ref.dtype)
 def code_frame(x, ref, Q, st=None, xprev=None):
     """x = source planes, ref = previous reconstruction (None = intra). returns [(key0, SY)], recon"""
     if ref is None: Ps = [np.zeros_like(p) for p in x]; mode = 'intra'
     else:
         V = motion(x[0], ref[0], Z=ZB)
         if SG and xprev is not None: V[:still_blocks(x, xprev).shape[0], :still_blocks(x, xprev).shape[1]][still_blocks(x, xprev)] = 0   # source-still block -> zero vector (encoder)
-        Ps = [apply(ref[0], V, 16, 1)] + ([apply_c(ref[1], V), apply_c(ref[2], V)] if CHP else [apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]); mode = 'inter'
+        if OB: Ps = [apply_ob(ref[0], V, 16, False), apply_ob(ref[1], V, 8, True), apply_ob(ref[2], V, 8, True)]; mode = 'inter'
+        else: Ps = [apply(ref[0], V, 16, 1)] + ([apply_c(ref[1], V), apply_c(ref[2], V)] if CHP else [apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]); mode = 'inter'
     out = []; sy = []
     for pl, (p, P) in enumerate(zip(x, Ps)):
         SY = []; AC = []; Yd = None
