@@ -499,3 +499,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - DRIFT RELEASE: a block stays still only while MAD(x_t - own recon) <= its error at last write + 1.5 noise
     (error-triggered, S5.390); slow motion accumulates error and releases the hold.
   Re-run A2/C2 on the same clips (rg2_*).
+- G51 (SA20P) both rules admissible.
+  Moving-step floor: equal-slope allocation means one gain-normalised step, so "moving never finer than still"
+  approximates the RD optimum. Conditions:
+  - fix the ~2 % mislabelled blocks at the GATE, with 5-9 %/frame -> 0 with the floor on and off;
+  - on a mostly-moving clip (whole-frame pan) the floor must not bind: report Q with the floor on/off, NEG unchanged.
+  Drift release = the S5.390 error-triggered form. It must be hysteretic (release at E_last + 1.5 sigma-hat, E_last
+  resets at the re-code, re-entry only via the normal still test). Report release events per block per 10 frames:
+  0 on noisy frozen, ~1 per block crossing on slow pans.
