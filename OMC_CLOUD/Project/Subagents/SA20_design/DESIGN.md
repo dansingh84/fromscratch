@@ -544,3 +544,16 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Needed: gate thresholds at higher confidence; the caught flag must not clear on a single failed frame; a floor on
   the catch-up step (never finer than the moving step). Today's codec is running on the synthetic clips (frozen10,
   nfrozen2, npan, pans) as the reference for decay and churn.
+- G55 gate g2 (35th-pct noise, 1.5 n / 5 n/16, release after 2 fails, catch-up step >= moving/2):
+  - noisy frozen sigma 2: ONE whole-frame catch-up in f2, then 0.00 % on all 7 transitions @0.5 and @1.0 -> PASS;
+    frozen10 still passes.
+  - noisy slow pan: 65 % held and severe smear (NEG 0.5: 92.01 -> 87.51; 2.0: 95.65 -> 88.53) -> FAIL (gate cannot
+    separate slow low-contrast motion from noise).
+  - clean pans: 31-40 % intermittent (bound 1 %) -> FAIL.
+  - gfx: f2 spends 0.25/0.35 of 1.0/2.0 bpp; NEG 95.87/96.16 < f1 -> FAIL (floor binds with no catch-up = G53 flaw i).
+  Next (_sh + floor release):
+  - MOTION-AWARE hold: release when a 1-px shift of the last-write source explains x_t better than zero shift
+    (margin 0.15 n); flat blocks stay held (harmless);
+  - if no catch-up fires, re-search the moving step without the floor.
+  today's codec on the synthetic clips (0.5/2.0, NEG3): frozen10 92.01/95.80, nfrozen2 91.87/95.59,
+  npan 91.69/95.70, pan0.25 92.01/95.89, pan1.0 92.02/96.13 (per-frame in out/today_eval_synth.txt).

@@ -42,6 +42,7 @@ ACC = 'acc' in TOK   # SA20Q: still = source unchanged since the block's LAST WR
 XLAST = [None]; PASS = [None]; STILLF = [None]; MPASS = 3
 G2 = 'g2' in TOK   # higher-confidence gate: 35th-pct noise, MAD <= 1.5 n, |mean| <= 5 n/16, release after 2 consecutive fails, catch-up step >= moving/2
 FAILC = [None]
+SH = 'sh' in TOK   # motion-aware hold: release if a 1-px shift of the last-write source explains x_t better than zero shift
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -216,7 +217,10 @@ for R in RATES:
             if t == 0: XLAST[0] = x[0].copy(); PASS[0] = None
             else:
                 ng_ = noise_gate(x, X[t - 1], 0); nb_ = SIG[0] * 1.13
-                raw = ng_ & (bmad(x[0], XLAST[0]) <= (1.5 if G2 else 1.3) * nb_)
+                m0 = bmad(x[0], XLAST[0]); raw = ng_ & (m0 <= (1.5 if G2 else 1.3) * nb_)
+                if SH:
+                    msh = np.min([bmad(x[0], np.roll(XLAST[0], sft, ax)) for sft in (1, -1) for ax in (0, 1)], axis=0)
+                    raw &= ~(msh < m0 - 0.15 * nb_)
                 prevP = PASS[0] if PASS[0] is not None else np.full(raw.shape, MPASS)
                 if G2:   # release only after 2 consecutive fails; a held block survives one noisy frame
                     FAILC[0] = np.where(raw, 0, (FAILC[0] if FAILC[0] is not None else np.zeros(raw.shape, int)) + 1)
@@ -247,6 +251,12 @@ for R in RATES:
                     syc, yc = code_frame(x, ref, Qm, st, X[t - 1]); bc = fcost(syc, Qm) + 10 * NBLK + NBLK
                     if bc <= budget: best = (Qm, bc, yc, syc); rginfo = (Qc, int(cand.sum())); break
                 else: CUB[0] = None; QMB[0] = None
+            if rginfo is None and MF and lo > 0:   # no catch-up used the padding: let the moving step go finer (no waste)
+                lo2, hi2 = 0, lo - 1
+                while lo2 <= hi2:
+                    mid = (lo2 + hi2) // 2; Q2 = GRID[mid]; sy2, y2 = code_frame(x, ref, Q2, st, X[t - 1]); b2 = fcost(sy2, Q2) + 10 * NBLK
+                    if b2 <= budget: best = (Q2, b2, y2, sy2); hi2 = mid - 1
+                    else: lo2 = mid + 1
         if CUAFTER and best is not None and t:
             CUOFF[0] = False; Q_ = best[0]; sy2, y2 = code_frame(x, ref, Q_, st, X[t - 1]); b2 = fcost(sy2, Q_) + 10 * NBLK
             if b2 <= budget: best = (Q_, b2, y2, sy2)
