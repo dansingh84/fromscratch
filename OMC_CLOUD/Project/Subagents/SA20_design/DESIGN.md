@@ -876,3 +876,31 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
     G79 (queues/q_seam.sh): _ob overlapped MC (raised-cosine windows, hop 16, weights sum to 1; decoder-side, 0
     bits, the per-sample clip(P + pred + leaf) form unchanged) and _sm continuous fields (bilinear between block
     centres) for every per-block encoder parameter, alone and together.
+
+## §H Upstream redesign (owner, 2026-09-30: lines, grids and seams are disqualifying in absolute terms; a usable codec
+## creates none. No patches: trace each artifact to the first design decision that causes it and redesign there.)
+- H0 Bar (replaces the G78 "today + 0.03" bar; S5.369: identical per-phase error statistics, intra and inter, all
+  planes). Adopted from SA20Q, with SA20P agreeing: signed mean and mean |error| per phase and per boundary side, 2-D
+  phase maps at every period the design has, stratified by source activity (flat / mid / texture) with a pass in
+  each bin, temporal |delta out| per phase in still regions, decoded/source HF energy per phase, all inside the 95 %
+  interval of a null built by folding the same statistic at non-design periods on the same frames. Plus the owner's
+  brightened full-resolution renders with a grid overlay. "Never worse than today" is a second, necessary condition.
+- H1 Grid, traced upstream (diagnostic tools/diag_phase.py, cine_A005C031 intra f0 @ step 16, luma mean |error| at
+  column 0 mod 32 / mean): ladder f 0.7 + kept rounding 0.79; f 1.0 1.10; f 1.0 rho 0.5 1.10; f 1.0 rho 0.25 1.09;
+  the period-32 structure (columns 4/8/.. vs odd columns) persists in every setting.
+  Chain: phase-dependent error <- each sample's final error is the error of its OWN symbol (form i) <- a sample's
+  prediction geometry and quantiser are fixed by its position (static role lattice: column mod 32, row mod 4) <-
+  the choice of a static interpolating pyramid for multi-resolution prediction.
+  -> No ladder or dead-zone setting makes the statistics equal by construction: the sign flips between f 0.7 and
+     1.0, so an "equal-error ladder" is a per-content tuning that equalises one moment at one rate (a patch).
+  -> Upstream requirement: every output sample is produced by the SAME process (translation-invariant prediction
+     geometry and quantiser). With once-written samples and the per-sample never-away form, that means a causal
+     single-level scan with a predictor that is the same at every position.
+- H2 Seams, traced upstream: error step at 16-px boundaries in inter frames <- the prediction P jumps at block edges
+  and the encoder's thresholds are block-constant <- motion and encoder state are represented per block <- the
+  block partition itself. A smoothing of block predictions (overlapped MC) or of block parameters is downstream of
+  the partition (withdrawn: G79 queue stopped). Upstream requirement: no partition of the picture in any stage that
+  touches samples; every per-sample quantity comes from a translation-invariant rule.
+- H3 The same test applies to the rest of the design; each item is a partition or a static period:
+  state blocks 64x8 / 16x16 (hold, hysteresis, catch-up, noise floor), per-slice steps, luma-band thresholds,
+  4:2:2 chroma lattice, diagonal phase. Each must go or be derived per sample by one rule.
