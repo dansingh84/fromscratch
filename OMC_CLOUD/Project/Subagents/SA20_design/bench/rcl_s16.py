@@ -14,7 +14,7 @@ A = '/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/'
 MODEL = '/home/user/fromscratch/OMC_CLOUD/vmaf_model/vmaf_v0.6.1neg.json'
 TRAIN = [('cine_4k_A006', 2), ('cine_A005C021', 2), ('gfx444_F003C012', 3)]
 TEST, CM = sys.argv[1], float(sys.argv[2]); CTX = sys.argv[3] if len(sys.argv) > 3 else 'S16'
-TR = [c for c in TRAIN if c[0] != TEST]; K = 16
+TR = TRAIN if os.environ.get('INSAMPLE') == '1' else [c for c in TRAIN if c[0] != TEST]; K = 16
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_s16'); os.makedirs(OUT, exist_ok=True)
 def mag(q, a):
     q = np.abs(q.astype(float)); m = np.zeros_like(q)
