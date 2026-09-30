@@ -25,7 +25,20 @@ def blur(x, l):
             y = (np.roll(y, st, ax) + 2 * y + np.roll(y, -st, ax)) / 4  # wrap at edges: screen only
     return np.round(y).astype(np.int64)
 
-def po(x, Q, f, T, SY):
+
+def alpha_map(ck, yk, shp, BS):
+    """per BSxBS block (in the grid of the kept samples): slope of chroma vs luma deviations, from FINAL kept data,
+    quantised to eighths in [-1, 1] (shift-add); returns an alpha value per grid sample of shape shp."""
+    a = np.zeros(shp)
+    for i in range(0, ck.shape[0], BS):
+        for j in range(0, ck.shape[1], BS):
+            c = ck[i:i+BS, j:j+BS].astype(float); y = yk[i:i+BS, j:j+BS].astype(float)
+            c = c - c.mean(); y = y - y.mean(); v = (y * y).sum()
+            al = 0.0 if v < 1e-6 else np.clip(np.round(8 * (c * y).sum() / v) / 8, -1, 1)
+            a[2*i:2*i+2*BS, 2*j:2*j+2*BS] = al
+    return a
+
+def po(x, Q, f, T, SY, Yd=None, BS=16):
     grids = []; s = x.shape
     for _ in range(2): grids.append(('2d', s)); s = ((s[0] + 1) // 2, (s[1] + 1) // 2)
     for _ in range(3): grids.append(('h', s)); s = (s[0], (s[1] + 1) // 2)
@@ -50,16 +63,24 @@ def po(x, Q, f, T, SY):
     for lvl in range(L - 1, -1, -1):
         kind, shp = grids[lvl]; s_l = Q * f ** lvl; r, c = strides(lvl)
         xg = tg[lvl][::r, ::c][:shp[0], :shp[1]]; full = np.zeros(shp, np.int64)
+        if Yd is not None:
+            yg = Yd[::r, ::c][:shp[0], :shp[1]]
+            AL = alpha_map(cur, yg[0::2, 0::2] if kind == '2d' else yg[:, 0::2], shp, BS)
+            def lt(sl, pd): return np.round(AL[sl] * (yg[sl] - pd)).astype(np.int64)
+        else:
+            yg = np.zeros(shp, np.int64)
+            def lt(sl, pd): return 0
         if kind == 'h':
             full[:, 0::2] = cur; pr = pred_axis(cur, shp[1] // 2, 1)
+            if Yd is not None: pr = pr + lt((slice(None), slice(1, None, 2)), pred_axis(yg[:, 0::2], shp[1] // 2, 1))
             q = dz(xg[:, 1::2] - pr, s_l); SY.append(((kind, lvl), q)); full[:, 1::2] = np.clip(pr + np.round(q * s_l).astype(np.int64), LO, HI)
         else:
             full[0::2, 0::2] = cur
-            pr = pred_axis(cur, shp[1] // 2, 1); q = dz(xg[0::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q))
+            pr = pred_axis(cur, shp[1] // 2, 1); pr = pr + lt((slice(0, None, 2), slice(1, None, 2)), pred_axis(yg[0::2, 0::2], shp[1] // 2, 1)); q = dz(xg[0::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q))
             full[0::2, 1::2] = np.clip(pr + np.round(q * s_l).astype(np.int64), LO, HI)
-            pr = pred_axis(cur, shp[0] // 2, 0); q = dz(xg[1::2, 0::2] - pr, s_l); SY.append(((kind, lvl), q))
+            pr = pred_axis(cur, shp[0] // 2, 0); pr = pr + lt((slice(1, None, 2), slice(0, None, 2)), pred_axis(yg[0::2, 0::2], shp[0] // 2, 0)); q = dz(xg[1::2, 0::2] - pr, s_l); SY.append(((kind, lvl), q))
             full[1::2, 0::2] = np.clip(pr + np.round(q * s_l).astype(np.int64), LO, HI)
-            pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); q = dz(xg[1::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q))
+            pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); pr = pr + lt((slice(1, None, 2), slice(1, None, 2)), pred_axis(yg[1::2, 0::2], shp[1] // 2, 1)); q = dz(xg[1::2, 1::2] - pr, s_l); SY.append(((kind, lvl), q))
             full[1::2, 1::2] = np.clip(pr + np.round(q * s_l).astype(np.int64), LO, HI)
         cur = full
     return bits, cur

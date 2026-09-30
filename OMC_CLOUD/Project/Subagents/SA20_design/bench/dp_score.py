@@ -20,7 +20,7 @@ for l in open(log):
 def at(p, r, k):  # hull: for each rate take the best value among points with rate <= r (monotone), interpolate
     p = sorted(p); x = np.log2([a for a, _ in p]); y = np.maximum.accumulate([b[k] for _, b in p])
     return float(np.interp(np.log2(r), x, y))
-for r in (0.25, 0.5, 1.0):
+for r in (0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0):
     a = [at(pts['AVG'], r, k) for k in range(4)]; d = [at(pts[os.environ.get('ARM','DP')], r, k) for k in range(4)]
     print('@%.2f AVG NEG %.2f PSNR %.2f/%.2f/%.2f | DP NEG %.2f PSNR %.2f/%.2f/%.2f | DP-AVG NEG %+.2f PSNR %+.2f/%+.2f/%+.2f' % (
         r, *a, *d, *[d[k] - a[k] for k in range(4)]))

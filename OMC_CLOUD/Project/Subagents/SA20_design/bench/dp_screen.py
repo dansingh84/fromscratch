@@ -16,7 +16,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 from d1_screen import l53f, l53i, fwd, inv, ent, dz, gains, read
 LO, HI = 0, 1023
 path, W, H, tag = sys.argv[1], int(sys.argv[2]), int(sys.argv[3]), sys.argv[4]
-OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'dp'); os.makedirs(OUT, exist_ok=True)
+OUT = os.path.join(os.path.dirname(__file__), '..', 'out', os.environ.get('ODIR', 'dp')); os.makedirs(OUT, exist_ok=True)
 
 def dd4(a, b, c, d): return (-a + 9 * b + 9 * c - d + 8) >> 4
 def pred_axis(k, n_odd, axis):  # predict odd positions from kept k along axis (DD 4-tap, edge replicate)
@@ -126,9 +126,9 @@ def apply(ref, V, B, sx):
 def psnr(a, b): return 10 * np.log10(1023.0 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
 frames = [read(path, W, H, f) for f in range(3)]
 ARMS = os.environ.get('ARMS', 'AVG,DP').split(',')
-for arm, Qs, fs in [a for a in (('AVG', [2 ** (e / 2) for e in range(4, 14)], [None]),
-                    ('DP', [2 ** (e / 2) for e in range(2, 12)], [0.5, 0.7, 1.0]),
-                    ('DPI', [2 ** (e / 2) for e in range(2, 12)], [0.5, 0.7, 1.0])) if a[0] in ARMS]:
+for arm, Qs, fs in [a for a in (('AVG', [2 ** (e / 2) for e in range(int(os.environ.get('E0', 4)), 14)], [None]),
+                    ('DP', [2 ** (e / 2) for e in range(int(os.environ.get('E0', 4)) - 2, 12)], [0.5, 0.7, 1.0]),
+                    ('DPI', [2 ** (e / 2) for e in range(int(os.environ.get('E0', 4)) - 2, 12)], [0.5, 0.7, 1.0])) if a[0] in ARMS]:
     for f_ in fs:
         for Q in Qs:
             rec = []; bits = []

@@ -19,7 +19,8 @@ def ctx(q):
     nz = q != 0; c = np.zeros_like(nz); c[:, 1:] |= nz[:, :-1]; c[1:, :] |= nz[:-1, :]; return c
 def w53_syms(x, Q, SY):
     if x.shape not in d1_screen.GAINS: d1_screen.GAINS[x.shape] = gains(x.shape)
-    ga, gb = d1_screen.GAINS[x.shape]; a, b = fwd(x); sa = max(1.0, Q / np.sqrt(ga)); qa = np.round(a / sa); SY.append((('LL',), qa)); nb = []
+    ga, gb = d1_screen.GAINS[x.shape]; a, b = fwd(x); sa = max(1.0, Q / np.sqrt(ga)); qa = np.round(a / sa)
+    dq = qa.copy(); dq[:, 1:] = qa[:, 1:] - qa[:, :-1]; dq[1:, 0] = qa[1:, 0] - qa[:-1, 0]; SY.append((('LL',), dq)); nb = []
     for i, ((k, bb), gg) in enumerate(zip(b, gb)):
         m = []
         for j, (c, g) in enumerate(zip(bb, gg)):
@@ -54,7 +55,7 @@ src = A + TEST + '_1280x720_422_10.yuv'; x = read(src, W, H, 0)
 f0 = os.path.join(OUT, TEST + '_src_f0.yuv')
 with open(f0, 'wb') as fo:
     for p in x: p.astype('<u2').tofile(fo)
-for arm, Qs in (('W53', [2 ** (e / 4) for e in range(8, 30)]), ('PO', [2 ** (e / 4) for e in range(4, 26)]), ('N4t1', [2 ** (e / 4) for e in range(4, 26)])):
+for arm, Qs in (('W53', [2 ** (e / 4) for e in range(0, 30)]), ('PO', [2 ** (e / 4) for e in range(-4, 26)])):
     for Q in Qs:
         tab = {}
         for clip, nf in TRAIN:
@@ -65,7 +66,7 @@ for arm, Qs in (('W53', [2 ** (e / 4) for e in range(8, 30)]), ('PO', [2 ** (e /
         for pl, p in enumerate(x):
             SY = []; y = code(arm, p, Q, SY); bits += cost(SY, min(pl, 1), tab); outs.append(y)
         bpp = bits / (W * H)
-        if not 0.2 < bpp < 1.6: continue
+        if not 0.4 < bpp < 4.6: continue
         fn = os.path.join(OUT, '%s_%s_%.3f.yuv' % (TEST, arm, Q))
         with open(fn, 'wb') as fo:
             for p in outs: p.astype('<u2').tofile(fo)
