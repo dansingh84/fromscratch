@@ -1,0 +1,6 @@
+f0 Y  smudge 0|0  OURS lines r0/1.25 c0/1.17 phase 1.18/1.51 seams 0.99/1.00 0.99/1.00 0.98/1.00  || TODAY lines r3/1.56 c0/1.35 phase 1.42/1.52 seams 1.01/1.15 1.01/1.14 1.01/1.15
+f0 Cb smudge 0|0  OURS lines r0/1.24 c0/1.25 phase 1.05/1.90 seams 1.00/1.01 0.99/1.00 0.98/1.01  || TODAY lines r0/1.41 c0/1.28 phase 1.14/1.43 seams 1.02/1.25 1.01/1.50 1.01/1.43
+f0 Cr smudge 0|0  OURS lines r0/1.20 c0/1.25 phase 1.05/1.76 seams 1.00/0.99 0.99/1.00 0.99/1.00  || TODAY lines r0/1.33 c0/1.40 phase 1.07/1.29 seams 1.01/1.18 1.01/1.36 1.01/1.32
+f1 Y  smudge 18|0  OURS lines r0/1.17 c0/1.19 phase 1.07/1.48 seams 1.02/1.02 1.05/1.05 1.04/1.04  || TODAY lines r5/1.53 c0/1.47 phase 1.42/1.47 seams 1.01/1.17 1.01/1.16 1.01/1.14
+f1 Cb smudge 5|0  OURS lines r1/1.57 c0/1.21 phase 1.03/1.36 seams 0.95/0.99 0.95/1.01 0.95/1.03  || TODAY lines r0/1.37 c0/1.39 phase 1.14/1.38 seams 1.02/1.27 1.01/1.54 1.00/1.51
+f1 Cr smudge 4|0  OURS lines r0/1.38 c0/1.20 phase 1.02/1.28 seams 0.95/0.99 0.95/1.00 0.95/1.02  || TODAY lines r0/1.24 c0/1.24 phase 1.07/1.27 seams 1.01/1.19 1.00/1.39 1.00/1.36

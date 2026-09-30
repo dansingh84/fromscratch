@@ -904,3 +904,27 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
 - H3 The same test applies to the rest of the design; each item is a partition or a static period:
   state blocks 64x8 / 16x16 (hold, hysteresis, catch-up, noise floor), per-slice steps, luma-band thresholds,
   4:2:2 chroma lattice, diagonal phase. Each must go or be derived per sample by one rule.
+- H4 (G80) T1 screen: causal single-level scan, MED predictor (x<->y symmetric), one quantiser everywhere, 16 static
+  classes trained on the training clips' frame 0 (t1/t1core.c, t1/t1_intra.py). Intra f0, NEG vs the private-leaf
+  pyramid (PO, rho 0.42 + kept rounding 0.5, from out/vis/run_*.log f0) at the same rate, best of the chroma-step
+  (CM 0.5-1.4) x dead-zone (rho 0.2-0.42) screen per cell:
+  | clip             | 0.5: T1 / PO / today     | 1.0: T1 / PO / today     |
+  | cine_A005C031    | 88.52 / 91.54 / 89.82    | 92.82 / 94.28 / 93.88    |
+  | gfx444_B001C001  | 93.12 / 94.88 / 92.96    | 95.86 / 96.14 / 95.73    |
+  | prores_sample    | 88.49 / 91.55 / 90.27    | 93.60 / 94.22 / 93.96    |
+  Phase statistics flat by construction (column 1.01-1.03, rows 1.00-1.01; PO 1.30-1.40). Luma error lag-1
+  correlation along rows exceeds that along columns (0.54-0.72 vs 0.47-0.68): a scan direction = streak risk.
+  -> KILLED by the pre-registered rule (more than 0.5 NEG below PO): -1.8..-3.1 at 0.5, -0.3..-1.5 at 1.0. Agrees
+     with the record (DESIGN3/S5.212, SA11 S2/S5b, SA13 T1, expert D, N1).
+- H5 Structural result (SA20P, SA20Q concurring; measured by H1 and H4): in a private per-sample engine each sample's
+  error is its own symbol's quantisation error, so per-phase statistics differ whenever sample roles differ. Three
+  ways to equalise: one role for all samples (T1: phase-flat, killed on efficiency, directional), subtractive dither
+  (uniform error, unaffordable bits at 0.5 bpp, and it can move a sample away), or averaging across positions (breaks
+  the per-sample never-away form, S5.404/SA19). Legality + the absolute phase bar + efficiency conflict at the
+  representation level.
+- H6 Next candidate T2 (upstream of both H1 and H4): the multi-resolution information carried by an AUXILIARY coarse
+  signal that is not made of output samples; every output sample is produced by the SAME causal process from its
+  causal neighbours plus the upsampled auxiliary. No output sample has a special role; the only period left is the
+  auxiliary's upsampling phase, which enters only through prediction accuracy (measured against the prime-fold
+  null). The auxiliary supplies the non-causal low band that T1 lacks, which should also bound error propagation
+  along the scan (streaks).
