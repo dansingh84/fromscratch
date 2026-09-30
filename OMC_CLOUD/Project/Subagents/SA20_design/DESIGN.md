@@ -1012,3 +1012,10 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   47.83/54.36/52.91. KILLED: lossless coding of a posterised image pays for every grain flip across a cell edge, and
   the in-cell smoothing removes texture. A fixed lattice gives up the prediction-relative quantiser that makes T1
   (and every working codec) cheap.
+  Record check (SA20P + SA20Q, after the build): L2 = expert D's absolute-lattice lossless pixel codec (pass 1,
+  judged below the needed efficiency on paper) + HVBC §10's interval-constrained reconstruction (pass 2; v1 soft,
+  v2 facet creases, v4/v5 hard edges, v7 "a blurry canvas": diffusion falsified as a category; standing rule "no
+  global smoothness filters"). It also fails exactness unless S is readable or fixed per rate, and drifts on
+  mixed-rate hops. It was built before the record check = a repeat of falsified ideas.
+- H17 Process rule from here: every new candidate goes to SA20Q's record and constraint check BEFORE any code is
+  written, and is built only if it states what differs at the root from every killed relative.
