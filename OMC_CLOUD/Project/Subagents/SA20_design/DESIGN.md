@@ -605,3 +605,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   gfx B001: Y boil 1.518 (src 1.585) ants 2.06 % (src 1.17 %) | Cb 1.158 (1.569) 0.37 % (0.49 %) | Cr 0.820 (1.133) 0.11 % (0.02 %)
   cine C031: Y 7.527 (8.129) 28.49 % (31.13 %) | Cb 1.360 (1.546) 1.13 % (2.54 %) | Cr 1.642 (2.133) 1.84 % (3.92 %)
   -> today's boil is below the source everywhere, but its ants tail on gfx luma and Cr is ABOVE the source.
+- G61 GRAIN arms @1.0 (f2 NEG; boil/ants vs source):
+  gfx B001: HOLD 95.98 (boil 1.00 < 1.59 src; ants 1.55 % > 1.17 %) | NO-HOLD 96.43 (1.62 > src; 1.89 %) |
+            GRAIN-FOLLOW 96.53 (1.51 < src; 1.78 %) | today 96.50 (1.52; 2.06 %).
+            GF f2 PSNR vs today -0.05/-0.09/-0.95; GF f1 NEG 96.14 < today f1 96.40.
+  cine C031: HOLD 96.03 | NO-HOLD 96.09 | GRAIN-FOLLOW 96.07 (boil/ants below source on every plane) | today 96.11.
+  -> GRAIN-FOLLOW is the best arm: NEG >= today at f2 on gfx, parity on cine; boil below source on every plane, ants
+     tail below today's (above the source on gfx, as in every arm and today). Open: gfx Cr -0.95 dB, the f1 dip, and
+     the frozen/noisy-frozen/noisy-pan behaviour of GF (no still gate): running (gf_*).
