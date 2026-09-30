@@ -935,3 +935,16 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   fails by 1.8-3.1 NEG at 0.5 bpp (H4).  T2: R2, R3, near-R4; R1 fails by the DOL mechanism.
   Under R1, multi-resolution information must come from output samples, which gives those samples a different role
   (R3 fails); an identical role for all output samples leaves only causal information (R4 fails).
+- H9 Escape candidate G-c (quantiser allocation derived from R3), first measurement (tools/diag_phase.py,
+  cine_A005C031 intra f0, step 16, rho 0.42, kept rounding 0.5): max/min of mean |error| over column phase (mod 32 Y,
+  16 C) and row phase (mod 4), for a single ladder value f:
+  | f    | Y col / row   | Cb col / row  | Cr col / row  |
+  | 0.70 | 1.35 / 1.26   | 1.37 / 1.04   | 1.38 / 1.06   |  (G78a)
+  | 0.90 | 1.074 / 1.041 | 1.052 / 1.082 | 1.074 / 1.071 |
+  | 0.93 | 1.062 / 1.020 | 1.052 / 1.093 | 1.051 / 1.082 |
+  | 0.95 | 1.062 / 1.020 | 1.051 / 1.103 | 1.030 / 1.092 |
+  | 0.97 | 1.104 / 1.051 | 1.082 / 1.103 | 1.103 / 1.125 |
+  Reference for "no period" (T1, same statistic): 1.01-1.03. So a single f narrows the grid from ~35 % to ~6 % (luma)
+  but leaves 8-10 % on chroma rows: the roles differ in more than their step (dead-zoned vs coded, 2-D vs
+  horizontal levels). One f does not reach the null; per-level allocation and the distribution shape (not only
+  the mean) are the open questions, with the NEG price still unmeasured.
