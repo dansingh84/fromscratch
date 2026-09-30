@@ -277,3 +277,4 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   the same step is idempotent). That single step is what the catch-up must deliver, once, on purpose. Arm _cu
   (SA20P rule): per block still & not caught & step <= last-write step / 2 -> no hysteresis in that frame (the plan
   search costs it), last-write step := current, caught until the source moves. Running on frozen10 at 0.5/1.0/2.5.
+- G26 frozen10 @0.5 with _sg_keep_rs (no catch-up): changes per transition 0.11/0.10/0.09 %, 0.02/0.02/0.03 %, then 0.00 % on all 7 remaining. The state bug and rounding fixes work. Residual 0.1 % in transition 1: suspected the 4 blocks with nonzero vectors on frozen input (to verify). Quality is held at frame 0 (NEG 90.00); the catch-up arm (_cu) is next.
