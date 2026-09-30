@@ -1088,3 +1088,23 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   at every generation, without limit (goal 3 wording). A 10-generation chain is only the test; every design must
   PROVE idempotence by construction (generation 2 re-reads exactly what generation 1 coded, so every later generation
   repeats it), including CBR re-encodes and baseband hops; a rate change costs once and is then such a fixed point.
+- H24 First H21 measurement (tools/make_titles.py, tools/away_render.py, tools/away_sheet.py; the pack's averaging
+  pair pyramid + leaf-interval clamp run unchanged as the instrument, frame 0 @0.5, vs the same leaves + plain clip):
+  | clip         | luma moved away | worst extra error | example                                   |
+  | cut24        | 11.4 %          | 25 (luma), 237 (Cb) | Cb source 0 -> legal 482, clip 245      |
+  | title_full   | 2.2 %           | 459 codes          | text pixel 1011 -> legal 544, clip 1019    |
+  | title_narrow | 1.5 %           | 229 codes          | black 64 -> legal 350, clip 121            |
+  Renders (renders/away_title_full_0.5.png): grey holes inside white strokes and a dark line along stroke edges
+  that the plain clip does not have. Visible -> every averaging engine with this legality mechanism fails H21 on
+  titles, including video-level titles far from the rails (ringing reaches the rails at 0.5 bpp). SA20P's rail
+  exclusion (A') protects only samples exactly ON a rail; the worst title_full move is an anti-aliased edge pixel at
+  1011, so A' does not cover it as stated.
+  Vetting outcomes: my joint-pair quantisation = the re-choice family (SA18 D2, SA19 R-FIX: away grows, -6.9 dB),
+  dead by S5.404 step 5; no power-of-two lattice contains both rails 4 and 1019 (span 1015). RFP / CARP-1 / CARP-2
+  keep the clamp, so they fail as above.
+- H25 Exactness audit (SA20Q): no temporal engine in the record has an idempotence PROOF covering rate control,
+  joins and hops (SA15-SA18 measured g2/g3; SA19 L4 is counter-evidence). A proof needs a per-frame rate state
+  (no cross-frame bank) and no frame counter. The open question is the mid-stream join: a re-encoder that starts
+  mid-stream must begin with an intra frame where the first generation had an inter frame, so it cannot reproduce
+  that frame; convergence needs a readable intra refresh per region (the pack's joins relied on a scheduled
+  refresh). Owner question.
