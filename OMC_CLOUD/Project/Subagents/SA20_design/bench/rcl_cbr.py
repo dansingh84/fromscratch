@@ -69,6 +69,7 @@ QPREV = [None]
 EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byte-identical to its last write (hash in hardware)
 XLC = [None]
 GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
+QN = float([t[2:] for t in TOK if t.startswith('qn')][0]) if any(t.startswith('qn') for t in TOK) else 0.0   # frame-step floor c x median luma sigma-hat (no quantising below the noise)
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -282,8 +283,11 @@ for R in RATES:
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
         CUB[0] = None; QMB[0] = None; rginfo = None
         lo, hi = 0, len(GRID) - 1; best = None
+        if QN and t:
+            noise_gate(x, X[t - 1], 0); qf = QN * float(np.median(SIG[0]))
+            lo = max(lo, min(i for i, g in enumerate(GRID) if g >= qf * 0.999) if qf <= GRID[-1] else len(GRID) - 1)
         if SL and QPREV[0] is not None and t > max(RAMP, 1):
-            ip = GRID.index(QPREV[0]); lo = max(0, ip - 1)   # ASYMMETRIC: refine <= 1 quarter-octave, coarsen freely (CBR at bursts)
+            ip = GRID.index(QPREV[0]); lo = max(lo, ip - 1)   # ASYMMETRIC: refine <= 1 quarter-octave, coarsen freely (CBR at bursts)
         if RG and MF and t and st is not None and not (RAMP and t <= RAMP):
             REFH[0] = ref; stl_m = still_blocks(x, X[t - 1])
             if stl_m.any():

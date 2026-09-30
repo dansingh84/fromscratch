@@ -796,3 +796,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
 - G74 noise-floor sweep (G71a) launched: grain-follow (no still gate) + asymmetric slew + ramp1; a leaf fires iff
   |residual| > max(dead zone, kappa x last-write step, k sigma-hat), with k+1 on the kept grid; k = 1.5, 2, 2.5, 3
   on noisy frozen sigma 2/3, noisy pan and clean 0.25 px pan (10 frames, 0.5/2.0 bpp).
+- G75 noise-floor sweep, interim (k = 2, 3; grain-follow + asymmetric slew + ramp1):
+  - noisy frozen sigma 2 @0.5: k=3 boil 0.44 (src 2.26), ants 1.68 % (src 2.22 %); k=2 boil 0.84, ants 3.27 %.
+    BUT the per-transition ants TREND upward (k=3: 0.05 -> 1.51 %) because the frame step keeps refining one
+    quarter-octave per frame (32 -> 6.7): held frames cost almost nothing, so a finer step always fits = slow
+    repeated refinement (the banned creep class; fails the stationarity bound).
+  - noisy pan: ants 15.1 % vs source 13.4 %; clean 0.25 px pan: ants 6.8 % vs 2.9 %.
+  Principle added (_qn<c>): no frame step below c x the source noise (median luma sigma-hat): quantising finer than
+  the grain only re-codes grain. Queued at k = 3 with c = 2, 3 (queues/q_qn.sh).
