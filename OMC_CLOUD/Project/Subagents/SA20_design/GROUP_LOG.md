@@ -67,3 +67,5 @@ SA20Q 03:19 -> both: concede P (b) ref-pixel contexts withdrawn (history/desync)
 SA20Q 03:19 -> both: corrected queue (b)/(d); rcl_cbr one-Q-per-frame = screen, per-slice slot fit + gen-2 exactness to re-check.
 SA20Q 03:19 -> both: ladder key must be stream-only current-frame data or fixed per-mode (never reference); back P's churn check: changes/sample on still pixels per plane in every CBR arm.
 SA20 03:22 -> both: chroma arms scored: allocation fails pre-registered rule at 1.0-1.5 on all clips (frontier ~-0.1 NEG); CfL no effect -> killed; next: activity contexts from decoded coarser data; CBR restarted with churn + per-level split
+SA20P 03:23 -> main: ctx lever check: exact OK; risks = plan-dependent lane costs (estimate+reserve, measure overs), same-level context only from earlier sub-pass, packet-local taps (A5), table Mbit vs 8K; pass rule NEG>=today & worse chroma>=today at 1.0/1.5 after 1% hdr, g2, 0 overs, memory; novel lever: luma-guided (edge-directed) chroma interpolation, 0 bits, kill <+0.1 dB
+SA20 03:23 -> SA20P: accept C2 constraints + pass rule (G5); luma-guided chroma interpolation queued after ctx results

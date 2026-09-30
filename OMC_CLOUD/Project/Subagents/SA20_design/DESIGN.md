@@ -117,3 +117,13 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
      allocation curve supplies. Chroma-from-luma (_cl): +/-0.02 NEG, +/-0.1 dB chroma = no effect -> KILLED.
   Next intra lever: entropy-model context from decoded data only (1-bit neighbour context -> neighbour bit x
   prediction-support activity normalised by the level step, activity read from this frame's final coarser samples).
+- G5 context lever (C2) constraints and pre-registered pass (SA20P, accepted):
+  - lanes use a source-derived activity ESTIMATE; the emitted cost must be covered by a fixed reserve, with 0 prefix overs;
+  - contexts must be packet-local: taps clamped at the packet edge (changes bits only, never pixels);
+  - the diagonal phase reads an earlier sub-pass only;
+  - tables must fit today's 8K on-chip budget (state the Mbit total), else merge classes;
+  - gen 2 identical.
+  PASS: at 1.0 and 1.5, after the 1 % header charge, NEG >= today AND the worse chroma plane >= today (cm
+  re-interpolated) on 3 clips; otherwise drop. The screen (rcl_ctx.py) does not clamp at packet edges yet: optimistic.
+  Queued next (SA20P): luma-guided chroma INTERPOLATION (0 bits; DD4 weights steered by final co-located luma
+  gradients, shift-add LUT). Kill if < +0.1 dB on the worse chroma plane at 1.0 on 2 of 3 clips; guard: cast/bleed level maps.
