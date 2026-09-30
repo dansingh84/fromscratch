@@ -13,3 +13,4 @@ out/ieval_*.txt
 out/smudge/
 out/diag_gfx.txt
 out/today_eval_train.txt
+out/today_eval_synth.txt
