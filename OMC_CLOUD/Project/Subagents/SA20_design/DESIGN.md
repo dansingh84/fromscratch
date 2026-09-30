@@ -520,3 +520,4 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - render for judder;
   - frozen/noisy frozen 0 after the one catch-up.
   Output now prints the per-block change histogram. Queue q_acc.
+  G52 addendum: memory form agreed. Per 64x8 block: step exponent + still flag + caught flag + 4 sub-block source means (2x2, ~40 bits) at last write + M counter, plus MAD(x_t - held recon) for mean-preserving texture shifts; well under 1 bit/sample at 8K (exact figure to report). The bench's stored source frame is a screen stand-in.
