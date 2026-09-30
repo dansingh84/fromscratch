@@ -9,3 +9,7 @@ out/rcl_s16/*.txt
 out/rcl_s16/
 out/rcl_ctx/
 out/rcl_tab/
+out/ieval_*.txt
+out/smudge/
+out/diag_gfx.txt
+out/today_eval_train.txt

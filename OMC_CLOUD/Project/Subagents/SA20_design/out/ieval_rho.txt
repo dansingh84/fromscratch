@@ -71,3 +71,10 @@ cine_A005C021 rho0.5_cine_A005C021 @1.0 Q=38.05 bpp 0.941 | NEG +1.59 | PSNR +2.
    smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb1 Cr0
    texstat ours  TEXSTAT Y AMP=1.052 PER=1.01 COR=0.919  Cb AMP=0.955 PER=1.03 COR=0.520  Cr AMP=0.802 PER=2.11 COR=0.409
    texstat today TEXSTAT Y AMP=0.987 PER=1.06 COR=0.843  Cb AMP=0.462 PER=2.16 COR=0.310  Cr AMP=0.488 PER=3.97 COR=0.298
+cine_A005C021 rho0.5_cine_A005C021 @2.0 Q=16.00 bpp 2.111 | NEG +0.81 | PSNR +3.79/+1.55/+0.68 | VIF s0..3 +0.101 +0.003 +0.001 +0.001 | ADM s0..3 +0.010 +0.005 +0.002 +0.001
+   band ratio Y 0.40 0.39 0.60 0.79 0.69 0.18
+   band ratio Cb 0.71 0.66 0.76 0.83 0.64 0.26
+   band ratio Cr 0.94 0.76 0.79 0.95 0.77 0.21
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+   texstat ours  TEXSTAT Y AMP=1.027 PER=0.94 COR=0.980  Cb AMP=1.156 PER=0.85 COR=0.781  Cr AMP=1.193 PER=1.08 COR=0.690
+   texstat today TEXSTAT Y AMP=0.981 PER=1.01 COR=0.939  Cb AMP=0.621 PER=1.45 COR=0.530  Cr AMP=0.602 PER=2.45 COR=0.465
