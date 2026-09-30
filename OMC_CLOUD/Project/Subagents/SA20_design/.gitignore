@@ -4,3 +4,5 @@ out/rcl_fi/*_lg*.log
 out/rcl_fi/*cm0.85*.log
 out/rcl_tab/*.log
 out/q_*.out
+out/rcl_s16/*.log
+out/rcl_s16/*.txt

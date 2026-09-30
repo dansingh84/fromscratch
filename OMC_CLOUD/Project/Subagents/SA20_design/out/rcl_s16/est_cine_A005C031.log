@@ -39,3 +39,4 @@ cine_A005C031 cm1_S16 Q=26.909 bpp 0.4632 NEG 91.218 PSNR 46.41/51.52/50.30 oob 
    est 0.3298 emitted 0.3296 (emitted - est -0.08 %) | upper bound +-1 class 0.5667 (padding 71.96 %, over no)
    est 0.2751 emitted 0.2750 (emitted - est -0.07 %) | upper bound +-1 class 0.5008 (padding 82.11 %, over no)
    est 0.2343 emitted 0.2338 (emitted - est -0.21 %) | upper bound +-1 class 0.4514 (padding 93.05 %, over no)
+   est 0.1972 emitted 0.1969 (emitted - est -0.18 %) | upper bound +-1 class 0.4071 (padding 106.80 %, over no)
