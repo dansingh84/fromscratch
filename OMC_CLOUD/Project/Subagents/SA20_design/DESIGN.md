@@ -585,3 +585,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Per-region catch-ups (_rr): each connected still region whole, once, fixed order, at the finest step the padding
   funds for the whole region (>= 0.25 octave finer), else wait. The gfx Q 0.25 moving step in G57 was my floor
   release (G55), not an inactive floor. Arm A7 = _rg_rr_mf_acc_g2_sh_win queued on all still/pan clips + gfx.
+- G59 per-region catch-ups (_rr) on gfx @1.0/2.0: 89 % of the frame is ONE connected still region; re-coding it even
+  0.25 octave finer costs ~1.1x a frame's budget, so it never fits under exact per-frame CBR; only small regions
+  (4-13 blocks) are caught. f2 spends 0.28/0.39 bpp of 1.0/2.0; NEG 95.97/96.25 < f1 96.55/96.78 < today f2 96.50/96.88.
+  cine @0.5/1.0: regions of 550-574 blocks caught; NEG f2 92.97/95.96 (G32 no-hold arm 93.18/96.07).
+  READING: the held region LOSES NEG vs its own f1 value, so the hold is not free on real (grainy) footage. Holding
+  freezes the grain while the source grain moves; the error = fresh source noise each frame. Today follows the grain
+  (= churn). If the no-hold control confirms it, this is the measured PRICE of the owner's zero-churn rule on grainy
+  still content, to be reported rather than engineered around (grain synthesis is banned).
