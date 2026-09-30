@@ -67,3 +67,16 @@ decode, a decoder must equal clip(unconstrained decode) sample by sample, so the
 needed by nothing else: (i) every sample's last write private, (ii) slack for the re-read, or (iii) averages of
 state both ends share. Measured so far: (ii) D1 dead, (iii) D-P dead as an all-frame engine, (i) inter price
 moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = intra and chroma efficiency inside (i).
+- F1 Definition we measure against (SA20Q, accepted by all): "moved away" is judged against the clip of a synthesis
+  that never references lo/hi. Against a rail-aware synthesis (the leaf clamp #9 itself is one) any geometry
+  "passes" by relabelling. Only a clip-invariant coarse functional survives that definition: the order-statistic
+  class (L3). The owner is asked to CONFIRM this definition, not to change it.
+- F2 L3 "inner member" pair pyramid (SA20Q), PROXY intra f0, dB Y/Cb/Cr vs int 5/3: cine @0.25 -2.42/-3.33/-4.45,
+  @0.5 -5.71/-5.81/-6.48, @1.0 -9.36/-7.87/-8.27; gfx -12.1..-18.2; mean cast up to +-2 codes (G6). DEAD.
+- F3 N4 (SA20; form i): private interpolating pyramid, decoder unchanged; the ENCODER aims prediction-source samples
+  at a low-passed target where their detail would die anyway (T = pull strength). PROXY intra f0, dB vs int 5/3:
+  cine @0.25 PO -3.87/-7.74/-7.59 -> N4 T1 -1.43/-2.06/-1.86; @0.5 PO -1.76/-0.45/-0.71 -> T1 -1.62/-0.27/-0.38;
+  @1.0 PO -0.90/-0.06/-0.23, T1 -0.94/-0.43/-0.40; T=inf worst everywhere (-4.2..-5.7 Y at 0.5/1.0).
+  gfx @0.5 PO -1.34/-0.69/-0.16, T1 -2.20/-0.78/-0.17; @1.0 PO -0.51/-0.58/-0.40, T1 -0.25/-0.26/+0.10.
+  -> helps only at 0.25 on cine; the aliasing-free bound (T=inf) does not rescue form-(i) intra. NKV (SA20Q) is a
+  subset of N4's freedom (withdrawn).
