@@ -708,3 +708,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - texstat per plane; full-res renders of text edges and fine texture;
   - if natural clips lose, a continuous edge-strength weight as a fixed curve.
   Running at rho 0.42 on F003, A006, C021, B001 (out/rclamp_vs_today.txt).
+- G71 (SA20Q) next pre-registrations:
+  (a) GF noise floor: a leaf fires iff |x - P| > max(dz Delta, kappa Delta_last, k sigma-hat(level)), k_kept = k + 1
+      (fired kept samples move interpolated neighbours). Monotone sweep k in {1.5, 2, 2.5, 3} on noisy frozen sigma
+      1/2/3 (12 f) and pans. Pick the SMALLEST k with ants and boil <= source per plane and a stationary change
+      fraction; pans: textured-block lag <= ceil(k sigma / (g v)) + 1, intermittent <= 1 %, within 0.1 NEG of the
+      control. If no k passes both, report the two curves as a measured conflict.
+  (b) rail rerun: match today's ACTUAL coded bits per frame (7 owner rates, 12 frames), per plane oob/PSNR/smudge,
+      >= 10-generation chains.
+  (c) never-away definitional flag: in the closed loop a clipped final changes the PREDICTION of later samples
+      (coded, not moved). Measure the error of samples downstream of clipped samples vs same-level samples elsewhere,
+      per plane, on cut24/ext10. No excess -> the per-sample form stands; excess -> a legality-caused away effect to
+      fix at the root.
