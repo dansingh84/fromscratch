@@ -80,3 +80,13 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   gfx @0.5 PO -1.34/-0.69/-0.16, T1 -2.20/-0.78/-0.17; @1.0 PO -0.51/-0.58/-0.40, T1 -0.25/-0.26/+0.10.
   -> helps only at 0.25 on cine; the aliasing-free bound (T=inf) does not rescue form-(i) intra. NKV (SA20Q) is a
   subset of N4's freedom (withdrawn).
+
+## §G Real code lengths (static tables trained on the 3 disjoint training clips under the exact arm/Q/config;
+## ideal static code ≈ tANS; model has no headers/rate control), intra frame 0, vs TODAY's frame 0 (v537 real,
+## pure intra at exactly the stream rate). Rates 0.5-4.0 only.
+- G1 cine 720p, ours - today, NEG then PSNR Y/Cb/Cr (bench/rcl_intra.py + intra_vs_today.py):
+  PO (form-i private-leaf pyramid, DD4, f 0.7): @0.5 +0.90, +1.55/-0.81/-0.95; @1.0 +0.07, +2.11/-0.64/-0.59;
+  @1.5 +0.17, +2.70/-0.26/-0.25; @2.0 +0.13, +2.47/-0.09/+0.13; @2.5 +0.11, +2.63/+0.01/+0.62; @3.0 +0.08,
+  +2.66/+0.46/+1.15. N4 T1 (earlier run): ~88.7 NEG @0.5 (worse than PO) -> dropped.
+  Integer 5/3 averaging reference (LL DPCM, rho 0.35): @0.5 +1.14, +2.52/+0.68/+0.48; @1.0..4.0 NEG -0.42..-0.57.
+  -> Form-(i) intra >= today on NEG at every measured owner rate on cine; the failing item is chroma at 0.5-1.5.

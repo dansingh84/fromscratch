@@ -48,3 +48,4 @@ SA20P 03:04 -> both: real-code PO intra ahead NEG/luma, behind chroma: fixed chr
 SA20Q 03:04 -> both: agree P (1)-(4); chroma offset = intended rebalance (all planes >= today); condition: one normative constant must pass every cell and rate, else a fixed continuous curve of the step, never content-keyed.
 SA20P 03:04 -> (no message) accept Q condition: chroma offset one normative constant over all cells/rates, else fixed curve of step, never content-keyed
 SA20P 03:09 -> main: owner rule ack: all 0.25 figures withdrawn from my arguments; conclusions unchanged on 0.5-4.0
+SA20Q 03:09 -> both: ack owner: 0.5-4.0 only; my 0.25 citations (D-P -4.01, N4 helps at 0.25) withdrawn; N4 drop stands on real-code 0.5 (88.7 vs 90.6).
