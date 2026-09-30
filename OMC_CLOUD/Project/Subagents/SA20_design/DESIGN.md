@@ -981,3 +981,16 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Frame 2 is above the pyramid's frame 2 at 1.0 (92.35, which carries the old hold rule) but far below today: the
   inter step stays at the intra step (16.00 at 1.0) while frame 2 spends only 0.749 of 1.0 bpp, so frame 0's coding
   error (below the dead zone at that step) is never corrected. Remaining clips running.
+- H13 G-b inter rate behaviour (bench/t1/diag_rate.py, cine_A005C031 frame 1, P from decoded frame 0 at step 17.45):
+  | step  | Y bpp | total bpp | Y nonzero | Y mean |err| |
+  | 8.72  | 1.546 | 2.667     | 40.6 %    | 2.34 |
+  | 9.51  | 1.502 | 2.622     | 40.6 %    | 2.57 |
+  | 12.34 | 1.017 | 1.571     | 23.9 %    | 3.31 |
+  | 14.67 | 0.804 | 1.158     | 17.8 %    | 3.86 |
+  | 16.00 | 0.636 | 0.850     | 13.3 %    | 4.08 |
+  | 19.03 | 0.417 | 0.513     |  7.9 %    | 4.47 |
+  - Residuals are integers, so the dead-zone threshold (1 - rho) x step falls on the same integer for pairs of
+    steps: bits move in ~30 % jumps and a single frame step cannot spend the budget (frame 2 @1.0 stops at 0.749).
+  - Efficiency: today's frame-2 luma PSNR at 1.0 bpp (49.3 dB) needs a step near 9 here, about 2.6 bpp. A
+    per-sample scalar leaf on the motion residual (no energy compaction) costs ~2.5x today's bits for the same
+    quality. That is the inter form of T1's intra loss.
