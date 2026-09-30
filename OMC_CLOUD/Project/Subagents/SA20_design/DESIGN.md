@@ -567,3 +567,12 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - flat: 0 changes allowed; intermittent textured <= 1 %;
   - per-frame error flat after onset;
   - CONTROL no-hold arm: hold on vs off within 0.1 NEG (mean and worst frame) and 0.1 dB per plane on pans.
+- G57 motion-aware hold (_sh, integer 1-px shift test at 16x16):
+  - clean pan 1 px: 96.9 % continuous, 3.1 % intermittent (bound 1 %: close, fails);
+  - pan 0.25 px: 40 % intermittent (FAIL);
+  - noisy pan 0.5: still smears (2.0: 95.65 -> 89.00), low-contrast motion in noise invisible to the shift test;
+  - frozen and noisy frozen: still PASS;
+  - gfx: the floor release sends the moving step to Q 1.0/0.25 while the still set stays at f1 quality; f2 NEG
+    96.35/96.43 < today 96.50/96.88 -> per-connected-region catch-ups ((b)) needed.
+  today frozen10 @0.5 per frame: 89.82 92.48 93.74 94.03 ... 94.10 (keeps building through churn); ours plateaus at
+  93.91 after the single catch-up.

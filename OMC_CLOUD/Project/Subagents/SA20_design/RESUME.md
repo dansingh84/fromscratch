@@ -62,3 +62,35 @@ Watchdog: 5 session crons (efcae82a, 4105dbfc, 4112b1a7, 1fd074af, 4f045645) = o
 extra information only and carry no weight in a verdict). All screens and today's baseline report these points.
 Rule (owner, repeated): no test point below 0.5 bpp is generated or reported; 0.25/0.3 figures earlier in this file
 are superseded and carry no weight. Real-code runs keep only points with 0.5 <= bpp < 4.6.
+
+## 3. STATUS SNAPSHOT (for the owner; details in DESIGN.md G1-G56)
+Engine: form (i) "private last write": predict-only interpolating pyramid (DD4, 2 x 2-D + 3 horizontal levels, kept
+coarse grid), every sample written once as clip(P + pred + leaf). Never-away holds by construction (0 oob everywhere).
+What stands (measured, real static-table code lengths):
+- S16 entropy model: 16 static tables shared by every step/level/plane (the context is the local |q| scale class
+  from decoded neighbours + step-normalised activity from final coarser samples). Fits today's table budget (60
+  tables, 1.1 Mbit) with room to spare. The left neighbour closes a per-symbol loop at 8K (S16u without it costs
+  +18-32 %); a distance-2 variant is pending.
+- Intra dead zone rho 0.42 (nested fit): removes the A006 smudge groups; texture at source energy (texstat).
+- Intra vs today, all 6 clips (G18, G49): NEG ahead on 4 clips and near parity on A006. The G41 rule still FAILS
+  cells: gfx F003 NEG @1.0/1.5; A006 NEG @2.5; chroma PSNR on A006/F003 at low-mid rates.
+- 3-frame exact CBR vs today (G32): worst inter frame NEG from parity to +0.93, inter chroma -0.3..-2.1 dB.
+- Still areas: churn roots found and fixed:
+  - DPCM-start bug and the residual DPCM chain in inter;
+  - motion search picking nonzero vectors on frozen input;
+  - per-block last-write step reset by partial writes;
+  - rounding slack;
+  - a per-sample noise floor that interpolation amplifies -> block-level zero leaves;
+  - frame-to-frame gate misses -> accumulated-since-last-write test + 3-frame hysteresis + 2-fail release.
+  Frozen and noisy-frozen input now: ramp frames, ONE whole-frame catch-up, then 0.00 % changes.
+OPEN (failing now):
+- noisy slow pans smear (hold on low-contrast motion inside noise; NEG decays ~6 over 10 frames);
+- pans: intermittent blocks 3-40 % (bound 1 %);
+- gfx: region plan misallocates (still region held at frame-1 quality while moving goes very fine; whole-set catch-up
+  never fits); needs per-connected-region catch-ups (b);
+- exact CBR proof needs a bounded fallback plan (owner call, DESIGN G35);
+- chroma-step function (nested) pending; 10-generation chains, per-slice CBR and the owner's visual tools on inter
+  frames not yet run.
+OWNER QUESTIONS: (1) confirm the rail-free definition of never-away (DESIGN V); (2) is a proven, never-fired
+worst-case CBR plan acceptable (G35)?; (3) region-keyed steps (still vs moving) have block-shaped boundaries:
+acceptable if the boundary tests pass (G39)?
