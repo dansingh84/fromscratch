@@ -369,3 +369,9 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   coarse grid the threshold (kappa s_L + 2 sigma ~ 8 codes) is exceeded by ~2 % of samples from fresh noise alone, and
   each coarse change spreads through interpolation to ~500 finer samples. A hold against i.i.d. noise needs a far
   smaller exceedance at coarse levels. Floor multiplier made a parameter (_nf<k>); testing 5 sigma on sigma 2 and 3.
+- G38 gfx @1.0 with the fixed still rule (_sg_keep_rs_ng_cu0_s16): 66-71 % of blocks labelled still, but inter
+  frames spend 0.49/0.55 bpp of 1.0 with Q stuck at 8; f2 Y 52.93 vs today 55.45; changes 71-76 % (the G37 coarse-grid
+  noise mechanism). PLAN PROBLEM: with ONE step per frame, any finer step triggers the whole-region catch-up and
+  overshoots, so the search keeps the coarse step and the rest is padding. The moving-region step and the still-region
+  catch-up must be decoupled (a per-region step, i.e. a signalled plan), or the catch-up made independent of the
+  frame step. Taken to SA20P/SA20Q; the answer must keep continuity at region edges (heal-edge test).
