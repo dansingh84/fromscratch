@@ -23,11 +23,10 @@ Current state (2026-09-30, §H): the pyramid engine below FAILS the owner's arti
   the auxiliary cannot be re-derived from the picture.
 - Requirement conflict (H8, audited H10): exactness, never-away, no pattern and efficiency cannot all hold for intra
   coding with any design tried so far. Pyramid fails no-pattern, T1 fails efficiency, T2 fails exactness.
-- Live route G-b (H10, H11): the same per-sample process in every frame. Intra = T1 (only in the ramp frames and
-  heals); inter = motion-compensated reference P from a per-sample motion field (no block edges) plus a per-sample
-  leaf, final = clip(P + leaf). Pre-registered: frame 2 after a cut vs today on all clips, a heal test, H0 on
-  inter frames. First clip (H12): frame 2 -6.16 NEG vs today at 0.5, -1.43 at 1.0; the inter step does not refine
-  and a quarter of the budget goes unspent. Running on the other test clips.
+- G-b (same per-sample process in every frame, inter predicted from the motion-compensated reference only):
+  KILLED (H14): frame 2 is below today on every cell (-4.9..-6.2 NEG at 0.5, -0.4..-1.4 at 1.0, -0.3..-0.5 at 2.0).
+- Status (H15): every route measured fails at least one of exactness, never-away, no pattern, efficiency. The
+  conflict goes to the owner with the numbers, together with the question of how "away" is judged (R2).
 - Still/grain rule (G60-G77): built on block state; must be rebuilt per sample under §H before it counts.
 - Legality record that carries over: per-sample never-away form, 0 out-of-range, rail behaviour (G67, G72).
 - Not yet run for T2: inter (motion without any partition), CBR, 10-generation chains, the full H0 gate, renders.
@@ -994,3 +993,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - Efficiency: today's frame-2 luma PSNR at 1.0 bpp (49.3 dB) needs a step near 9 here, about 2.6 bpp. A
     per-sample scalar leaf on the motion residual (no energy compaction) costs ~2.5x today's bits for the same
     quality. That is the inter form of T1's intra loss.
+- H14 G-b verdict (queues/q_gb.sh; frame 2 NEG and luma / chroma PSNR vs today's frame 2):
+  | clip             | 0.5                    | 1.0                    | 2.0                    |
+  | cine_A005C031    | 88.04 vs 94.20 (-6.16) | 94.67 vs 96.11 (-1.43) | 96.92 vs 97.41 (-0.49) |
+  | gfx444_B001C001  | 90.33 vs 95.27 (-4.93) | 96.07 vs 96.50 (-0.42) | 96.62 vs 96.88 (-0.27) |
+  | prores_sample    | 87.44 vs 93.40 (-5.96) | 94.01 vs 95.38 (-1.37) | 96.01 vs 96.50 (-0.49) |
+  Chroma PSNR at frame 2 is 10-12 dB behind at 0.5 and 5-7 dB at 1.0. The pre-registered pass (>= today on every
+  cell) fails everywhere -> G-b KILLED. With one role for every sample, both intra (H4) and inter (H13, H14) lose
+  efficiency, because every sample pays its own symbol and no information is shared across positions.
+- H15 Status: every route measured fails at least one requirement (H8): pyramid fails R3 (grid, seams), T1 and G-b
+  fail R4 (efficiency), T2 fails R1 (exactness, DOL precedent). Untested variant left on record: a fixed aperiodic
+  (blue-noise) kept lattice (H10), whose pattern would be a fixed noise veil rather than a grid. The conflict and
+  the R2 reading question go to the owner.
