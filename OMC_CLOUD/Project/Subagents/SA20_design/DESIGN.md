@@ -862,3 +862,17 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - grid pattern (error by row mod 4 / column mod 32 or 16): ours <= today + 0.03;
   - seams (error step across 8/16/32-px luma, 4/8/16 chroma boundaries vs elsewhere): ours <= today + 0.03.
   Any failure is fixed at its cause before any other lever. Every earlier "pass" in this log is provisional until then.
+- G78a first clip (cine_A005C031, 3 frames, 7 rates; out/vis/): smudge 0 everywhere (today 0); isolated lines 0
+  everywhere (today: 1-6 rows at 1.0-2.0 in f2, 20-40 rows up to 17x at 4.0 in all planes).
+  FAIL 1, grid pattern: column-phase max/min ours 1.30-1.40 at 0.5/1.0 in every plane vs today 1.13-1.27.
+    Profile (tools/diag_phase.py, intra f0 @1.0, mean |error| by column mod 32 / own mean): ours Y
+    0.79 at column 0 (the kept grid), 0.86-0.88 at columns 8/16/24 (the next horizontal level), 0.96-1.07 elsewhere;
+    today Y 0.86-0.87 at every 4th column (its own period-4 pattern). Rows mod 4: ours 0.86 on the kept rows, today
+    0.87. So ours has LOWER error on the kept grid (the coarse levels are coded finer: ladder f^l plus kept rounding)
+    and a 32-px period that today does not have.
+  FAIL 2, block seams on inter frames: f0 clean (0.98-1.01); f1/f2 luma at 16-px boundaries 1.09-1.19 @0.5/1.0,
+    1.06 @2.0 vs today 1.01-1.03. Present in f1 where the hold rule is off -> first suspect block MC (integer-pel,
+    no overlap: the prediction jumps at block edges); second suspect block-constant thresholds (KQ, sigma-hat).
+    G79 (queues/q_seam.sh): _ob overlapped MC (raised-cosine windows, hop 16, weights sum to 1; decoder-side, 0
+    bits, the per-sample clip(P + pred + leaf) form unchanged) and _sm continuous fields (bilinear between block
+    centres) for every per-block encoder parameter, alone and together.
