@@ -1,0 +1,6 @@
+omc_enc: WARNING A2: this configuration takes 5.625 ms (slice_h 8 at 256x64@50, no conversion) -- the mandate is under 1 ms including output conversion. slice_h 32 is intended for 2160p and 4320p only.
+omc_enc: 24 frames, 4096 bits/slice, 8 slices/frame (2.0000 bpp)
+omc_enc: gamut-strict: 13 passes max, 170 slices repaired in 1352 passes (73 fell back to the harsh rule), 0 slices still out of gamut
+omc_enc: gamut-strict: worst total passes 35 of cap 52 (p50 14 p90 19 p99 35 over 96 repaired slices)
+omc_enc: gamut: 0 committed samples outside legal range
+omc_enc: baseband-safe: yes

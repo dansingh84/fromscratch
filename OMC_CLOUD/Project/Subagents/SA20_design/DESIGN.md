@@ -667,3 +667,16 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - pans: within 0.1 of the control;
   - gfx boundaries.
   Arm _eh (split) queued on all clips (split_*).
+- G67 RAIL CLIPS, intra rho 0.42 (bench/rail_test.py, out/rail/). The rate choice failed on these tiny extreme cells:
+  every rate landed on the coarsest step, so this is a worst case.
+  - oob 0 everywhere (today on cut24 @0.5 and ext10 @2.0: "EXACTNESS NOT DELIVERED", out-of-gamut samples).
+  - CORRECTION of the F1 claim: against a fully rail-free decode of the same picture, 26-76 k samples differ and some
+    are farther from the source (AWAY 37-76 k on cut24/ext10, 455 on ext10l1). In the closed loop a clipped coarse
+    final predicts its finer samples, so correcting it changes what they become. What holds by construction is the
+    per-sample form: every write is clip(P + pred + leaf) and each correction moves that sample toward the source
+    (the owner's documented wording); "identical to the clip of a rail-free decode" does NOT hold.
+  - near-rail level shift: 8x8 blocks with source mean within 32 codes of a rail average -2.4 (Y) / -3.9 (C) codes on
+    cut24 (rail-free +0.9/+0.4), max block error 23-35 codes.
+  - owner smudgegroups per frame: ours cut24 Y1 Cb1 Cr1 (5 of 6 frames; Y0 on one), ext10 Y2-3; TODAY cut24 Y1 Cb1 Cr1
+    every frame, ext10 Y2-5 -> no worse than today; the groups appear in both codecs on these synthetic extremes.
+    Renders (src/ours/today f0) in out/rail/*.png for the eye.

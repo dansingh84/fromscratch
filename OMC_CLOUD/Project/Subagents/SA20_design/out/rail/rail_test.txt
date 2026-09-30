@@ -1,0 +1,36 @@
+cut24 @0.5 frames 6 | oob 0 AWAY 76464 TOUCHED 93558 | smudge groups per frame: Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y0 Cb1 Cr1 ; Y1 Cb1 Cr1
+   Y near-rail blocks 528: mean err ours -2.36 rail-free +0.88, max |block err| ours 35.5
+   U near-rail blocks 216: mean err ours -3.92 rail-free +0.44, max |block err| ours 23.1
+   V near-rail blocks 216: mean err ours -3.92 rail-free +0.44, max |block err| ours 23.1
+cut24 @1.0 frames 6 | oob 0 AWAY 76464 TOUCHED 93558 | smudge groups per frame: Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y0 Cb1 Cr1 ; Y1 Cb1 Cr1
+   Y near-rail blocks 528: mean err ours -2.36 rail-free +0.88, max |block err| ours 35.5
+   U near-rail blocks 216: mean err ours -3.92 rail-free +0.44, max |block err| ours 23.1
+   V near-rail blocks 216: mean err ours -3.92 rail-free +0.44, max |block err| ours 23.1
+cut24 @2.0 frames 6 | oob 0 AWAY 53296 TOUCHED 98606 | smudge groups per frame: Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y1 Cb1 Cr1 ; Y1 Cb1 Cr1
+   Y near-rail blocks 528: mean err ours -1.45 rail-free +4.32, max |block err| ours 22.7
+   U near-rail blocks 216: mean err ours +0.74 rail-free +5.51, max |block err| ours 30.4
+   V near-rail blocks 216: mean err ours +0.74 rail-free +5.51, max |block err| ours 30.4
+ext10 @0.5 frames 4 | oob 0 AWAY 37189 TOUCHED 128145 | smudge groups per frame: Y2 Cb0 Cr0 ; Y2 Cb0 Cr0 ; Y2 Cb0 Cr0 ; Y3 Cb0 Cr0
+   Y near-rail blocks 1050: mean err ours +3.05 rail-free +6.37, max |block err| ours 23.0
+   U near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   V near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+ext10 @1.0 frames 4 | oob 0 AWAY 37189 TOUCHED 128145 | smudge groups per frame: Y2 Cb0 Cr0 ; Y2 Cb0 Cr0 ; Y2 Cb0 Cr0 ; Y3 Cb0 Cr0
+   Y near-rail blocks 1050: mean err ours +3.05 rail-free +6.37, max |block err| ours 23.0
+   U near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   V near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+ext10 @2.0 frames 4 | oob 0 AWAY 26539 TOUCHED 127250 | smudge groups per frame: Y3 Cb0 Cr0 ; Y0 Cb0 Cr0 ; Y2 Cb0 Cr0 ; Y0 Cb0 Cr0
+   Y near-rail blocks 1050: mean err ours -0.82 rail-free -1.49, max |block err| ours 9.1
+   U near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   V near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+ext10l1 @0.5 frames 4 | oob 0 AWAY 455 TOUCHED 1249 | smudge groups per frame: Y1 Cb0 Cr0 ; Y2 Cb0 Cr0 ; Y1 Cb0 Cr0 ; Y2 Cb0 Cr0
+   Y near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   U near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   V near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+ext10l1 @1.0 frames 4 | oob 0 AWAY 455 TOUCHED 1249 | smudge groups per frame: Y1 Cb0 Cr0 ; Y2 Cb0 Cr0 ; Y1 Cb0 Cr0 ; Y2 Cb0 Cr0
+   Y near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   U near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   V near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+ext10l1 @2.0 frames 4 | oob 0 AWAY 0 TOUCHED 0 | smudge groups per frame: Y7 Cb1 Cr1 ; Y0 Cb0 Cr0 ; Y7 Cb1 Cr1 ; Y0 Cb0 Cr0
+   Y near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   U near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0
+   V near-rail blocks 0: mean err ours +0.00 rail-free +0.00, max |block err| ours 0.0

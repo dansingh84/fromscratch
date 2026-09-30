@@ -1,0 +1,7 @@
+omc_enc: WARNING A2: this configuration takes 2.812 ms (slice_h 8 at 512x128@50, no conversion) -- the mandate is under 1 ms including output conversion. slice_h 32 is intended for 2160p and 4320p only.
+omc_enc: 4 frames, 8192 bits/slice, 16 slices/frame (2.0000 bpp)
+omc_enc: gamut-strict: 13 passes max, 126 slices repaired in 564 passes (58 fell back to the harsh rule), 4 slices still out of gamut
+omc_enc: gamut-strict: worst total passes 32 of cap 52 (p50 7 p90 13 p99 32 over 64 repaired slices)
+omc_enc: gamut: 23 committed samples outside legal range
+omc_enc: baseband-safe: NO (out-of-gamut committed samples) -- CDR interchange required for exact chains
+omc_enc: EXACTNESS NOT DELIVERED: 23 committed samples are outside the legal range after 13 repair passes. This stream plays correctly, but a baseband hand-off of it will NOT re-encode byte-exactly. Raise --gamut-strict, or carry CDR between hops. Exit status 2.
