@@ -1,0 +1,8 @@
+Q 4.76 f1 INTRA 1.640 bpp Y 57.33 | INTER 1.561 bpp Y 57.19
+   MC pred 16x16 Z2: Y PSNR 53.26 (ref recon itself vs src f1: 53.25)
+   MC pred 16x16 Z0: Y PSNR 53.40 (ref recon itself vs src f1: 53.25)
+   MC pred 8x8 Z0: Y PSNR 53.80 (ref recon itself vs src f1: 53.25)
+Q 8.00 f1 INTRA 0.959 bpp Y 54.81 | INTER 0.842 bpp Y 54.79
+   MC pred 16x16 Z2: Y PSNR 52.49 (ref recon itself vs src f1: 52.48)
+   MC pred 16x16 Z0: Y PSNR 52.68 (ref recon itself vs src f1: 52.48)
+   MC pred 8x8 Z0: Y PSNR 53.23 (ref recon itself vs src f1: 52.48)

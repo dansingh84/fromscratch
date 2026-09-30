@@ -26,6 +26,7 @@ RS_ = 0.5 if 'rs' in TOK else 0.0   # rounding slack added to the hysteresis thr
 CU = any(t.startswith('cu') for t in TOK); CUO = float([t[2:] for t in TOK if t.startswith('cu')][0] or 1) if CU else 1.0  # octaves finer needed   # one catch-up per still episode (SA20P): still, not caught, step >= 1 octave finer than the last write
 CAUGHT = [None]
 CI = float([t[2:] for t in TOK if t.startswith('ci')][0]) if any(t.startswith('ci') for t in TOK) else None  # inter chroma multiplier
+CHP = 'chp' in TOK   # 4:2:2 chroma MC: odd luma dx -> average of the two chroma neighbours (no rounding)
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -102,6 +103,16 @@ def upd(st, y, ref, Q, stl=None, cu=None):   # encoder state per block: step and
         if cu is not None: wr |= cu   # the catch-up rewrites the whole block at the current step
         st[k][0][wr] = Q * ((cm if CI is None else CI) if k else 1); st[k][1][wr] = FI
     return st
+def apply_c(ref, V):   # chroma prediction at the exact half-sample position for odd luma dx
+    Hh, Ww = ref.shape; R_ = 8; pad = np.pad(ref, R_ + 1, mode='edge'); P = np.zeros_like(ref)
+    for i in range(V.shape[0]):
+        for j in range(V.shape[1]):
+            by, bx = i * 16, j * 8
+            if by >= Hh or bx >= Ww: continue
+            dy, dx = V[i, j]; h = min(16, Hh - by); w = min(8, Ww - bx); q, r = divmod(int(dx), 2)
+            a = pad[by + R_ + 1 + dy:by + R_ + 1 + dy + h, bx + R_ + 1 + q:bx + R_ + 1 + q + w]
+            P[by:by + h, bx:bx + w] = a if r == 0 else (a + pad[by + R_ + 1 + dy:by + R_ + 1 + dy + h, bx + R_ + 2 + q:bx + R_ + 2 + q + w] + 1) >> 1
+    return P
 def expand(b, shp, bw):   # per-block map (16 rows x bw cols) -> per-sample map
     return np.repeat(np.repeat(b, 16, 0), bw, 1)[:shp[0], :shp[1]]
 def code_frame(x, ref, Q, st=None, xprev=None):
@@ -110,7 +121,7 @@ def code_frame(x, ref, Q, st=None, xprev=None):
     else:
         V = motion(x[0], ref[0], Z=ZB)
         if SG and xprev is not None: V[:still_blocks(x, xprev).shape[0], :still_blocks(x, xprev).shape[1]][still_blocks(x, xprev)] = 0   # source-still block -> zero vector (encoder)
-        Ps = [apply(ref[0], V, 16, 1), apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]; mode = 'inter'
+        Ps = [apply(ref[0], V, 16, 1)] + ([apply_c(ref[1], V), apply_c(ref[2], V)] if CHP else [apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]); mode = 'inter'
     out = []; sy = []
     for pl, (p, P) in enumerate(zip(x, Ps)):
         SY = []; AC = []; Yd = None

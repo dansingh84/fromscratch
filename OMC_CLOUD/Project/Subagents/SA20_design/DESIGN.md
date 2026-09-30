@@ -338,3 +338,16 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - vector precision or staleness -> coarse-first current-frame vectors on decoded coarse data (SA18 D13/D14, exact by
     construction; SA20P's first pick);
   - interpolator -> the gradient-weighted blend.
+- G34 (SA20Q) worst-case fit proof MISSING for this engine: every sample carries a leaf; at 0.5 bpp that is <= 0.5 bit
+  per leaf while an escape costs >= 10 bits, so no ordinary plan has a provable worst case below budget on hostile
+  content. A provable fallback must bound the symbol COUNT (e.g. finest levels signalled as zero runs, kept coarse part
+  bounded analytically). It would be a visible strip step if it fired, so it is the proven-worst-case plan only;
+  pre-register: fired 0 times on all test and cut24/ext10/gfx cells at 0.5-4.0; ordinary re-choice <= a few %.
+  If no bounded plan exists, exact CBR is NOT proven for this engine. OPEN.
+  Inter chroma gap, causes to rule out before any multiplier:
+  1. chroma MC rounded the halved luma vector to whole chroma samples: half-sample misalignment for odd dx (TRUE in
+     the bench) -> arm _chp (exact half-sample average);
+  2. luma still gate and luma noise floor applied to chroma (TRUE) -> a per-plane gate and noise estimate to do;
+  3. last-write state is already per plane;
+  4. inherited intra chroma deficit: S16 intra f0 chroma -0.15..-0.36 dB at 0.5, while f2 is -1.8 -> inter adds most;
+  5. inter ladder tuned on luma.
