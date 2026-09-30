@@ -94,3 +94,11 @@ OPEN (failing now):
 OWNER QUESTIONS: (1) confirm the rail-free definition of never-away (DESIGN V); (2) is a proven, never-fired
 worst-case CBR plan acceptable (G35)?; (3) region-keyed steps (still vs moving) have block-shaped boundaries:
 acceptable if the boundary tests pass (G39)?
+
+## 4. Owner guidance, 2026-09-30 (working guidance for this round, NOT a rule; do not cite as one)
+Never-away: proceed with the current reading (output = clip of the legality-blind value per sample, pixels needing no
+fix untouched), provided the result is artifact-free. Next: rail clips (cut24, ext10) through the design with the
+owner's smudgegroups/artifactmap per plane + renders; watch for the near-rail level shift.
+From the record (DESIGN G35/G39 superseded): per-region parameters must be continuous fields both ends derive (owner:
+"zero visible steps"), so block-keyed region steps (_rg per-region step, _rr) are dropped; a visible fallback plan
+is a disqualifying artifact (S5.344), so dense rail content stays an open problem, stated as such.
