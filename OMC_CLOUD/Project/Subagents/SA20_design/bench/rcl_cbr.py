@@ -215,7 +215,8 @@ def code_frame(x, ref, Q, st=None, xprev=None):
         out.append(y); sy.append(((min(pl, 1), mode), SY, AC))
     return sy, out
 if os.environ.get('LOO') == '1': TRAIN = [c for c in TRAIN if c[0] != TEST]   # leave-one-out when fitting on a training clip
-tpath = os.path.join(OUT, 'tables_%s%s.pkl' % (ARM, '_loo_' + TEST if os.environ.get('LOO') == '1' else ''))
+RTAG = ''.join('_%s%s' % (k, os.environ[k]) for k in ('RHO', 'RHOK') if os.environ.get(k))   # tables depend on the rounding constants
+tpath = os.path.join(OUT, 'tables_%s%s%s.pkl' % (ARM, RTAG, '_loo_' + TEST if os.environ.get('LOO') == '1' else ''))
 if os.path.exists(tpath): TABS = pickle.load(open(tpath, 'rb'))
 elif S16:   # pooled over every other quarter-octave step of the owner range, sequences coded with the arm's state
     TABS = {}
@@ -371,7 +372,7 @@ for R in RATES:
             CAUGHT[0] = ((CAUGHT[0] if CAUGHT[0] is not None else np.zeros(stl.shape, bool)) | cu) & stl   # caught until the source moves
             if not RG: cuinfo.append(int(cu.sum()))
         QPREV[0] = Q; ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
-    fn = os.path.join(OUT, '%s_%s_%.1f.yuv' % (TEST, ARM, R))
+    fn = os.path.join(OUT, '%s_%s%s_%.1f.yuv' % (TEST, ARM, RTAG, R))
     with open(fn, 'wb') as fo:
         for fr in rec:
             for p in fr: p.astype('<u2').tofile(fo)
