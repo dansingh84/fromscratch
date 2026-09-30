@@ -199,3 +199,9 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - the free budget covers the WHOLE connected still region, else it waits (no partial mosaic).
   Clear caught when the source changes. Pass: frozen changes/sample <= 1 over the run per plane; render of the
   catch-up frame; worst-case wait on a busy clip.
+- G17 agreed tests for the still rule (SA20P + SA20Q):
+  - hysteresis only on SOURCE-still blocks (>= 95 % of the block's luma within 2 codes of the previous source;
+    arm token _sg), encoder-only; Z bounded by source noise, never step-scaled;
+  - vectors for the product must come from decoded data (gen-2 reproducibility); the bench still searches the source;
+  - 10-frame clips: cine_frozen10 (0 changes per plane from frame 2) and Lanczos pans 0.25/0.5/1 px/frame
+    (moving-region error must not grow with frame index; control = cm1_zb2 without hysteresis). Queue q_cbr3.
