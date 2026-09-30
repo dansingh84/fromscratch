@@ -28,6 +28,7 @@ CAUGHT = [None]
 CI = float([t[2:] for t in TOK if t.startswith('ci')][0]) if any(t.startswith('ci') for t in TOK) else None  # inter chroma multiplier
 CHP = 'chp' in TOK   # 4:2:2 chroma MC: odd luma dx -> average of the two chroma neighbours (no rounding)
 PP = 'pp' in TOK   # per-plane still gate + noise estimate (chroma judged on its own differences)
+NFK = float([t[2:] for t in TOK if t.startswith('nf')][0]) if any(t.startswith('nf') for t in TOK) else 2.0  # noise floor in sigma-hat
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -133,7 +134,7 @@ def code_frame(x, ref, Q, st=None, xprev=None):
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
             if SG and xprev is not None:
                 stl_ = still_blocks(x, xprev, pl if PP else 0); KQ = KQ * expand(stl_.astype(float), p.shape, bw)
-                NF_ = (2 * expand(SIG[0], p.shape, bw) if NG else 0.0) + RS_   # additive floor at EVERY level (raw samples carry full noise)
+                NF_ = (NFK * expand(SIG[0], p.shape, bw) if NG else 0.0) + RS_   # additive floor at EVERY level (raw samples carry full noise)
                 cm_ = cu_mask(st, Q, still_blocks(x, xprev) if PP else stl_)
                 if PP and NG: still_blocks(x, xprev, pl)   # restore this plane's sigma for the floor
                 if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)

@@ -365,3 +365,7 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
      Consistent with the old 2-code gate missing gfx noise, so the hold never applied. The noise-aware gate plus the
      budget-sized catch-up (base arm of G35) is the lever; now also run on gfx at 1/2/4. 8x8 blocks +0.4..+0.7 dB MC
      (ceiling, vector bits x4).
+- G37 noisy frozen sigma 2 with the additive 2 sigma floor: still 54-73 % changes per frame. Mechanism: at the kept
+  coarse grid the threshold (kappa s_L + 2 sigma ~ 8 codes) is exceeded by ~2 % of samples from fresh noise alone, and
+  each coarse change spreads through interpolation to ~500 finer samples. A hold against i.i.d. noise needs a far
+  smaller exceedance at coarse levels. Floor multiplier made a parameter (_nf<k>); testing 5 sigma on sigma 2 and 3.
