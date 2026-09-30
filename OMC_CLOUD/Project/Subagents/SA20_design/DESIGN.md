@@ -127,3 +127,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   re-interpolated) on 3 clips; otherwise drop. The screen (rcl_ctx.py) does not clamp at packet edges yet: optimistic.
   Queued next (SA20P): luma-guided chroma INTERPOLATION (0 bits; DD4 weights steered by final co-located luma
   gradients, shift-add LUT). Kill if < +0.1 dB on the worse chroma plane at 1.0 on 2 of 3 clips; guard: cast/bleed level maps.
+- G6 SA20Q flags (accepted):
+  (1) rcl_cbr picks Q by coding the frame at several Q = trial coding, which the pack bans (§1.4). It is only an upper
+      screen. The admissible rule chooses Q from the previous frame's EMITTED cost/Q (gen-2 reproducible), with at most
+      one predetermined re-choice. rcl_cbr gets a "plan" variant under that rule, measuring overs and gen-2 bits.
+  (2) Contexts reset at each slice top or stay packet-local; a loss test drops one slice and the next must parse.
+  (3) Overfit: the test clips are already disjoint from the 3 training clips (held out by design). Table Mbit at 8K
+      to be stated.
+  (4) Recon identical with and without contexts (verified: same po output; the ctx arm only re-costs symbols).
+  Falsifier: gain >= 3 % bits at 1.0 AND 1.5 on EACH test clip, AND after re-spending with cm such that chroma >= today,
+  NEG >= today after the 1 % header charge on all 3 clips; else killed.
+  Queued lever (SA20Q): conditional-mean reconstruction, delta(class of the final-neighbour gradient vs prediction),
+  static LUT, |delta| <= step/8, continuous; guard texstat/flatplane/renders + static control.
