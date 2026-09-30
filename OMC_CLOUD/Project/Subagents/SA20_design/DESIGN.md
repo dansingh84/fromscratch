@@ -638,3 +638,17 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   (-0.5); grain-follow passes pans/grain but oscillates on noisy frozen. Suspect the oscillation is rate control (a
   fine frame lowers the next thresholds), not the rule -> step slew limit (_sl: +-1 quarter-octave per frame after
   the ramp) on GF, queued.
+- G65 (SA20P) GF + slew is admissible as THE still rule if it passes the full battery (simpler; removes the
+  per-region HVBC risk). Conditions:
+  (a) the slew is ASYMMETRIC: refine <= 1 quarter-octave per frame, coarsen freely (exact CBR at bursts/cuts); fixed.
+  (b) a second root of period-2: following noise at a step larger than the noise AMPLIFIES it (lattice
+      amplification, pack 3.3 A1). If ants stay above the source, add a block-gated noise-floor term,
+      max(kappa Delta_last, k sigma-hat).
+  Pulse pass (steady frames, >= 12, per plane):
+  - changed-sample share s_t: max/min <= 1.5, lag-2 autocorrelation <= 0.3, no spectral peak at periods 2-8
+    above 2x the mean power;
+  - step sequence: sign changes of the step <= 20 % of frames;
+  - boil/ants <= source on noisy frozen, gfx, cine;
+  - frozen: 0 changes after the ramp;
+  - pans: within 0.1 of the no-hold control, histogram split by texture;
+  - renders.

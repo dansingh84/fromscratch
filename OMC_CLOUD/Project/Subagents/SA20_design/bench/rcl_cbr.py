@@ -264,7 +264,7 @@ for R in RATES:
         CUB[0] = None; QMB[0] = None; rginfo = None
         lo, hi = 0, len(GRID) - 1; best = None
         if SL and QPREV[0] is not None and t > max(RAMP, 1):
-            ip = GRID.index(QPREV[0]); lo = max(0, ip - 1); hi = min(len(GRID) - 1, ip + 1)
+            ip = GRID.index(QPREV[0]); lo = max(0, ip - 1)   # ASYMMETRIC: refine <= 1 quarter-octave, coarsen freely (CBR at bursts)
         if RG and MF and t and st is not None and not (RAMP and t <= RAMP):
             REFH[0] = ref; stl_m = still_blocks(x, X[t - 1])
             if stl_m.any():
