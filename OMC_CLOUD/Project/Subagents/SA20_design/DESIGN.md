@@ -351,3 +351,10 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   3. last-write state is already per plane;
   4. inherited intra chroma deficit: S16 intra f0 chroma -0.15..-0.36 dB at 0.5, while f2 is -1.8 -> inter adds most;
   5. inter ladder tuned on luma.
+- G35 OWNER CALL TO FLAG (SA20P + SA20Q): a provable exact-CBR fit in form (i) needs a bounded plan (finest leaves
+  forced to zero), which would be a visible rung if it fired (S5.361 class). Question for the owner: is a proven
+  worst-case plan that never fires on any test cell acceptable, or must the rung be impossible by construction? Under
+  the second reading no fixed-rate codec qualifies, today's included (pathological input such as 12-bit noise at
+  0.5 bpp loses the picture in any CBR codec).
+  Chroma ablation (one switch per run, cine + prores, 0.5/1.0/2.0, same S16 tables): base = fixed still rule
+  (_sg_keep_rs_ng_cu0); +_chp (exact 4:2:2 chroma MC); +_pp (per-plane gate and noise); +both.

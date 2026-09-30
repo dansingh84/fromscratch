@@ -27,6 +27,7 @@ CU = any(t.startswith('cu') for t in TOK); CUO = float([t[2:] for t in TOK if t.
 CAUGHT = [None]
 CI = float([t[2:] for t in TOK if t.startswith('ci')][0]) if any(t.startswith('ci') for t in TOK) else None  # inter chroma multiplier
 CHP = 'chp' in TOK   # 4:2:2 chroma MC: odd luma dx -> average of the two chroma neighbours (no rounding)
+PP = 'pp' in TOK   # per-plane still gate + noise estimate (chroma judged on its own differences)
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -68,20 +69,20 @@ def fcost(sy, Q):   # frame cost of [(key0, SY, AC)]
     return sum(cost(SY, key0, TABS[Q]) for key0, SY, AC in sy)
 NG = 'ng' in TOK   # noise-aware still gate (SA20Q/SA20P): noise level per luma bucket from the lowest-motion blocks
 SIG = [None]
-def noise_gate(x, xprev):
-    NBY, NBX = (H + 15) // 16, (W + 15) // 16; hh, ww = NBY * 16, NBX * 16
-    d = np.zeros((hh, ww)); d[:H, :W] = x[0] - xprev[0]; lum = np.zeros((hh, ww)); lum[:H, :W] = x[0]
-    D = d.reshape(NBY, 16, NBX, 16); mad = np.abs(D).mean(axis=(1, 3)); md = D.mean(axis=(1, 3))
-    lb = np.minimum((lum.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) / 128).astype(int), 7)
+def noise_gate(x, xprev, k=0):
+    NBY, NBX = (H + 15) // 16, (W + 15) // 16; bw = 16 if k == 0 else 8; hh, ww = NBY * 16, NBX * bw; h_, w_ = x[k].shape
+    d = np.zeros((hh, ww)); d[:h_, :w_] = x[k] - xprev[k]; lum = np.zeros((hh, ww)); lum[:h_, :w_] = x[k]
+    D = d.reshape(NBY, 16, NBX, bw); mad = np.abs(D).mean(axis=(1, 3)); md = D.mean(axis=(1, 3))
+    lb = np.minimum((lum.reshape(NBY, 16, NBX, bw).mean(axis=(1, 3)) / 128).astype(int), 7)
     n = np.zeros(8)
     for b in range(8):
         v = mad[lb == b]; n[b] = np.percentile(v, 20) if v.size >= 8 else np.percentile(mad, 20)
     nb = np.maximum(n[lb], 0.5)          # mean |d| of pure noise = sigma sqrt2 sqrt(2/pi) ~ 1.13 sigma
-    still = (mad <= 1.5 * nb) & (np.abs(md) <= 3 * nb / 16)
-    SIG[0] = nb / 1.13                   # per-block sigma estimate
+    still = (mad <= 1.5 * nb) & (np.abs(md) <= 3 * nb / np.sqrt(16 * bw))
+    SIG[0] = nb / 1.13                   # per-block sigma estimate (of the plane asked for)
     return still
-def still_blocks(x, xprev):   # encoder-only: block still = >= 95 % of its luma samples within 2 codes of the previous source
-    if NG: return noise_gate(x, xprev)
+def still_blocks(x, xprev, k=0):   # encoder-only: block still = >= 95 % of its luma samples within 2 codes of the previous source
+    if NG: return noise_gate(x, xprev, k)
     NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.abs(x[0] - xprev[0]) <= 2
     pad = np.ones((NBY * 16, NBX * 16), bool); pad[:H, :W] = d
     return pad.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) >= 0.95
@@ -131,9 +132,10 @@ def code_frame(x, ref, Q, st=None, xprev=None):
         if HY and st is not None and mode == 'inter':
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
             if SG and xprev is not None:
-                stl_ = still_blocks(x, xprev); KQ = KQ * expand(stl_.astype(float), p.shape, bw)
+                stl_ = still_blocks(x, xprev, pl if PP else 0); KQ = KQ * expand(stl_.astype(float), p.shape, bw)
                 NF_ = (2 * expand(SIG[0], p.shape, bw) if NG else 0.0) + RS_   # additive floor at EVERY level (raw samples carry full noise)
-                cm_ = cu_mask(st, Q, stl_)
+                cm_ = cu_mask(st, Q, still_blocks(x, xprev) if PP else stl_)
+                if PP and NG: still_blocks(x, xprev, pl)   # restore this plane's sigma for the floor
                 if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)
             HT = (KQ, expand(st[pl][1], p.shape, bw), NF_ if (SG and xprev is not None) else RS_)
         y = po(p, Q * ((cm if (mode == 'intra' or CI is None) else CI) if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC)[1]
