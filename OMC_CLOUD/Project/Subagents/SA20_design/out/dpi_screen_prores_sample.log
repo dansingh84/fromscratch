@@ -23,3 +23,8 @@ prores_sample_DPIf1_2.83 bpp f0/f1/f2 2.405/3.933/4.234 mean 3.524 | f2 PSNR 61.
 prores_sample_DPIf1_4.00 bpp f0/f1/f2 1.620/2.603/2.920 mean 2.381 | f2 PSNR 58.50/58.96/58.56 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/dp/prores_sample_DPIf1_4.00.yuv
 prores_sample_DPIf1_5.66 bpp f0/f1/f2 1.199/1.840/2.145 mean 1.728 | f2 PSNR 55.52/56.59/55.71 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/dp/prores_sample_DPIf1_5.66.yuv
 prores_sample_DPIf1_8.00 bpp f0/f1/f2 0.830/1.025/1.117 mean 0.991 | f2 PSNR 52.90/54.63/53.40 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/dp/prores_sample_DPIf1_8.00.yuv
+prores_sample_DPIf1_11.31 bpp f0/f1/f2 0.599/0.707/0.746 mean 0.684 | f2 PSNR 50.93/53.39/52.53 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/dp/prores_sample_DPIf1_11.31.yuv
+prores_sample_DPIf1_16.00 bpp f0/f1/f2 0.422/0.485/0.504 mean 0.470 | f2 PSNR 48.90/52.32/51.58 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/dp/prores_sample_DPIf1_16.00.yuv
+prores_sample_DPIf1_22.63 bpp f0/f1/f2 0.297/0.328/0.348 mean 0.325 | f2 PSNR 46.91/51.28/50.61 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/dp/prores_sample_DPIf1_22.63.yuv
+prores_sample_DPIf1_32.00 bpp f0/f1/f2 0.206/0.198/0.211 mean 0.205 | f2 PSNR 45.01/49.73/49.39 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/dp/prores_sample_DPIf1_32.00.yuv
+prores_sample_DPIf1_45.25 bpp f0/f1/f2 0.143/0.102/0.107 mean 0.117 | f2 PSNR 43.27/48.46/48.04 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/dp/prores_sample_DPIf1_45.25.yuv

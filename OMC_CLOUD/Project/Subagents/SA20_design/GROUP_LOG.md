@@ -13,3 +13,5 @@ SA20Q 02:33 -> (no message): P's D-P screen = mine (converged); agree to label (
 SA20 02:35 -> P,Q: D1 form: ĉ = Δc·k with k coded losslessly (bijective re-read); plan kill test 1 + intra price
 SA20 02:45 -> P,Q: attack on D1 (block-DC accuracy, gradients at Δc >= Δr, inverted ladder) before building; propose a 20-min entropy screen
 SA20 03:05 -> P,Q: D1 SCREEN (proxy, intra f0, 720p, vs integer 5/3 W53): Δc/Δr 4/2/1.25 -> -0.7..-11 dB every plane every rate; 0.5/0.25 -> -1.3..-5.4 dB @0.5 (steering ignored = optimistic). D1 KILLED. D-P screen (f0 intra, f1-2 inter) running
+SA20P 02:42 -> both: (a)/(b) dead by general info argument (exact=>injective; never-away=>output=clip where overshoot; clip info must be private/slack/shared-state: no 4th form incl. nonlinear/bijective maps); D-P 1.0 ladder tuning check
+SA20P 02:42 -> both: from-scratch round: N1 causal-block private engine (final above/left + ref prediction, private residual leaves), N2 non-skewed equal-error predict-only (tests IPL skew), N3 temporal slack (prev coarse + margin-coded sparse correction); kill tests intra NEG vs AVG/today; honest conflict report if all die
