@@ -29,6 +29,12 @@ CI = float([t[2:] for t in TOK if t.startswith('ci')][0]) if any(t.startswith('c
 CHP = 'chp' in TOK   # 4:2:2 chroma MC: odd luma dx -> average of the two chroma neighbours (no rounding)
 PP = 'pp' in TOK   # per-plane still gate + noise estimate (chroma judged on its own differences)
 NFK = float([t[2:] for t in TOK if t.startswith('nf')][0]) if any(t.startswith('nf') for t in TOK) else 2.0  # noise floor in sigma-hat
+BZ = 'bz' in TOK     # block-level decision: a still-gated block gets ALL leaves 0 (except in its catch-up)
+RAMP = int([t[4:] for t in TOK if t.startswith('ramp')][0] or 1) if any(t.startswith('ramp') for t in TOK) else 0  # frames 1..RAMP refine freely (owner A1 rev.3)
+CUAFTER = 'cua' in TOK   # catch-up decided AFTER the frame step (P's (c)): fires only if the frame's budget covers it at that step
+CUOFF = [False]; T_ = [0]
+RG = 'rg' in TOK   # (a)+(b): moving step Q_m + one catch-up step Q_c for the still, not-caught blocks (whole set, once)
+CUB = [None]; QMB = [None]
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -130,16 +136,18 @@ def code_frame(x, ref, Q, st=None, xprev=None):
         if pl and CL:
             Yf = out[0]; Yd = ((Yf[:, 0::2] + Yf[:, 1::2] + 1) >> 1) - ((Ps[0][:, 0::2] + Ps[0][:, 1::2] + 1) >> 1)
         HT = None
-        if HY and st is not None and mode == 'inter':
+        if HY and st is not None and mode == 'inter' and not (RAMP and T_[0] <= RAMP):
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
             if SG and xprev is not None:
                 stl_ = still_blocks(x, xprev, pl if PP else 0); KQ = KQ * expand(stl_.astype(float), p.shape, bw)
                 NF_ = (NFK * expand(SIG[0], p.shape, bw) if NG else 0.0) + RS_   # additive floor at EVERY level (raw samples carry full noise)
-                cm_ = cu_mask(st, Q, still_blocks(x, xprev) if PP else stl_)
+                if BZ: KQ = np.where(KQ > 0, 1e9, 0.0)   # still block: every leaf 0
+                cm_ = CUB[0] if RG else (None if CUOFF[0] else cu_mask(st, Q, still_blocks(x, xprev) if PP else stl_))
                 if PP and NG: still_blocks(x, xprev, pl)   # restore this plane's sigma for the floor
                 if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)
             HT = (KQ, expand(st[pl][1], p.shape, bw), NF_ if (SG and xprev is not None) else RS_)
-        y = po(p, Q * ((cm if (mode == 'intra' or CI is None) else CI) if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC)[1]
+        QMp = None if (QMB[0] is None or mode == 'intra') else expand(QMB[0], p.shape, 16 if pl == 0 else 8)
+        y = po(p, Q * ((cm if (mode == 'intra' or CI is None) else CI) if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC, QM=QMp)[1]
         out.append(y); sy.append(((min(pl, 1), mode), SY, AC))
     return sy, out
 if os.environ.get('LOO') == '1': TRAIN = [c for c in TRAIN if c[0] != TEST]   # leave-one-out when fitting on a training clip
@@ -185,7 +193,9 @@ for R in RATES:
     budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []
     NBY, NBX = (H + 15) // 16, (W + 15) // 16
     for t, x in enumerate(X):
+        T_[0] = t; CUOFF[0] = CUAFTER
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
+        CUB[0] = None; QMB[0] = None; rginfo = None
         lo, hi = 0, len(GRID) - 1; best = None
         while lo <= hi:
             mid = (lo + hi) // 2; Q = GRID[mid]
@@ -193,13 +203,32 @@ for R in RATES:
             b = fcost(sy, Q) + (10 * NBLK if t else 0)
             if b <= budget: best = (Q, b, y, sy); hi = mid - 1
             else: lo = mid + 1
+        if RG and best is not None and t and st is not None and not (RAMP and t <= RAMP):
+            stl0 = still_blocks(x, X[t - 1]); CAUGHT[0] = np.zeros(stl0.shape, bool) if CAUGHT[0] is None else CAUGHT[0]
+            cand = stl0 & ~CAUGHT[0]; Qm = best[0]
+            if cand.any():
+                QLr = st[0][0][cand].max()   # the set's coarsest last step: Q_c must be >= 0.25 octave finer than it
+                for Qc in [g for g in GRID if g <= QLr * 2 ** -0.25 * 1.001]:
+                    CUB[0] = cand; QMB[0] = np.where(cand, Qc / Qm, 1.0)
+                    syc, yc = code_frame(x, ref, Qm, st, X[t - 1]); bc = fcost(syc, Qm) + 10 * NBLK + NBLK
+                    if bc <= budget: best = (Qm, bc, yc, syc); rginfo = (Qc, int(cand.sum())); break
+                else: CUB[0] = None; QMB[0] = None
+        if CUAFTER and best is not None and t:
+            CUOFF[0] = False; Q_ = best[0]; sy2, y2 = code_frame(x, ref, Q_, st, X[t - 1]); b2 = fcost(sy2, Q_) + 10 * NBLK
+            if b2 <= budget: best = (Q_, b2, y2, sy2)
+            else: CUOFF[0] = True
         if best is None: Q = GRID[-1]; sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None); best = (Q, fcost(sy, Q) + (10 * NBLK if t else 0), y, sy)
         Q, b, y, sy = best
-        stl = still_blocks(x, X[t - 1]) if t else None; cu = cu_mask(st, Q, stl)
+        stl = still_blocks(x, X[t - 1]) if t else None
+        if RG: cu = CUB[0] if (CUB[0] is not None) else (np.zeros(stl.shape, bool) if stl is not None else None)
+        else: cu = None if CUOFF[0] or (RAMP and t <= RAMP) else cu_mask(st, Q, stl)
         st = upd(st, y, ref, Q, stl, cu)
-        if CU and stl is not None:
-            CAUGHT[0] = (CAUGHT[0] | cu) & stl   # caught until the source moves
-            cuinfo.append(int(cu.sum()))
+        if RG and rginfo is not None:
+            for k in range(3): st[k][0][cu] = rginfo[0] * ((cm if CI is None else CI) if k else 1)
+        if RG: cuinfo.append('%s' % ('-' if rginfo is None else '%d@%.1f' % (rginfo[1], rginfo[0])))
+        if (CU or RG) and stl is not None and cu is not None:
+            CAUGHT[0] = ((CAUGHT[0] if CAUGHT[0] is not None else np.zeros(stl.shape, bool)) | cu) & stl   # caught until the source moves
+            if not RG: cuinfo.append(int(cu.sum()))
         ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
     fn = os.path.join(OUT, '%s_%s_%.1f.yuv' % (TEST, ARM, R))
     with open(fn, 'wb') as fo:
@@ -216,7 +245,7 @@ for R in RATES:
         ch.append('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k])[np.abs(X[t][k] - X[t-1][k]) <= 2].mean()) for k in range(3)))
     print('   changed share ALL samples Y/Cb/Cr per transition ' + ' '.join('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k]).mean()) for k in range(3)) for t in range(1, NF))
           + ((' | still-labelled blocks ' + '/'.join('%.0f%%' % (100 * still_blocks(X[t], X[t - 1]).mean()) for t in range(1, NF))) if SG else ''), flush=True)
-    if CU: print('   catch-up blocks per inter frame ' + '/'.join(map(str, cuinfo)), flush=True)
+    if CU or RG: print('   catch-up blocks per inter frame ' + '/'.join(map(str, cuinfo)), flush=True)
     print('   churn still Y/Cb/Cr per transition ' + ' '.join(ch) + ' | Y PSNR per frame ' + '/'.join('%.2f' % psnr(rec[t][0], X[t][0]) for t in range(NF)), flush=True)
     print('   bits/level (bpp, level 5 = kept DPCM) ' + ' ; '.join(
         'f%d ' % t + ' '.join('%d:%.3f' % (l, v / (W * H)) for l, v in sorted(d.items(), reverse=True)) for t, d in enumerate(spl)), flush=True)

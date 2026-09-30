@@ -375,3 +375,17 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   overshoots, so the search keeps the coarse step and the rest is padding. The moving-region step and the still-region
   catch-up must be decoupled (a per-region step, i.e. a signalled plan), or the catch-up made independent of the
   frame step. Taken to SA20P/SA20Q; the answer must keep continuity at region edges (heal-edge test).
+- G39 CONVERGED plan structure (SA20Q proposal, SA20P conceded (c)):
+  - per-block steps read canonically, gen 1 emits its own reading;
+  - moving step Q_m per slice; the still, not-caught blocks caught ONCE at Q_c = the finest step whose cost fits the
+    padding (>= 0.25 octave finer than their last step), whole set, else wait;
+  - (b) = separate connected regions may catch up in different frames, one region never split;
+  - ramp rule (SA20P): no hysteresis in frames 0-1 (stream start and after cuts);
+  - block-level still gate: a noise-consistent block gets ALL leaves 0 (_bz).
+  OWNER FLAG: a per-region step is a per-region parameter; its boundary follows the block-shaped still/moving mask
+  (HVBC-class risk under the zero-visible-steps rule). Hard kill test: level map and |diff| per plane at boundaries,
+  rowphase/colphase at block pitch, real-time render. The same boundary exists under any hold, (c) included.
+  Also fixed: the INTER kept grid now predicts residuals by 0 (the residual DPCM chained along rows: noisy frozen
+  45 % -> 8.7 % changes before the block gate). po takes a per-sample step map QM (bit-identical at QM = 1).
+  Bench: _rg (the (a)+(b) plan, 1 bit/block map charge) vs _cua (c) on gfx 1/2, cine 0.5/1, noisy frozen sigma 2
+  (10 f) and noisy pan (10 f).

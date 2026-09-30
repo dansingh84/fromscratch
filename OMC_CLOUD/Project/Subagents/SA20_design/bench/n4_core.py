@@ -38,7 +38,8 @@ def alpha_map(ck, yk, shp, BS):
             a[2*i:2*i+2*BS, 2*j:2*j+2*BS] = al
     return a
 
-def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None, HT=None):
+def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None, HT=None, QM=None):
+    # QM (full-res map, default 1): per-sample STEP MULTIPLIER (per-block steps read canonically; step = Q f^l QM)
     # HT = (KQ, FL) full-res maps (ENCODER-only hysteresis): a symbol at level l is forced to 0 when |e| < KQ * FL**l
     # at its position (KQ = kappa x the step its block was last written at, FL = that write's ladder factor).
     # RO (dict (level, min(|q|,4)) -> delta in steps, |delta| <= 1/8): conditional-mean reconstruction of NONZERO leaves,
@@ -82,22 +83,23 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None,
         d = np.zeros(q.shape)
         for k in np.unique(qa[nz]): d[qa == k] = RO.get((lvl, int(k)), 0.0)
         return np.round(q * s_ + np.sign(q) * d * s_).astype(np.int64)
-    r, c = strides(L); xk = tg[L][::r, ::c]; Pk = P[::r, ::c]; sc = Q * f ** L; bits = 0.0
-    y = np.zeros_like(xk); qa = np.zeros_like(xk); thk = thg(L, r, c, xk.shape)
+    if QM is None: QM = np.ones(x.shape)
+    r, c = strides(L); xk = tg[L][::r, ::c]; Pk = P[::r, ::c]; SCg = Q * f ** L * QM[::r, ::c]; bits = 0.0
+    y = np.zeros_like(xk); qa = np.zeros_like(xk); thk = thg(L, r, c, xk.shape); INTER = bool(P.any())
     for j in range(xk.shape[1]):
-        pr = y[:, j - 1] if j else (np.full(xk.shape[0], 512) if not P.any() else np.zeros(xk.shape[0], np.int64))  # inter: residual DPCM starts at 0 (= copy of P)
-        q = dz(xk[:, j] - pr, sc)
+        pr = (y[:, j - 1] if j else np.full(xk.shape[0], 512)) if not INTER else np.zeros(xk.shape[0], np.int64)  # inter: kept residuals predicted by 0 (the MC reference predicts; residual DPCM chains)
+        sc = SCg[:, j]; q = dz(xk[:, j] - pr, sc)
         if HT is not None: q = np.where(np.abs(xk[:, j] - pr) < thk[:, j], 0, q)
         qa[:, j] = q; y[:, j] = np.clip(Pk[:, j] + pr + np.round(q * sc).astype(np.int64), LO, HI) - Pk[:, j]
     SY.append((('c', L), qa)); cur = y
     def ad(a, b, s_): return np.abs(a - b) / s_
     if ACT is not None:
-        a = np.zeros(y.shape); a[:, 2:] = ad(y[:, 1:-1], y[:, :-2], sc); ACT.append(a)
+        a = np.zeros(y.shape); a[:, 2:] = ad(y[:, 1:-1], y[:, :-2], SCg[:, 2:]); ACT.append(a)
     def sup(k, n, axis, s_):   # |difference of the two inner taps| of the DD4 support along axis
         k = np.moveaxis(k, axis, 0); m = k.shape[0]; i = np.arange(n); g = lambda t: k[np.clip(t, 0, m - 1)]
-        return np.moveaxis(ad(g(i + 1), g(i), s_), 0, axis)
+        return np.moveaxis(np.abs(g(i + 1) - g(i)), 0, axis) / s_
     for lvl in range(L - 1, -1, -1):
-        kind, shp = grids[lvl]; s_l = Q * f ** lvl; r, c = strides(lvl)
+        kind, shp = grids[lvl]; s_l = Q * f ** lvl; r, c = strides(lvl); Sg = s_l * QM[::r, ::c][:shp[0], :shp[1]]
         xg = tg[lvl][::r, ::c][:shp[0], :shp[1]]; full = np.zeros(shp, np.int64); Pg = P[::r, ::c][:shp[0], :shp[1]]; hg = thg(lvl, r, c, shp)
         def H_(a, b): return None if hg is None else hg[a, b]
         if Yd is not None and not LG:
@@ -120,15 +122,15 @@ def po(x, Q, f, T, SY, Yd=None, BS=16, P=None, ACT=None, LG=0, RO=None, RS=None,
             full[:, 0::2] = cur; pr = pred_axis(cur, shp[1] // 2, 1)
             if Yd is not None: pr = pr + lt((slice(None), slice(1, None, 2)), pred_axis(yg[:, 0::2], shp[1] // 2, 1))
             pr = gd(pr, cur, yg[:, 0::2], yg[:, 1::2], 1)
-            q = dzr(xg[:, 1::2] - pr, s_l, H_(slice(None), slice(1, None, 2))); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l)); full[:, 1::2] = np.clip(Pg[:, 1::2] + pr + rv(q, s_l, lvl), LO, HI) - Pg[:, 1::2]
+            S_ = Sg[:, 1::2]; q = dzr(xg[:, 1::2] - pr, S_, H_(slice(None), slice(1, None, 2))); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, S_)); full[:, 1::2] = np.clip(Pg[:, 1::2] + pr + rv(q, S_, lvl), LO, HI) - Pg[:, 1::2]
         else:
             full[0::2, 0::2] = cur
-            pr = pred_axis(cur, shp[1] // 2, 1); pr = pr + lt((slice(0, None, 2), slice(1, None, 2)), pred_axis(yg[0::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, cur, yg[0::2, 0::2], yg[0::2, 1::2], 1); q = dzr(xg[0::2, 1::2] - pr, s_l, H_(slice(0, None, 2), slice(1, None, 2))); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, s_l))
-            full[0::2, 1::2] = np.clip(Pg[0::2, 1::2] + pr + rv(q, s_l, lvl), LO, HI) - Pg[0::2, 1::2]
-            pr = pred_axis(cur, shp[0] // 2, 0); pr = pr + lt((slice(1, None, 2), slice(0, None, 2)), pred_axis(yg[0::2, 0::2], shp[0] // 2, 0)); pr = gd(pr, cur, yg[0::2, 0::2], yg[1::2, 0::2], 0); q = dzr(xg[1::2, 0::2] - pr, s_l, H_(slice(1, None, 2), slice(0, None, 2))); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[0] // 2, 0, s_l))
-            full[1::2, 0::2] = np.clip(Pg[1::2, 0::2] + pr + rv(q, s_l, lvl), LO, HI) - Pg[1::2, 0::2]
-            pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); pr = pr + lt((slice(1, None, 2), slice(1, None, 2)), pred_axis(yg[1::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, full[1::2, 0::2], yg[1::2, 0::2], yg[1::2, 1::2], 1); q = dzr(xg[1::2, 1::2] - pr, s_l, H_(slice(1, None, 2), slice(1, None, 2))); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(full[1::2, 0::2], shp[1] // 2, 1, s_l))
-            full[1::2, 1::2] = np.clip(Pg[1::2, 1::2] + pr + rv(q, s_l, lvl), LO, HI) - Pg[1::2, 1::2]
+            pr = pred_axis(cur, shp[1] // 2, 1); pr = pr + lt((slice(0, None, 2), slice(1, None, 2)), pred_axis(yg[0::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, cur, yg[0::2, 0::2], yg[0::2, 1::2], 1); S_ = Sg[0::2, 1::2]; q = dzr(xg[0::2, 1::2] - pr, S_, H_(slice(0, None, 2), slice(1, None, 2))); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[1] // 2, 1, S_))
+            full[0::2, 1::2] = np.clip(Pg[0::2, 1::2] + pr + rv(q, S_, lvl), LO, HI) - Pg[0::2, 1::2]
+            pr = pred_axis(cur, shp[0] // 2, 0); pr = pr + lt((slice(1, None, 2), slice(0, None, 2)), pred_axis(yg[0::2, 0::2], shp[0] // 2, 0)); pr = gd(pr, cur, yg[0::2, 0::2], yg[1::2, 0::2], 0); S_ = Sg[1::2, 0::2]; q = dzr(xg[1::2, 0::2] - pr, S_, H_(slice(1, None, 2), slice(0, None, 2))); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(cur, shp[0] // 2, 0, S_))
+            full[1::2, 0::2] = np.clip(Pg[1::2, 0::2] + pr + rv(q, S_, lvl), LO, HI) - Pg[1::2, 0::2]
+            pr = pred_axis(full[1::2, 0::2], shp[1] // 2, 1); pr = pr + lt((slice(1, None, 2), slice(1, None, 2)), pred_axis(yg[1::2, 0::2], shp[1] // 2, 1)); pr = gd(pr, full[1::2, 0::2], yg[1::2, 0::2], yg[1::2, 1::2], 1); S_ = Sg[1::2, 1::2]; q = dzr(xg[1::2, 1::2] - pr, S_, H_(slice(1, None, 2), slice(1, None, 2))); SY.append(((kind, lvl), q)); ACT is None or ACT.append(sup(full[1::2, 0::2], shp[1] // 2, 1, S_))
+            full[1::2, 1::2] = np.clip(Pg[1::2, 1::2] + pr + rv(q, S_, lvl), LO, HI) - Pg[1::2, 1::2]
         cur = full
     return bits, cur + P
 
