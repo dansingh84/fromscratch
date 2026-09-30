@@ -442,3 +442,14 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   -> a smaller dead zone recovers most of the NEG deficit on A006. It runs against the SA14 record (narrower dead
      zones lost), plausibly because S16's activity contexts make +-1 leaves cheap. Nested fit needs F003 and C021 at
      rho 0.42/0.5, plus the smudge/feature/band check per arm (intra_eval.py).
+- G46 (SA20P) dead-zone record: none covers an intra dead zone in a predict-only private-leaf pyramid at real code
+  lengths, so this is a new regime.
+  - SA15 config B (0.45 vs 1/3) +0.36/+0.38 is the same direction.
+  - SA15 ZH lost by re-sending grain in INTER (lattice-lock hysteresis removed): that is the trap for us.
+  - SA14 compared unmatched bpp (weak evidence); SA13/SA17 were the averaging family, inter-heavy.
+  Why form (i) differs: a zeroed leaf becomes a smooth DD4 fill and a kept sample's error is final, so a higher optimum
+  rho is expected. Watch-outs:
+  (i) rho fitted separately for intra/kept and inter leaves, and the still hysteresis stays authoritative (frozen and
+      noisy-frozen churn must stay 0);
+  (ii) rho 0.42 must REMOVE A006's smudge groups (checked in ieval_rho);
+  (iii) a static-control arm against the bits-only trap.
