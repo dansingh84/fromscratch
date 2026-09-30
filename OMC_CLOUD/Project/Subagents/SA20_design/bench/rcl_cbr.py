@@ -64,6 +64,8 @@ def submeans(y):   # 8x8 sub-block means of a luma plane, grouped per 16x16 bloc
     NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.zeros((NBY * 16, NBX * 16)); d[:H, :W] = y
     m = d.reshape(NBY * 2, 8, NBX * 2, 8).mean(axis=(1, 3))
     return np.stack([m[0::2, 0::2], m[0::2, 1::2], m[1::2, 0::2], m[1::2, 1::2]], -1)
+SL = 'sl' in TOK   # step slew limit: after the ramp, the frame step moves at most one quarter-octave per frame
+QPREV = [None]
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -229,7 +231,7 @@ def neg3(src, dec):
 def psnr(a, b): return 10 * np.log10(1023.0 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
 src = A + TEST + '_1280x720_422_10.yuv'; X = [read(src, W, H, f) for f in range(NF)]
 for R in RATES:
-    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; ELAST[0] = None; PASS[0] = None; STILLF[0] = None; FAILC[0] = None; ELW[0] = None; SUBH.clear()
+    budget = R * W * H; ref = None; rec = []; info = []; spl = []; st = None; CAUGHT[0] = None; cuinfo = []; QPREV[0] = None; ELAST[0] = None; PASS[0] = None; STILLF[0] = None; FAILC[0] = None; ELW[0] = None; SUBH.clear()
     NBY, NBX = (H + 15) // 16, (W + 15) // 16
     for t, x in enumerate(X):
         T_[0] = t; CUOFF[0] = CUAFTER; REFH[0] = ref
@@ -261,6 +263,8 @@ for R in RATES:
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
         CUB[0] = None; QMB[0] = None; rginfo = None
         lo, hi = 0, len(GRID) - 1; best = None
+        if SL and QPREV[0] is not None and t > max(RAMP, 1):
+            ip = GRID.index(QPREV[0]); lo = max(0, ip - 1); hi = min(len(GRID) - 1, ip + 1)
         if RG and MF and t and st is not None and not (RAMP and t <= RAMP):
             REFH[0] = ref; stl_m = still_blocks(x, X[t - 1])
             if stl_m.any():
@@ -329,7 +333,7 @@ for R in RATES:
         if (CU or RG) and stl is not None and cu is not None:
             CAUGHT[0] = ((CAUGHT[0] if CAUGHT[0] is not None else np.zeros(stl.shape, bool)) | cu) & stl   # caught until the source moves
             if not RG: cuinfo.append(int(cu.sum()))
-        ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
+        QPREV[0] = Q; ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
     fn = os.path.join(OUT, '%s_%s_%.1f.yuv' % (TEST, ARM, R))
     with open(fn, 'wb') as fo:
         for fr in rec:

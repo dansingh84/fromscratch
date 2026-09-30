@@ -628,3 +628,13 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   count is only meaningful split by source texture (as SA20Q specified); the raw histogram is not a verdict.
   -> Every gated hold costs NEG on noisy slow pans and on grainy stills. GRAIN-FOLLOW (no gate, per-sample
      hysteresis) is the candidate if it holds frozen input (gf_* running).
+- G64 GRAIN-FOLLOW (no gate, per-sample hysteresis):
+  - frozen10: @2.0 0.00 % changes; @0.5 creep 0.03 -> 0.84 % over 9 transitions;
+  - noisy frozen sigma 2: FAIL. The frame step ALTERNATES 22.6/5.66 (period-2 rate-control oscillation), 57-83 %
+    changes per frame, Y ants 5.2 % vs source 2.2 % (amplified flicker; per transition 9.0/2.9/7.2/2.4 %...);
+  - noisy pan @2.0: 95.11 (control 95.35), Y ants 14.7 % vs source 13.4 %;
+  - gfx with ramp1: 96.26/96.68 (< non-ramp GF 96.53 @1.0; today 96.50/96.88).
+  STATE OF THE STILL RULE: the gated hold passes frozen/noisy frozen but costs NEG on noisy pans (-1.7) and grain
+  (-0.5); grain-follow passes pans/grain but oscillates on noisy frozen. Suspect the oscillation is rate control (a
+  fine frame lowers the next thresholds), not the rule -> step slew limit (_sl: +-1 quarter-octave per frame after
+  the ramp) on GF, queued.
