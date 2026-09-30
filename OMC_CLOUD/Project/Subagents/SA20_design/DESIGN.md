@@ -948,3 +948,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   but leaves 8-10 % on chroma rows: the roles differ in more than their step (dead-zoned vs coded, 2-D vs
   horizontal levels). One f does not reach the null; per-level allocation and the distribution shape (not only
   the mean) are the open questions, with the NEG price still unmeasured.
+- H10 Escape audit (SA20P + SA20Q, GROUP_LOG): requirement wording checked against the record. R1 exactness and R4
+  efficiency are stated as written (goal 3 / S5.401 / C7; goal 4 / S5.402a, worst frame included). R2 "away" judged
+  against a rail-free decode is OUR reading (owner to confirm). R3: the line accepted on record is ~2.3 % spread
+  (SA15 0.4-2.3 % accepted, SA17 2.5-7 % rejected). No record ranks the goals for a trade.
+  Candidates: G-a content-driven roles = L3 / RC class (killed); a FIXED blue-noise kept lattice is untested (risk: a
+  fixed noise veil). G-c per-level multipliers that equalise the checked statistic = the patch pattern (S5.369);
+  H9 shows it cannot reach the line anyway. G-b is live: the same per-sample process in every frame (T1 intra in
+  the ramp; T1 on the motion-compensated residual in inter frames), with a per-sample motion field (vectors at
+  16-px area centres, bilinear between them; its node pitch is a period to test). Pre-registered: frame 2 after a
+  cut vs today on all clips at 0.5-4.0 (kill: more than 0.5 NEG below the pyramid; pass: >= today), a heal test
+  (slice lost at N, healed at N + RT + 1: local NEG / PSNR vs today + render), H0 on inter frames.
+  Script: t1/t1_seq.py (env ALPHA 1 = MED on the residual, 0 = P only; RHO; CM).
