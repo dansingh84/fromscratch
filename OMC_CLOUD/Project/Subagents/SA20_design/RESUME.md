@@ -55,3 +55,6 @@ NEG kept). Intra comparisons use today's frame 0 (exact CBR: 5,120 bits/slice x 
 Watchdog: 5 session crons (efcae82a, 4105dbfc, 4112b1a7, 1fd074af, 4f045645) = one check every 25 min
 (one short gap at midnight); each pings SA20P/SA20Q and checks my own jobs; they expire after 7 days / with the session.
 | N1 | causal 2-D intra (B=8) + block-local private pyramid, proxy | -3.2..-12.6 dB vs 5/3 at every rate -> KILLED |
+
+## 2e. Rate points (owner, binding): 0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 4.0 bpp. 0.25 is not used (0.25/0.3 figures are
+extra information only and carry no weight in a verdict). All screens and today's baseline report these points.
