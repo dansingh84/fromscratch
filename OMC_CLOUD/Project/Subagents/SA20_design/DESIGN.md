@@ -260,3 +260,14 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   G23 addendum 2 (SA20Q): the re-choice is exactly one quarter-octave coarser (the coarsest only in the proven worst case). Where it fires: rowphase + level map per plane vs neighbours + render, no visible strip (S5.344 escalation-ladder visual). Worst-case work = 2 slice codings within the 720p50 3:1 latency slot (9 us margin).
   G23 final (SA20P, converged): the re-choice goes to the FINEST plan whose worst-case bound fits (one pass over precomputed worst-case costs; the coarsest plan only in the true worst case). A fixed quarter-octave step cannot guarantee the fit. SA20Q's visibility checks all stay. The second coding is encoder work only; decoder latency is unchanged.
   G23 latency (SA20Q): A2 counts encode + decode latency. The 2-coding worst case must fit the slice's own slot without extra parallel hardware (pack 1.4); report work per slice vs slot at 720p50 3:1 and 8K; the emission start must not move, else it counts in total latency.
+- G24 still-rule results (3-frame frozen, ungated hysteresis): changes per transition 0.12/0.23 % @0.5, 0.00 % @1.0
+  and 1.5, 0.04/2.8 % Y @2.0, and 20-59 % @2.5-4.0. frozen10 control without hysteresis (cm1_zb2): 44-71 % for 3
+  transitions while Q refines 32 -> 16, then 0.00 % once Q stops moving (re-quantising at the same step is idempotent).
+  frozen10 with gated hysteresis @0.5: 0.1 % creeping to 7.7 % by frame 9. Two causes:
+  (a) STATE BUG: any changed sample reset the whole block's last-write step to the finer current step, so the block's
+      untouched samples were re-coded next frame (an uncontrolled partial catch-up). Fix (_keep): the last-write step
+      is kept on source-still blocks; only the source changing (or the explicit catch-up) lowers it.
+  (b) ROUNDING: at fine steps the coarse-level steps are ~1 code; integer rounding adds up to 0.5 code, so the old
+      error exceeds kappa x s. Fix (_rs): threshold = kappa x s_last + 0.5.
+  pan 0.5 px/f (gated): Y PSNR per frame flat 46.29 -> 46.16 (no lag); the "still" churn figure is not meaningful on
+  pans (flat moving areas pass the frame-difference test). Arm _sg_keep_rs running on frozen10 at 0.5/2.5/4.0.

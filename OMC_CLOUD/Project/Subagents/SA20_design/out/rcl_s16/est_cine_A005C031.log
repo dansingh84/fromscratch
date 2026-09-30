@@ -1,0 +1,41 @@
+   est 8.3994 emitted 8.3994 (emitted - est +0.00 %) | upper bound +-1 class 9.4517 (padding 12.53 %, over no)
+   est 7.7300 emitted 7.7300 (emitted - est +0.00 %) | upper bound +-1 class 8.7092 (padding 12.67 %, over no)
+   est 7.4124 emitted 7.4124 (emitted - est +0.00 %) | upper bound +-1 class 8.3931 (padding 13.23 %, over no)
+   est 6.9675 emitted 6.9725 (emitted - est +0.07 %) | upper bound +-1 class 7.9123 (padding 13.48 %, over no)
+   est 6.4387 emitted 6.4404 (emitted - est +0.03 %) | upper bound +-1 class 7.3449 (padding 14.04 %, over no)
+   est 5.2527 emitted 5.2546 (emitted - est +0.04 %) | upper bound +-1 class 6.1552 (padding 17.14 %, over no)
+   est 4.7725 emitted 4.7743 (emitted - est +0.04 %) | upper bound +-1 class 5.6351 (padding 18.03 %, over no)
+   est 4.5098 emitted 4.5148 (emitted - est +0.11 %) | upper bound +-1 class 5.3940 (padding 19.47 %, over no)
+cine_A005C031 cm1_S16 Q=2.378 bpp 4.5148 NEG 96.306 PSNR 63.29/63.60/63.43 oob 0 esc 0.2224%
+   est 4.2704 emitted 4.2814 (emitted - est +0.26 %) | upper bound +-1 class 5.0962 (padding 19.03 %, over no)
+cine_A005C031 cm1_S16 Q=2.828 bpp 4.2814 NEG 96.215 PSNR 62.20/62.75/62.49 oob 0 esc 0.1714%
+   est 3.2719 emitted 3.2753 (emitted - est +0.10 %) | upper bound +-1 class 3.9602 (padding 20.91 %, over no)
+cine_A005C031 cm1_S16 Q=3.364 bpp 3.2753 NEG 96.109 PSNR 59.55/60.42/59.76 oob 0 esc 0.1329%
+   est 3.1319 emitted 3.1406 (emitted - est +0.28 %) | upper bound +-1 class 3.8272 (padding 21.86 %, over no)
+cine_A005C031 cm1_S16 Q=4.000 bpp 3.1406 NEG 96.067 PSNR 59.27/60.10/59.49 oob 0 esc 0.0995%
+   est 2.3684 emitted 2.3646 (emitted - est -0.16 %) | upper bound +-1 class 2.9400 (padding 24.33 %, over no)
+cine_A005C031 cm1_S16 Q=4.757 bpp 2.3646 NEG 95.850 PSNR 57.01/58.27/57.28 oob 0 esc 0.0760%
+   est 2.2655 emitted 2.2687 (emitted - est +0.14 %) | upper bound +-1 class 2.8103 (padding 23.87 %, over no)
+cine_A005C031 cm1_S16 Q=5.657 bpp 2.2687 NEG 95.800 PSNR 56.49/57.98/56.95 oob 0 esc 0.0578%
+   est 1.7658 emitted 1.7627 (emitted - est -0.18 %) | upper bound +-1 class 2.2409 (padding 27.13 %, over no)
+cine_A005C031 cm1_S16 Q=6.727 bpp 1.7627 NEG 95.543 PSNR 54.81/56.79/55.53 oob 0 esc 0.0439%
+   est 1.5294 emitted 1.5275 (emitted - est -0.12 %) | upper bound +-1 class 1.9785 (padding 29.52 %, over no)
+cine_A005C031 cm1_S16 Q=8.000 bpp 1.5275 NEG 95.278 PSNR 53.66/56.18/54.79 oob 0 esc 0.0322%
+   est 1.2582 emitted 1.2561 (emitted - est -0.17 %) | upper bound +-1 class 1.6541 (padding 31.69 %, over no)
+cine_A005C031 cm1_S16 Q=9.514 bpp 1.2561 NEG 95.057 PSNR 52.53/55.38/53.92 oob 0 esc 0.0192%
+   est 1.0798 emitted 1.0784 (emitted - est -0.13 %) | upper bound +-1 class 1.4471 (padding 34.19 %, over no)
+cine_A005C031 cm1_S16 Q=11.314 bpp 1.0784 NEG 94.741 PSNR 51.50/54.70/53.25 oob 0 esc 0.0138%
+   est 0.9348 emitted 0.9318 (emitted - est -0.33 %) | upper bound +-1 class 1.2807 (padding 37.45 %, over no)
+cine_A005C031 cm1_S16 Q=13.454 bpp 0.9318 NEG 94.232 PSNR 50.55/54.04/52.59 oob 0 esc 0.0106%
+   est 0.7732 emitted 0.7702 (emitted - est -0.38 %) | upper bound +-1 class 1.0927 (padding 41.86 %, over no)
+cine_A005C031 cm1_S16 Q=16.000 bpp 0.7702 NEG 93.703 PSNR 49.41/53.44/52.08 oob 0 esc 0.0075%
+   est 0.6590 emitted 0.6583 (emitted - est -0.09 %) | upper bound +-1 class 0.9580 (padding 45.51 %, over no)
+cine_A005C031 cm1_S16 Q=19.027 bpp 0.6583 NEG 93.100 PSNR 48.39/52.71/51.42 oob 0 esc 0.0050%
+   est 0.5531 emitted 0.5525 (emitted - est -0.11 %) | upper bound +-1 class 0.8320 (padding 50.60 %, over no)
+cine_A005C031 cm1_S16 Q=22.627 bpp 0.5525 NEG 92.317 PSNR 47.41/52.18/50.92 oob 0 esc 0.0031%
+   est 0.4645 emitted 0.4632 (emitted - est -0.27 %) | upper bound +-1 class 0.7272 (padding 56.99 %, over no)
+cine_A005C031 cm1_S16 Q=26.909 bpp 0.4632 NEG 91.218 PSNR 46.41/51.52/50.30 oob 0 esc 0.0010%
+   est 0.3937 emitted 0.3936 (emitted - est -0.03 %) | upper bound +-1 class 0.6433 (padding 63.44 %, over no)
+   est 0.3298 emitted 0.3296 (emitted - est -0.08 %) | upper bound +-1 class 0.5667 (padding 71.96 %, over no)
+   est 0.2751 emitted 0.2750 (emitted - est -0.07 %) | upper bound +-1 class 0.5008 (padding 82.11 %, over no)
+   est 0.2343 emitted 0.2338 (emitted - est -0.21 %) | upper bound +-1 class 0.4514 (padding 93.05 %, over no)

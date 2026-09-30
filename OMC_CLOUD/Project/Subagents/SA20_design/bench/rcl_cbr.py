@@ -21,6 +21,8 @@ ZB = float([t[2:] for t in TOK if t.startswith('zb')][0]) if any(t.startswith('z
 SG = 'sg' in TOK   # hysteresis only on SOURCE-still blocks (encoder-only gate, SA20Q)
 NF = int(os.environ.get('NF', '3'))
 HY = float([t[2:] for t in TOK if t.startswith('hy')][0]) if any(t.startswith('hy') for t in TOK) else 0  # hysteresis kappa
+KEEP = 'keep' in TOK   # keep the last-write step on source-still blocks
+RS_ = 0.5 if 'rs' in TOK else 0.0   # rounding slack added to the hysteresis threshold (codes)
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -60,13 +62,21 @@ def cost16(SY, AC, mode, tab):
 def fcost(sy, Q):   # frame cost of [(key0, SY, AC)]
     if S16: return sum(cost16(SY, AC, key0[1], TABS) for key0, SY, AC in sy)
     return sum(cost(SY, key0, TABS[Q]) for key0, SY, AC in sy)
-def upd(st, y, ref, Q):   # encoder state per block: step and ladder of the last write (block changed = written)
+def still_blocks(x, xprev):   # encoder-only: block still = >= 95 % of its luma samples within 2 codes of the previous source
+    NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.abs(x[0] - xprev[0]) <= 2
+    pad = np.ones((NBY * 16, NBX * 16), bool); pad[:H, :W] = d
+    return pad.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) >= 0.95
+def upd(st, y, ref, Q, stl=None):   # encoder state per block: step and ladder of the last write
+    # a block's last-write step moves to the current step only if its SOURCE changed (or it was written without a
+    # still map); on source-still blocks it is kept (only an explicit catch-up may lower it) -- a partial write of a
+    # few samples must not lower the threshold of the whole block (that spreads an uncontrolled catch-up)
     NBY, NBX = (H + 15) // 16, (W + 15) // 16
     if st is None: return [(np.full((NBY, NBX), Q * (cm if k else 1)), np.full((NBY, NBX), 0.7)) for k in range(3)]
     for k in range(3):
         bw = 16 if k == 0 else 8; ch = (y[k] != ref[k]); hh, ww = NBY * 16, NBX * bw
         pad = np.zeros((hh, ww), bool); pad[:ch.shape[0], :ch.shape[1]] = ch
         wr = pad.reshape(NBY, 16, NBX, bw).any(axis=(1, 3))
+        if stl is not None and KEEP: wr &= ~stl
         st[k][0][wr] = Q * (cm if k else 1); st[k][1][wr] = FI
     return st
 def expand(b, shp, bw):   # per-block map (16 rows x bw cols) -> per-sample map
@@ -84,12 +94,8 @@ def code_frame(x, ref, Q, st=None, xprev=None):
         HT = None
         if HY and st is not None and mode == 'inter':
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
-            if SG and xprev is not None:   # gate: block still = >= 95 % of its luma samples within 2 codes of the previous source
-                d = np.abs(x[0] - xprev[0]) <= 2; hh, ww = st[0][0].shape[0] * 16, st[0][0].shape[1] * 16
-                pad = np.ones((hh, ww), bool); pad[:H, :W] = d
-                stl = pad.reshape(hh // 16, 16, ww // 16, 16).mean(axis=(1, 3)) >= 0.95
-                KQ = KQ * expand(stl.astype(float), p.shape, bw)
-            HT = (KQ, expand(st[pl][1], p.shape, bw))
+            if SG and xprev is not None: KQ = KQ * expand(still_blocks(x, xprev).astype(float), p.shape, bw)
+            HT = (KQ, expand(st[pl][1], p.shape, bw), RS_)
         y = po(p, Q * (cm if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC)[1]
         out.append(y); sy.append(((min(pl, 1), mode), SY, AC))
     return sy, out
@@ -103,7 +109,7 @@ elif S16:   # pooled over every other quarter-octave step of the owner range, se
             for f in range(nf):
                 sy, y = code_frame(fr[f], ref, Q, st, fr[f - 1] if f else None)
                 for key0, SY, AC in sy: tally16(SY, AC, key0[1], TABS)
-                st = upd(st, y, ref, Q); ref = y
+                st = upd(st, y, ref, Q, still_blocks(fr[f], fr[f - 1]) if f else None); ref = y
     pickle.dump(TABS, open(tpath, 'wb'))
 else:
     TABS = {}
@@ -145,7 +151,7 @@ for R in RATES:
             else: lo = mid + 1
         if best is None: Q = GRID[-1]; sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None); best = (Q, fcost(sy, Q) + (10 * NBLK if t else 0), y, sy)
         Q, b, y, sy = best
-        st = upd(st, y, ref, Q)
+        st = upd(st, y, ref, Q, still_blocks(x, X[t - 1]) if t else None)
         ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
     fn = os.path.join(OUT, '%s_%s_%.1f.yuv' % (TEST, ARM, R))
     with open(fn, 'wb') as fo:
