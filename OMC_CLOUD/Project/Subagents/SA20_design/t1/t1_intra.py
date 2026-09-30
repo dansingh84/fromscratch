@@ -6,8 +6,8 @@
 import os, sys, ctypes, json, subprocess, numpy as np
 D = os.path.dirname(os.path.abspath(__file__)); ROOT = '/home/user/fromscratch/OMC_CLOUD/'
 lib = ctypes.CDLL(os.path.join(D, 't1core.so')); IP = np.ctypeslib.ndpointer(np.int32, flags='C')
-lib.t1_code.argtypes = [IP, ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_double, ctypes.c_double, ctypes.c_int, ctypes.c_int, IP, IP, IP, ctypes.c_int]
-W, H = 1280, 720; NC = 16; K = 20; RHO = float(os.environ.get('RHO', '0.42'))
+lib.t1_code.argtypes = [IP, ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_double, ctypes.c_double, ctypes.c_int, ctypes.c_int, IP, IP, IP, ctypes.c_int, ctypes.c_double]
+W, H = 1280, 720; NC = 16; K = 20; RHO = float(os.environ.get('RHO', '0.42')); ALPHA = 1.0
 GRID = [2 ** (e / 4) for e in range(-4, 28)]
 MODEL = ROOT + 'vmaf_model/vmaf_v0.6.1neg.json'
 def read(c, f=0):
@@ -15,7 +15,7 @@ def read(c, f=0):
     return [a[:W * H].reshape(H, W).copy(), a[W * H:W * H * 3 // 2].reshape(H, W // 2).copy(), a[W * H * 3 // 2:].reshape(H, W // 2).copy()]
 def code(p, s, P=None):
     h, w = p.shape; out = np.zeros_like(p); q = np.zeros_like(p); cl = np.zeros_like(p)
-    lib.t1_code(np.ascontiguousarray(p), None if P is None else np.ascontiguousarray(P).ctypes.data, h, w, s, RHO, 0, 1023, out, q, cl, NC)
+    lib.t1_code(np.ascontiguousarray(p), None if P is None else np.ascontiguousarray(P).ctypes.data, h, w, s, RHO, 0, 1023, out, q, cl, NC, ALPHA)
     return out, q, cl
 def sym(q): a = np.abs(q); return np.where(a > K, 2 * K + 1, np.where(q > 0, 2 * a - 1, 2 * a)), a
 def eg_bits(a): return np.where(a > K, 2 * np.floor(np.log2(a - K + 1)) + 1, 0)

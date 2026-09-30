@@ -10,7 +10,7 @@ static inline int med(int L, int U, int C) {
     if (C >= mx) return mn; if (C <= mn) return mx; return L + U - C;
 }
 void t1_code(const int *x, const int *P, int h, int w, double s, double rho, int lo, int hi,
-             int *out, int *q, int *cls, int ncls) {
+             int *out, int *q, int *cls, int ncls, double alpha) {
     for (int i = 0; i < h; i++) for (int j = 0; j < w; j++) {
         int k = i * w + j, pr, L, U, C, R, qL, qU, qC, qR;
         if (i == 0 && j == 0) { L = U = C = R = (lo + hi + 1) / 2; qL = qU = qC = qR = 0; }
@@ -20,10 +20,11 @@ void t1_code(const int *x, const int *P, int h, int w, double s, double rho, int
             qU = abs(q[k - w]); qC = j ? abs(q[k - w - 1]) : qU; qR = j < w - 1 ? abs(q[k - w + 1]) : qU; qL = j ? abs(q[k - 1]) : qU;
         }
         int base = P ? P[k] : 0;
-        /* prediction works on the difference from the reference when P is given (temporal-spatial planar) */
+        /* alpha: fixed decay of the propagated detail (T2), the same constant at every sample
+           prediction works on the difference from the reference when P is given (temporal-spatial planar) */
         if (P) { int PL = (i || j) ? (j ? P[k - 1] : P[k - w]) : P[k], PU = i ? P[k - w] : (j ? P[k - 1] : P[k]);
                  int PC = (i && j) ? P[k - w - 1] : (i ? P[k - w] : (j ? P[k - 1] : P[k]));
-                 pr = base + med(L - PL, U - PU, C - PC); }
+                 pr = base + (int)lround(alpha * med(L - PL, U - PU, C - PC)); }
         else pr = med(L, U, C);
         double a = (abs(L - C) + abs(U - C) + abs(U - R)) / s;
         double v = 1.0 + qL + qU + 0.5 * (qC + qR) + a;

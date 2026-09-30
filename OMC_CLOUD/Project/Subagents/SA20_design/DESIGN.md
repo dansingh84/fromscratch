@@ -10,32 +10,22 @@ Goal (owner, priority one): an engine where never-away legality holds by constru
 generations incl. CBR and baseband hops, free of seams/smudges/streaks, and at least as efficient as today's codec
 (v537), legality first. Benchmark = v537 run on the same 3-frame clips at 0.5/1.0/1.5/2.0/2.5/3.0/4.0 bpp.
 
-Engine ("form (i)", private last write): a predict-only interpolating pyramid (4-tap DD interpolator
-(-1,9,9,-1)/16; two 2-D levels + three horizontal levels; the coarsest "kept" grid coded directly). Every sample is
-written exactly once as clip(P + prediction + leaf), where P is the motion-compensated reference (0 in intra), the
-prediction is interpolated from already-final coarser samples, and the leaf is the quantised residual. Consequences:
-never-away holds per sample by construction (each correction moves that sample toward the source; 0 out-of-range
-everywhere), and a zero leaf copies the prediction exactly (still areas can be held with no change).
-
-Status (latest):
-- Legality: 0 out-of-range on every clip; rail extremes (cut24, ext10): error next to clipped samples is lower than
-  a plain clip of the legality-blind decode (G72); smudge groups on rail clips no worse than today (G67).
-- Entropy coding: S16 = 16 static tables shared by every step, level and plane (context = class of the local |q|
-  scale from decoded neighbours + step-normalised activity of final coarser samples). Fits today's table budget
-  (60 tables, 1.1 Mbit) with room to spare (G18-G23).
-- Intra vs today (VMAF-NEG): best settings = kept samples rounded to nearest + leaf dead zone rho 0.42 (G73):
-  cine_4k_A006 +0.41/+0.05, cine_A005C021 +2.17/+1.39, gfx F003 -0.28/-0.09 at 1.0/1.5 bpp; chroma PSNR still
-  behind on the textured and gfx clips (up to -1.9 dB at 1.0).
-- Inter (3-frame exact per-frame CBR): worst inter frame from parity to +0.93 NEG vs today (G32); inter chroma
-  0.3-2.1 dB behind.
-- Still areas: byte-identical frozen input -> one catch-up then 0 changes (G66/G68). Open: grainy/noisy still
-  content (the rule must not flicker more than the source: G60-G68); noise-floor sweep pre-registered (G71a).
-- Owner record applied: per-region parameters must be continuous fields ("zero visible steps"), so block-keyed
-  still/moving steps are dropped; a visible fallback plan is disqualifying (S5.344). Owner guidance 2026-09-30
-  (working guidance, not a rule): proceed with the current never-away reading as long as the output is
-  artifact-free.
-- GATE G78 (lines, seams, smudges on every frame) is open: every result above is provisional until it passes.
-- Not yet run: >= 10-generation chains, per-slice exact CBR, owner's visual tools on inter frames, renders review.
+Current state (2026-09-30, §H): the pyramid engine below FAILS the owner's artifact bar and is being replaced.
+- Owner bar: the codec creates no lines, grid patterns or seams (absolute; today's codec is no baseline for this).
+- Pyramid engine ("form (i)", G1-G79): predict-only interpolating pyramid (DD4 (-1,9,9,-1)/16; two 2-D + three
+  horizontal levels; kept coarsest grid), every sample written once as clip(P + prediction + leaf). It measured
+  a 32-px column grid (kept column 0.79x mean |error|, 1.10x with uniform steps: the static role lattice is the
+  cause, H1) and 16-px block seams on inter frames (block MC and block state, H2). Both are rooted in the
+  representation, so no setting or smoothing fixes them.
+- T1 (single-level causal scan, same process at every sample): grid-free by construction, killed on efficiency
+  (-1.8..-3.1 NEG vs the pyramid at 0.5 bpp; H4).
+- T2 (current candidate, H6): an auxiliary coarse signal (not output samples) coded first; every output sample
+  written once as clip(U + alpha x MED(detail) + leaf) with U the upsampled auxiliary, the same process at every
+  position. Never-away per sample holds as before. First cell (cine_A005C031 intra): NEG 89.76 / 93.88 at 0.5 / 1.0
+  (today 89.82 / 93.88, pyramid 91.54 / 94.28), phase statistics 1.01-1.03. Parameter screen G81 running.
+- Still/grain rule (G60-G77): built on block state; must be rebuilt per sample under §H before it counts.
+- Legality record that carries over: per-sample never-away form, 0 out-of-range, rail behaviour (G67, G72).
+- Not yet run for T2: inter (motion without any partition), CBR, 10-generation chains, the full H0 gate, renders.
 
 Clips. Owner footage (720p, 4:2:2 10-bit, 2-3 frames, from lossy PNG): test = cine_A005C031, gfx444_B001C001,
 prores_sample; training = cine_4k_A006, cine_A005C021, gfx444_F003C012 (tables and lever constants fitted on

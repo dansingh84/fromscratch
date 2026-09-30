@@ -106,3 +106,16 @@ cdf836d 09:46 SA20: downstream-of-clip error lower than rail-free everywhere
 72d4326 10:56 SA20: range clamp killed; kept rounding + rho .42 best intra so far
 3769721 11:03 SA20: DESIGN.md made self-contained (summary, glossary, no references outside the pack)
 5adcadb 11:04 SA20: grain-follow noise-floor sweep
+cc8faf8 11:07 SA20: reproducibility bundle (REPRODUCE.md, tools, queues, code history, bundle builder)
+bed45a8 11:09 SA20: noise-floor sweep interim (creep through refinement); noise-tied step floor queued
+58e42c8 11:31 SA20: G76 noise floor + step floor verdict; spatial sigma (sn) and refine margin (rm) arms; clean-PSNR diagnostic
+6e1b9fa 11:32 SA20: queue G77 spatial-sigma and rate-margin arms
+320feb7 11:33 SA20: G76b correction (pan loss is the step saw-tooth), clean-picture PSNR, G77 queue (snm, rm)
+e3cabbc 12:09 SA20: visual check tool (smudge, lines, grid phase, seams) and G78 queue on all owner footage
+856fb55 12:15 SA20: G78 gate - lines and seams disqualifying, pre-registered pass criteria
+d983951 12:16 SA20: visual check outputs (G78, first clip)
+2653293 12:17 SA20: overlapped MC (ob) and continuous parameter fields (sm) arms; G79 seam-cause queue
+70dae49 12:18 SA20: G78a grid pattern and seam findings, phase profile tool
+72b96d0 12:21 SA20: section H upstream redesign - absolute bar, grid and seam causes traced to the static lattice and the block partition
+e8da954 12:25 SA20: T1 scan screen killed on efficiency (phase-flat, directional); structural result H5; T2 candidate H6
+d79a787 12:26 SA20: pending outputs (visual check runs, T1 tables)

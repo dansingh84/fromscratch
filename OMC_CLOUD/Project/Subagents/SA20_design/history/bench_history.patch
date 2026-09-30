@@ -4493,3 +4493,651 @@ index 0000000..43e59ca
 +    NF=10 RATES=0.5,2.0 nice -n 4 python3 bench/rcl_cbr.py $c $A > out/rcl_cbr/gn${k}_$c.log 2>&1 < /dev/null &
 +    sleep 5
 +  done; done; wait
+=== commit cc8faf8 11:07 SA20: reproducibility bundle (REPRODUCE.md, tools, queues, code history, bundle builder)
+
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/build_bundle.sh b/OMC_CLOUD/Project/Subagents/SA20_design/tools/build_bundle.sh
+new file mode 100755
+index 0000000..8a8a828
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/build_bundle.sh
+@@ -0,0 +1,18 @@
++#!/bin/bash
++# build_bundle.sh — packs DESIGN.md + everything needed to reproduce it into SA20_bundle.zip (in SA20_design/).
++cd "$(dirname "$0")/.."; R=/home/user/fromscratch
++cp out/q_*.sh queues/ 2>/dev/null
++( cd $R && git log --reverse --format='%h %ad %s' --date=format:'%H:%M' -- OMC_CLOUD/Project/Subagents/SA20_design ) > history/commits.txt
++( cd $R && git log --reverse -p --format='=== commit %h %ad %s' --date=format:'%H:%M' -- OMC_CLOUD/Project/Subagents/SA20_design/bench \
++    OMC_CLOUD/Project/Subagents/SA20_design/tools OMC_CLOUD/Project/Subagents/SA20_design/out/*.sh OMC_CLOUD/footage_in/conv.sh OMC_CLOUD/scratch/today/*.sh ) > history/bench_history.patch
++rm -f SA20_bundle.zip
++python3 - <<'PY'
++import zipfile, os
++z = zipfile.ZipFile('SA20_bundle.zip', 'w', zipfile.ZIP_DEFLATED)
++for f in ['DESIGN.md', 'REPRODUCE.md']: z.write(f, 'SA20_design/' + f)
++for d in ['bench', 'tools', 'queues', 'history']:
++    for root, _, files in os.walk(d):
++        if '__pycache__' in root: continue
++        for f in files: z.write(os.path.join(root, f), 'SA20_design/' + os.path.join(root, f))
++z.close(); print('SA20_bundle.zip', os.path.getsize('SA20_bundle.zip'), 'bytes', len(zipfile.ZipFile('SA20_bundle.zip').namelist()), 'files')
++PY
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/conv.sh b/OMC_CLOUD/Project/Subagents/SA20_design/tools/conv.sh
+new file mode 100755
+index 0000000..fbffa5e
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/conv.sh
+@@ -0,0 +1,5 @@
++#!/bin/bash
++# conv.sh CLIP W H FMT : PNG frames -> raw planar 10-bit (BT.709, limited range), Lanczos, full frame (no crop)
++C=$1; W=$2; H=$3; F=$4; A=/home/user/fromscratch/OMC_CLOUD/Project/.work/arms
++PF=$([ "$F" = 444 ] && echo yuv444p10le || echo yuv422p10le)
++ffmpeg -v error -y -framerate 25 -i ${C}_frame%03d.png -vf "scale=${W}:${H}:flags=lanczos+accurate_rnd+full_chroma_int:out_color_matrix=bt709:out_range=tv,format=$PF" -f rawvideo $A/${C}_${W}x${H}_${F}_10.yuv
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_gfx.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_gfx.py
+new file mode 100755
+index 0000000..2790a34
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_gfx.py
+@@ -0,0 +1,16 @@
++import sys, os, types, numpy as np
++os.chdir('/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design'); sys.path.insert(0, 'bench')
++sys.argv = ['rcl_cbr.py', 'train', 'cm1_zb2_hy0.75_sg_s16']
++src = open('bench/rcl_cbr.py').read(); src = src[:src.index("if TEST == 'train': sys.exit(0)")]
++ns = {'__file__': os.path.abspath('bench/rcl_cbr.py')}; exec(compile(src, 'rcl_cbr', 'exec'), ns); R = types.SimpleNamespace(**ns)
++from dp_screen_core import motion, apply
++X = [R.read(R.A + 'gfx444_B001C001_1280x720_422_10.yuv', 1280, 720, f) for f in range(3)]
++ps = lambda a, b: 10 * np.log10(1023 ** 2 / max(((a - b).astype(float) ** 2).mean(), 1e-9))
++for Q in (4.757, 8.0, 16.0):
++    sy, y0 = R.code_frame(X[0], None, Q)
++    syi, yi = R.code_frame(X[1], None, Q); bi = R.fcost(syi, Q)
++    sye, ye = R.code_frame(X[1], y0, Q, None, X[0]); be = R.fcost(sye, Q) + 10 * R.NBLK
++    print('Q %.2f f1 INTRA %.3f bpp Y %.2f | INTER %.3f bpp Y %.2f' % (Q, bi / 921600, ps(yi[0], X[1][0]), be / 921600, ps(ye[0], X[1][0])), flush=True)
++    for nm, B, Z in (('16x16 Z2', 16, 2.0), ('16x16 Z0', 16, 0.0), ('8x8 Z0', 8, 0.0)):
++        V = motion(X[1][0], y0[0], B=B, Z=Z); P = apply(y0[0], V, B, 1)
++        print('   MC pred %s: Y PSNR %.2f (ref recon itself vs src f1: %.2f)' % (nm, ps(P, X[1][0]), ps(y0[0], X[1][0])), flush=True)
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_noise.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_noise.py
+new file mode 100755
+index 0000000..d4952d8
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_noise.py
+@@ -0,0 +1,15 @@
++import sys, os, types, numpy as np
++os.chdir('/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design'); sys.path.insert(0, 'bench')
++sys.argv = ['rcl_cbr.py', 'train', 'cm1_zb2_hy0.75_sg_keep_rs_ng_nf5_cu0']
++src = open('bench/rcl_cbr.py').read(); src = src[:src.index("if TEST == 'train': sys.exit(0)")]
++ns = {'__file__': os.path.abspath('bench/rcl_cbr.py')}; exec(compile(src, 'rcl_cbr', 'exec'), ns); R = types.SimpleNamespace(**ns)
++X = [R.read(R.A + 'cine_nfrozen2_1280x720_422_10.yuv', 1280, 720, f) for f in range(3)]
++sy, y0 = R.code_frame(X[0], None, 32.0); st = R.upd(None, y0, None, 32.0)
++stl = R.still_blocks(X[1], X[0]); cu = R.cu_mask(st, 26.91, stl)
++sy, y1 = R.code_frame(X[1], y0, 26.91, st, X[0]); st = R.upd(st, y1, y0, 26.91, stl, cu); ns['CAUGHT'][0] = (ns['CAUGHT'][0] | cu) & stl
++print('sigma-hat luma median', np.median(ns['SIG'][0]))
++sy, y2 = R.code_frame(X[2], y1, 9.51, st, X[1])
++print('changed Y f1->f2', (y2[0] != y1[0]).mean())
++for key0, SY, AC in sy[:1]:
++    for key, q in SY: print(key, q.shape, 'nonzero %.4f' % (q != 0).mean())
++print('QL luma median', np.median(st[0][0]), 'FL', np.median(st[0][1]), 'caught share', ns['CAUGHT'][0].mean(), 'still share', R.still_blocks(X[2], X[1]).mean())
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_res.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_res.py
+new file mode 100755
+index 0000000..6e4843c
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_res.py
+@@ -0,0 +1,18 @@
++import sys, os, numpy as np
++sys.path.insert(0, '/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench')
++os.chdir('/home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design')
++sys.argv = ['rcl_cbr.py', 'train', 'cm1_zb2_hy0.75_sg_keep_rs']
++import types
++src = open('bench/rcl_cbr.py').read(); src = src[:src.index("if TEST == 'train': sys.exit(0)")]
++R = types.SimpleNamespace(); ns = {'__file__': os.path.abspath('bench/rcl_cbr.py')}; exec(compile(src, 'rcl_cbr', 'exec'), ns); R.__dict__.update(ns)
++from dp_screen_core import motion
++X = [R.read(R.A + 'cine_frozen10_1280x720_422_10.yuv', 1280, 720, f) for f in range(3)]
++sy, y0 = R.code_frame(X[0], None, 32.0); st = R.upd(None, y0, None, 32.0)
++V = motion(X[1][0], y0[0], Z=2.0); nzv = (V != 0).any(-1)
++sy, y1 = R.code_frame(X[1], y0, 9.514, st, X[0])
++ch = y1[0] != y0[0]; print('changed luma samples', int(ch.sum()), 'nonzero-vector blocks', int(nzv.sum()))
++ii, jj = np.nonzero(ch); bi, bj = ii // 16, jj // 16
++print('changed samples inside nonzero-vector blocks', int(nzv[bi, bj].sum()))
++print('changed at rails (y0 at 0 or 1023)', int(((y0[0] == 0) | (y0[0] == 1023))[ch].sum()), ' src at rail', int(((X[1][0] <= 4) | (X[1][0] >= 1019))[ch].sum()))
++print('|y1-y0| on changed', np.bincount(np.abs(y1[0] - y0[0])[ch].astype(int))[:10])
++print('row/col of changed (first 10)', list(zip(ii[:10], jj[:10])))
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/make_synth.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/make_synth.py
+new file mode 100755
+index 0000000..251498c
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/make_synth.py
+@@ -0,0 +1,31 @@
++#!/usr/bin/env python3
++# make_synth.py — rebuilds the synthetic clips exactly as used in the SA20 log (DESIGN.md "Clips"), all derived from
++# frame 0 of the owner's cine_A005C031 (720p 4:2:2 10-bit, as converted by conv.sh). Order and seed matter: the
++# noisy clips draw from ONE generator seeded 7, sigma 1, 2, 3 first, then the noisy pan.
++import sys, os, numpy as np
++sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'bench'))
++from d1_screen import read
++A = '/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/'
++x = read(A + 'cine_A005C031_1280x720_422_10.yuv', 1280, 720, 0)
++def put(fn, frames):
++    with open(A + fn, 'wb') as f:
++        for fr in frames:
++            for p in fr: p.astype('<u2').tofile(f)
++put('cine_frozen_1280x720_422_10.yuv', [x] * 3)           # byte-identical frame 0 x 3
++put('cine_frozen10_1280x720_422_10.yuv', [x] * 10)
++def lanczos_shift(p, d, a=3):
++    n = np.arange(-a + 1, a + 1); fr = d - np.floor(d); w = np.sinc(n - fr) * np.sinc((n - fr) / a); w /= w.sum()
++    ip = int(np.floor(d)); off = a + abs(ip) + 2; pp = np.pad(p.astype(float), ((0, 0), (off, off)), mode='edge'); o = np.zeros(p.shape)
++    for k, wk in zip(n, w): o += wk * pp[:, off - ip - k: off - ip - k + p.shape[1]]
++    return np.clip(np.round(o), 0, 1023).astype('<u2')
++for v in (0.25, 0.5, 1.0):   # horizontal pans, chroma shifted by half (4:2:2)
++    put('cine_pan%s_1280x720_422_10.yuv' % v, [[lanczos_shift(p, v * t if k == 0 else v * t / 2) for k, p in enumerate(x)] for t in range(10)])
++rng = np.random.default_rng(7)
++for sg in (1, 2, 3):
++    put('cine_nfrozen%d_1280x720_422_10.yuv' % sg, [[np.clip(np.round(p + rng.normal(0, sg, p.shape)), 0, 1023) for p in x] for t in range(10)])
++fs = 1280 * 720 * 2
++with open(A + 'cine_pan0.5_1280x720_422_10.yuv', 'rb') as f, open(A + 'cine_npan0.5s2_1280x720_422_10.yuv', 'wb') as g:
++    for t in range(10):
++        fr = np.frombuffer(f.read(fs * 2), '<u2').astype(float)
++        np.clip(np.round(fr + rng.normal(0, 2, fr.shape)), 0, 1023).astype('<u2').tofile(g)
++print('synthetic clips written to', A)
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/run_today.sh b/OMC_CLOUD/Project/Subagents/SA20_design/tools/run_today.sh
+new file mode 100755
+index 0000000..5d2c74a
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/run_today.sh
+@@ -0,0 +1,11 @@
++#!/bin/bash
++# today's codec (v537, read-only) on the new test cells: 720p + 1080p, 0.5/1.0 bpp, 3 frames
++V=/home/user/fromscratch/OMC_CLOUD/Project/.work/v537; A=/home/user/fromscratch/OMC_CLOUD/Project/.work/arms
++O=/home/user/fromscratch/OMC_CLOUD/scratch/today; T=/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools
++for c in cine_A005C031 gfx444_B001C001 prores_sample; do for g in 1280x720 1920x1080; do for b in ${RATES:-0.5 1.0}; do
++ W=${g%x*}; H=${g#*x}; S=$A/${c}_${g}_422_10.yuv; N=$O/${c}_${g}_b$b
++ $V/omc_enc -i $S -o $N.omc -w $W -h $H --bpp $b > $N.enc.log 2>&1; ec=$?
++ $V/omc_dec -i $N.omc -o $N.d.yuv > $N.dec.log 2>&1
++ neg=$(bash $T/negscore.sh $S $N.d.yuv $W $H 422 10 3)
++ echo "$c $g $b enc_exit=$ec bytes=$(stat -c %s $N.omc) NEG3=$neg"
++done; done; done
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/run_today2.sh b/OMC_CLOUD/Project/Subagents/SA20_design/tools/run_today2.sh
+new file mode 100755
+index 0000000..89eb0ab
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/run_today2.sh
+@@ -0,0 +1,11 @@
++#!/bin/bash
++# today's codec (v537, read-only) on the new test cells: 720p + 1080p, 0.5/1.0 bpp, 3 frames
++V=/home/user/fromscratch/OMC_CLOUD/Project/.work/v537; A=/home/user/fromscratch/OMC_CLOUD/Project/.work/arms
++O=/home/user/fromscratch/OMC_CLOUD/scratch/today; T=/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools
++for c in ${CLIPS:-cine_A005C031 gfx444_B001C001 prores_sample}; do for g in ${GEOMS:-1280x720 1920x1080}; do for b in ${RATES:-0.5 1.0}; do
++ W=${g%x*}; H=${g#*x}; S=$A/${c}_${g}_422_10.yuv; N=$O/${c}_${g}_b$b
++ $V/omc_enc -i $S -o $N.omc -w $W -h $H --bpp $b > $N.enc.log 2>&1; ec=$?
++ $V/omc_dec -i $N.omc -o $N.d.yuv > $N.dec.log 2>&1
++ neg=$(bash $T/negscore.sh $S $N.d.yuv $W $H 422 10 3)
++ echo "$c $g $b enc_exit=$ec bytes=$(stat -c %s $N.omc) NEG3=$neg"
++done; done; done
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/today_boil.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/today_boil.py
+new file mode 100755
+index 0000000..0cb1ce6
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/today_boil.py
+@@ -0,0 +1,13 @@
++#!/usr/bin/env python3
++# today_boil.py — boil (mean |frame-to-frame change|) and ants (share > 6 codes) per plane of today's decodes vs source.
++import sys, os, numpy as np
++sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'bench')); from d1_screen import read
++R = '/home/user/fromscratch/OMC_CLOUD/'
++for c in ('gfx444_B001C001', 'cine_A005C031'):
++    src = R + 'Project/.work/arms/%s_1280x720_422_10.yuv' % c; dec = R + 'scratch/today/%s_1280x720_b1.0.d.yuv' % c
++    X = [read(src, 1280, 720, f) for f in range(3)]; D = [read(dec, 1280, 720, f) for f in range(3)]; out = []
++    for k in range(3):
++        do = np.mean([np.abs(D[t][k] - D[t-1][k]).mean() for t in (1, 2)]); ds = np.mean([np.abs(X[t][k] - X[t-1][k]).mean() for t in (1, 2)])
++        ao = np.mean([(np.abs(D[t][k] - D[t-1][k]) > 6).mean() for t in (1, 2)]); as_ = np.mean([(np.abs(X[t][k] - X[t-1][k]) > 6).mean() for t in (1, 2)])
++        out.append('%s boil %.3f (src %.3f) ants %.2f%% (src %.2f%%)' % ('YUV'[k], do, ds, 100 * ao, 100 * as_))
++    print(c, 'today @1.0', ' | '.join(out))
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/today_eval.sh b/OMC_CLOUD/Project/Subagents/SA20_design/tools/today_eval.sh
+new file mode 100755
+index 0000000..39bd83d
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/today_eval.sh
+@@ -0,0 +1,8 @@
++#!/bin/bash
++# today_eval.sh — regenerates out/today_eval.txt (today's v537 decodes scored per frame; format read by the bench).
++# Needs tools/run_today.sh (test clips, 720p + 1080p) run first with RATES="0.5 1.0 1.5 2.0 2.5 3.0 4.0".
++R=/home/user/fromscratch/OMC_CLOUD; B=$(dirname "$0")/../bench; mkdir -p $(dirname "$0")/../out
++for c in cine_A005C031 gfx444_B001C001 prores_sample; do for g in 1280x720 1920x1080; do for b in 0.5 1.0 1.5 2.0 2.5 3.0 4.0; do
++  W=${g%x*}; H=${g#*x}; D=$R/scratch/today/${c}_${g}_b$b.d.yuv; [ -s $D ] || continue
++  python3 $B/eval20.py $R/Project/.work/arms/${c}_${g}_422_10.yuv $D $W $H 422 10 ${c}_${g}_b$b | head -1
++done; done; done > $(dirname "$0")/../out/today_eval.txt
+=== commit bed45a8 11:09 SA20: noise-floor sweep interim (creep through refinement); noise-tied step floor queued
+
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+index 1d0f275..6d8fa91 100644
+--- a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+@@ -69,6 +69,7 @@ QPREV = [None]
+ EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byte-identical to its last write (hash in hardware)
+ XLC = [None]
+ GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
++QN = float([t[2:] for t in TOK if t.startswith('qn')][0]) if any(t.startswith('qn') for t in TOK) else 0.0   # frame-step floor c x median luma sigma-hat (no quantising below the noise)
+ S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
+ FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
+ OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
+@@ -282,8 +283,11 @@ for R in RATES:
+         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
+         CUB[0] = None; QMB[0] = None; rginfo = None
+         lo, hi = 0, len(GRID) - 1; best = None
++        if QN and t:
++            noise_gate(x, X[t - 1], 0); qf = QN * float(np.median(SIG[0]))
++            lo = max(lo, min(i for i, g in enumerate(GRID) if g >= qf * 0.999) if qf <= GRID[-1] else len(GRID) - 1)
+         if SL and QPREV[0] is not None and t > max(RAMP, 1):
+-            ip = GRID.index(QPREV[0]); lo = max(0, ip - 1)   # ASYMMETRIC: refine <= 1 quarter-octave, coarsen freely (CBR at bursts)
++            ip = GRID.index(QPREV[0]); lo = max(lo, ip - 1)   # ASYMMETRIC: refine <= 1 quarter-octave, coarsen freely (CBR at bursts)
+         if RG and MF and t and st is not None and not (RAMP and t <= RAMP):
+             REFH[0] = ref; stl_m = still_blocks(x, X[t - 1])
+             if stl_m.any():
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/out/q_qn.sh b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_qn.sh
+new file mode 100644
+index 0000000..95d2a71
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_qn.sh
+@@ -0,0 +1,9 @@
++#!/bin/bash
++cd /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design
++while ps -eo args | grep -q "^bash out/q_gn.sh"; do sleep 60; done
++for c in 2 3; do A=cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn${c}_chp_s16; cp out/rcl_cbr/tables_cm1_zb2_hy0.75_sg_s16.pkl out/rcl_cbr/tables_$A.pkl
++  for clip in cine_nfrozen2 cine_nfrozen3 cine_npan0.5s2 cine_pan0.25 cine_frozen10; do
++    while [ $(ps -eo args | grep -c "^python3 bench/rcl_") -ge 5 ]; do sleep 30; done
++    NF=10 RATES=0.5,2.0 nice -n 4 python3 bench/rcl_cbr.py $clip $A > out/rcl_cbr/qn${c}_$clip.log 2>&1 < /dev/null &
++    sleep 5
++  done; done; wait
+=== commit 58e42c8 11:31 SA20: G76 noise floor + step floor verdict; spatial sigma (sn) and refine margin (rm) arms; clean-PSNR diagnostic
+
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+index 6d8fa91..f71d6b4 100644
+--- a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+@@ -70,6 +70,8 @@ EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byt
+ XLC = [None]
+ GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
+ QN = float([t[2:] for t in TOK if t.startswith('qn')][0]) if any(t.startswith('qn') for t in TOK) else 0.0   # frame-step floor c x median luma sigma-hat (no quantising below the noise)
++SN = 'sn' in TOK   # sigma-hat from the current source's spatial Laplacian (Immerkaer), per luma band, not the frame difference
++RM = float([t[2:] for t in TOK if t.startswith('rm')][0]) if any(t.startswith('rm') for t in TOK) else 1.0   # refine only if the finer step fits RM x budget
+ S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
+ FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
+ OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
+@@ -122,7 +124,17 @@ def noise_gate(x, xprev, k=0):
+     nb = np.maximum(n[lb], 0.5)          # mean |d| of pure noise = sigma sqrt2 sqrt(2/pi) ~ 1.13 sigma
+     still = (mad <= 1.5 * nb) & (np.abs(md) <= (5 if G2 else 3) * nb / np.sqrt(16 * bw))
+     SIG[0] = nb / 1.13                   # per-block sigma estimate (of the plane asked for)
++    if SN: SIG[0] = spatial_sigma(x[k], lb, bw)   # motion-independent: a pan's frame difference is not noise
+     return still
++def spatial_sigma(p, lb, bw):   # Immerkaer: sigma = sqrt(pi/2)/6 mean|L*p|, L = [1,-2,1] x [1,-2,1]; low percentile per luma band excludes edges/texture
++    NBY, NBX = lb.shape; hh, ww = NBY * 16, NBX * bw; h_, w_ = p.shape
++    q = np.pad(p.astype(float), 1, mode='edge')
++    L = (q[:-2, :-2] - 2 * q[:-2, 1:-1] + q[:-2, 2:] - 2 * (q[1:-1, :-2] - 2 * q[1:-1, 1:-1] + q[1:-1, 2:]) + q[2:, :-2] - 2 * q[2:, 1:-1] + q[2:, 2:])
++    d = np.zeros((hh, ww)); d[:h_, :w_] = np.abs(L); m = d.reshape(NBY, 16, NBX, bw).mean(axis=(1, 3)) * np.sqrt(np.pi / 2) / 6
++    n = np.zeros(8)
++    for b in range(8):
++        v = m[lb == b]; n[b] = np.percentile(v, 20) if v.size >= 8 else np.percentile(m, 20)
++    return np.maximum(n[lb], 0.5 / 1.13)
+ def bmad(a, b):
+     NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.zeros((NBY * 16, NBX * 16)); d[:H, :W] = np.abs(a - b)
+     return d.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3))
+@@ -296,7 +308,8 @@ for R in RATES:
+             mid = (lo + hi) // 2; Q = GRID[mid]
+             sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None)
+             b = fcost(sy, Q) + (10 * NBLK if t else 0)
+-            if b <= budget: best = (Q, b, y, sy); hi = mid - 1
++            ok = b <= budget and (RM >= 1.0 or QPREV[0] is None or Q >= QPREV[0] or b <= RM * budget)   # rate margin on refinement: no sawtooth
++            if ok: best = (Q, b, y, sy); hi = mid - 1
+             else: lo = mid + 1
+         if RG and best is not None and t and st is not None and not (RAMP and t <= RAMP):
+             stl0 = still_blocks(x, X[t - 1]); CAUGHT[0] = np.zeros(stl0.shape, bool) if CAUGHT[0] is None else CAUGHT[0]
+@@ -391,4 +404,4 @@ for R in RATES:
+     print('   churn still Y/Cb/Cr per transition ' + ' '.join(ch) + ' | Y PSNR per frame ' + '/'.join('%.2f' % psnr(rec[t][0], X[t][0]) for t in range(NF)), flush=True)
+     print('   bits/level (bpp, level 5 = kept DPCM) ' + ' ; '.join(
+         'f%d ' % t + ' '.join('%d:%.3f' % (l, v / (W * H)) for l, v in sorted(d.items(), reverse=True)) for t, d in enumerate(spl)), flush=True)
+-    os.unlink(fn)
++    if not os.environ.get("KEEPYUV"): os.unlink(fn)
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/out/q_clean.sh b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_clean.sh
+new file mode 100755
+index 0000000..796b00f
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_clean.sh
+@@ -0,0 +1,9 @@
++#!/bin/bash
++# G76: keep the qn3 decodes of the noisy frozen clips and measure PSNR against the clean picture per frame
++cd /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design
++A=/home/user/fromscratch/OMC_CLOUD/Project/.work/arms
++for c in cine_nfrozen2 cine_nfrozen3; do
++  KEEPYUV=1 NF=10 RATES=0.5,2.0 python3 bench/rcl_cbr.py $c cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16 > out/rcl_cbr/clean_$c.log 2>&1 &
++done; wait
++python3 tools/diag_clean.py $A/cine_frozen10_1280x720_422_10.yuv out/rcl_cbr/cine_nfrozen{2,3}_cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16_{0.5,2.0}.yuv $A/cine_nfrozen{2,3}_1280x720_422_10.yuv > out/rcl_cbr/clean_psnr.txt
++rm -f out/rcl_cbr/cine_nfrozen*_qn3_chp_s16_*.yuv
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_clean.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_clean.py
+new file mode 100644
+index 0000000..520cee0
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_clean.py
+@@ -0,0 +1,14 @@
++# per-frame luma PSNR of a decode against the CLEAN frozen picture (cine_frozen10 frame 0), for the noisy-frozen synthetics
++import sys, numpy as np
++sys.path.insert(0, __file__.rsplit('/', 2)[0] + '/bench')
++W, H = 1280, 720
++A = '/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/'
++def rd(fn, f):
++    n = W * H + 2 * (W // 2) * H
++    a = np.fromfile(fn, np.uint16, n, offset=f * n * 2).astype(float); return a[:W * H].reshape(H, W)
++clean = rd(sys.argv[1], 0)
++for fn in sys.argv[2:]:
++    ps = []
++    for f in range(10):
++        e = np.mean((rd(fn, f) - clean) ** 2); ps.append(10 * np.log10(1023 ** 2 / e))
++    print(fn.rsplit('/', 1)[-1], ' '.join('%.2f' % p for p in ps))
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_sigma.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_sigma.py
+new file mode 100644
+index 0000000..d5d630a
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_sigma.py
+@@ -0,0 +1,11 @@
++# median per-block luma sigma-hat: temporal (frame difference, as the gate uses) vs spatial (Immerkaer), frames 0->1
++import sys, os, numpy as np
++sys.argv = [sys.argv[0], sys.argv[1], 'cm1'] + sys.argv[2:]
++os.environ.setdefault('NF', '2')
++sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'bench')); __file__ = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'bench', 'rcl_cbr.py')
++src = open(__file__).read().split('\nfor R in RATES:')[0]
++exec(src)
++st = noise_gate(X[1], X[0], 0); t_ = float(np.median(SIG[0]))
++NBY, NBX = (H + 15) // 16, (W + 15) // 16; lum = np.zeros((NBY * 16, NBX * 16)); lum[:H, :W] = X[1][0]
++lb = np.minimum((lum.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) / 128).astype(int), 7)
++print(sys.argv[1], 'temporal %.2f spatial %.2f' % (t_, float(np.median(spatial_sigma(X[1][0], lb, 16)))))
+=== commit 6e1b9fa 11:32 SA20: queue G77 spatial-sigma and rate-margin arms
+
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/out/q_sn.sh b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_sn.sh
+new file mode 100644
+index 0000000..6ec968c
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_sn.sh
+@@ -0,0 +1,10 @@
++#!/bin/bash
++# G77: spatial sigma-hat (sn) and refinement rate margin (rm0.9), plus the no-hold control rerun with temporal metrics
++cd /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design
++while pgrep -f q_clean.sh > /dev/null; do sleep 30; done
++run() { NF=10 RATES=0.5,2.0 python3 bench/rcl_cbr.py $2 $3 > out/rcl_cbr/$1_$2.log 2>&1; }
++B=cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3
++for c in cine_pan0.25 cine_npan0.5s2 cine_nfrozen2 cine_nfrozen3 cine_frozen10; do
++  run sn $c ${B}_sn_chp_s16 & run snrm $c ${B}_sn_rm0.9_chp_s16 & wait
++done
++for c in cine_pan0.25 cine_npan0.5s2 cine_nfrozen2; do run ctl2 $c cm1_zb2_chp_s16 & done; wait
+=== commit 320feb7 11:33 SA20: G76b correction (pan loss is the step saw-tooth), clean-picture PSNR, G77 queue (snm, rm)
+
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+index f71d6b4..d31f4b4 100644
+--- a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+@@ -70,7 +70,7 @@ EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byt
+ XLC = [None]
+ GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
+ QN = float([t[2:] for t in TOK if t.startswith('qn')][0]) if any(t.startswith('qn') for t in TOK) else 0.0   # frame-step floor c x median luma sigma-hat (no quantising below the noise)
+-SN = 'sn' in TOK   # sigma-hat from the current source's spatial Laplacian (Immerkaer), per luma band, not the frame difference
++SN = 'sn' in TOK; SNM = 'snm' in TOK   # sigma-hat from the current source's spatial Laplacian (Immerkaer), per luma band, not the frame difference
+ RM = float([t[2:] for t in TOK if t.startswith('rm')][0]) if any(t.startswith('rm') for t in TOK) else 1.0   # refine only if the finer step fits RM x budget
+ S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
+ FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
+@@ -124,7 +124,7 @@ def noise_gate(x, xprev, k=0):
+     nb = np.maximum(n[lb], 0.5)          # mean |d| of pure noise = sigma sqrt2 sqrt(2/pi) ~ 1.13 sigma
+     still = (mad <= 1.5 * nb) & (np.abs(md) <= (5 if G2 else 3) * nb / np.sqrt(16 * bw))
+     SIG[0] = nb / 1.13                   # per-block sigma estimate (of the plane asked for)
+-    if SN: SIG[0] = spatial_sigma(x[k], lb, bw)   # motion-independent: a pan's frame difference is not noise
++    if SN or SNM: sp_ = spatial_sigma(x[k], lb, bw); SIG[0] = np.minimum(SIG[0], sp_) if SNM else sp_   # snm: min(spatial, temporal), SA20P   # motion-independent: a pan's frame difference is not noise
+     return still
+ def spatial_sigma(p, lb, bw):   # Immerkaer: sigma = sqrt(pi/2)/6 mean|L*p|, L = [1,-2,1] x [1,-2,1]; low percentile per luma band excludes edges/texture
+     NBY, NBX = lb.shape; hh, ww = NBY * 16, NBX * bw; h_, w_ = p.shape
+@@ -308,7 +308,7 @@ for R in RATES:
+             mid = (lo + hi) // 2; Q = GRID[mid]
+             sy, y = code_frame(x, ref, Q, st, X[t - 1] if t else None)
+             b = fcost(sy, Q) + (10 * NBLK if t else 0)
+-            ok = b <= budget and (RM >= 1.0 or QPREV[0] is None or Q >= QPREV[0] or b <= RM * budget)   # rate margin on refinement: no sawtooth
++            ok = b <= budget and (RM >= 1.0 or QPREV[0] is None or t <= max(RAMP, 1) or Q >= QPREV[0] or b <= RM * budget)   # rate margin on refinement: no sawtooth
+             if ok: best = (Q, b, y, sy); hi = mid - 1
+             else: lo = mid + 1
+         if RG and best is not None and t and st is not None and not (RAMP and t <= RAMP):
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/out/q_sn.sh b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_sn.sh
+index 6ec968c..e5206f0 100644
+--- a/OMC_CLOUD/Project/Subagents/SA20_design/out/q_sn.sh
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_sn.sh
+@@ -1,10 +1,10 @@
+ #!/bin/bash
+-# G77: spatial sigma-hat (sn) and refinement rate margin (rm0.9), plus the no-hold control rerun with temporal metrics
++# G77: sigma-hat variants (sn spatial, snm = min(spatial, temporal)) x refinement margin (rm0.85, rm0.9, rm0 = never refine
++# after the ramp), and the no-hold control rerun with temporal metrics. Frames 0-1 are already exempt from the slew.
+ cd /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design
+-while pgrep -f q_clean.sh > /dev/null; do sleep 30; done
+ run() { NF=10 RATES=0.5,2.0 python3 bench/rcl_cbr.py $2 $3 > out/rcl_cbr/$1_$2.log 2>&1; }
+ B=cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3
+-for c in cine_pan0.25 cine_npan0.5s2 cine_nfrozen2 cine_nfrozen3 cine_frozen10; do
+-  run sn $c ${B}_sn_chp_s16 & run snrm $c ${B}_sn_rm0.9_chp_s16 & wait
++for c in cine_pan0.25 cine_nfrozen2 cine_npan0.5s2 cine_nfrozen3 cine_frozen10; do
++  run snm85 $c ${B}_snm_rm0.85_chp_s16 & run snm0 $c ${B}_snm_rm0_chp_s16 & run sn85 $c ${B}_sn_rm0.85_chp_s16 & wait
+ done
+ for c in cine_pan0.25 cine_npan0.5s2 cine_nfrozen2; do run ctl2 $c cm1_zb2_chp_s16 & done; wait
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_sigma.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_sigma.py
+index d5d630a..72fda37 100644
+--- a/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_sigma.py
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_sigma.py
+@@ -1,11 +1,16 @@
+-# median per-block luma sigma-hat: temporal (frame difference, as the gate uses) vs spatial (Immerkaer), frames 0->1
+-import sys, os, numpy as np
+-sys.argv = [sys.argv[0], sys.argv[1], 'cm1'] + sys.argv[2:]
+-os.environ.setdefault('NF', '2')
+-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'bench')); __file__ = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'bench', 'rcl_cbr.py')
+-src = open(__file__).read().split('\nfor R in RATES:')[0]
+-exec(src)
+-st = noise_gate(X[1], X[0], 0); t_ = float(np.median(SIG[0]))
+-NBY, NBX = (H + 15) // 16, (W + 15) // 16; lum = np.zeros((NBY * 16, NBX * 16)); lum[:H, :W] = X[1][0]
+-lb = np.minimum((lum.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) / 128).astype(int), 7)
+-print(sys.argv[1], 'temporal %.2f spatial %.2f' % (t_, float(np.median(spatial_sigma(X[1][0], lb, 16)))))
++# median per-block luma sigma-hat, frames 0 -> 1: temporal (frame difference, 20th pct per luma band, as bench/rcl_cbr.py
++# noise_gate) vs spatial (Immerkaer Laplacian, 20th pct per luma band, as bench/rcl_cbr.py spatial_sigma)
++import sys, numpy as np
++W, H = 1280, 720; A = '/home/user/fromscratch/OMC_CLOUD/Project/.work/arms/'
++def rd(c, f):
++    n = W * H * 2; a = np.fromfile(A + c + '_1280x720_422_10.yuv', '<u2', n, offset=f * n * 2).astype(float); return a[:W * H].reshape(H, W)
++def blocks(a): return a.reshape(H // 16, 16, W // 16, 16).mean(axis=(1, 3))
++def band_pct(m, lb):
++    n = np.array([np.percentile(m[lb == b], 20) if (lb == b).sum() >= 8 else np.percentile(m, 20) for b in range(8)]); return n[lb]
++for c in sys.argv[1:]:
++    x0, x1 = rd(c, 0), rd(c, 1); lb = np.minimum((blocks(x1) / 128).astype(int), 7)
++    tem = np.maximum(band_pct(blocks(np.abs(x1 - x0)), lb), 0.5) / 1.13
++    q = np.pad(x1, 1, mode='edge')
++    L = q[:-2, :-2] - 2 * q[:-2, 1:-1] + q[:-2, 2:] - 2 * (q[1:-1, :-2] - 2 * q[1:-1, 1:-1] + q[1:-1, 2:]) + q[2:, :-2] - 2 * q[2:, 1:-1] + q[2:, 2:]
++    spa = np.maximum(band_pct(blocks(np.abs(L)) * np.sqrt(np.pi / 2) / 6, lb), 0.5 / 1.13)
++    print('%-16s temporal %.2f spatial %.2f' % (c, np.median(tem), np.median(spa)))
+=== commit e3cabbc 12:09 SA20: visual check tool (smudge, lines, grid phase, seams) and G78 queue on all owner footage
+
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+index d31f4b4..791c0ea 100644
+--- a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+@@ -215,7 +215,8 @@ def code_frame(x, ref, Q, st=None, xprev=None):
+         out.append(y); sy.append(((min(pl, 1), mode), SY, AC))
+     return sy, out
+ if os.environ.get('LOO') == '1': TRAIN = [c for c in TRAIN if c[0] != TEST]   # leave-one-out when fitting on a training clip
+-tpath = os.path.join(OUT, 'tables_%s%s.pkl' % (ARM, '_loo_' + TEST if os.environ.get('LOO') == '1' else ''))
++RTAG = ''.join('_%s%s' % (k, os.environ[k]) for k in ('RHO', 'RHOK') if os.environ.get(k))   # tables depend on the rounding constants
++tpath = os.path.join(OUT, 'tables_%s%s%s.pkl' % (ARM, RTAG, '_loo_' + TEST if os.environ.get('LOO') == '1' else ''))
+ if os.path.exists(tpath): TABS = pickle.load(open(tpath, 'rb'))
+ elif S16:   # pooled over every other quarter-octave step of the owner range, sequences coded with the arm's state
+     TABS = {}
+@@ -371,7 +372,7 @@ for R in RATES:
+             CAUGHT[0] = ((CAUGHT[0] if CAUGHT[0] is not None else np.zeros(stl.shape, bool)) | cu) & stl   # caught until the source moves
+             if not RG: cuinfo.append(int(cu.sum()))
+         QPREV[0] = Q; ref = y; rec.append(y); info.append((Q, b / (W * H))); spl.append(split(sy, Q))
+-    fn = os.path.join(OUT, '%s_%s_%.1f.yuv' % (TEST, ARM, R))
++    fn = os.path.join(OUT, '%s_%s%s_%.1f.yuv' % (TEST, ARM, RTAG, R))
+     with open(fn, 'wb') as fo:
+         for fr in rec:
+             for p in fr: p.astype('<u2').tofile(fo)
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/out/q_vis.sh b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_vis.sh
+new file mode 100644
+index 0000000..71539d0
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_vis.sh
+@@ -0,0 +1,14 @@
++#!/bin/bash
++# G78: owner visual checks (smudge groups, lines, grid phase, seams) on the current full candidate vs today, all owner
++# footage, all 7 rates, every frame. Candidate = still rule gn3 qn3 + leaf rho 0.42 + kept rounding 0.5.
++cd /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design
++A=/home/user/fromscratch/OMC_CLOUD/Project/.work/arms; T=/home/user/fromscratch/OMC_CLOUD/scratch/today
++ARM=cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_chp_s16; O=out/rcl_cbr; mkdir -p out/vis
++for c in cine_A005C031 gfx444_B001C001 prores_sample cine_4k_A006 cine_A005C021 gfx444_F003C012; do
++  case $c in cine_4k_A006|cine_A005C021) nf=2; loo=1;; gfx444_F003C012) nf=3; loo=1;; *) nf=3; loo=0;; esac
++  LOO=$loo KEEPYUV=1 RHO=0.42 RHOK=0.5 NF=$nf python3 bench/rcl_cbr.py $c $ARM > out/vis/run_$c.log 2>&1
++  for r in 0.5 1.0 1.5 2.0 2.5 3.0 4.0; do
++    python3 tools/visual_check.py $A/${c}_1280x720_422_10.yuv $O/${c}_${ARM}_RHO0.42_RHOK0.5_$r.yuv $T/${c}_1280x720_b$r.d.yuv $nf > out/vis/${c}_$r.txt 2>&1
++  done
++  rm -f $O/${c}_${ARM}_RHO0.42_RHOK0.5_*.yuv
++done
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/visual_check.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/visual_check.py
+new file mode 100644
+index 0000000..bf3fc93
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/visual_check.py
+@@ -0,0 +1,45 @@
++#!/usr/bin/env python3
++# visual_check.py SRC DEC TODAY NF [W H] : per plane and frame, ours vs today (both against the source)
++#   smudge  : owner smudgegroups (thr 6, dens 0.4) group count
++#   lines   : rows / columns whose mean |error| exceeds 1.5x the median of the 17 rows / columns around them
++#             (count, and the worst ratio); content lines hit both codecs, so compare against today
++#   phase   : max/min mean |error| over sample phase (row mod 4, column mod 32 = the kept-grid period of the
++#             pyramid: 2 two-D levels + 3 horizontal levels); 1.00 = no grid pattern
++#   seams   : mean |signed error step| between neighbours ACROSS a B-px boundary / elsewhere, B = 8, 16, 32
++#             (1.00 = no seam; the still/grain decisions are per 16x16 luma / 8x16 chroma block)
++import sys, re, subprocess, numpy as np
++src, dec, tdy, NF = sys.argv[1], sys.argv[2], sys.argv[3], int(sys.argv[4])
++W, H = (int(sys.argv[5]), int(sys.argv[6])) if len(sys.argv) > 6 else (1280, 720)
++TOOLS = '/home/user/fromscratch/OMC_CLOUD/Project/Subagents/shared_tools/'
++TMP = '/tmp/claude-0/-home-user-fromscratch/ca3365f6-68f7-5957-a3a2-a3df5f0ee7ba/scratchpad/vc'
++def rd(fn, f):
++    n = W * H * 2; a = np.fromfile(fn, '<u2', n, offset=f * n * 2).astype(float)
++    return [a[:W * H].reshape(H, W), a[W * H:W * H * 3 // 2].reshape(H, W // 2), a[W * H * 3 // 2:].reshape(H, W // 2)]
++def lines(e):
++    out = []
++    for prof in (e.mean(1), e.mean(0)):
++        pad = np.pad(prof, 8, mode='reflect'); med = np.array([np.median(pad[i:i + 17]) for i in range(prof.size)])
++        r = prof / np.maximum(med, 0.05); out += [int((r > 1.5).sum()), float(r.max())]
++    return out   # rows>1.5, worst row, cols>1.5, worst col
++def phase(e, px):
++    pr = [e[k::4].mean() for k in range(4)]; pc = [e[:, k::px].mean() for k in range(px)]
++    return max(pr) / max(min(pr), 1e-3), max(pc) / max(min(pc), 1e-3)
++def seams(s, B):
++    dx = np.abs(np.diff(s, axis=1)); dy = np.abs(np.diff(s, axis=0))
++    bx = (np.arange(1, s.shape[1]) % B) == 0; by = (np.arange(1, s.shape[0]) % B) == 0
++    return dx[:, bx].mean() / max(dx[:, ~bx].mean(), 1e-3), dy[by].mean() / max(dy[~by].mean(), 1e-3)
++def smudge(fn, f):
++    o = subprocess.run(['python3', TOOLS + 'smudgegroups.py', src, fn, str(W), str(H), str(f), TMP, '--thr', '6', '--dens', '0.4'],
++                       capture_output=True, text=True).stdout
++    return {m.group(1): int(m.group(2)) for m in re.finditer(r'^(Y|Cb|Cr): (\d+) groups', o, re.M)}
++for f in range(NF):
++    x, o, t = rd(src, f), rd(dec, f), rd(tdy, f); so, st = smudge(dec, f), smudge(tdy, f)
++    for k, nm in enumerate(('Y', 'Cb', 'Cr')):
++        px = 32 if k == 0 else 16
++        row = []
++        for d in (o, t):
++            s = d[k] - x[k]; e = np.abs(s); L = lines(e); P = phase(e, px)
++            S = [seams(s, B) for B in ((8, 16, 32) if k == 0 else (4, 8, 16))]
++            row.append('lines r%d/%.2f c%d/%.2f phase %.2f/%.2f seams %s' % (L[0], L[1], L[2], L[3], P[0], P[1],
++                       ' '.join('%.2f/%.2f' % v for v in S)))
++        print('f%d %-2s smudge %d|%d  OURS %s  || TODAY %s' % (f, nm, so.get(nm, -1), st.get(nm, -1), row[0], row[1]), flush=True)
+=== commit 2653293 12:17 SA20: overlapped MC (ob) and continuous parameter fields (sm) arms; G79 seam-cause queue
+
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+index 791c0ea..1d772ef 100644
+--- a/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/bench/rcl_cbr.py
+@@ -70,6 +70,7 @@ EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byt
+ XLC = [None]
+ GN = float([t[2:] for t in TOK if t.startswith('gn')][0]) if any(t.startswith('gn') for t in TOK) else 0.0   # GF noise floor k sigma-hat (k+1 on the kept grid), G71a
+ QN = float([t[2:] for t in TOK if t.startswith('qn')][0]) if any(t.startswith('qn') for t in TOK) else 0.0   # frame-step floor c x median luma sigma-hat (no quantising below the noise)
++OB = 'ob' in TOK; SM = 'sm' in TOK   # G78 seams: overlapped MC; continuous per-sample parameter fields
+ SN = 'sn' in TOK; SNM = 'snm' in TOK   # sigma-hat from the current source's spatial Laplacian (Immerkaer), per luma band, not the frame difference
+ RM = float([t[2:] for t in TOK if t.startswith('rm')][0]) if any(t.startswith('rm') for t in TOK) else 1.0   # refine only if the finer step fits RM x budget
+ S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
+@@ -179,14 +180,39 @@ def apply_c(ref, V):   # chroma prediction at the exact half-sample position for
+             P[by:by + h, bx:bx + w] = a if r == 0 else (a + pad[by + R_ + 1 + dy:by + R_ + 1 + dy + h, bx + R_ + 2 + q:bx + R_ + 2 + q + w] + 1) >> 1
+     return P
+ def expand(b, shp, bw):   # per-block map (16 rows x bw cols) -> per-sample map
++    if SM and b.dtype != bool: return smooth_field(b.astype(float), shp, bw)
+     return np.repeat(np.repeat(b, 16, 0), bw, 1)[:shp[0], :shp[1]]
++def smooth_field(b, shp, bw):   # _sm: bilinear between block centres = a continuous per-sample field (owner: no block-keyed steps)
++    def w(n, B, nb):
++        c = (np.arange(n) + 0.5) / B - 0.5; i0 = np.clip(np.floor(c).astype(int), 0, nb - 1); i1 = np.clip(i0 + 1, 0, nb - 1)
++        f = np.clip(c - np.floor(c), 0, 1); f = np.where(c < 0, 0.0, np.where(c > nb - 1, 0.0, f)); return i0, i1, f
++    r0, r1, fr = w(shp[0], 16, b.shape[0]); c0, c1, fc = w(shp[1], bw, b.shape[1])
++    top = b[r0][:, c0] * (1 - fc) + b[r0][:, c1] * fc; bot = b[r1][:, c0] * (1 - fc) + b[r1][:, c1] * fc
++    return top * (1 - fr[:, None]) + bot * fr[:, None]
++OBW = np.sin(np.pi * (np.arange(32) + 0.5) / 32) ** 2   # raised-cosine window, hop 16: w(n) + w(n + 16) = 1
++def apply_ob(ref, V, bw, chroma):   # _ob: overlapped block MC, each vector weighted over a 2x window; continuous at block edges
++    Hh, Ww = ref.shape; R_ = 24; pad = np.pad(ref.astype(float), R_, mode='edge')
++    acc = np.zeros((Hh + 32, Ww + 2 * bw)); wsum = np.zeros_like(acc)   # acc offset: 16 rows, bw cols
++    wx = np.sin(np.pi * (np.arange(2 * bw) + 0.5) / (2 * bw)) ** 2; W2 = OBW[:, None] * wx[None, :]
++    for i in range(V.shape[0]):
++        for j in range(V.shape[1]):
++            y0, x0 = i * 16 - 8, j * bw - bw // 2          # window origin in frame coordinates
++            if i * 16 >= Hh or j * bw >= Ww: continue
++            dy, dx = int(V[i, j][0]), int(V[i, j][1])
++            if chroma:
++                q, r = divmod(dx, 2); a_ = pad[y0 + R_ + dy:y0 + R_ + dy + 32, x0 + R_ + q:x0 + R_ + q + 2 * bw]
++                if r: a_ = (a_ + pad[y0 + R_ + dy:y0 + R_ + dy + 32, x0 + R_ + q + 1:x0 + R_ + q + 1 + 2 * bw]) / 2
++            else: a_ = pad[y0 + R_ + dy:y0 + R_ + dy + 32, x0 + R_ + dx:x0 + R_ + dx + 2 * bw]
++            acc[y0 + 16:y0 + 48, x0 + bw:x0 + 3 * bw] += a_ * W2; wsum[y0 + 16:y0 + 48, x0 + bw:x0 + 3 * bw] += W2
++    return np.round(acc[16:16 + Hh, bw:bw + Ww] / wsum[16:16 + Hh, bw:bw + Ww]).astype(ref.dtype)
+ def code_frame(x, ref, Q, st=None, xprev=None):
+     """x = source planes, ref = previous reconstruction (None = intra). returns [(key0, SY)], recon"""
+     if ref is None: Ps = [np.zeros_like(p) for p in x]; mode = 'intra'
+     else:
+         V = motion(x[0], ref[0], Z=ZB)
+         if SG and xprev is not None: V[:still_blocks(x, xprev).shape[0], :still_blocks(x, xprev).shape[1]][still_blocks(x, xprev)] = 0   # source-still block -> zero vector (encoder)
+-        Ps = [apply(ref[0], V, 16, 1)] + ([apply_c(ref[1], V), apply_c(ref[2], V)] if CHP else [apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]); mode = 'inter'
++        if OB: Ps = [apply_ob(ref[0], V, 16, False), apply_ob(ref[1], V, 8, True), apply_ob(ref[2], V, 8, True)]; mode = 'inter'
++        else: Ps = [apply(ref[0], V, 16, 1)] + ([apply_c(ref[1], V), apply_c(ref[2], V)] if CHP else [apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]); mode = 'inter'
+     out = []; sy = []
+     for pl, (p, P) in enumerate(zip(x, Ps)):
+         SY = []; AC = []; Yd = None
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/out/q_seam.sh b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_seam.sh
+new file mode 100644
+index 0000000..d8d156c
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/out/q_seam.sh
+@@ -0,0 +1,13 @@
++#!/bin/bash
++# G79: seam cause, cine_A005C031 (3 frames) at 0.5/1.0/2.0: base candidate vs +ob (overlapped MC) vs +sm (continuous
++# per-sample parameter fields) vs both; visual_check against today.
++cd /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design
++A=/home/user/fromscratch/OMC_CLOUD/Project/.work/arms; T=/home/user/fromscratch/OMC_CLOUD/scratch/today; O=out/rcl_cbr; c=cine_A005C031
++for ext in ob sm ob_sm; do
++  ARM=cm1_zb2_hy0.75_rs_ramp1_sl_gn3_qn3_${ext}_chp_s16
++  KEEPYUV=1 RHO=0.42 RHOK=0.5 NF=3 RATES=0.5,1.0,2.0 python3 bench/rcl_cbr.py $c $ARM > out/vis/seam_${ext}.log 2>&1
++  for r in 0.5 1.0 2.0; do
++    python3 tools/visual_check.py $A/${c}_1280x720_422_10.yuv $O/${c}_${ARM}_RHO0.42_RHOK0.5_$r.yuv $T/${c}_1280x720_b$r.d.yuv 3 > out/vis/seam_${ext}_$r.txt 2>&1
++  done
++  rm -f $O/${c}_${ARM}_RHO0.42_RHOK0.5_*.yuv
++done
+=== commit 70dae49 12:18 SA20: G78a grid pattern and seam findings, phase profile tool
+
+diff --git a/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_phase.py b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_phase.py
+new file mode 100644
+index 0000000..ffb0760
+--- /dev/null
++++ b/OMC_CLOUD/Project/Subagents/SA20_design/tools/diag_phase.py
+@@ -0,0 +1,17 @@
++# diag_phase.py CLIP Q R : intra frame 0 with bench/n4_core.po at step Q (env RHO/RHOK/F), mean |error| by column mod 32
++# (luma) / mod 16 (chroma) and by row mod 4, ours vs today's frame 0 at rate R. Normalised to each codec's own mean.
++import sys, os, numpy as np
++sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'bench'))
++from d1_screen import read
++from n4_core import po
++W, H = 1280, 720; ROOT = '/home/user/fromscratch/OMC_CLOUD/'
++c, Q, R = sys.argv[1], float(sys.argv[2]), sys.argv[3]; F = float(os.environ.get('F', '0.7'))
++x = read(ROOT + 'Project/.work/arms/%s_1280x720_422_10.yuv' % c, W, H, 0)
++t = read(ROOT + 'scratch/today/%s_1280x720_b%s.d.yuv' % (c, R), W, H, 0)
++o = [po(p, Q, F, 0, [])[1] for p in x]
++for k, nm in enumerate(('Y', 'Cb', 'Cr')):
++    px = 32 if k == 0 else 16
++    for lab, d in (('ours ', o), ('today', t)):
++        e = np.abs(d[k].astype(float) - x[k]); m = e.mean()
++        print('%s %s col%%%d %s | row%%4 %s' % (nm, lab, px, ' '.join('%.2f' % (e[:, j::px].mean() / m) for j in range(px)),
++              ' '.join('%.2f' % (e[j::4].mean() / m) for j in range(4))))
