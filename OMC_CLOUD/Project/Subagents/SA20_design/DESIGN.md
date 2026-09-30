@@ -36,3 +36,23 @@ Own check of SA19 §L3 (PAPER):
   samples away; a plain clip there breaks exactness because the clipped leaf cannot be re-read); (b) averages
   carried by state both ends share (the reference on inter frames); (c) overcomplete layers with an exact re-read.
   These are the open routes; the averaging pyramid with a re-read pair mean is closed.
+
+## §E Escape routes of the never-away dichotomy (SA20P/SA20Q: an averaged coarse band survives a per-sample clip
+## only if (1) the average is taken of state both ends share, or (2) redundancy gives the re-read slack)
+- E1 D1 "slack-read Laplacian" (SA20Q; route 2): coarse ĉ = Δc·k at quarter resolution, k coded LOSSLESSLY by an
+  integer 5/3 (bijective re-read), out = clip(up(ĉ) + Δr·q) per sample. PROXY screen (bench/d1_screen.py; intra
+  frame 0, 720p, zeroth-order entropy + 1-bit context, read-slack steering IGNORED = optimistic), vs an integer 5/3
+  transform coder at matched rate, dB Y/Cb/Cr @0.25/0.5/1.0:
+  cine Δc/Δr = 4: -0.98/-6.43/-6.14, -4.27/-8.90/-8.18, -7.92/-10.96/-9.97; 2: -1.4..-11.4; 1.25: -0.7..-10.5;
+  0.5: -1.02/-4.96/-4.74, -3.45/-6.64/-5.68, -2.37/-2.84/-1.73; 0.25 (not exact: needs steering): +1.07/+0.43/+0.71,
+  -2.22/-2.05/-1.32, -3.30/-0.61/-0.13. gfx: every arm -0.2..-12.6 dB at 0.5 (best 0.25: -5.44/-2.03/-4.06).
+  prores like cine. -> KILLED (SA20P's bit-floor argument confirmed: a lossless coarse layer cannot dead-zone).
+- E2 D-P "update from the prediction" (SA20P; route 1) = predict-only coding of e = x - P, per-sample clip.
+  PROXY screen (bench/dp_screen.py + dp_score.py): 3 frames, f0 intra (P = 0), f1-2 inter, same 16x16 block motion
+  for both arms, D-P given the best of three level ladders; frame-2 NEG and PSNR, D-P minus averaging 5/3:
+  cine @0.25 -4.01 NEG (-2.81/-3.04/-3.07), @0.5 -0.98 (-1.81/-1.46/-1.90), @1.0 -0.24 (-1.52/-0.84/-1.19);
+  gfx -1.62 (-2.90/-2.12/-1.69), -0.30 (-1.32/-1.33/-0.85), +0.15 (-0.46/-0.39/+0.04);
+  prores -3.74 (-2.91/-3.26/-3.25), -0.94 (-1.84/-1.26/-1.68), +0.05 (-1.01/-0.88/-1.26).
+  Pre-agreed kill (> 0.1 NEG below AVG) -> DEAD at 0.25/0.5. Unmeasurable here: poor-P regions, heal quality.
+- Today (v537 real) frame-2 NEG, PSNR Y/Cb/Cr @0.3: cine 90.70, 44.15/51.81/50.55; gfx 93.24; prores 90.65
+  (0.3 bpp is today's encoder floor at 720p).
