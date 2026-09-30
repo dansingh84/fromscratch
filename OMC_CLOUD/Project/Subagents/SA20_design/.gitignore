@@ -6,3 +6,6 @@ out/rcl_tab/*.log
 out/q_*.out
 out/rcl_s16/*.log
 out/rcl_s16/*.txt
+out/rcl_s16/
+out/rcl_ctx/
+out/rcl_tab/
