@@ -680,3 +680,14 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - owner smudgegroups per frame: ours cut24 Y1 Cb1 Cr1 (5 of 6 frames; Y0 on one), ext10 Y2-3; TODAY cut24 Y1 Cb1 Cr1
     every frame, ext10 Y2-5 -> no worse than today; the groups appear in both codecs on these synthetic extremes.
     Renders (src/ours/today f0) in out/rail/*.png for the eye.
+- G68 split rule (_eh) + slew results (split_*, gf3_*):
+  - byte-identical frozen10: ONE catch-up in f2 then 0.00 % changes (@0.5 and @2.0) -> PASS (the ramp frames change,
+    as allowed).
+  - noisy frozen sigma 2: FAIL. The split arm's step still alternates 22.6/5.66: MY BUG, the region plan's fallback
+    search bypasses the slew limit. Pure GF + slew (gf3, no region plan) has no alternation but Y ants 3.7-4.8 % vs
+    source 2.2 % = flicker amplification (SA20P's second root) -> needs the noise-floor term.
+  - noisy pan: ants 15-16 % vs source 13.4 % (above the source).
+  - gfx: 96.26 / 96.68 (today 96.50 / 96.88).
+  - cine C031: 91.74 / 96.22 (today f2 94.20 / 96.11).
+  Owner record (G67 context): per-region steps must be continuous fields -> the region plan's per-region catch-up step
+  is dropped; the next still rule = exact hold (catch-up at the FRAME step) + GF + asymmetric slew + noise floor.
