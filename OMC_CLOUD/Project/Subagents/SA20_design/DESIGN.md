@@ -300,3 +300,9 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - renders before/after;
   - mean |delta| <= source temporal noise in moving areas;
   - worst-case wait.
+- G29 frozen10 with _ng_cu0: ONE catch-up of the whole frame in frame 1 (all 3600 blocks; @1.0 74 % of samples,
+  Y 49.41 -> 52.33, NEG 93.70 -> 95.07; @0.5 45.45 -> 47.23, NEG 90.00 -> 92.58), then 0.00 % on all 8 later
+  transitions. This is the pre-registered pattern.
+  Noisy frozen sigma 2 FAILED: 83 % changes per frame, although 98 % of blocks were labelled still. My bug: the 2 sigma
+  floor was put inside KQ, which is scaled by 0.7^level, so the coarse levels had ~0.17 x 2 sigma. Predict-only levels
+  keep RAW samples with full noise, so the floor must be additive at every level. Fixed; re-queued.

@@ -120,10 +120,10 @@ def code_frame(x, ref, Q, st=None, xprev=None):
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
             if SG and xprev is not None:
                 stl_ = still_blocks(x, xprev); KQ = KQ * expand(stl_.astype(float), p.shape, bw)
-                if NG: KQ = np.where(KQ > 0, np.maximum(KQ, 2 * expand(SIG[0], p.shape, bw)), 0)
+                NF_ = (2 * expand(SIG[0], p.shape, bw) if NG else 0.0) + RS_   # additive floor at EVERY level (raw samples carry full noise)
                 cm_ = cu_mask(st, Q, stl_)
                 if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)
-            HT = (KQ, expand(st[pl][1], p.shape, bw), RS_)
+            HT = (KQ, expand(st[pl][1], p.shape, bw), NF_ if (SG and xprev is not None) else RS_)
         y = po(p, Q * (cm if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC)[1]
         out.append(y); sy.append(((min(pl, 1), mode), SY, AC))
     return sy, out
