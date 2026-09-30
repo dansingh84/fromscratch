@@ -31,3 +31,7 @@ Rails: synthetic rail extremes bundled (cut24, ext_*) are used unchanged.
 | id | item | result |
 |---|---|---|
 | E0 | pipeline check: v537 prores_sample 720p @0.5, 3 frames | NEG 92.238 (all 3 frames); 172,832 bytes = 0.500 bpp |
+
+## 2b. Owner note (2026-09-30): 3 frames are too few for the codec to build up to its steady quality
+Absolute figures on these clips sit below what the codec reaches on long clips. Use them only as RELATIVE
+comparisons (candidate vs today on the same 3 frames, same rate); never quote them as steady-state quality.
