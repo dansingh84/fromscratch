@@ -240,3 +240,13 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   carry little; the step-normalised ACTIVITY from final coarser samples carries the gain. It is plan-dependent
   (SA20P condition): lane costing must use an ESTIMATE (activity from source coarse samples) plus a fixed reserve;
   measuring the emitted-minus-estimate distribution next (rcl_s16 est mode).
+- G22 (SA20P accepts) the activity term is admissible: it adds no dependence class (every q already depends on the
+  plan in the closed loop), it is deterministic from finals at both ends, and gen 2 gets the same bits. SA16 bug 4
+  (estimate/emission context mismatch, clamp-dependent at gen 2) does not apply.
+  CBR by construction:
+  (a) lane choice from the estimate (source activity + reserve);
+  (b) ONE predetermined re-choice when the emitted slice exceeds its budget: re-code at a plan whose worst-case bound
+      (max code length over activity classes per symbol) fits, with the coarsest plan proven to fit any content;
+  (c) report how often (b) fires per owner rate, including cut frames: often means the reserve is too small, never
+      means it is too big.
+  The estimate distribution also runs on gfx and a rail clip.
