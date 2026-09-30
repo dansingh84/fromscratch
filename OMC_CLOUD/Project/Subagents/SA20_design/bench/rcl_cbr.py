@@ -64,14 +64,29 @@ def cost16(SY, AC, mode, tab):
 def fcost(sy, Q):   # frame cost of [(key0, SY, AC)]
     if S16: return sum(cost16(SY, AC, key0[1], TABS) for key0, SY, AC in sy)
     return sum(cost(SY, key0, TABS[Q]) for key0, SY, AC in sy)
+NG = 'ng' in TOK   # noise-aware still gate (SA20Q/SA20P): noise level per luma bucket from the lowest-motion blocks
+SIG = [None]
+def noise_gate(x, xprev):
+    NBY, NBX = (H + 15) // 16, (W + 15) // 16; hh, ww = NBY * 16, NBX * 16
+    d = np.zeros((hh, ww)); d[:H, :W] = x[0] - xprev[0]; lum = np.zeros((hh, ww)); lum[:H, :W] = x[0]
+    D = d.reshape(NBY, 16, NBX, 16); mad = np.abs(D).mean(axis=(1, 3)); md = D.mean(axis=(1, 3))
+    lb = np.minimum((lum.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) / 128).astype(int), 7)
+    n = np.zeros(8)
+    for b in range(8):
+        v = mad[lb == b]; n[b] = np.percentile(v, 20) if v.size >= 8 else np.percentile(mad, 20)
+    nb = np.maximum(n[lb], 0.5)          # mean |d| of pure noise = sigma sqrt2 sqrt(2/pi) ~ 1.13 sigma
+    still = (mad <= 1.5 * nb) & (np.abs(md) <= 3 * nb / 16)
+    SIG[0] = nb / 1.13                   # per-block sigma estimate
+    return still
 def still_blocks(x, xprev):   # encoder-only: block still = >= 95 % of its luma samples within 2 codes of the previous source
+    if NG: return noise_gate(x, xprev)
     NBY, NBX = (H + 15) // 16, (W + 15) // 16; d = np.abs(x[0] - xprev[0]) <= 2
     pad = np.ones((NBY * 16, NBX * 16), bool); pad[:H, :W] = d
     return pad.reshape(NBY, 16, NBX, 16).mean(axis=(1, 3)) >= 0.95
 def cu_mask(st, Q, stl):
     if not CU or st is None or stl is None: return None
     if CAUGHT[0] is None: CAUGHT[0] = np.zeros(stl.shape, bool)
-    return stl & ~CAUGHT[0] & (Q <= st[0][0] * 2 ** -CUO * 1.001)
+    return stl & ~CAUGHT[0] & ((Q < st[0][0] / 1.001) if CUO == 0 else (Q <= st[0][0] * 2 ** -CUO * 1.001))
 def upd(st, y, ref, Q, stl=None, cu=None):   # encoder state per block: step and ladder of the last write
     # a block's last-write step moves to the current step only if its SOURCE changed (or it was written without a
     # still map); on source-still blocks it is kept (only an explicit catch-up may lower it) -- a partial write of a
@@ -92,7 +107,9 @@ def code_frame(x, ref, Q, st=None, xprev=None):
     """x = source planes, ref = previous reconstruction (None = intra). returns [(key0, SY)], recon"""
     if ref is None: Ps = [np.zeros_like(p) for p in x]; mode = 'intra'
     else:
-        V = motion(x[0], ref[0], Z=ZB); Ps = [apply(ref[0], V, 16, 1), apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]; mode = 'inter'
+        V = motion(x[0], ref[0], Z=ZB)
+        if SG and xprev is not None: V[:still_blocks(x, xprev).shape[0], :still_blocks(x, xprev).shape[1]][still_blocks(x, xprev)] = 0   # source-still block -> zero vector (encoder)
+        Ps = [apply(ref[0], V, 16, 1), apply(ref[1], V, 16, 2), apply(ref[2], V, 16, 2)]; mode = 'inter'
     out = []; sy = []
     for pl, (p, P) in enumerate(zip(x, Ps)):
         SY = []; AC = []; Yd = None
@@ -103,6 +120,7 @@ def code_frame(x, ref, Q, st=None, xprev=None):
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
             if SG and xprev is not None:
                 stl_ = still_blocks(x, xprev); KQ = KQ * expand(stl_.astype(float), p.shape, bw)
+                if NG: KQ = np.where(KQ > 0, np.maximum(KQ, 2 * expand(SIG[0], p.shape, bw)), 0)
                 cm_ = cu_mask(st, Q, stl_)
                 if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)
             HT = (KQ, expand(st[pl][1], p.shape, bw), RS_)
@@ -180,6 +198,8 @@ for R in RATES:
     ch = []
     for t in range(1, NF):
         ch.append('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k])[np.abs(X[t][k] - X[t-1][k]) <= 2].mean()) for k in range(3)))
+    print('   changed share ALL samples Y/Cb/Cr per transition ' + ' '.join('/'.join('%.2f%%' % (100 * (rec[t][k] != rec[t-1][k]).mean()) for k in range(3)) for t in range(1, NF))
+          + ((' | still-labelled blocks ' + '/'.join('%.0f%%' % (100 * still_blocks(X[t], X[t - 1]).mean()) for t in range(1, NF))) if SG else ''), flush=True)
     if CU: print('   catch-up blocks per inter frame ' + '/'.join(map(str, cuinfo)), flush=True)
     print('   churn still Y/Cb/Cr per transition ' + ' '.join(ch) + ' | Y PSNR per frame ' + '/'.join('%.2f' % psnr(rec[t][0], X[t][0]) for t in range(NF)), flush=True)
     print('   bits/level (bpp, level 5 = kept DPCM) ' + ' ; '.join(

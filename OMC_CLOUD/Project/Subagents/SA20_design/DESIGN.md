@@ -283,3 +283,20 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   still region an octave finer costs more than one frame's budget, so the plan search stops just above the threshold
   (Q 19 vs threshold 16 @0.5, 9.5 vs 8 @1.0). The control's natural single step was ~0.75 octave. Testing thresholds
   of 0.5 and 0.25 octave (_cu0.5, _cu0.25); the caught flag keeps it to ONE catch-up per still episode.
+- G28 the residual 0.11/0.02 % on frozen10 @0.5 is NAMED: all 972 changed luma samples lie in the 4 blocks where the
+  motion search still picks a nonzero vector (right frame edge, edge padding); none are at the rails. Fix (encoder):
+  a source-still block gets the zero vector.
+  SA20Q/SA20P: the 2-code gate will not fire on real grain (noise 1.5-3 codes -> frame differences 2-4 codes).
+  Noise-aware gate (_ng):
+  - noise per luma bucket (8 buckets) = 20th percentile of block mean |d| among that bucket's blocks;
+  - a block is still if mean |d| <= 1.5 x noise and |mean d| <= 3 x noise / 16;
+  - hysteresis threshold >= 2 sigma-hat.
+  Catch-up sized by the budget (_cu0: any finer step the frame funds, once per episode; SA20P).
+  Clips (10 frames): frozen10, noisy frozen sigma 1/2/3, pan 0.5 and noisy pan 0.5 sigma 2; 0.5/1.0/2.5/4.0.
+  Snap checks pre-registered (SA20Q, S5.390 list):
+  - share, mean and max |delta| per plane;
+  - <= 1 change per sample per episode;
+  - uniform |delta| map, smudgegroups/artifactmap;
+  - renders before/after;
+  - mean |delta| <= source temporal noise in moving areas;
+  - worst-case wait.
