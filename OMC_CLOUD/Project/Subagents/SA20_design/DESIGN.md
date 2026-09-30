@@ -26,7 +26,8 @@ Current state (2026-09-30, §H): the pyramid engine below FAILS the owner's arti
 - Live route G-b (H10, H11): the same per-sample process in every frame. Intra = T1 (only in the ramp frames and
   heals); inter = motion-compensated reference P from a per-sample motion field (no block edges) plus a per-sample
   leaf, final = clip(P + leaf). Pre-registered: frame 2 after a cut vs today on all clips, a heal test, H0 on
-  inter frames. Running.
+  inter frames. First clip (H12): frame 2 -6.16 NEG vs today at 0.5, -1.43 at 1.0; the inter step does not refine
+  and a quarter of the budget goes unspent. Running on the other test clips.
 - Still/grain rule (G60-G77): built on block state; must be rebuilt per sample under §H before it counts.
 - Legality record that carries over: per-sample never-away form, 0 out-of-range, rail behaviour (G67, G72).
 - Not yet run for T2: inter (motion without any partition), CBR, 10-generation chains, the full H0 gate, renders.
@@ -856,7 +857,7 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - grid pattern (error by row mod 4 / column mod 32 or 16): ours <= today + 0.03;
   - seams (error step across 8/16/32-px luma, 4/8/16 chroma boundaries vs elsewhere): ours <= today + 0.03.
   Any failure is fixed at its cause before any other lever. Every earlier "pass" in this log is provisional until then.
-- G78a first clip (cine_A005C031, 3 frames, 7 rates; out/vis/): smudge 0 everywhere (today 0); isolated lines 0
+- G78a first clip (cine_A005C031, 3 frames, 7 rates; queues/q_vis.sh + tools/visual_check.py): smudge 0 everywhere (today 0); isolated lines 0
   everywhere (today: 1-6 rows at 1.0-2.0 in f2, 20-40 rows up to 17x at 4.0 in all planes).
   FAIL 1, grid pattern: column-phase max/min ours 1.30-1.40 at 0.5/1.0 in every plane vs today 1.13-1.27.
     Profile (tools/diag_phase.py, intra f0 @1.0, mean |error| by column mod 32 / own mean): ours Y
@@ -899,8 +900,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   state blocks 64x8 / 16x16 (hold, hysteresis, catch-up, noise floor), per-slice steps, luma-band thresholds,
   4:2:2 chroma lattice, diagonal phase. Each must go or be derived per sample by one rule.
 - H4 (G80) T1 screen: causal single-level scan, MED predictor (x<->y symmetric), one quantiser everywhere, 16 static
-  classes trained on the training clips' frame 0 (t1/t1core.c, t1/t1_intra.py). Intra f0, NEG vs the private-leaf
-  pyramid (PO, rho 0.42 + kept rounding 0.5, from out/vis/run_*.log f0) at the same rate, best of the chroma-step
+  classes trained on the training clips' frame 0 (bench/t1/t1core.c, bench/t1/t1_intra.py). Intra f0, NEG vs the private-leaf
+  pyramid (PO, rho 0.42 + kept rounding 0.5, frame 0 of the queues/q_vis.sh runs) at the same rate, best of the chroma-step
   (CM 0.5-1.4) x dead-zone (rho 0.2-0.42) screen per cell:
   | clip             | 0.5: T1 / PO / today     | 1.0: T1 / PO / today     |
   | cine_A005C031    | 88.52 / 91.54 / 89.82    | 92.82 / 94.28 / 93.88    |
@@ -926,7 +927,7 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   per-sample residual, is the DOL family (Burt-Adelson Laplacian; SA18P), killed on generation-2 exactness: only the
   picture crosses a hop, so generation 2 must re-derive the auxiliary from the decoded picture and gets different
   indices (5-40 % re-read mismatch, dng720 / hwy); the slack rescue (D1) died on its bit margin. T2's partial
-  efficiency screen (out/t2/, D4 KA0.5 alpha0.5: NEG vs pyramid -0.71/-0.20, -0.01/-0.42, +0.24/+0.11 on
+  efficiency screen (queues/q_t2.sh, D4 KA0.5 alpha0.5: NEG vs pyramid -0.71/-0.20, -0.01/-0.42, +0.24/+0.11 on
   C031/B001/prores at 0.5/1.0) does not matter under that kill. T3 (U-only prediction, least-squares auxiliary,
   continuous rate solve) shares the auxiliary, so it is withdrawn too. The patches inside T2 (alpha decay, finer
   step list, chroma multiplier, block-mean auxiliary) go with it.
@@ -963,8 +964,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   16-px area centres, bilinear between them; its node pitch is a period to test). Pre-registered: frame 2 after a
   cut vs today on all clips at 0.5-4.0 (kill: more than 0.5 NEG below the pyramid; pass: >= today), a heal test
   (slice lost at N, healed at N + RT + 1: local NEG / PSNR vs today + render), H0 on inter frames.
-  Script: t1/t1_seq.py (env ALPHA 1 = MED on the residual, 0 = P only; RHO; CM).
-- H11 G-b first cell and the inter predictor (t1/t1_seq.py, t1/diag_pred.py, t1/diag_inter.py; cine_A005C031):
+  Script: bench/t1/t1_seq.py (env ALPHA 1 = MED on the residual, 0 = P only; RHO; CM).
+- H11 G-b first cell and the inter predictor (bench/t1/t1_seq.py, bench/t1/diag_pred.py, bench/t1/diag_inter.py; cine_A005C031):
   - motion model: per-sample bilinear field predicts as well as 16x16 block MC (mean |x1 - P| from the source
     frame 0: 3.49 vs 3.52; zero motion 8.14). B001 1.51/1.51, prores 3.49/3.46.
   - alpha = 1 (MED on neighbours' residuals): frame 2 @1.0 NEG 92.57 vs today 96.11 (-3.53), Y PSNR 41.97 vs 49.34.
@@ -973,3 +974,10 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
     fire. That is the streak mechanism itself; spatial prediction in inter frames is dropped.
   - alpha = 0 (prediction = P only, no spatial chain, no scan direction): luma 1.0 % nonzero leaves, 0.069 bits per
     sample at step 17.45. Full run on the 3 test clips at 0.5/1.0/2.0 in progress.
+- H12 G-b interim (queues/q_gb.sh, alpha = 0: inter prediction = the motion-compensated reference only), cine_A005C031,
+  per-frame NEG (today in brackets):
+  @0.5 85.30/87.35/88.04 (89.82/92.82/94.20): frame 2 -6.16, Y PSNR 41.24.. vs 46.38
+  @1.0 92.33/94.61/94.67 (93.88/96.11/96.11): frame 2 -1.43, Y PSNR 46.91 vs 49.34
+  Frame 2 is above the pyramid's frame 2 at 1.0 (92.35, which carries the old hold rule) but far below today: the
+  inter step stays at the intra step (16.00 at 1.0) while frame 2 spends only 0.749 of 1.0 bpp, so frame 0's coding
+  error (below the dead zone at that step) is never corrected. Remaining clips running.

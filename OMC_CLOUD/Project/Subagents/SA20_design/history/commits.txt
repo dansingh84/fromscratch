@@ -127,3 +127,4 @@ ec28a25 12:32 SA20: H9 ladder allocation vs per-phase error spread
 60afeb9 12:35 SA20: H10 escape audit, G-b test script
 c875dca 12:36 SA20: ignore T1 build and table caches; pending files
 7b479f9 12:39 SA20: G-b diagnostics (motion field vs block MC, inter leaf statistics)
+1c567f3 12:44 SA20: summary and REPRODUCE updated for H7-H11; bundle rebuilt

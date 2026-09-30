@@ -10,7 +10,7 @@
 # (h, v, and both diagonals) on the last frame. env ALPHA (0 or 1), RHO, CM, CLIPS, RATES.
 import os, sys, ctypes, json, subprocess, numpy as np
 Dd = os.path.dirname(os.path.abspath(__file__)); ROOT = '/home/user/fromscratch/OMC_CLOUD/'
-sys.path.insert(0, os.path.join(Dd, '..', 'bench')); from dp_screen_core import motion
+sys.path.insert(0, os.path.join(Dd, '..')); from dp_screen_core import motion
 lib = ctypes.CDLL(os.path.join(Dd, 't1core.so')); IP = np.ctypeslib.ndpointer(np.int32, flags='C')
 lib.t1_code.argtypes = [IP, ctypes.c_void_p, ctypes.c_int, ctypes.c_int, ctypes.c_double, ctypes.c_double, ctypes.c_int, ctypes.c_int, IP, IP, IP, ctypes.c_int, ctypes.c_double]
 W, H = 1280, 720; NC = 16; K = 20; NF = 3

@@ -13,8 +13,8 @@ for f in ['DESIGN.md', 'REPRODUCE.md']: z.write(f, 'SA20_design/' + f)
 for d in ['bench', 'tools', 'queues', 'history']:
     for root, _, files in os.walk(d):
         if '__pycache__' in root: continue
-        for f in files: z.write(os.path.join(root, f), 'SA20_design/' + os.path.join(root, f))
-for f in sorted(os.listdir('t1')):   # T1/T2 sources only; the .so and table caches are rebuilt (REPRODUCE.md)
-    if f.endswith(('.c', '.py')): z.write(os.path.join('t1', f), 'SA20_design/t1/' + f)
+        for f in files:
+            if f.endswith(('.so', '.npy', '.pkl')): continue   # built library and table caches are rebuilt (REPRODUCE.md)
+            z.write(os.path.join(root, f), 'SA20_design/' + os.path.join(root, f))
 z.close(); print('SA20_bundle.zip', os.path.getsize('SA20_bundle.zip'), 'bytes', len(zipfile.ZipFile('SA20_bundle.zip').namelist()), 'files')
 PY

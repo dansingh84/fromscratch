@@ -15,5 +15,5 @@ out/diag_gfx.txt
 out/today_eval_train.txt
 out/today_eval_synth.txt
 SA20_bundle.zip
-t1/*.so
-t1/*.npy
+bench/t1/*.so
+bench/t1/*.npy
