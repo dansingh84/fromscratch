@@ -434,3 +434,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - per-scale VIF/ADM >= today;
   - error ratio vs today <= ~1 at 8-32 px.
   Kept-sample rounding: report bits per level alongside. The chroma offset merges into one chroma-step function.
+- G45 A006 (fine texture) intra vs today, NEG at 0.5..4.0:
+  in-sample tables  +8.09/-0.79/-0.40/-0.22/-0.31/-0.17/0.00  (= leave-one-out within 0.02: tables are NOT the cause)
+  rho 0.35 (base)   +8.15/-0.77/-0.39/-0.22/-0.31/-0.17/0.00
+  rho 0.42          +10.81/+0.11/-0.05/0.00/-0.16/-0.04/+0.01  (Y PSNR +2.0; Cb/Cr -0.8/-1.6 @1.0)
+  rho 0.50          +11.96/+0.36/-0.09/0.00/-0.15/-0.03/0.00  (Y PSNR +1.2..1.6; chroma lower)
+  -> a smaller dead zone recovers most of the NEG deficit on A006. It runs against the SA14 record (narrower dead
+     zones lost), plausibly because S16's activity contexts make +-1 leaves cheap. Nested fit needs F003 and C021 at
+     rho 0.42/0.5, plus the smudge/feature/band check per arm (intra_eval.py).

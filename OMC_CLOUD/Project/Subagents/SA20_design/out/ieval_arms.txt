@@ -1,0 +1,30 @@
+cine_4k_A006 f0.6_cine_4k_A006 @1.0 Q=64.00 bpp 1.105 | NEG +0.69 | PSNR +2.52/+0.29/-0.51 | VIF s0..3 +0.075 +0.000 -0.002 +0.000 | ADM s0..3 +0.023 +0.009 -0.000 +0.000
+   band ratio Y 0.51 0.55 0.75 0.96 0.98 1.07
+   band ratio Cb 0.94 0.93 0.89 0.97 0.91 0.99
+   band ratio Cr 1.01 1.12 1.21 1.29 1.19 1.24
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+cine_4k_A006 f0.6_cine_4k_A006 @2.0 Q=32.00 bpp 1.918 | NEG -0.60 | PSNR +1.22/+0.45/-0.19 | VIF s0..3 +0.026 -0.006 -0.003 -0.002 | ADM s0..3 +0.004 -0.003 -0.003 -0.000
+   band ratio Y 0.67 0.85 1.04 1.17 0.92 0.43
+   band ratio Cb 0.90 0.86 0.88 1.11 1.03 0.64
+   band ratio Cr 0.99 1.04 1.14 1.26 1.16 0.68
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+gfx444_F003C012 f0.6_gfx444_F003C012 @1.0 Q=22.63 bpp 1.046 | NEG -0.82 | PSNR +1.33/+0.16/+0.69 | VIF s0..3 +0.028 -0.008 -0.006 -0.003 | ADM s0..3 +0.006 +0.001 -0.006 -0.002
+   band ratio Y 0.67 0.76 0.82 1.31 1.10 0.35
+   band ratio Cb 0.96 0.98 0.90 1.09 1.35 0.40
+   band ratio Cr 0.90 0.85 0.75 0.96 1.26 0.47
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+gfx444_F003C012 f0.6_gfx444_F003C012 @2.0 Q=9.51 bpp 2.094 | NEG -0.15 | PSNR +1.51/+0.17/+0.23 | VIF s0..3 +0.014 -0.002 -0.001 -0.001 | ADM s0..3 +0.002 -0.002 -0.002 +0.001
+   band ratio Y 0.66 0.78 0.90 0.67 0.54 0.31
+   band ratio Cb 0.95 1.06 0.95 0.80 0.65 0.38
+   band ratio Cr 0.95 1.02 0.94 0.81 0.71 0.50
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+cine_A005C021 f0.6_cine_A005C021 @1.0 Q=32.00 bpp 0.992 | NEG +1.83 | PSNR +3.29/+0.90/+0.57 | VIF s0..3 +0.103 +0.014 +0.004 +0.002 | ADM s0..3 +0.011 +0.014 +0.005 +0.003
+   band ratio Y 0.46 0.44 0.49 0.70 0.85 0.76
+   band ratio Cb 0.81 0.76 0.84 0.96 0.97 0.69
+   band ratio Cr 0.89 0.81 0.90 0.95 1.11 0.73
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb1 Cr0
+cine_A005C021 f0.6_cine_A005C021 @2.0 Q=13.45 bpp 2.080 | NEG +0.78 | PSNR +4.59/+2.47/+1.58 | VIF s0..3 +0.108 +0.002 +0.001 +0.000 | ADM s0..3 +0.009 +0.005 +0.002 +0.002
+   band ratio Y 0.31 0.36 0.58 0.77 0.74 0.23
+   band ratio Cb 0.53 0.57 0.73 0.88 0.73 0.31
+   band ratio Cr 0.69 0.68 0.76 0.89 0.78 0.20
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
