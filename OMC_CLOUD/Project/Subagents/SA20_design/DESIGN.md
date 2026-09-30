@@ -225,3 +225,13 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - the ACTIVITY term reads reconstructed samples (SA16 bug-4 class: clamp- and plan-dependent), so it needs an
     estimate + reserve, else drop it; S16i (indices only) is being measured to decide;
   - tables trained on the exact inter config; gen-2 bits identical; per-slice exact CBR.
+- G20 (SA20Q + SA20P) before S16 counts:
+  (1) 8K lanes: the same-array left-neighbour context closes a per-symbol loop. Either show it fits one clock, or use
+      contexts from the row above and the previous level only (S16u, measured next). The lane layout must be explicit.
+  (2) Quote only NEG vs today (the per-step baseline was undertrained).
+  (3) Fit the chroma curve on the TRAINING clips (leave-one-out tables, rcl_s16.py; today's codec run on them), then
+      verify once on the test clips. The test-clip cm runs were stopped.
+  (4) Escape share and table size at 3-4 bpp (rcl_s16 prints the share).
+  (5) Gen-2/3 bits identical; after one lost slice the next slice parses.
+  (6) Header/plan/vector bits counted exactly under per-slice CBR.
+  (7) Pass on the worst steady-state frame of the CBR runs.
