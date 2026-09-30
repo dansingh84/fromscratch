@@ -468,3 +468,10 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - texstat vs SOURCE (grain amplification);
   - inter still churn;
   - a static control.
+- G48 texstat (owner tool, vs SOURCE) A006 f0 @1.0 (AMP: 1 = source texture energy; PER: > 1 = periodic structure
+  the source lacks; COR: correlation with the source texture):
+  rho 0.35: Y AMP 0.960 COR 0.891 | Cb 0.708/0.465 | Cr 0.455/0.254 | PER 0.83-0.85
+  rho 0.42: Y AMP 1.005 COR 0.901 | Cb 0.836/0.503 | Cr 0.591/0.304 | PER 0.79-0.86
+  today:    Y AMP 0.987 COR 0.788 | Cb 0.657/0.419 | Cr 0.331/0.204 | PER Cb 1.05, Cr 1.43 (periodic chroma structure)
+  -> rho 0.42 keeps texture at source energy (no amplification), with higher correlation to the source than today on
+     every plane. No grain-amplification trap on this cell. intra_eval.py now prints texstat per arm.

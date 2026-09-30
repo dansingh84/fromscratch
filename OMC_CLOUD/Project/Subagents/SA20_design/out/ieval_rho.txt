@@ -1,0 +1,73 @@
+cine_4k_A006 rho0.42_cine_4k_A006 @1.0 Q=64.00 bpp 1.070 | NEG +0.91 | PSNR +2.55/-0.38/-1.29 | VIF s0..3 +0.076 -0.002 -0.004 -0.001 | ADM s0..3 +0.028 +0.012 +0.002 +0.001
+   band ratio Y 0.51 0.53 0.75 1.11 1.12 1.13
+   band ratio Cb 1.03 1.06 1.06 1.22 1.38 1.79
+   band ratio Cr 1.09 1.31 1.47 1.74 1.67 2.58
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+cine_4k_A006 rho0.42_cine_4k_A006 @2.0 Q=32.00 bpp 1.875 | NEG -0.34 | PSNR +1.41/+0.23/-0.53 | VIF s0..3 +0.035 -0.005 -0.003 -0.001 | ADM s0..3 +0.006 -0.001 -0.002 -0.000
+   band ratio Y 0.65 0.79 0.97 1.12 0.90 0.40
+   band ratio Cb 0.94 0.87 0.93 1.27 1.43 0.81
+   band ratio Cr 1.04 1.10 1.24 1.44 1.64 0.96
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+gfx444_F003C012 rho0.42_gfx444_F003C012 @1.0 Q=22.63 bpp 0.969 | NEG -0.95 | PSNR +1.01/-0.68/-0.27 | VIF s0..3 +0.022 -0.011 -0.008 -0.004 | ADM s0..3 +0.008 +0.003 -0.006 -0.003
+   band ratio Y 0.70 0.81 0.94 1.58 1.29 0.41
+   band ratio Cb 1.03 1.18 1.16 1.47 1.80 0.66
+   band ratio Cr 0.99 1.05 1.01 1.30 1.76 0.63
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+   texstat ours  
+   texstat today 
+gfx444_F003C012 rho0.42_gfx444_F003C012 @2.0 Q=9.51 bpp 2.095 | NEG +0.09 | PSNR +1.79/-0.06/-0.02 | VIF s0..3 +0.021 -0.001 -0.001 -0.001 | ADM s0..3 +0.003 -0.000 -0.001 +0.001
+   band ratio Y 0.65 0.69 0.74 0.55 0.43 0.25
+   band ratio Cb 1.04 1.11 0.96 0.76 0.58 0.33
+   band ratio Cr 1.04 1.09 0.97 0.77 0.60 0.39
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+   texstat ours  
+   texstat today 
+cine_A005C021 rho0.42_cine_A005C021 @1.0 Q=32.00 bpp 0.974 | NEG +2.12 | PSNR +3.43/+0.63/+0.07 | VIF s0..3 +0.113 +0.016 +0.005 +0.002 | ADM s0..3 +0.014 +0.016 +0.006 +0.004
+   band ratio Y 0.45 0.41 0.47 0.71 1.02 0.96
+   band ratio Cb 0.84 0.80 0.91 1.09 1.31 0.86
+   band ratio Cr 0.95 0.90 1.03 1.12 1.51 1.16
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb1 Cr0
+   texstat ours  
+   texstat today 
+cine_A005C021 rho0.42_cine_A005C021 @2.0 Q=13.45 bpp 2.110 | NEG +0.93 | PSNR +4.93/+2.58/+1.62 | VIF s0..3 +0.118 +0.003 +0.001 +0.001 | ADM s0..3 +0.011 +0.006 +0.002 +0.002
+   band ratio Y 0.29 0.32 0.54 0.72 0.67 0.19
+   band ratio Cb 0.52 0.55 0.69 0.84 0.63 0.30
+   band ratio Cr 0.70 0.65 0.72 0.91 0.79 0.20
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+   texstat ours  
+   texstat today 
+cine_4k_A006 rho0.5_cine_4k_A006 @1.0 Q=64.00 bpp 1.207 | NEG +2.34 | PSNR +2.85/-0.14/-1.29 | VIF s0..3 +0.096 +0.015 +0.005 +0.003 | ADM s0..3 +0.032 +0.018 +0.005 +0.003
+   band ratio Y 0.51 0.46 0.62 0.89 0.85 0.75
+   band ratio Cb 1.11 0.98 0.93 1.03 1.04 1.19
+   band ratio Cr 1.20 1.35 1.44 1.55 1.37 1.80
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+   texstat ours  TEXSTAT Y AMP=1.081 PER=0.82 COR=0.909  Cb AMP=1.067 PER=0.71 COR=0.544  Cr AMP=0.850 PER=0.70 COR=0.366
+   texstat today TEXSTAT Y AMP=0.987 PER=0.86 COR=0.788  Cb AMP=0.657 PER=1.05 COR=0.419  Cr AMP=0.331 PER=1.43 COR=0.204
+cine_4k_A006 rho0.5_cine_4k_A006 @2.0 Q=32.00 bpp 2.058 | NEG +0.16 | PSNR +1.67/+0.43/-0.48 | VIF s0..3 +0.051 +0.000 -0.000 -0.000 | ADM s0..3 +0.008 +0.001 -0.001 +0.000
+   band ratio Y 0.65 0.69 0.79 0.90 0.70 0.30
+   band ratio Cb 0.99 0.78 0.80 1.07 1.09 0.56
+   band ratio Cr 1.13 1.05 1.11 1.27 1.19 0.65
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+   texstat ours  TEXSTAT Y AMP=1.034 PER=0.89 COR=0.970  Cb AMP=1.159 PER=0.77 COR=0.753  Cr AMP=1.117 PER=0.71 COR=0.614
+   texstat today TEXSTAT Y AMP=1.002 PER=0.96 COR=0.948  Cb AMP=0.777 PER=0.97 COR=0.649  Cr AMP=0.566 PER=1.04 COR=0.470
+gfx444_F003C012 rho0.5_gfx444_F003C012 @1.0 Q=26.91 bpp 0.958 | NEG -0.77 | PSNR +0.36/-1.17/-0.74 | VIF s0..3 +0.010 -0.010 -0.007 -0.004 | ADM s0..3 +0.007 +0.003 -0.005 -0.003
+   band ratio Y 0.86 0.93 1.00 1.60 1.33 0.46
+   band ratio Cb 1.17 1.38 1.28 1.58 1.78 0.55
+   band ratio Cr 1.11 1.23 1.09 1.38 1.97 0.64
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+   texstat ours  TEXSTAT Y AMP=1.053 PER=0.88 COR=0.882  Cb AMP=0.815 PER=1.15 COR=0.414  Cr AMP=0.840 PER=1.24 COR=0.422
+   texstat today TEXSTAT Y AMP=0.961 PER=1.02 COR=0.848  Cb AMP=0.523 PER=3.06 COR=0.333  Cr AMP=0.578 PER=2.62 COR=0.328
+gfx444_F003C012 rho0.5_gfx444_F003C012 @2.0 Q=11.31 bpp 2.070 | NEG +0.10 | PSNR +1.02/-0.81/-0.79 | VIF s0..3 +0.015 -0.000 -0.000 -0.000 | ADM s0..3 +0.003 -0.000 -0.001 +0.001
+   band ratio Y 0.80 0.79 0.83 0.62 0.47 0.25
+   band ratio Cb 1.27 1.32 1.07 0.81 0.59 0.37
+   band ratio Cr 1.26 1.31 1.12 0.83 0.66 0.47
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb0 Cr0
+   texstat ours  TEXSTAT Y AMP=1.039 PER=0.90 COR=0.957  Cb AMP=1.140 PER=0.81 COR=0.624  Cr AMP=1.129 PER=0.88 COR=0.617
+   texstat today TEXSTAT Y AMP=0.986 PER=1.03 COR=0.942  Cb AMP=0.696 PER=2.07 COR=0.552  Cr AMP=0.736 PER=1.99 COR=0.549
+cine_A005C021 rho0.5_cine_A005C021 @1.0 Q=38.05 bpp 0.941 | NEG +1.59 | PSNR +2.45/-0.12/-0.52 | VIF s0..3 +0.083 +0.011 +0.003 +0.001 | ADM s0..3 +0.013 +0.014 +0.005 +0.002
+   band ratio Y 0.58 0.50 0.57 0.88 1.21 1.00
+   band ratio Cb 0.99 0.95 1.12 1.33 1.39 0.93
+   band ratio Cr 1.06 1.05 1.23 1.34 1.71 0.95
+   smudge groups ours Y0 Cb0 Cr0 | today Y0 Cb1 Cr0
+   texstat ours  TEXSTAT Y AMP=1.052 PER=1.01 COR=0.919  Cb AMP=0.955 PER=1.03 COR=0.520  Cr AMP=0.802 PER=2.11 COR=0.409
+   texstat today TEXSTAT Y AMP=0.987 PER=1.06 COR=0.843  Cb AMP=0.462 PER=2.16 COR=0.310  Cr AMP=0.488 PER=3.97 COR=0.298

@@ -44,3 +44,7 @@ print('%s %s @%.1f Q=%.2f bpp %.3f | NEG %+.2f | PSNR %s | VIF s0..3 %s | ADM s0
 for k, nm in enumerate(('Y', 'Cb', 'Cr')):
     print('   band ratio %s ' % nm + ' '.join('%.2f' % (a / max(b, 1e-9)) for a, b in zip(bands(ours[k] - x[k]), bands(t[k] - x[k]))))
 print('   smudge groups ours %s | today %s' % (smudge(tmp + '_o.yuv'), smudge(tdec)), flush=True)
+def tex(dec):
+    out = subprocess.run(['python3', TOOLS + 'texstat.py', src, dec, str(W), str(H), '0'], capture_output=True, text=True).stdout
+    return ' '.join(l.strip() for l in out.splitlines() if l.startswith('TEXSTAT'))
+print('   texstat ours  ' + tex(tmp + '_o.yuv')); print('   texstat today ' + tex(tdec), flush=True)
