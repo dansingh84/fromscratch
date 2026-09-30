@@ -521,3 +521,14 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - frozen/noisy frozen 0 after the one catch-up.
   Output now prints the per-block change histogram. Queue q_acc.
   G52 addendum: memory form agreed. Per 64x8 block: step exponent + still flag + caught flag + 4 sub-block source means (2x2, ~40 bits) at last write + M counter, plus MAD(x_t - held recon) for mean-preserving texture shifts; well under 1 bit/sample at 8K (exact figure to report). The bench's stored source frame is a screen stand-in.
+- G53 plan comparison with drift release (A2 = (a)+(b) _rg_mf_dr, C2 = (c) _cua_dr), last-frame NEG:
+  cine 0.5/1.0: A2 93.08/96.43, C2 93.02/96.43 (equal).
+  noisy frozen sigma2 0.5/1.0: A2 92.64/94.03 vs C2 91.79/94.08. BOTH FAIL churn: A2 8-10 %/frame with a repeated
+    re-catch-up of 71-87 blocks at Q 0.2-0.4 every frame (blocks flipping still/moving clear CAUGHT and re-fire);
+    C2 5-7 %/frame, per-block histogram 67-71 % intermittent.
+  noisy slow pan: both decay (A2 91.99 -> 89.89, C2 92.28 -> 89.31); the drift release did not stop the smear.
+  gfx 1.0/2.0: A2 96.44/96.43, C2 96.41/96.69. A2 @2.0 spends only 0.73 of 2.0 bpp in f2: the moving floor blocks the
+    moving step while the whole-region catch-up does not fit (waste).
+  -> Root of the churn and smear = frame-to-frame gate mislabels (the accumulated test + M=3 hysteresis, q_acc, targets
+     exactly this). Plan flaws to fix: (i) the moving floor must apply only when a catch-up can use the padding;
+     (ii) the catch-up step must be bounded below (never finer than ~the moving step), not 0.2.
