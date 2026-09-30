@@ -35,3 +35,15 @@ Rails: synthetic rail extremes bundled (cut24, ext_*) are used unchanged.
 ## 2b. Owner note (2026-09-30): 3 frames are too few for the codec to build up to its steady quality
 Absolute figures on these clips sit below what the codec reaches on long clips. Use them only as RELATIVE
 comparisons (candidate vs today on the same 3 frames, same rate); never quote them as steady-state quality.
+
+## 2c. Owner directive (2026-09-30, binding)
+Build FROM SCRATCH. Earlier agents failed; their work shows which choice caused which effect, and is NEVER a frame
+of thinking to adopt or adapt. Rethink, don't adapt; an element earns its place only from first principles, with
+the risk named that it leads down the same failed path. Always meet PROJECT_CONSTRAINTS and never repeat a
+falsified idea (pack §13/§14, SA19 §L, DESIGN §E). 3-frame clips never reach the temporal build-up: read absolute
+scores accordingly.
+Status: S5.404 verified (DESIGN §V); D1 and D-P screened dead (DESIGN §E). Next: first-principles engine round
+(3 directions each from SA20P/SA20Q + own, DESIGN §F).
+
+| E1 | D1 slack-read Laplacian, intra proxy | -1..-11 dB vs 5/3 at 0.5 every arm -> KILLED |
+| E2 | D-P predict-only on e = x - P, 3-frame proxy | frame-2 NEG -0.3..-4.0 @0.25/0.5 -> KILLED (pre-agreed rule) |
