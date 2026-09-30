@@ -58,8 +58,18 @@ tab = {}
 for e in range(-2, 25):
     for fr in TRF: acc(syms(fr, 2 ** (e / 4))[0], tab)
 ARM = 'cm%g_%s' % (CM, CTX)
+EST = os.environ.get('EST') == '1'
+def src_act(planes, Q):   # encoder-side estimate: the same activity computed on the SOURCE (lossless pyramid finals)
+    out = []
+    for pl, p in enumerate(planes):
+        SY = []; AC = []; po(p, 1e-6, 0.7, 0, SY, ACT=AC); s_ = Q * (CM if pl else 1)
+        out.append([ai * 1e-6 / s_ for ai in AC])   # same ladder -> ratio 1e-6 / step at every level
+    return out
 for e in range(-2, 25):
     Q = 2 ** (e / 4); S, ys = syms(x, Q); bpp = cost(S, tab) / (W * H)
+    if EST:
+        SA = src_act(x, Q); Se = [(SY, sa) for (SY, _), sa in zip(S, SA)]
+        est = cost(Se, tab) / (W * H); print('   est %.4f emitted %.4f (emitted - est %+.2f %%)' % (est, bpp, 100 * (bpp / est - 1)), flush=True)
     if not 0.4 <= bpp < 4.6: continue
     esc = sum(int((np.abs(q) > 63).sum()) for SY, _ in S for _, q in SY); n = sum(q.size for SY, _ in S for _, q in SY)
     fn = os.path.join(OUT, '%s_%s_%.3f.yuv' % (TEST, ARM, Q))

@@ -235,3 +235,8 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   (5) Gen-2/3 bits identical; after one lost slice the next slice parses.
   (6) Header/plan/vector bits counted exactly under per-slice CBR.
   (7) Pass on the worst steady-state frame of the CBR runs.
+- G21 S16i (neighbour INDICES only, no activity) vs per-step sets: cine -10 % @Q8, -3.7 % @Q22.6, +7.1 % @Q38, +29 % @Q64;
+  gfx/prores alike. S16 (with activity) -13..-16 % at the same steps. At the owner's low rates most q are 0, so indices
+  carry little; the step-normalised ACTIVITY from final coarser samples carries the gain. It is plan-dependent
+  (SA20P condition): lane costing must use an ESTIMATE (activity from source coarse samples) plus a fixed reserve;
+  measuring the emitted-minus-estimate distribution next (rcl_s16 est mode).
