@@ -1047,3 +1047,15 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Open requirement question (both agents): never-away is judged here against a rail-free decode then clipped
   (our reading); S5.401 also says "same/different rates" where a lossy lower-rate hop cannot be byte-exact through
   it. Both readings belong to the owner.
+- H20 Owner answers (2026-09-30): (a) mixed-rate hops: "Each hop would cost, since there is a change in
+  information provided. But it can't drift after." -> bar: a change of rate may cost once; from then on the chain
+  is a fixed point (byte-identical pictures and bits at that rate), and no loss accumulates. (b) never-away
+  reference: the owner asked what JPEG XS does (answered in chat: XS reconstructs with the inverse wavelet and
+  clamps each output sample to the sample range, a plain per-sample clip, and does not promise byte-exact
+  re-encoding). Decision pending.
+  Round 1/2 outcome (SA20P + SA20Q, cross-vetted): TAR withdrawn (role parity not readable from the image), D2
+  sign-controlled averaging dead (S5.404 step 5: inward rounding moves whole supports away; cast), my H18 dead
+  (H19). Converged family: a private-leaf pyramid whose kept map is a FIXED APERIODIC pattern (BNP unconstrained
+  blue noise / JRP jittered cells, which keep a line at the cell pitch). Open: it inherits the pyramid's intra gap
+  (chroma -0.1..-3.9 dB, F003 -0.70 NEG @1.0) and turns the role difference into a static aperiodic modulation
+  rather than removing it (veil risk).
