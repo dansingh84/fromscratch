@@ -1034,3 +1034,16 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   aperiodic modulation: hides the role difference, does not remove it; fallback only), RD-optimal leaf choice
   (encoder add-on), Wyner-Ziv / coset coding (no gain: the encoder holds the side information), frame-alternating
   roles (period-2 shimmer; phase not readable from the image), per-sample LS prediction (per-pixel multipliers, C3).
+- H19 Process (owner 2026-09-30): SA20P and SA20Q each generate their own from-scratch designs, vet mine and each
+  other's; no patches; a failed idea or feature sends the design back upstream to a redesign from scratch.
+  Vetting of H18 (legality by representation), both independently: DEAD as stated. For any averaging engine that
+  quantises the shared coarse value first, the expressible legal set given the re-read mean m is the segment
+  a + b = 2m inside the legal box; when the coarse error pushes m toward a rail, every expressible point puts the
+  partner at 2m - hi (S5.404 step 3). "Cannot be expressed" and "is corrected" are the same constraint. Record:
+  range-restricted reconstruction = SA14 IDQ (107k away vs 300k toward); saturating lifting = the leaf-interval
+  clamp (#9); legality inside lifting stages = expert C (cyclic, or predict-only -2.4..-4.8 dB); companding = many-to-
+  one (SA19Q); modular lifting wraps black next to white; order-statistic coarse = L3 (-2.4..-18 dB); rail snap
+  MSE x7.7; RAIL symbols +10.9..31 % bits. The root is the ORDER (coarse quantised before detail), not the clamp.
+  Open requirement question (both agents): never-away is judged here against a rail-free decode then clipped
+  (our reading); S5.401 also says "same/different rates" where a lossy lower-rate hop cannot be byte-exact through
+  it. Both readings belong to the owner.
