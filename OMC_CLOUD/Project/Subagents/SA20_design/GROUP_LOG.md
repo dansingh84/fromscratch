@@ -49,3 +49,6 @@ SA20Q 03:04 -> both: agree P (1)-(4); chroma offset = intended rebalance (all pl
 SA20P 03:04 -> (no message) accept Q condition: chroma offset one normative constant over all cells/rates, else fixed curve of step, never content-keyed
 SA20P 03:09 -> main: owner rule ack: all 0.25 figures withdrawn from my arguments; conclusions unchanged on 0.5-4.0
 SA20Q 03:09 -> both: ack owner: 0.5-4.0 only; my 0.25 citations (D-P -4.01, N4 helps at 0.25) withdrawn; N4 drop stands on real-code 0.5 (88.7 vs 90.6).
+SA20P 03:10 -> both: real-code intra NEG margin thin 1.0-3.0 (+0.07..0.17) vs header 0.3-1% + luma->chroma allocation; judge cm arms on NEG w/ header deduction + all planes; chroma-from-luma to carry 1.0-1.5; fallback fixed step curve; flatplane/texstat guard
+SA20Q 03:10 -> both: falsifier as registered FIRES at 1.0 (Cb/Cr -0.64/-0.59); pre-register allocation pass = one fixed step-curve, all planes+NEG >= today, 0.5-4.0, 3 clips; PO NEG +0.07..0.17 at 1.0-3.0 = parity not ahead; check PO > 5/3 on NEG despite -0.5..-3 dB luma: exact equal bits, texstat, screen-door renders (HVBC warning).
+SA20Q 03:10 -> (no message): P's header-deduction point = mine; converged.

@@ -99,3 +99,7 @@ gfx444_B001C001_DPIf1_0.35 bpp f0/f1/f2 5.940/6.235/6.276 mean 6.150 | f2 PSNR 1
 gfx444_B001C001_DPIf1_0.50 bpp f0/f1/f2 5.906/6.231/6.276 mean 6.138 | f2 PSNR 150.20/150.20/150.20 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/gfx444_B001C001_DPIf1_0.50.yuv
 gfx444_B001C001_DPIf1_0.71 bpp f0/f1/f2 5.250/6.256/6.276 mean 5.927 | f2 PSNR 150.20/150.20/150.20 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/gfx444_B001C001_DPIf1_0.71.yuv
 gfx444_B001C001_DPIf1_1.00 bpp f0/f1/f2 3.941/6.196/6.276 mean 5.471 | f2 PSNR 150.20/150.20/150.20 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/gfx444_B001C001_DPIf1_1.00.yuv
+gfx444_B001C001_DPIf1_1.41 bpp f0/f1/f2 3.202/4.826/4.891 mean 4.306 | f2 PSNR 66.24/66.12/66.74 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/gfx444_B001C001_DPIf1_1.41.yuv
+gfx444_B001C001_DPIf1_2.00 bpp f0/f1/f2 2.156/3.388/3.536 mean 3.027 | f2 PSNR 63.21/63.21/63.21 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/gfx444_B001C001_DPIf1_2.00.yuv
+gfx444_B001C001_DPIf1_2.83 bpp f0/f1/f2 1.704/3.283/3.662 mean 2.883 | f2 PSNR 61.96/61.97/62.01 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/gfx444_B001C001_DPIf1_2.83.yuv
+gfx444_B001C001_DPIf1_4.00 bpp f0/f1/f2 0.971/1.833/2.214 mean 1.672 | f2 PSNR 58.59/58.54/58.81 | /home/user/fromscratch/OMC_CLOUD/Project/Subagents/SA20_design/bench/../out/sweep/gfx444_B001C001_DPIf1_4.00.yuv
