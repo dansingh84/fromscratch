@@ -14,9 +14,12 @@ import d1_screen
 LO, HI = 0, 1023
 
 def dd4(a, b, c, d): return (-a + 9 * b + 9 * c - d + 8) >> 4
+RCL = os.environ.get('RCL') == '1'   # SA20P: range-clamped interpolation (prediction within its two nearest kept samples)
 def pred_axis(k, n_odd, axis):
     k = np.moveaxis(k, axis, 0); m = k.shape[0]; idx = np.arange(n_odd); g = lambda i: k[np.clip(i, 0, m - 1)]
-    return np.moveaxis(dd4(g(idx - 1), g(idx), g(idx + 1), g(idx + 2)), 0, axis)
+    pr = dd4(g(idx - 1), g(idx), g(idx + 1), g(idx + 2))
+    if RCL: a, b = g(idx), g(idx + 1); pr = np.clip(pr, np.minimum(a, b), np.maximum(a, b))
+    return np.moveaxis(pr, 0, axis)
 def blur(x, l):
     y = x.astype(float)
     for i in range(l):

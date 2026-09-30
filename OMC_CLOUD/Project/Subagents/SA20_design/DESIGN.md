@@ -699,3 +699,12 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
     (-1.05/-1.38) -> no single cm passes both NEG and chroma on A006/F003 at 1.0-1.5.
   Open: the intra luma/chroma frontier sits ~0.2-1.0 NEG short of today on gfx F003 at 1.0-1.5, whichever
   allocation. Next combination: rho_kept 0.5 + leaf rho 0.42 + cm (nested).
+- G70 (SA20P) F003 frontier = the DD4 interpolator on hard edges (linear 4-tap overshoot ~1/8 at steps: big leaves or
+  halos that ADM/DLM punish; consistent with kept rounding helping while allocation cannot). Lever (decoder rule,
+  0 bits, exact, reads only finals): RANGE-CLAMPED interpolation (RCL=1: prediction clamped to the range of its two
+  nearest kept samples). A different mechanism from SA17's rejected TVD limiter (2/6 difference predictor in the
+  averaging pyramid); same risk class: flattened fine texture peaks. Pre-registered:
+  - F003 NEG >= today @1.0/1.5 AND no natural clip worse by > 0.05 NEG / 0.1 dB per plane;
+  - texstat per plane; full-res renders of text edges and fine texture;
+  - if natural clips lose, a continuous edge-strength weight as a fixed curve.
+  Running at rho 0.42 on F003, A006, C021, B001 (out/rclamp_vs_today.txt).
