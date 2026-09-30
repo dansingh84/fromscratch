@@ -691,3 +691,11 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - cine C031: 91.74 / 96.22 (today f2 94.20 / 96.11).
   Owner record (G67 context): per-region steps must be continuous fields -> the region plan's per-region catch-up step
   is dropped; the next still rule = exact hold (catch-up at the FRAME step) + GF + asymmetric slew + noise floor.
+- G69 intra levers at rate (training clips, leave-one-out tables; out/ladder_vs_today_train.txt, out/cm42_vs_today_train.txt):
+  - steeper ladder f 0.6 / 0.5: worse everywhere (F003 @1.0 -1.27 / -2.03; A006 -0.55 / -0.76) -> KILLED;
+  - kept-sample rounding rho_kept 0.5 (leaves 0.35): A006 +0.33/-0.02/0.00/-0.21, C021 +2.10.., F003 +0.24/-0.22/+0.03/-0.13
+    @1.0-2.5 = the best F003 NEG so far, but F003 chroma -2.39/-1.96 @1.0;
+  - chroma multiplier at rho 0.42: cm 0.85 / 0.7 lift chroma and lower NEG on A006 (-0.22/-0.76 @1.0) and F003
+    (-1.05/-1.38) -> no single cm passes both NEG and chroma on A006/F003 at 1.0-1.5.
+  Open: the intra luma/chroma frontier sits ~0.2-1.0 NEG short of today on gfx F003 at 1.0-1.5, whichever
+  allocation. Next combination: rho_kept 0.5 + leaf rho 0.42 + cm (nested).
