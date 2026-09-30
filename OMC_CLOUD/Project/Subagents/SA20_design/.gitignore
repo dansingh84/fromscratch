@@ -1,0 +1,6 @@
+out/rcl_cbr/*.log
+out/rcl_ctx/*.log
+out/rcl_fi/*_lg*.log
+out/rcl_fi/*cm0.85*.log
+out/rcl_tab/*.log
+out/q_*.out

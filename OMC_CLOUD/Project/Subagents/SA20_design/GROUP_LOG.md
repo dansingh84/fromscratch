@@ -77,3 +77,4 @@ SA20 03:25 -> both: LG implemented (smoke Cb nz -17%, +0.36 dB @Q16), real-code 
 SA20 03:26 -> SA20Q: conditional-mean recon measured +0.002..+0.06 dB (in-bin means ~ bin midpoint, flat) -> killed (G9)
 SA20 03:26 -> both: C2 interim cine: -10 % bits at 1.0-1.5, NEG +0.39 @1.0 (chroma -0.28, cm0.85 pending); other clips pending
 SA20 03:29 -> both: CBR cm1 churn 85-90 % on still samples (fail), f2 NEG 93.03 @0.5; table-count flag: our figures used per-step table sets (~864+ tables vs today's 60); rcl_tab.py pooling screen running
+SA20P 03:29 -> main: table rule = decoder on-chip incl tables x tANS-lane replication (~10-13 lanes at 8K) <= today's 29.23 Mbit w/ margin, practical cap tables*lanes ~4-5 Mbit -> pooled figures only; zero-churn inter: residual-domain interpolation (zero leaves = exact MC copy, q=0 -> 0), encoder emits zeros all levels in source-still regions + one error-triggered catch-up, canonical reading keeps exactness; measure halo
