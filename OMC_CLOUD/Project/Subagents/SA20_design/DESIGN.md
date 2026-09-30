@@ -318,3 +318,12 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   Rule adopted: estimate + ~1 % reserve for the lanes, SA20P's single re-choice (finest plan whose worst-case bound
   fits) as the guarantee. Firing rate and padding still to be measured under per-slice CBR (intra here; inter,
   cut frames and rails pending).
+- G32 3-frame exact per-frame CBR, S16 tables (32: 16 classes x intra/inter), still rule _sg (pre keep/rs/ng),
+  cm1, vs today per frame (out/cbr_s16_vs_today.txt):
+  - worst inter frame NEG, ours - today: cine +0.36/-0.04/0.00/+0.01/+0.04/-0.01/+0.01;
+    gfx +0.93/+0.02/-0.11/-0.06/-0.13/-0.01/-0.01; prores +0.26/+0.44/+0.06/-0.07/+0.06/-0.02/+0.03 (0.5..4.0);
+  - frame 0 ahead at every rate up to +1.49;
+  - f2 CHROMA -0.3..-2.1 dB on every clip at 0.5-3.0; gfx f2 luma -0.8..-2.1 dB at 1.0-4.0.
+  -> worst-frame NEG ranges from parity to ahead, but inter chroma is short. Levers: a separate INTER chroma multiplier
+     (fitted on the training clips), the chroma curve, and the fixed still rule (keep/rs/ng/cu0) under S16.
+     Caveats: one Q per frame, source-searched vectors, 10-bit vector charge.
