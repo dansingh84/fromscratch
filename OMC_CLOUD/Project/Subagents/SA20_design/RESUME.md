@@ -47,3 +47,11 @@ Status: S5.404 verified (DESIGN §V); D1 and D-P screened dead (DESIGN §E). Nex
 
 | E1 | D1 slack-read Laplacian, intra proxy | -1..-11 dB vs 5/3 at 0.5 every arm -> KILLED |
 | E2 | D-P predict-only on e = x - P, 3-frame proxy | frame-2 NEG -0.3..-4.0 @0.25/0.5 -> KILLED (pre-agreed rule) |
+
+## 2d. Benchmark = today's codec on OUR clips (owner, 2026-09-30)
+The documentation's figures do not apply to these clips. Every comparison uses v537 (read-only binaries) run on the
+same 3-frame segments: out/today_eval.txt (720p + 1080p, 0.3/0.5/1.0 bpp, frame-2 NEG + PSNR Y/Cb/Cr; per-frame
+NEG kept). Intra comparisons use today's frame 0 (exact CBR: 5,120 bits/slice x 90 slices = 0.5 bpp per frame).
+Watchdog: 5 session crons (efcae82a, 4105dbfc, 4112b1a7, 1fd074af, 4f045645) = one check every 25 min
+(one short gap at midnight); each pings SA20P/SA20Q and checks my own jobs; they expire after 7 days / with the session.
+| N1 | causal 2-D intra (B=8) + block-local private pyramid, proxy | -3.2..-12.6 dB vs 5/3 at every rate -> KILLED |
