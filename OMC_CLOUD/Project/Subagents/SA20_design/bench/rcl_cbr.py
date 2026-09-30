@@ -66,6 +66,8 @@ def submeans(y):   # 8x8 sub-block means of a luma plane, grouped per 16x16 bloc
     return np.stack([m[0::2, 0::2], m[0::2, 1::2], m[1::2, 0::2], m[1::2, 1::2]], -1)
 SL = 'sl' in TOK   # step slew limit: after the ramp, the frame step moves at most one quarter-octave per frame
 QPREV = [None]
+EH = 'eh' in TOK   # SA20Q split rule: hold ONLY where the block's source is byte-identical to its last write (hash in hardware)
+XLC = [None]
 S16 = 's16' in TOK   # step-invariant model: 16 classes x {intra, inter} = 32 tables pooled over all steps
 FI = float([t[2:] for t in TOK if t.startswith('fi')][0]) if any(t.startswith('fi') for t in TOK) else 0.7  # inter ladder
 OUT = os.path.join(os.path.dirname(__file__), '..', 'out', 'rcl_cbr'); os.makedirs(OUT, exist_ok=True)
@@ -180,12 +182,16 @@ def code_frame(x, ref, Q, st=None, xprev=None):
         if HY and st is not None and mode == 'inter' and not (RAMP and T_[0] <= RAMP):
             bw = 16 if pl == 0 else 8; KQ = HY * expand(st[pl][0], p.shape, bw)
             if SG and xprev is not None:
-                stl_ = still_blocks(x, xprev, pl if PP else 0); KQ = KQ * expand(stl_.astype(float), p.shape, bw)
+                stl_ = still_blocks(x, xprev, pl if PP else 0)
+                if EH: KQ0 = KQ.copy()   # grain-follow blocks keep kappa*Delta_last; exact-still blocks handled below
+                KQ = KQ * expand(stl_.astype(float), p.shape, bw)
                 NF_ = (NFK * expand(SIG[0], p.shape, bw) if NG else 0.0) + RS_   # additive floor at EVERY level (raw samples carry full noise)
                 if BZ: KQ = np.where(KQ > 0, 1e9, 0.0)   # still block: every leaf 0
                 cm_ = CUB[0] if RG else (None if CUOFF[0] else cu_mask(st, Q, still_blocks(x, xprev) if PP else stl_))
                 if PP and NG: still_blocks(x, xprev, pl)   # restore this plane's sigma for the floor
                 if cm_ is not None: KQ = KQ * expand((~cm_).astype(float), p.shape, bw)
+                if EH:   # non-still (grain-follow) blocks: per-sample hysteresis kappa*Delta_last, no noise floor
+                    ns_ = expand((~stl_).astype(float), p.shape, bw) > 0; KQ = np.where(ns_, KQ0, KQ); NF_ = np.where(ns_, RS_, NF_) if isinstance(NF_, np.ndarray) else NF_
             HT = (KQ, expand(st[pl][1], p.shape, bw), NF_ if (SG and xprev is not None) else RS_)
         QMp = None if (QMB[0] is None or mode == 'intra') else expand(QMB[0], p.shape, 16 if pl == 0 else 8)
         y = po(p, Q * ((cm if (mode == 'intra' or CI is None) else CI) if pl else 1), 0.7 if mode == 'intra' else FI, 0, SY, Yd=Yd, P=P, HT=HT, ACT=AC, QM=QMp)[1]
@@ -238,11 +244,20 @@ for R in RATES:
         if ACC:
             STILLF[0] = None
             if t == 0:
-                XLAST[0] = x[0].copy(); PASS[0] = None
+                XLAST[0] = x[0].copy(); PASS[0] = None; XLC[0] = [x[1].copy(), x[2].copy()]
                 if WIN: SUBH.append(submeans(x[0]))
             else:
                 ng_ = noise_gate(x, X[t - 1], 0); nb_ = SIG[0] * 1.13
+                if EH:   # exact equality on all three planes since the block's last write
+                    eq = bmad(x[0], XLAST[0]) == 0
+                    for k in (1, 2):
+                        dc = np.zeros(((H + 15) // 16 * 16, (W + 15) // 16 * 8)); dc[:H, :W // 2] = np.abs(x[k] - XLC[0][k - 1])
+                        eq &= dc.reshape((H + 15) // 16, 16, (W + 15) // 16, 8).max(axis=(1, 3)) == 0
+                    STILLF[0] = eq; PASS[0] = None
+                    raise_skip = True
+                else: raise_skip = False
                 m0 = bmad(x[0], XLAST[0]); raw = ng_ & (m0 <= (1.5 if G2 else 1.3) * nb_)
+                if raise_skip: raw = STILLF[0]
                 if SH:
                     msh = np.min([bmad(x[0], np.roll(XLAST[0], sft, ax)) for sft in (1, -1) for ax in (0, 1)], axis=0)
                     raw &= ~(msh < m0 - 0.15 * nb_)
@@ -259,7 +274,7 @@ for R in RATES:
                     keep_ = (prevP >= MPASS) & (FAILC[0] < 2)
                     PASS[0] = np.where(raw, prevP + 1, np.where(keep_, prevP, 0))
                 else: PASS[0] = np.where(raw, prevP + 1, 0)
-                STILLF[0] = PASS[0] >= MPASS
+                STILLF[0] = raw if EH else PASS[0] >= MPASS
         # binary search over the sorted grid for the finest Q that fits (costs are monotone in Q up to table noise)
         CUB[0] = None; QMB[0] = None; rginfo = None
         lo, hi = 0, len(GRID) - 1; best = None
@@ -319,6 +334,7 @@ for R in RATES:
         if ACC and t:
             wrb = bmad(y[0], ref[0]) > 0; wr_s = np.repeat(np.repeat(wrb, 16, 0), 16, 1)[:H, :W]
             XLAST[0] = np.where(wr_s, x[0], XLAST[0])
+            wr_c = np.repeat(np.repeat(wrb, 16, 0), 8, 1)[:H, :W // 2]; XLC[0] = [np.where(wr_c, x[1], XLC[0][0]), np.where(wr_c, x[2], XLC[0][1])]
         if DR:   # error at last write, per block (luma): set where the block was written (changed) or at intra
             e_now = bmad(x[0], y[0])
             if ELAST[0] is None or t == 0: ELAST[0] = e_now

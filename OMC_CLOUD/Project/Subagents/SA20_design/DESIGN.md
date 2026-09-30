@@ -652,3 +652,18 @@ moderate (E3), intra price large (IPL -15 NEG real; D-P f0). Open question = int
   - frozen: 0 changes after the ramp;
   - pans: within 0.1 of the no-hold control, histogram split by texture;
   - renders.
+- G66 SPLIT STILL RULE (SA20Q, SA20P agrees), replacing the noise gate:
+  - HOLD only where the block's source is byte-identical to its last write (per-plane 64-bit hash on the encoder
+    input, ~13 KB at 8K; at gen 2 the input is the decode, whose held blocks are identical, so the rule fires the
+    same); one catch-up per episode, zero change after;
+  - everything else (grain, pans, motion): grain-follow with asymmetric slew and kappa-hysteresis, judged by
+    sub-source calm;
+  - partly frozen blocks fall to grain-follow; the held/GF boundary gets a block-pitch level map + render.
+  GF alone fails the frozen bar (creep 0.03 -> 0.84 % = repeated refinement, banned).
+  Pre-registered (SA20Q):
+  - byte-identical frozen: <= 1 change per sample over the run, 0 after the catch-up;
+  - noisy frozen sigma 1/2/3: boil/ants <= source, change share stationary (no period 2-4, trend within +-10 %),
+    NEG >= no-hold control;
+  - pans: within 0.1 of the control;
+  - gfx boundaries.
+  Arm _eh (split) queued on all clips (split_*).
